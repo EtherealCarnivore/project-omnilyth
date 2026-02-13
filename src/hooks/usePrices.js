@@ -3,9 +3,13 @@ import { useState, useEffect, useCallback } from 'react';
 const CURRENCY_IDS = ['chromatic-orb', 'jewellers-orb', 'tainted-chromatic-orb'];
 
 // In dev, Vite proxies /api/poe-ninja/* -> https://poe.ninja/*
-// In production, requests go directly to poe.ninja (deploy behind your own proxy if needed)
+// In production, we route through a CORS proxy since poe.ninja doesn't allow browser requests
 const isDev = import.meta.env.DEV;
-const NINJA_BASE = isDev ? '/api/poe-ninja' : 'https://poe.ninja';
+
+function ninjaUrl(path) {
+  if (isDev) return `/api/poe-ninja${path}`;
+  return `https://corsproxy.io/?url=${encodeURIComponent(`https://poe.ninja${path}`)}`;
+}
 
 /**
  * Fetches live currency prices from poe.ninja for a given league.
@@ -27,7 +31,7 @@ export function usePrices(league) {
       // Fetch currency prices in parallel
       const currencyFetches = CURRENCY_IDS.map(async (id) => {
         try {
-          const url = `${NINJA_BASE}/poe1/api/economy/exchange/current/details?league=${encodeURIComponent(league)}&type=Currency&id=${id}`;
+          const url = ninjaUrl(`/poe1/api/economy/exchange/current/details?league=${encodeURIComponent(league)}&type=Currency&id=${id}`);
           const res = await fetch(url);
           if (!res.ok) return;
           const data = await res.json();
@@ -46,7 +50,7 @@ export function usePrices(league) {
       // Fetch omen prices
       const omenFetch = (async () => {
         try {
-          const url = `${NINJA_BASE}/api/data/itemoverview?league=${encodeURIComponent(league)}&type=Omen`;
+          const url = ninjaUrl(`/api/data/itemoverview?league=${encodeURIComponent(league)}&type=Omen`);
           const res = await fetch(url);
           if (!res.ok) return;
           const data = await res.json();
