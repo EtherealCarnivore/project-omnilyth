@@ -270,3 +270,56 @@ span.highlighted {
 	font-weight: bold;
 	color: #EEEEAA
 }
+
+h2.tainted-header {
+	text-align: center;
+	color: #CC77DD;
+}
+
+p.tainted-note {
+	text-align: center;
+	color: #AAAAAA;
+	font-size: 90%;
+	margin-bottom: 10px;
+}
+
+button.tainted {
+	background-color: #6B4475;
+	border-color: #7D5588;
+}
+
+button.tainted:hover {
+	background-color: #5A3664;
+}
+
+h2.blanching-header {
+	text-align: center;
+	color: #DDDDDD;
+}
+
+.blanching-icon {
+	vertical-align: middle;
+	height: 40px;
+	margin-right: 4px;
+}
+
+p.blanching-note {
+	text-align: center;
+	color: #AAAAAA;
+	font-size: 90%;
+	margin-bottom: 10px;
+}
+
+button.blanching {
+	background-color: #666666;
+	border-color: #888888;
+}
+
+button.blanching:hover {
+	background-color: #555555;
+}
+
+.white-socket {
+	background-color: #606060;
+	border-color: #888888;
+}

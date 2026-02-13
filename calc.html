@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8"/>
-	<title>Vorici Chromatic Calculator</title>
+	<title>Vorici Chromatic Calculator + Tainted Chromatic + Omen of Blanching</title>
 	<meta name="description" content="Path of Exile chromatic cost calculator for Vorici master crafting and raw chromatic orbs." />
-	<link rel="stylesheet" type="text/css" href="poestyle.min.css"/>
+	<link rel="stylesheet" type="text/css" href="poestyle.css"/>
 	<link rel="icon" type="image/png" href="Chromatic_Orb.png"/>
 </head>
 <body><div class="wrapper">
@@ -83,11 +83,115 @@
 			<br>Questions, comments, or want to contribute data? Post on <a href="http://www.reddit.com/r/pathofexile/comments/2kjcxe/vorici_chromatic_calculator_updated_with_new/">Reddit</a>.
 			<br>&nbsp;&nbsp;&nbsp;<a href="https://github.com/Siveran/siveran.github.io/commits/master">Changelog</a> | <a href="https://github.com/Siveran/siveran.github.io">Source Code</a> | <a href="poedata3.csv">Item Data</a>
 			<br>Made by <a href="http://www.pathofexile.com/account/view-profile/Siveran">Siveran</a>. Last updated Aug 4, 2017.
+			<br>Tainted Chromatic Calculator added by <a href="https://github.com/carni">carni</a>.
 			<br>CC0 2017
+		</div>
+		<hr>
+		<h2 class="tainted-header">Tainted Chromatic Calculator</h2>
+		<p class="tainted-note">Tainted Chromatic Orbs reroll each socket with an equal <strong>1/3</strong> chance per color (red, green, blue), ignoring stat requirements. Use this to estimate how many you'll need.</p>
+		<div class="form">
+			<table class="formTable">
+				<tr class="formRow socks">
+					<td class="rowTitle">Total Sockets</td>
+					<td class="rowField">
+						<input id="tainted-sockets" type="number" class="entry white" placeholder="#"></input>
+					</td>
+					<td class="rowField"></td>
+				</tr>
+				<tr class="formRow colors">
+					<td class="rowTitle">Desired Colors</td>
+					<td class="rowField">
+						<input id="tainted-red" type="number" class="entry red" placeholder="R"></input>
+					</td>
+					<td class="rowField">
+						<input id="tainted-green" type="number" class="entry green" placeholder="G"></input>
+					</td>
+					<td class="rowField">
+						<input id="tainted-blue" type="number" class="entry blue" placeholder="B"></input>
+					</td>
+					<td class="accept">
+						<button id="taintedCalcButton" class="go tainted" onclick="taintedCalculate()">Calculate</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<hr>
+		<div class="results">
+			<table class="result" id="tainted-result">
+				<thead>
+					<tr class="prob">
+						<th>Success Chance</th>
+						<th>Avg. Tainted Chromes Needed<br><span class="tablesubtitle">(mean)</span></th>
+						<th>Std. Deviation<br><span class="tablesubtitle">(of attempts)</span></th>
+					</tr>
+				</thead>
+				<tbody id="tainted-resultbody">
+				</tbody>
+			</table>
+		</div>
+		<hr>
+		<h2 class="blanching-header"><img src="Omen_of_Blanching.png" alt="Omen of Blanching" class="blanching-icon"> Omen of Blanching Calculator</h2>
+		<p class="blanching-note">Uses a normal Chromatic Orb (stat requirements affect color probabilities), then turns <strong>1&ndash;3</strong> random sockets white (<strong>50% / 25% / 25%</strong> for 1/2/3 white).</p>
+		<div class="form">
+			<table class="formTable">
+				<tr class="formRow socks">
+					<td class="rowTitle">Total Sockets</td>
+					<td class="rowField">
+						<input id="blanching-sockets" type="number" class="entry white" placeholder="#">
+					</td>
+					<td class="rowField"></td>
+				</tr>
+				<tr class="formRow reqs">
+					<td class="rowTitle">Requirements</td>
+					<td class="rowField">
+						<input id="blanching-str" type="number" class="entry red" placeholder="str">
+					</td>
+					<td class="rowField">
+						<input id="blanching-dex" type="number" class="entry green" placeholder="dex">
+					</td>
+					<td class="rowField">
+						<input id="blanching-int" type="number" class="entry blue" placeholder="int">
+					</td>
+				</tr>
+				<tr class="formRow colors">
+					<td class="rowTitle">Desired Colors</td>
+					<td class="rowField">
+						<input id="blanching-red" type="number" class="entry red" placeholder="R">
+					</td>
+					<td class="rowField">
+						<input id="blanching-green" type="number" class="entry green" placeholder="G">
+					</td>
+					<td class="rowField">
+						<input id="blanching-blue" type="number" class="entry blue" placeholder="B">
+					</td>
+					<td class="rowField">
+						<input id="blanching-white" type="number" class="entry white-socket" placeholder="W">
+					</td>
+					<td class="accept">
+						<button id="blanchingCalcButton" class="go blanching" onclick="blanchingCalculate()">Calculate</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<hr>
+		<div class="results">
+			<table class="result" id="blanching-result">
+				<thead>
+					<tr class="prob">
+						<th>Success Chance</th>
+						<th>Avg. Attempts Needed<br><span class="tablesubtitle">(mean)</span></th>
+						<th>Std. Deviation<br><span class="tablesubtitle">(of attempts)</span></th>
+					</tr>
+				</thead>
+				<tbody id="blanching-resultbody">
+				</tbody>
+			</table>
 		</div>
 	</div>
 
 	<script src="SortTable.min.js"></script>
 	<script src="PoEChromaticCalc.js"></script>
+	<script src="TaintedChromaticCalc.js"></script>
+	<script src="OmenBlanchingCalc.js"></script>
 </div></body>
 </html>
