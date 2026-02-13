@@ -109,7 +109,7 @@ export default function VoriciCalculator({ prices }) {
     <div className="space-y-6">
       <div className="text-center space-y-1">
         <h2 className="text-2xl font-bold text-poe-text flex items-center justify-center gap-3">
-          <img src="/Chromatic_Orb.png" alt="" className="w-8 h-8" />
+          <img src={`${import.meta.env.BASE_URL}Chromatic_Orb.png`} alt="" className="w-8 h-8" />
           Vorici Chromatic Calculator
         </h2>
         <p className="text-sm text-poe-muted">Compares Vorici bench crafts vs raw Chromatic Orbs to find the cheapest method.</p>
