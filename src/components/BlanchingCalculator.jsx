@@ -70,7 +70,7 @@ export default function BlanchingCalculator({ prices }) {
     <div className="space-y-6">
       <div className="text-center space-y-1">
         <h2 className="text-2xl font-bold text-poe-text flex items-center justify-center gap-3">
-          <img src="/Omen_of_Blanching.png" alt="" className="w-8 h-8" />
+          <img src={`${import.meta.env.BASE_URL}Omen_of_Blanching.png`} alt="" className="w-8 h-8" />
           Omen of Blanching Calculator
         </h2>
         <p className="text-sm text-poe-muted">

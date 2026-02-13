@@ -44,7 +44,7 @@ export default function App() {
           className="block mb-6 rounded-xl overflow-hidden border border-poe-border/30 hover:border-poe-border/60 transition-all duration-300 group"
         >
           <img
-            src="/banner.png"
+            src={`${import.meta.env.BASE_URL}banner.png`}
             alt="EtherealCarnivore on GitHub"
             className="w-full h-auto object-cover group-hover:brightness-110 transition-all duration-300"
           />
