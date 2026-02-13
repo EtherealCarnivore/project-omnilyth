@@ -323,3 +323,38 @@ button.blanching:hover {
 	background-color: #606060;
 	border-color: #888888;
 }
+
+h2.jeweller-header {
+	text-align: center;
+	color: #DAA520;
+}
+
+p.jeweller-note {
+	text-align: center;
+	color: #AAAAAA;
+	font-size: 90%;
+	margin-bottom: 10px;
+}
+
+button.jeweller {
+	background-color: #6B5A28;
+	border-color: #8A7535;
+}
+
+button.jeweller:hover {
+	background-color: #5A4A20;
+}
+
+tr.best-jeweller:nth-child(even) {
+	background: #3C3C28;
+}
+
+tr.best-jeweller:nth-child(odd) {
+	background: #36361F;
+}
+
+tr.best-jeweller {
+	color: #FFFFDD;
+	border-left: 2px solid #DAA520;
+	border-right: 2px solid #DAA520;
+}

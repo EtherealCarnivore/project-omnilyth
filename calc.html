@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8"/>
-	<title>Vorici Chromatic Calculator + Tainted Chromatic + Omen of Blanching</title>
+	<title>Vorici Chromatic Calculator + Tainted Chromatic + Omen of Blanching + Jeweller's Method</title>
 	<meta name="description" content="Path of Exile chromatic cost calculator for Vorici master crafting and raw chromatic orbs." />
 	<link rel="stylesheet" type="text/css" href="poestyle.css"/>
 	<link rel="icon" type="image/png" href="Chromatic_Orb.png"/>
@@ -80,11 +80,6 @@
 			<br>For dual-requirement items, on-color: 0.9 * R1 / (R1 + R2)
 			<br>For dual-requirement items, off-color: 10% flat chance, regardless of requirements
 			<br>The formulas and color chances given are not guaranteed to be right (but I tried!)
-			<br>Questions, comments, or want to contribute data? Post on <a href="http://www.reddit.com/r/pathofexile/comments/2kjcxe/vorici_chromatic_calculator_updated_with_new/">Reddit</a>.
-			<br>&nbsp;&nbsp;&nbsp;<a href="https://github.com/Siveran/siveran.github.io/commits/master">Changelog</a> | <a href="https://github.com/Siveran/siveran.github.io">Source Code</a> | <a href="poedata3.csv">Item Data</a>
-			<br>Made by <a href="http://www.pathofexile.com/account/view-profile/Siveran">Siveran</a>. Last updated Aug 4, 2017.
-			<br>Tainted Chromatic Calculator added by <a href="https://github.com/carni">carni</a>.
-			<br>CC0 2017
 		</div>
 		<hr>
 		<h2 class="tainted-header">Tainted Chromatic Calculator</h2>
@@ -187,11 +182,74 @@
 				</tbody>
 			</table>
 		</div>
+		<hr>
+		<h2 class="jeweller-header">Jeweller's Method Calculator</h2>
+		<p class="jeweller-note">Uses the Crafting Bench to add/remove sockets one at a time, locking in desired colors cheaply instead of re-rolling all sockets with Chromatic Orbs. Compares every base-chrome size to find the optimal strategy.</p>
+		<div class="form">
+			<table class="formTable">
+				<tr class="formRow socks">
+					<td class="rowTitle">Total Sockets</td>
+					<td class="rowField">
+						<input id="jeweller-sockets" type="number" class="entry white" placeholder="#">
+					</td>
+					<td class="rowField"></td>
+				</tr>
+				<tr class="formRow reqs">
+					<td class="rowTitle">Requirements</td>
+					<td class="rowField">
+						<input id="jeweller-str" type="number" class="entry red" placeholder="str">
+					</td>
+					<td class="rowField">
+						<input id="jeweller-dex" type="number" class="entry green" placeholder="dex">
+					</td>
+					<td class="rowField">
+						<input id="jeweller-int" type="number" class="entry blue" placeholder="int">
+					</td>
+				</tr>
+				<tr class="formRow colors">
+					<td class="rowTitle">Desired Colors</td>
+					<td class="rowField">
+						<input id="jeweller-red" type="number" class="entry red" placeholder="R">
+					</td>
+					<td class="rowField">
+						<input id="jeweller-green" type="number" class="entry green" placeholder="G">
+					</td>
+					<td class="rowField">
+						<input id="jeweller-blue" type="number" class="entry blue" placeholder="B">
+					</td>
+					<td class="accept">
+						<button id="jewellerCalcButton" class="go jeweller" onclick="jewellersCalculate()">Calculate</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+		<hr>
+		<div class="results">
+			<table class="result" id="jeweller-result">
+				<thead>
+					<tr class="prob">
+						<th>Strategy</th>
+						<th>Avg. Chromatics</th>
+						<th>Avg. Jewellers</th>
+					</tr>
+				</thead>
+				<tbody id="jeweller-resultbody">
+				</tbody>
+			</table>
+		</div>
+		<hr>
+		<div class="etc">
+			<br>Originally made by <a href="http://www.pathofexile.com/account/view-profile/Siveran">Siveran</a>.
+			<br>Tainted Chromatic, Omen of Blanching, and Jeweller's Method calculators added by <a href="https://github.com/EtherealCarnivore">Carnivore</a>.
+			<br>&nbsp;&nbsp;&nbsp;<a href="https://github.com/Siveran/siveran.github.io/commits/master">Changelog</a> | <a href="https://github.com/Siveran/siveran.github.io">Source Code</a> | <a href="poedata3.csv">Item Data</a>
+			<br>CC0 2026
+		</div>
 	</div>
 
 	<script src="SortTable.min.js"></script>
 	<script src="PoEChromaticCalc.js"></script>
 	<script src="TaintedChromaticCalc.js"></script>
 	<script src="OmenBlanchingCalc.js"></script>
+	<script src="JewellerMethodCalc.js"></script>
 </div></body>
 </html>
