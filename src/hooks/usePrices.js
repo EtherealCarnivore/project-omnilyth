@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const CURRENCY_IDS = ['chromatic-orb', 'jewellers-orb', 'tainted-chromatic-orb'];
+const CURRENCY_IDS = ['chromatic-orb', 'jewellers-orb', 'tainted-chromatic-orb', 'orb-of-fusing', 'tainted-orb-of-fusing', 'vaal-orb'];
 
 // In dev, Vite proxies /api/poe-ninja/* -> https://poe.ninja/*
 // In production, we route through a CORS proxy since poe.ninja doesn't allow browser requests
@@ -61,6 +61,15 @@ export function usePrices(league) {
             result['omen-of-blanching'] = {
               chaosValue: blanching.chaosValue,
               name: blanching.name || 'Omen of Blanching',
+            };
+          }
+          const connections = data.lines?.find(l =>
+            l.name?.toLowerCase().includes('connections')
+          );
+          if (connections) {
+            result['omen-of-connections'] = {
+              chaosValue: connections.chaosValue,
+              name: connections.name || 'Omen of Connections',
             };
           }
         } catch {

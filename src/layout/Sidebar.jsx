@@ -146,8 +146,8 @@ export default function Sidebar({ open, onClose }) {
                       className="px-3 py-1.5 ml-2 text-sm text-zinc-600 flex items-center gap-2"
                     >
                       {item}
-                      <span className="text-[9px] uppercase tracking-wider px-1.5 py-0.5 rounded-full bg-zinc-800 text-zinc-600 font-medium">
-                        Soon
+                      <span className="text-[11px] px-2 py-0.5 rounded-full bg-gradient-to-r from-purple-900/40 to-pink-900/40 border border-purple-500/20 text-purple-400/70 font-medium italic whitespace-nowrap" title="We're huffing copium over here">
+                        Soon&trade; <span className="not-italic">- Copium</span>
                       </span>
                     </div>
                   ))}

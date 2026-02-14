@@ -68,12 +68,17 @@ export function calculateSocketCostComparison(stats, jewellerPrice, vaalPrice, c
   const strategies = [];
 
   if (!corrupted) {
-    // Manual jewellering
+    // Manual jewellering — use 75th percentile for risk-adjusted comparison
+    const p75Orbs = stats.successChance > 0
+      ? Math.ceil(Math.log(1 - 0.75) / Math.log(1 - stats.successChance))
+      : Infinity;
     strategies.push({
       method: 'Manual (Jeweller\'s)',
       description: `~${Math.round(stats.avgJewellers)} jewellers at ${stats.quality}% quality`,
       avgOrbs: stats.avgJewellers,
+      p75Orbs,
       chaosCost: jewellerPrice ? stats.avgJewellers * jewellerPrice : null,
+      riskAdjustedCost: jewellerPrice ? p75Orbs * jewellerPrice : null,
     });
 
     // Bench craft
@@ -82,6 +87,7 @@ export function calculateSocketCostComparison(stats, jewellerPrice, vaalPrice, c
       description: `Guaranteed ${stats.targetSockets} sockets`,
       avgOrbs: stats.benchCost,
       chaosCost: jewellerPrice ? stats.benchCost * jewellerPrice : null,
+      riskAdjustedCost: jewellerPrice ? stats.benchCost * jewellerPrice : null,
     });
   } else {
     // Corrupted bench: jewellers + equal vaals
@@ -98,12 +104,16 @@ export function calculateSocketCostComparison(stats, jewellerPrice, vaalPrice, c
     });
   }
 
-  // Mark best
+  // Mark best — use risk-adjusted cost (75th percentile) when available
   const withCosts = strategies.filter(s => s.chaosCost != null);
   if (withCosts.length > 0) {
-    const minCost = Math.min(...withCosts.map(s => s.chaosCost));
-    for (const s of strategies) {
-      s.isBest = s.chaosCost === minCost;
+    const costKey = withCosts.some(s => s.riskAdjustedCost != null) ? 'riskAdjustedCost' : 'chaosCost';
+    const comparable = withCosts.filter(s => s[costKey] != null);
+    if (comparable.length > 0) {
+      const minCost = Math.min(...comparable.map(s => s[costKey]));
+      for (const s of strategies) {
+        s.isBest = s[costKey] === minCost;
+      }
     }
   }
 
