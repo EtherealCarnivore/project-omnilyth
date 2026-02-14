@@ -57,8 +57,8 @@ export default function TaintedCalculator({ prices }) {
     <div className="space-y-6">
       <div className="text-center space-y-1">
         <h2 className="text-2xl font-bold text-purple-300">Tainted Chromatic Calculator</h2>
-        <p className="text-sm text-poe-muted">
-          Tainted Chromatic Orbs reroll each socket with an equal <strong className="text-poe-text">1/3</strong> chance per color, ignoring stat requirements.
+        <p className="text-sm text-zinc-400">
+          Tainted Chromatic Orbs reroll each socket with an equal <strong className="text-zinc-100">1/3</strong> chance per color, ignoring stat requirements.
         </p>
         <p className="text-sm font-semibold text-red-400 mt-2">
           Warning: Tainted Chromatic Orbs can only be used on corrupted items!
@@ -67,7 +67,7 @@ export default function TaintedCalculator({ prices }) {
 
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 max-w-md mx-auto">
         <div className="space-y-1">
-          <label className="block text-xs uppercase tracking-wider text-poe-muted text-center">Sockets</label>
+          <label className="block text-xs uppercase tracking-wider text-zinc-400 text-center">Sockets</label>
           <input type="number" placeholder="#" value={inputs.sockets} onChange={e => set('sockets', e.target.value)} onKeyDown={handleKeyDown}
             className="calc-input w-full" />
         </div>
@@ -104,7 +104,7 @@ export default function TaintedCalculator({ prices }) {
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-poe-muted text-xs uppercase tracking-wider">
+              <tr className="text-zinc-400 text-xs uppercase tracking-wider">
                 <th className="px-4 py-2 text-center">Success Chance</th>
                 <th className="px-4 py-2 text-center">Avg. Tainted Chromes<span className="block text-[10px] normal-case tracking-normal opacity-60">(mean)</span></th>
                 {taintedPrice && (

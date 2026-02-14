@@ -69,18 +69,18 @@ export default function BlanchingCalculator({ prices }) {
   return (
     <div className="space-y-6">
       <div className="text-center space-y-1">
-        <h2 className="text-2xl font-bold text-poe-text flex items-center justify-center gap-3">
+        <h2 className="text-2xl font-bold text-zinc-100 flex items-center justify-center gap-3">
           <img src={`${import.meta.env.BASE_URL}Omen_of_Blanching.png`} alt="" className="w-8 h-8" />
           Omen of Blanching Calculator
         </h2>
-        <p className="text-sm text-poe-muted">
-          Uses a normal Chromatic Orb (stat requirements affect colors), then turns <strong className="text-poe-text">1&ndash;3</strong> random sockets white (<strong className="text-poe-text">50% / 25% / 25%</strong>).
+        <p className="text-sm text-zinc-400">
+          Uses a normal Chromatic Orb (stat requirements affect colors), then turns <strong className="text-zinc-100">1&ndash;3</strong> random sockets white (<strong className="text-zinc-100">50% / 25% / 25%</strong>).
         </p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 max-w-lg mx-auto">
         <div className="sm:col-span-4 max-w-[120px] mx-auto space-y-1">
-          <label className="block text-xs uppercase tracking-wider text-poe-muted text-center">Sockets</label>
+          <label className="block text-xs uppercase tracking-wider text-zinc-400 text-center">Sockets</label>
           <input type="number" placeholder="#" value={inputs.sockets} onChange={e => set('sockets', e.target.value)} onKeyDown={handleKeyDown}
             className="calc-input w-full" />
         </div>
@@ -129,7 +129,7 @@ export default function BlanchingCalculator({ prices }) {
       )}
 
       <div className="flex justify-center">
-        <button onClick={calculate} disabled={socketsInvalid} className="calc-button bg-poe-border hover:bg-poe-input disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:transform-none">
+        <button onClick={calculate} disabled={socketsInvalid} className="calc-button bg-zinc-800/60 hover:bg-zinc-800/60 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:transform-none">
           Calculate
         </button>
       </div>
@@ -143,7 +143,7 @@ export default function BlanchingCalculator({ prices }) {
           ) : (
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-poe-muted text-xs uppercase tracking-wider">
+                <tr className="text-zinc-400 text-xs uppercase tracking-wider">
                   <th className="px-4 py-2 text-center">Success Chance</th>
                   <th className="px-4 py-2 text-center">Avg. Attempts<span className="block text-[10px] normal-case tracking-normal opacity-60">(mean)</span></th>
                   {hasPrices && (
@@ -168,8 +168,8 @@ export default function BlanchingCalculator({ prices }) {
       )}
 
       {hasPrices && result && result.chance > 0 && (
-        <p className="text-xs text-poe-muted text-center">
-          Cost per attempt: {chromePrice.toFixed(2)}c (Chromatic) + {omenPrice.toFixed(1)}c (Omen) = <strong className="text-poe-text">{attemptCostChaos.toFixed(1)}c</strong>
+        <p className="text-xs text-zinc-400 text-center">
+          Cost per attempt: {chromePrice.toFixed(2)}c (Chromatic) + {omenPrice.toFixed(1)}c (Omen) = <strong className="text-zinc-100">{attemptCostChaos.toFixed(1)}c</strong>
         </p>
       )}
     </div>
