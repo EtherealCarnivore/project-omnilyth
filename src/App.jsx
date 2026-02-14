@@ -7,7 +7,7 @@ import modules from './modules/registry';
 
 export default function App() {
   return (
-    <BrowserRouter basename="/the-omilyth">
+    <BrowserRouter basename="/omnilyth-core-public">
       <LeagueProvider>
         <PricesProvider>
           <Routes>

@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  base: '/poe.vorici.calc.updated/',
+  base: '/omnilyth-core-public/',
   plugins: [react(), tailwindcss()],
   server: {
     proxy: {

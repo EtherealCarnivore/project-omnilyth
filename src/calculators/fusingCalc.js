@@ -20,7 +20,7 @@ const MILESTONES_BY_LINKS = {
 
 // Bench crafting costs in fusings (index = link count)
 // Corrupted items also cost the same number of Vaal Orbs
-const BENCH_LINK_COST = [0, 0, 0, 3, 5, 150, 1500];
+const BENCH_LINK_COST = [0, 0, 1, 3, 5, 150, 1500];
 
 /**
  * Calculate fusing statistics for a given quality and socket count.
@@ -194,17 +194,24 @@ function computeTaintedCumulative(startState, target) {
  * Non-corrupted: Manual vs Bench
  * Corrupted: Corrupted Bench vs Tainted Strategy (with bench resets)
  */
-export function calculateCostComparison(stats, fusingPrice, taintedFusingPrice, vaalPrice, corrupted, taintedStrategy) {
+export function calculateCostComparison(stats, fusingPrice, taintedFusingPrice, vaalPrice, corrupted, taintedStrategy, omenPrice) {
   const strategies = [];
 
   if (!corrupted) {
-    // Manual fusing
+    // Manual fusing — use 75th percentile for "best" comparison
+    // For geometric distribution, percentile N = ln(1 - N) / ln(1 - p)
     const manualOrbs = stats.avgFusings;
+    const p75Orbs = stats.successChance > 0
+      ? Math.ceil(Math.log(1 - 0.75) / Math.log(1 - stats.successChance))
+      : Infinity;
     strategies.push({
       method: 'Manual Fusing',
       description: `Average ${Math.round(manualOrbs).toLocaleString()} fusings at ${stats.quality}% quality`,
       avgOrbs: manualOrbs,
+      p75Orbs,
       chaosCost: fusingPrice ? manualOrbs * fusingPrice : null,
+      // Risk-adjusted cost: compare at 75th percentile
+      riskAdjustedCost: fusingPrice ? p75Orbs * fusingPrice : null,
     });
 
     // Bench craft
@@ -213,7 +220,22 @@ export function calculateCostComparison(stats, fusingPrice, taintedFusingPrice, 
       description: `Guaranteed for ${stats.benchCost.toLocaleString()} fusings`,
       avgOrbs: stats.benchCost,
       chaosCost: fusingPrice ? stats.benchCost * fusingPrice : null,
+      riskAdjustedCost: fusingPrice ? stats.benchCost * fusingPrice : null,
     });
+
+    // Omen of Connections — only valid for 6-link target
+    if (omenPrice != null && stats.sockets === 6) {
+      const omenCost = omenPrice + (fusingPrice || 0); // 1 omen + 1 fusing
+      strategies.push({
+        method: 'Omen of Connections',
+        description: 'Guaranteed 6-link (1 Omen + 1 Fusing)',
+        avgOrbs: 1,
+        extraOrbs: '+ 1 omen',
+        chaosCost: omenCost,
+        riskAdjustedCost: omenCost,
+        isOmen: true,
+      });
+    }
   } else {
     // Corrupted bench: fusings + equal vaals
     const benchFusings = stats.benchCost;
@@ -250,12 +272,16 @@ export function calculateCostComparison(stats, fusingPrice, taintedFusingPrice, 
     }
   }
 
-  // Mark best
+  // Mark best — use risk-adjusted cost (75th percentile) when available, else chaos cost
   const withCosts = strategies.filter(s => s.chaosCost != null);
   if (withCosts.length > 0) {
-    const minCost = Math.min(...withCosts.map(s => s.chaosCost));
-    for (const s of strategies) {
-      s.isBest = s.chaosCost === minCost;
+    const costKey = withCosts.some(s => s.riskAdjustedCost != null) ? 'riskAdjustedCost' : 'chaosCost';
+    const comparable = withCosts.filter(s => s[costKey] != null);
+    if (comparable.length > 0) {
+      const minCost = Math.min(...comparable.map(s => s[costKey]));
+      for (const s of strategies) {
+        s.isBest = s[costKey] === minCost;
+      }
     }
   }
 

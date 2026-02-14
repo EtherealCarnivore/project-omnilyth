@@ -5,8 +5,10 @@ export default function FusingCalculator({ prices }) {
   const [quality, setQuality] = useState(20);
   const [attemptInput, setAttemptInput] = useState('');
   const [corrupted, setCorrupted] = useState(false);
+  const [useOmen, setUseOmen] = useState(false);
   const [sockets, setSockets] = useState(6);
   const [socketInput, setSocketInput] = useState('6');
+  const [targetLinks, setTargetLinks] = useState(6);
   const [currentLinks, setCurrentLinks] = useState(4);
   const [socketError, setSocketError] = useState('');
   const errorTimer = useRef(null);
@@ -27,15 +29,16 @@ export default function FusingCalculator({ prices }) {
       return;
     }
     setSockets(n);
+    if (targetLinks > n) setTargetLinks(n);
     if (currentLinks >= n) setCurrentLinks(Math.max(1, n - 1));
   }
 
   const effectiveQuality = corrupted ? 0 : quality;
-  const stats = useMemo(() => calculateFusing(effectiveQuality, sockets), [effectiveQuality, sockets]);
+  const stats = useMemo(() => calculateFusing(effectiveQuality, targetLinks), [effectiveQuality, targetLinks]);
 
   const taintedStrategy = useMemo(
-    () => corrupted ? calculateTaintedStrategy(sockets, currentLinks) : null,
-    [corrupted, sockets, currentLinks]
+    () => corrupted ? calculateTaintedStrategy(targetLinks, currentLinks) : null,
+    [corrupted, targetLinks, currentLinks]
   );
 
   // Is this a tainted strategy with the full Markov chain (5-6 sockets)?
@@ -49,12 +52,22 @@ export default function FusingCalculator({ prices }) {
   const fusingPrice = prices?.['orb-of-fusing']?.chaosRate;
   const taintedFusingPrice = prices?.['tainted-orb-of-fusing']?.chaosRate;
   const vaalPrice = prices?.['vaal-orb']?.chaosRate ?? null;
+  const omenPrice = prices?.['omen-of-connections']?.chaosValue ?? null;
   const hasPrices = fusingPrice != null;
+
+  // Omen eligibility: non-corrupted, 6 sockets, 6 links
+  const omenEligible = !corrupted && sockets === 6 && targetLinks === 6;
+  const omenTotalCost = omenPrice != null && fusingPrice != null ? omenPrice + fusingPrice : null;
+  const benchCostChaos = fusingPrice != null ? stats.benchCost * fusingPrice : null;
+  const omenCheaperThanBench = omenTotalCost != null && benchCostChaos != null && omenTotalCost <= benchCostChaos;
+
+  // Auto-disable omen toggle when not eligible
+  const effectiveUseOmen = useOmen && omenEligible;
 
   const costComparison = useMemo(() => {
     if (!hasPrices) return null;
-    return calculateCostComparison(stats, fusingPrice, taintedFusingPrice, vaalPrice, corrupted, taintedStrategy);
-  }, [stats, fusingPrice, taintedFusingPrice, vaalPrice, hasPrices, corrupted, taintedStrategy]);
+    return calculateCostComparison(stats, fusingPrice, taintedFusingPrice, vaalPrice, corrupted, taintedStrategy, effectiveUseOmen ? omenPrice : null);
+  }, [stats, fusingPrice, taintedFusingPrice, vaalPrice, hasPrices, corrupted, taintedStrategy, effectiveUseOmen, omenPrice]);
 
   function handleQualityInput(val) {
     const n = parseInt(val, 10);
@@ -72,33 +85,94 @@ export default function FusingCalculator({ prices }) {
         </p>
       </div>
 
-      {/* Corrupted Toggle */}
-      <label className="flex items-center gap-3 cursor-pointer select-none group w-fit">
-        <span className="relative">
-          <input
-            type="checkbox"
-            checked={corrupted}
-            onChange={e => setCorrupted(e.target.checked)}
-            className="sr-only peer"
-          />
-          <span className={`
-            block w-10 h-6 rounded-full transition-colors duration-200
-            ${corrupted ? 'bg-red-600' : 'bg-zinc-800/60'}
-          `} />
-          <span className={`
-            absolute left-0.5 top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform duration-200
-            ${corrupted ? 'translate-x-4' : 'translate-x-0'}
-          `} />
-        </span>
-        <span className={`text-sm font-medium transition-colors duration-200 ${corrupted ? 'text-red-400' : 'text-zinc-400 group-hover:text-zinc-100'}`}>
-          Corrupted Item
-        </span>
-        {corrupted && (
-          <span className="text-[10px] uppercase tracking-wider text-red-400/60 font-semibold">
-            {sockets >= 5 ? 'Bench + Tainted Strategy' : 'Bench only'}
+      {/* Toggles */}
+      <div className="space-y-3">
+        {/* Corrupted Toggle */}
+        <label className="flex items-center gap-3 cursor-pointer select-none group w-fit">
+          <span className="relative">
+            <input
+              type="checkbox"
+              checked={corrupted}
+              onChange={e => { setCorrupted(e.target.checked); if (e.target.checked) setUseOmen(false); }}
+              className="sr-only peer"
+            />
+            <span className={`
+              block w-10 h-6 rounded-full transition-colors duration-200
+              ${corrupted ? 'bg-red-600' : 'bg-zinc-800/60'}
+            `} />
+            <span className={`
+              absolute left-0.5 top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform duration-200
+              ${corrupted ? 'translate-x-4' : 'translate-x-0'}
+            `} />
           </span>
+          <span className={`text-sm font-medium transition-colors duration-200 ${corrupted ? 'text-red-400' : 'text-zinc-400 group-hover:text-zinc-100'}`}>
+            Corrupted Item
+          </span>
+          {corrupted && (
+            <span className="text-[10px] uppercase tracking-wider text-red-400/60 font-semibold">
+              {sockets >= 5 ? 'Bench + Tainted Strategy' : 'Bench only'}
+            </span>
+          )}
+        </label>
+
+        {/* Omen of Connections Toggle */}
+        {!corrupted && (
+          <div className="space-y-2">
+            <label className={`flex items-center gap-3 select-none group w-fit ${omenEligible ? 'cursor-pointer' : 'cursor-not-allowed opacity-50'}`}>
+              <span className="relative">
+                <input
+                  type="checkbox"
+                  checked={effectiveUseOmen}
+                  onChange={e => setUseOmen(e.target.checked)}
+                  disabled={!omenEligible}
+                  className="sr-only peer"
+                />
+                <span className={`
+                  block w-10 h-6 rounded-full transition-colors duration-200
+                  ${effectiveUseOmen ? 'bg-amber-600' : 'bg-zinc-800/60'}
+                `} />
+                <span className={`
+                  absolute left-0.5 top-0.5 w-5 h-5 rounded-full bg-white shadow transition-transform duration-200
+                  ${effectiveUseOmen ? 'translate-x-4' : 'translate-x-0'}
+                `} />
+              </span>
+              <span className={`text-sm font-medium transition-colors duration-200 ${effectiveUseOmen ? 'text-amber-300' : 'text-zinc-400 group-hover:text-zinc-100'}`}>
+                Omen of Connections
+              </span>
+              {omenPrice != null && (
+                <span className={`text-xs font-mono ${omenCheaperThanBench ? 'text-green-400/70' : 'text-red-400/70'}`}>
+                  {omenTotalCost != null ? `${Math.round(omenTotalCost).toLocaleString()}c` : `${Math.round(omenPrice).toLocaleString()}c`}
+                  {benchCostChaos != null && (
+                    omenCheaperThanBench
+                      ? <span className="text-green-400/50 ml-1">cheaper than bench</span>
+                      : <span className="text-red-400/50 ml-1">bench is cheaper</span>
+                  )}
+                </span>
+              )}
+            </label>
+            {!omenEligible && (
+              <p className="text-[10px] text-zinc-500 ml-[52px]">
+                {sockets < 6 || targetLinks < 6
+                  ? 'Omen of Connections only works for 6-socket 6-link targets'
+                  : 'Not available for corrupted items'
+                }
+              </p>
+            )}
+            {effectiveUseOmen && !omenCheaperThanBench && benchCostChaos != null && (
+              <div className="ml-[52px] rounded-lg bg-red-900/30 border border-red-700/40 px-3 py-2">
+                <p className="text-xs text-red-300">
+                  ⚠ The bench craft ({Math.round(benchCostChaos).toLocaleString()}c for {stats.benchCost.toLocaleString()} fusings) is cheaper than using an Omen ({Math.round(omenTotalCost).toLocaleString()}c). Consider the bench instead.
+                </p>
+              </div>
+            )}
+            {effectiveUseOmen && omenCheaperThanBench && (
+              <p className="text-xs text-green-400/70 ml-[52px]">
+                1 Fusing + 1 Omen = guaranteed 6-link. Cheaper than {stats.benchCost.toLocaleString()} fusings at bench.
+              </p>
+            )}
+          </div>
         )}
-      </label>
+      </div>
 
       {/* Input Cards */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
@@ -206,6 +280,29 @@ export default function FusingCalculator({ prices }) {
               </div>
             </div>
           )}
+          {!corrupted && sockets >= 2 && (
+            <div className="border-t border-white/5 pt-3 space-y-2">
+              <label className="text-xs uppercase tracking-wider text-orange-300/70">Target Links</label>
+              <div className="flex items-center gap-2 flex-wrap">
+                {Array.from({ length: sockets - 1 }, (_, i) => i + 2).map(l => (
+                  <button
+                    key={l}
+                    onClick={() => setTargetLinks(l)}
+                    className={`
+                      px-3 py-1.5 rounded-lg text-sm font-medium transition-all duration-200 border
+                      ${targetLinks === l
+                        ? 'bg-orange-900/40 border-orange-700/50 text-orange-300'
+                        : 'bg-zinc-900/40 border-white/5 text-zinc-400 hover:text-zinc-100 hover:border-white/10'
+                      }
+                    `}
+                  >
+                    {l}L
+                  </button>
+                ))}
+              </div>
+              <p className="text-[10px] text-zinc-400/60">{sockets} sockets &rarr; {targetLinks}-link</p>
+            </div>
+          )}
           {!corrupted && !stats.noLinksPossible && (
             <div className="border-t border-white/5 pt-3 space-y-2">
               <label className="text-xs uppercase tracking-wider text-zinc-400">Fusings to use</label>
@@ -227,7 +324,7 @@ export default function FusingCalculator({ prices }) {
               </div>
               {attemptChance != null && (
                 <p className="text-xs text-zinc-400">
-                  chance to {sockets}-link within {attemptN.toLocaleString()} fusings
+                  chance to {targetLinks}-link within {attemptN.toLocaleString()} fusings
                 </p>
               )}
             </div>
@@ -295,7 +392,7 @@ export default function FusingCalculator({ prices }) {
           <div className="rounded-xl bg-orange-900/30 border border-orange-800/40 p-4 text-center">
             <div className="text-xs uppercase tracking-wider text-orange-300/70 mb-1">Bench Cost</div>
             <div className="text-2xl font-bold text-orange-300">{stats.benchCost}</div>
-            <div className="text-xs text-zinc-400 mt-1">guaranteed {sockets}-link</div>
+            <div className="text-xs text-zinc-400 mt-1">guaranteed {targetLinks}-link</div>
           </div>
           <div className="rounded-xl bg-orange-900/30 border border-orange-800/40 p-4 text-center">
             <div className="text-xs uppercase tracking-wider text-orange-300/70 mb-1">Average Manual</div>
@@ -318,7 +415,7 @@ export default function FusingCalculator({ prices }) {
           <div className="rounded-xl bg-orange-900/30 border border-orange-800/40 p-4 text-center">
             <div className="text-xs uppercase tracking-wider text-orange-300/70 mb-1">Bench Cost</div>
             <div className="text-2xl font-bold text-orange-300">{stats.benchCost.toLocaleString()}</div>
-            <div className="text-xs text-zinc-400 mt-1">guaranteed {sockets}-link</div>
+            <div className="text-xs text-zinc-400 mt-1">guaranteed {targetLinks}-link</div>
           </div>
         </div>
       ) : hasTaintedStrat ? (
@@ -456,7 +553,7 @@ export default function FusingCalculator({ prices }) {
       {!corrupted && !stats.noLinksPossible && (
         <div>
           <h3 className="text-sm font-semibold text-zinc-100 mb-3">Cumulative Probability</h3>
-          <p className="text-xs text-zinc-400 mb-2">Chance of hitting {sockets}-link within N fusings at {quality}% quality</p>
+          <p className="text-xs text-zinc-400 mb-2">Chance of hitting {targetLinks}-link within N fusings at {quality}% quality</p>
           <div className="overflow-x-auto rounded-lg border border-white/5">
             <table className="w-full text-sm">
               <thead>
