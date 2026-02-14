@@ -8,7 +8,7 @@ function ModToggle({ mod, selected, onClick }) {
       className={`w-full text-left px-3 py-1.5 rounded-lg text-[13px] leading-snug transition-all duration-100 group ${
         selected
           ? 'bg-indigo-500/15 ring-1 ring-indigo-400/40'
-          : 'hover:bg-white/[0.04]'
+          : 'hover:bg-white/[0.04] hover:pl-4'
       }`}
       title={`${mod.name} — ${mod.description} (ilvl ${mod.ilevel})`}
     >
@@ -94,7 +94,7 @@ export default function MagicModSelect({ baseType, selectedMods, onToggle }) {
   return (
     <div className="space-y-3">
       {warnings.length > 0 && (
-        <div className="rounded-lg bg-amber-500/10 border border-amber-400/20 px-3 py-2">
+        <div className="fade-in rounded-lg bg-amber-500/10 border border-amber-400/20 px-3 py-2">
           <p className="text-xs text-amber-300">
             Some bases in this category may have name collisions: {warnings.join(', ')}
           </p>
@@ -103,7 +103,7 @@ export default function MagicModSelect({ baseType, selectedMods, onToggle }) {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
         {/* Prefixes */}
-        <div className="rounded-xl border border-white/5 overflow-hidden flex flex-col">
+        <div className="fade-in rounded-xl border border-white/5 overflow-hidden flex flex-col">
           <div className="flex items-center justify-between px-4 py-2.5 bg-blue-500/[0.06] border-b border-white/5">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-blue-400" />
@@ -138,7 +138,7 @@ export default function MagicModSelect({ baseType, selectedMods, onToggle }) {
         </div>
 
         {/* Suffixes */}
-        <div className="rounded-xl border border-white/5 overflow-hidden flex flex-col">
+        <div className="fade-in rounded-xl border border-white/5 overflow-hidden flex flex-col" style={{ animationDelay: '50ms' }}>
           <div className="flex items-center justify-between px-4 py-2.5 bg-amber-500/[0.06] border-b border-white/5">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-amber-400" />

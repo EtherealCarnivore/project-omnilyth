@@ -156,6 +156,33 @@ function TogglePill({ left, right, active, onChange }) {
   );
 }
 
+/* ── Tier mode selector (Regular / 16.5+ Only / All) ── */
+const TIER_OPTIONS = [
+  { value: 'regular', label: 'Regular' },
+  { value: 't17only', label: '16.5+' },
+  { value: 'all', label: 'All' },
+];
+
+function TierSelect({ value, onChange }) {
+  return (
+    <div className="inline-flex rounded-full bg-zinc-950/60 border border-white/5 p-0.5">
+      {TIER_OPTIONS.map(({ value: v, label }) => (
+        <button
+          key={v}
+          onClick={() => onChange(v)}
+          className={`px-3.5 py-1 rounded-full text-xs font-medium transition-all duration-200 ${
+            value === v
+              ? 'bg-teal-500/20 text-teal-300 shadow-sm'
+              : 'text-zinc-400 hover:text-zinc-100'
+          }`}
+        >
+          {label}
+        </button>
+      ))}
+    </div>
+  );
+}
+
 /* ── Inline toggle (Corrupted / Unidentified) ── */
 function InlineToggle({ label, enabled, include, onToggle, onModeChange }) {
   return (
@@ -188,13 +215,28 @@ function InlineToggle({ label, enabled, include, onToggle, onModeChange }) {
 
 export default function MapModCalculator() {
   const [settings, setSettings] = useState(DEFAULT_SETTINGS);
-  const [isT17, setIsT17] = useState(false);
+  const [tierMode, setTierMode] = useState('regular'); // 'regular' | 't17only' | 'all'
   const [badSearch, setBadSearch] = useState('');
   const [goodSearch, setGoodSearch] = useState('');
   const [copied, setCopied] = useState(false);
   const resultRef = useRef(null);
 
-  const regex = isT17 ? regexMapModifierT17 : regexMapModifiersRegular;
+  // Build the 16.5+-only dataset: just the T17-exclusive tokens
+  const regexT17Only = useMemo(() => {
+    const t17Tokens = regexMapModifierT17.tokens.filter((t) => t.options.tier17);
+    const t17Ids = new Set(t17Tokens.map((t) => t.id));
+    const filteredTable = {};
+    for (const [key, val] of Object.entries(regexMapModifierT17.optimizationTable)) {
+      if (val.ids.every((id) => t17Ids.has(id))) {
+        filteredTable[key] = val;
+      }
+    }
+    return { tokens: t17Tokens, optimizationTable: filteredTable };
+  }, []);
+
+  const regex = tierMode === 'regular' ? regexMapModifiersRegular
+    : tierMode === 't17only' ? regexT17Only
+    : regexMapModifierT17;
 
   const result = useMemo(() => generateMapModRegex(settings, regex), [settings, regex]);
   const charCount = result.length;
@@ -273,7 +315,7 @@ export default function MapModCalculator() {
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-3">
             <h3 className="text-xs font-semibold text-teal-300 uppercase tracking-widest">Output</h3>
-            <TogglePill left="Regular" right="T17" active={isT17} onChange={setIsT17} />
+            <TierSelect value={tierMode} onChange={setTierMode} />
           </div>
           <div className="flex items-center gap-3">
             <span className={`text-xs font-mono tabular-nums ${charColor}`}>

@@ -13,7 +13,7 @@ export default function App() {
           <Routes>
             <Route element={<AppShell />}>
               <Route index element={<HomePage />} />
-              {modules.map(mod => (
+              {modules.filter(mod => !mod.external).map(mod => (
                 <Route key={mod.id} path={mod.route} element={<mod.component />} />
               ))}
               <Route path="*" element={<HomePage />} />

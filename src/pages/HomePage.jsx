@@ -79,21 +79,23 @@ export default function HomePage() {
 
       {/* Module Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filtered.map(mod => (
-          <Link
-            key={mod.id}
-            to={mod.route}
-            className={`group relative rounded-2xl border bg-gradient-to-br p-5 transition-all duration-150 ease-out hover:scale-[1.02] hover:shadow-lg hover:shadow-black/20 ${
-              CATEGORY_COLORS[mod.category] || 'from-zinc-800/40 to-zinc-900/40 border-white/5'
-            }`}
-          >
+        {filtered.map(mod => {
+          const cardClass = `group relative rounded-2xl border bg-gradient-to-br p-5 transition-all duration-150 ease-out hover:scale-[1.02] hover:shadow-lg hover:shadow-black/20 ${
+            CATEGORY_COLORS[mod.category] || 'from-zinc-800/40 to-zinc-900/40 border-white/5'
+          }`;
+          const cardContent = (
             <div className="flex items-start gap-3">
               <div className="shrink-0 mt-0.5 text-zinc-400 group-hover:text-sky-400 transition-colors">
                 {SUBCATEGORY_ICONS[mod.subcategory] || SUBCATEGORY_ICONS.Coloring}
               </div>
               <div className="min-w-0">
-                <h3 className="text-sm font-semibold text-zinc-100 group-hover:text-sky-400 transition-colors">
+                <h3 className="text-sm font-semibold text-zinc-100 group-hover:text-sky-400 transition-colors flex items-center gap-1.5">
                   {mod.title}
+                  {mod.external && (
+                    <svg className="w-3 h-3 text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                  )}
                 </h3>
                 <p className="text-xs text-zinc-500 mt-1 leading-relaxed">
                   {mod.description}
@@ -109,8 +111,24 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
-          </Link>
-        ))}
+          );
+
+          return mod.external ? (
+            <a
+              key={mod.id}
+              href={mod.externalUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={cardClass}
+            >
+              {cardContent}
+            </a>
+          ) : (
+            <Link key={mod.id} to={mod.route} className={cardClass}>
+              {cardContent}
+            </Link>
+          );
+        })}
       </div>
 
       {filtered.length === 0 && (
