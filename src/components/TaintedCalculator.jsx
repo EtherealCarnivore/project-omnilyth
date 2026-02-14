@@ -55,9 +55,9 @@ export default function TaintedCalculator({ prices }) {
 
   return (
     <div className="space-y-6">
-      <div className="text-center space-y-1">
-        <h2 className="text-2xl font-bold text-purple-300">Tainted Chromatic Calculator</h2>
-        <p className="text-sm text-zinc-400">
+      <div>
+        <h2 className="text-lg font-semibold text-purple-300">Tainted Chromatic Calculator</h2>
+        <p className="text-sm text-zinc-400 mt-1">
           Tainted Chromatic Orbs reroll each socket with an equal <strong className="text-zinc-100">1/3</strong> chance per color, ignoring stat requirements.
         </p>
         <p className="text-sm font-semibold text-red-400 mt-2">
@@ -101,16 +101,16 @@ export default function TaintedCalculator({ prices }) {
       {error && !socketsInvalid && <p className="text-center text-red-400 text-sm">{error}</p>}
 
       {result && (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto rounded-lg border border-white/5">
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-zinc-400 text-xs uppercase tracking-wider">
-                <th className="px-4 py-2 text-center">Success Chance</th>
-                <th className="px-4 py-2 text-center">Avg. Tainted Chromes<span className="block text-[10px] normal-case tracking-normal opacity-60">(mean)</span></th>
+              <tr className="border-b border-white/5">
+                <th className="px-4 py-2 text-center text-zinc-400 font-medium">Success Chance</th>
+                <th className="px-4 py-2 text-center text-zinc-400 font-medium">Avg. Tainted Chromes<span className="block text-[10px] normal-case tracking-normal opacity-60">(mean)</span></th>
                 {taintedPrice && (
-                  <th className="px-4 py-2 text-center">Avg. Cost<span className="block text-[10px] normal-case tracking-normal opacity-60">(in chaos)</span></th>
+                  <th className="px-4 py-2 text-center text-zinc-400 font-medium">Avg. Cost<span className="block text-[10px] normal-case tracking-normal opacity-60">(in chaos)</span></th>
                 )}
-                <th className="px-4 py-2 text-center">Std. Deviation</th>
+                <th className="px-4 py-2 text-center text-zinc-400 font-medium">Std. Deviation</th>
               </tr>
             </thead>
             <tbody>

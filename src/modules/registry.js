@@ -71,6 +71,16 @@ const modules = [
     icon: 'map',
     component: lazy(() => import('../pages/MapModsPage')),
   },
+  {
+    id: 'item-regex',
+    title: 'Item Mod Regex',
+    description: 'Generate regex patterns to find items with specific mods',
+    category: 'Crafting',
+    subcategory: 'Items',
+    route: '/crafting/item-regex',
+    icon: 'item',
+    component: lazy(() => import('../pages/ItemRegexPage')),
+  },
 ];
 
 export default modules;

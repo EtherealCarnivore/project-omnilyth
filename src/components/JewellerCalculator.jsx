@@ -67,9 +67,9 @@ export default function JewellerCalculator({ prices }) {
 
   return (
     <div className="space-y-6">
-      <div className="text-center space-y-1">
-        <h2 className="text-2xl font-bold text-poe-gold">Jeweller's Method Calculator</h2>
-        <p className="text-sm text-zinc-400">
+      <div>
+        <h2 className="text-lg font-semibold text-amber-300">Jeweller's Method Calculator</h2>
+        <p className="text-sm text-zinc-400 mt-1">
           Uses the Crafting Bench to add/remove sockets one at a time, locking in desired colors cheaply. Compares every base-chrome size to find the optimal strategy.
         </p>
       </div>
@@ -119,7 +119,7 @@ export default function JewellerCalculator({ prices }) {
       )}
 
       <div className="flex justify-center">
-        <button onClick={calculate} disabled={socketsInvalid} className="calc-button bg-yellow-900/50 hover:bg-yellow-800/50 border-poe-gold/40 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:transform-none">
+        <button onClick={calculate} disabled={socketsInvalid} className="calc-button bg-yellow-900/50 hover:bg-yellow-800/50 border-amber-600/40 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:transform-none">
           Calculate
         </button>
       </div>
@@ -127,15 +127,15 @@ export default function JewellerCalculator({ prices }) {
       {error && !socketsInvalid && <p className="text-center text-red-400 text-sm">{error}</p>}
 
       {results && results.length > 0 && (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto rounded-lg border border-white/5">
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-zinc-400 text-xs uppercase tracking-wider">
-                <th className="px-4 py-2 text-left">Strategy</th>
-                <th className="px-4 py-2 text-right">Avg. Chromatics</th>
-                <th className="px-4 py-2 text-right">Avg. Jewellers</th>
+              <tr className="border-b border-white/5">
+                <th className="px-4 py-2 text-left text-zinc-400 font-medium">Strategy</th>
+                <th className="px-4 py-2 text-right text-zinc-400 font-medium">Avg. Chromatics</th>
+                <th className="px-4 py-2 text-right text-zinc-400 font-medium">Avg. Jewellers</th>
                 {hasPrices && (
-                  <th className="px-4 py-2 text-right">Total Cost<span className="block text-[10px] normal-case tracking-normal opacity-60">(in chaos)</span></th>
+                  <th className="px-4 py-2 text-right text-zinc-400 font-medium">Total Cost<span className="block text-[10px] normal-case tracking-normal opacity-60">(in chaos)</span></th>
                 )}
               </tr>
             </thead>
@@ -143,16 +143,19 @@ export default function JewellerCalculator({ prices }) {
               {results.map((s, i) => (
                 <tr key={i} className={
                   s.isBest
-                    ? 'bg-poe-jeweller-best-even text-poe-jeweller-best-text border-l-2 border-r-2 border-poe-gold/60'
+                    ? 'bg-green-900/30 text-green-300'
                     : i % 2 === 0 ? 'bg-poe-row-even' : 'bg-poe-row-odd'
                 }>
-                  <td className="px-4 py-2 text-left font-medium">{s.label}</td>
+                  <td className="px-4 py-2 text-left font-medium">
+                    {s.label}
+                    {s.isBest && <span className="ml-2 text-xs text-green-400">(Best)</span>}
+                  </td>
                   <td className="px-4 py-2 text-right font-mono text-poe-highlight">
                     {s.chromeCost < 1000000 ? s.chromeCost.toFixed(2) : s.chromeCost.toExponential(2)}
                   </td>
                   <td className="px-4 py-2 text-right font-mono">{s.jewellerCost.toFixed(2)}</td>
                   {hasPrices && (
-                    <td className="px-4 py-2 text-right font-mono text-poe-gold">{formatTotalChaos(s)}</td>
+                    <td className="px-4 py-2 text-right font-mono text-amber-300">{formatTotalChaos(s)}</td>
                   )}
                 </tr>
               ))}
