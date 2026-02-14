@@ -37,7 +37,7 @@ export default function ItemRegexCalculator() {
   const [rarity, setRarity] = useState('Rare');
   const [selectedRareMods, setSelectedRareMods] = useState({});
   const [selectedMagicMods, setSelectedMagicMods] = useState([]);
-  const [rareSettings, setRareSettings] = useState({ matchAnyMod: true });
+  const [rareSettings, setRareSettings] = useState({ matchAnyMod: true, includeBaseName: true });
   const [magicSettings, setMagicSettings] = useState({ matchOpenAffix: false, onlyIfBothPrefixAndSuffix: false });
   const [copied, setCopied] = useState(false);
   const resultRef = useRef(null);
@@ -145,7 +145,7 @@ export default function ItemRegexCalculator() {
       </div>
 
       {/* Result Box */}
-      <div ref={resultRef} className="rounded-xl bg-zinc-950/50 border border-white/5 p-4">
+      <div ref={resultRef} className="fade-in rounded-xl bg-zinc-950/50 border border-white/5 p-4">
         <div className="flex items-center justify-between mb-3">
           <h3 className="text-xs font-semibold text-indigo-300 uppercase tracking-widest">Output</h3>
           <div className="flex items-center gap-3">
@@ -166,7 +166,7 @@ export default function ItemRegexCalculator() {
           </div>
         </div>
         <div className="bg-black/30 rounded-lg p-3 font-mono text-sm text-zinc-100 break-all min-h-[2.5rem] select-all leading-relaxed">
-          {result || <span className="text-zinc-400/50 italic font-sans">Select a base and mods to generate regex...</span>}
+          {result ? <span key={result} className="fade-in inline-block">{result}</span> : <span className="text-zinc-400/50 italic font-sans">Select a base and mods to generate regex...</span>}
         </div>
         <div className="mt-2 h-1 rounded-full bg-zinc-950/80 overflow-hidden">
           <div
@@ -174,13 +174,13 @@ export default function ItemRegexCalculator() {
             style={{ width: `${barWidth}%` }}
           />
         </div>
-        {charCount > 250 && (
-          <p className="text-xs text-red-400/90 mt-2">Regex exceeds PoE's 250-character limit. Remove some mods.</p>
-        )}
+        <div className={`overflow-hidden transition-all duration-300 ${charCount > 250 ? 'max-h-10 opacity-100 mt-2' : 'max-h-0 opacity-0'}`}>
+          <p className="text-xs text-red-400/90">Regex exceeds PoE's 250-character limit. Remove some mods.</p>
+        </div>
       </div>
 
       {/* Base Selector */}
-      <div className="rounded-xl bg-zinc-950/30 border border-white/5 p-4">
+      <div className="fade-in rounded-xl bg-zinc-950/30 border border-white/5 p-4">
         <h3 className="text-xs font-semibold text-indigo-300 uppercase tracking-widest mb-3">Item Base</h3>
         <ItemBaseSelector
           value={itembase}
@@ -197,18 +197,29 @@ export default function ItemRegexCalculator() {
       </div>
 
       {/* Settings */}
-      <div className="rounded-xl bg-zinc-950/30 border border-white/5 p-4">
+      <div className="fade-in rounded-xl bg-zinc-950/30 border border-white/5 p-4">
         <h3 className="text-xs font-semibold text-indigo-300 uppercase tracking-widest mb-3">Settings</h3>
         {effectiveRarity === 'Rare' ? (
-          <label className="flex items-center gap-2 text-sm text-zinc-400 cursor-pointer select-none">
-            <input
-              type="checkbox"
-              checked={rareSettings.matchAnyMod}
-              onChange={(e) => setRareSettings((s) => ({ ...s, matchAnyMod: e.target.checked }))}
-              className="accent-indigo-400 w-3.5 h-3.5"
-            />
-            Match Any Mod (OR join — otherwise each mod is a separate search term)
-          </label>
+          <div className="space-y-2">
+            <label className="flex items-center gap-2 text-sm text-zinc-400 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={rareSettings.includeBaseName}
+                onChange={(e) => setRareSettings((s) => ({ ...s, includeBaseName: e.target.checked }))}
+                className="accent-indigo-400 w-3.5 h-3.5"
+              />
+              Include Base Name (adds item name as a search term)
+            </label>
+            <label className="flex items-center gap-2 text-sm text-zinc-400 cursor-pointer select-none">
+              <input
+                type="checkbox"
+                checked={rareSettings.matchAnyMod}
+                onChange={(e) => setRareSettings((s) => ({ ...s, matchAnyMod: e.target.checked }))}
+                className="accent-indigo-400 w-3.5 h-3.5"
+              />
+              Match Any Mod (OR join — otherwise each mod is a separate search term)
+            </label>
+          </div>
         ) : (
           <div className="space-y-2">
             <label className="flex items-center gap-2 text-sm text-zinc-400 cursor-pointer select-none">
@@ -235,7 +246,7 @@ export default function ItemRegexCalculator() {
 
       {/* Mod Selection */}
       {effectiveRarity === 'Rare' ? (
-        <div className="rounded-xl bg-zinc-950/30 border border-white/5 p-4">
+        <div key="rare" className="fade-in rounded-xl bg-zinc-950/30 border border-white/5 p-4">
           <h3 className="text-xs font-semibold text-indigo-300 uppercase tracking-widest mb-3">Rare Mods</h3>
           <RareModSelect
             baseType={itembase?.baseType}
@@ -246,7 +257,7 @@ export default function ItemRegexCalculator() {
           />
         </div>
       ) : (
-        <div className="rounded-xl bg-zinc-950/30 border border-white/5 p-4">
+        <div key="magic" className="fade-in rounded-xl bg-zinc-950/30 border border-white/5 p-4">
           <h3 className="text-xs font-semibold text-indigo-300 uppercase tracking-widest mb-3">Magic Affixes</h3>
           <MagicModSelect
             baseType={magicGroupKey || itembase?.baseType}

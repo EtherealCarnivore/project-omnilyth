@@ -10,6 +10,7 @@ export default defineConfig({
       output: {
         manualChunks: {
           'item-mod-data': ['./src/data/itemMods.js', './src/data/magicItemMods.js'],
+          'cluster-jewel-data': ['./src/data/clusterJewelData.json'],
         },
       },
     },

@@ -17,7 +17,7 @@ function ModRow({ mod, modKey, selection, onToggle, onValueChange }) {
   const stat = mod.stats[0];
 
   return (
-    <div className={`rounded-lg transition-all ${isSelected ? 'bg-indigo-500/10 ring-1 ring-indigo-400/30' : ''}`}>
+    <div className={`rounded-lg transition-all duration-150 ${isSelected ? 'bg-indigo-500/10 ring-1 ring-indigo-400/30' : 'hover:bg-white/[0.03]'}`}>
       <div className="flex items-center gap-2 px-3 py-1.5">
         <input
           type="checkbox"
@@ -55,7 +55,7 @@ function ModRow({ mod, modKey, selection, onToggle, onValueChange }) {
       </div>
 
       {expanded && (
-        <div className="px-3 pb-2 space-y-2">
+        <div className="fade-in px-3 pb-2 space-y-2">
           {/* Number inputs for threshold matching */}
           {isSelected && hasNumbers && (
             <div className="flex flex-wrap gap-2 ml-6">
@@ -119,7 +119,7 @@ function CategorySection({ title, categories, selectedMods, onToggle, onValueCha
         </div>
         <div className="flex items-center gap-2">
           {selectedCount > 0 && (
-            <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300">
+            <span className="text-[10px] px-1.5 py-0.5 rounded-full bg-indigo-500/20 text-indigo-300 transition-all duration-200">
               {selectedCount}
             </span>
           )}
@@ -127,7 +127,7 @@ function CategorySection({ title, categories, selectedMods, onToggle, onValueCha
         </div>
       </button>
       {open && (
-        <div className="px-2 py-2 space-y-px border-t border-white/5">
+        <div className="fade-in px-2 py-2 space-y-px border-t border-white/5">
           {categories.map((cat) =>
             cat.modifiers.map((mod) => {
               const key = `${cat.basetype || ''}-${cat.category}-${mod.desc}`;

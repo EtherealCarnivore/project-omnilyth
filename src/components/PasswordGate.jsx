@@ -73,7 +73,7 @@ export default function PasswordGate({ children }) {
     setChecking(false);
   }, [input]);
 
-  if (authed) return children;
+  if (import.meta.env.DEV || authed) return children;
   if (trolling) return <RickRollCountdown />;
 
   return (

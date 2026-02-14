@@ -81,6 +81,28 @@ const modules = [
     icon: 'item',
     component: lazy(() => import('../pages/ItemRegexPage')),
   },
+  {
+    id: 'cluster-jewel',
+    title: 'Cluster Jewel Calc',
+    description: 'Find compatible notables for Large Cluster Jewels',
+    category: 'Crafting',
+    subcategory: 'Cluster Jewels',
+    route: '/crafting/cluster-jewel',
+    icon: 'cluster',
+    component: lazy(() => import('../pages/ClusterJewelPage')),
+  },
+  {
+    id: 'timeless-jewel',
+    title: 'Timeless Jewel Calc',
+    description: 'Interactive skill tree for timeless jewel seed searching',
+    category: 'Crafting',
+    subcategory: 'Timeless Jewels',
+    icon: 'timeless',
+    external: true,
+    externalUrl: import.meta.env.DEV
+      ? 'http://localhost:5179/timeless-jewels/tree'
+      : 'https://vilsol.github.io/timeless-jewels/tree',
+  },
 ];
 
 export default modules;

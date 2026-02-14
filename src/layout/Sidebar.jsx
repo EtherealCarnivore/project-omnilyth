@@ -72,7 +72,21 @@ export default function Sidebar({ open, onClose }) {
         <nav className="flex-1 overflow-y-auto px-3 pb-3 space-y-1">
           {filtered ? (
             /* Search results */
-            filtered.map(mod => (
+            filtered.map(mod => mod.external ? (
+              <a
+                key={mod.id}
+                href={mod.externalUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={onClose}
+                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm transition-all duration-150 text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.04]"
+              >
+                {mod.title}
+                <svg className="w-3 h-3 text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+              </a>
+            ) : (
               <NavLink
                 key={mod.id}
                 to={mod.route}
@@ -110,7 +124,21 @@ export default function Sidebar({ open, onClose }) {
                     <div className="px-3 py-1 text-[10px] uppercase tracking-wider text-zinc-600">
                       {sub}
                     </div>
-                    {mods.map(mod => (
+                    {mods.map(mod => mod.external ? (
+                      <a
+                        key={mod.id}
+                        href={mod.externalUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        onClick={onClose}
+                        className="flex items-center gap-1.5 px-3 py-1.5 ml-2 rounded-lg text-sm transition-all duration-150 text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.04]"
+                      >
+                        {mod.title}
+                        <svg className="w-3 h-3 text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                          <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                        </svg>
+                      </a>
+                    ) : (
                       <NavLink
                         key={mod.id}
                         to={mod.route}

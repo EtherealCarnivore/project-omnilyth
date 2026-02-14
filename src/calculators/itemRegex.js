@@ -79,10 +79,13 @@ export function generateRareItemRegex(affixMap, settings) {
         .join(".*");
     });
 
+  const baseNameTerm = settings.rareSettings.includeBaseName && itemBase.item ? `"${itemBase.item}"` : "";
+
   if (settings.rareSettings.matchAnyMod) {
     const regex = result.join("|");
-    return regex.length > 0 ? `"${regex}"` : "";
+    const modTerm = regex.length > 0 ? `"${regex}"` : "";
+    return [baseNameTerm, modTerm].filter(Boolean).join(" ");
   } else {
-    return result.map((e) => `"${e}"`).join(" ");
+    return [baseNameTerm, ...result.map((e) => `"${e}"`)].filter(Boolean).join(" ");
   }
 }
