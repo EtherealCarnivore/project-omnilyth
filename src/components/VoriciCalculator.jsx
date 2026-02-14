@@ -108,16 +108,16 @@ export default function VoriciCalculator({ prices }) {
   return (
     <div className="space-y-6">
       <div className="text-center space-y-1">
-        <h2 className="text-2xl font-bold text-poe-text flex items-center justify-center gap-3">
+        <h2 className="text-2xl font-bold text-zinc-100 flex items-center justify-center gap-3">
           <img src={`${import.meta.env.BASE_URL}Chromatic_Orb.png`} alt="" className="w-8 h-8" />
           Vorici Chromatic Calculator
         </h2>
-        <p className="text-sm text-poe-muted">Compares Vorici bench crafts vs raw Chromatic Orbs to find the cheapest method.</p>
+        <p className="text-sm text-zinc-400">Compares Vorici bench crafts vs raw Chromatic Orbs to find the cheapest method.</p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-lg mx-auto">
         <div className="space-y-2">
-          <label className="block text-xs uppercase tracking-wider text-poe-muted text-center">Total Sockets</label>
+          <label className="block text-xs uppercase tracking-wider text-zinc-400 text-center">Total Sockets</label>
           <input type="number" placeholder="#" value={inputs.sockets} onChange={e => set('sockets', e.target.value)} onKeyDown={handleKeyDown}
             className="calc-input w-full" />
         </div>
@@ -138,7 +138,7 @@ export default function VoriciCalculator({ prices }) {
       )}
 
       <div className="flex justify-center">
-        <button onClick={calculate} disabled={socketsInvalid} className="calc-button bg-poe-border hover:bg-poe-input disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:transform-none">
+        <button onClick={calculate} disabled={socketsInvalid} className="calc-button bg-zinc-800/60 hover:bg-zinc-800/60 disabled:opacity-40 disabled:cursor-not-allowed disabled:hover:transform-none">
           Calculate
         </button>
       </div>
@@ -152,7 +152,7 @@ export default function VoriciCalculator({ prices }) {
           <p className="text-poe-jeweller-best-text">
             Best chromatic option (<strong>{jewellerComparison.bestVoriciName}</strong>) costs ~<strong>{jewellerComparison.voriciChaos.toFixed(1)}c</strong>, but <strong>{jewellerComparison.strategy}</strong> only costs ~<strong>{jewellerComparison.jewellerChaos.toFixed(1)}c</strong> &mdash; saving you <strong>{jewellerComparison.saved.toFixed(1)}c</strong> ({jewellerComparison.pctSaved}% cheaper).
           </p>
-          <p className="text-poe-muted text-xs mt-1">Check the Jeweller's tab for full strategy breakdown.</p>
+          <p className="text-zinc-400 text-xs mt-1">Check the Jeweller's tab for full strategy breakdown.</p>
         </div>
       )}
 
@@ -160,7 +160,7 @@ export default function VoriciCalculator({ prices }) {
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-poe-muted text-xs uppercase tracking-wider">
+              <tr className="text-zinc-400 text-xs uppercase tracking-wider">
                 <th className="px-3 py-2 text-left">Craft Type</th>
                 <th className="px-3 py-2 text-right">Avg Cost<span className="block text-[10px] normal-case tracking-normal opacity-60">(in chromatics)</span></th>
                 {chromePrice && (
@@ -195,8 +195,8 @@ export default function VoriciCalculator({ prices }) {
         </div>
       )}
 
-      <div className="text-xs text-poe-muted text-center space-y-1 pt-2 border-t border-poe-border/30">
-        <p className="font-semibold text-poe-text/80">Chromatic orbs cannot reroll the same color permutation twice, so the chromatic success chance is always higher than the drop rate.</p>
+      <div className="text-xs text-zinc-400 text-center space-y-1 pt-2 border-t border-white/5">
+        <p className="font-semibold text-zinc-100/80">Chromatic orbs cannot reroll the same color permutation twice, so the chromatic success chance is always higher than the drop rate.</p>
         <p>Mono-req on-color: 0.9 &times; (R + 10) / (R + 20) &bull; off-color: 0.05 + 4.5 / (R + 20)</p>
         <p>Dual-req on-color: 0.9 &times; R1 / (R1 + R2) &bull; off-color: 10% flat</p>
       </div>
@@ -218,7 +218,7 @@ function InputField({ label, placeholder, value, onChange, onKeyDown, variant })
 
   return (
     <div className="space-y-1">
-      <label className={`block text-xs uppercase tracking-wider text-center ${labelColors[variant] || 'text-poe-muted'}`}>{label}</label>
+      <label className={`block text-xs uppercase tracking-wider text-center ${labelColors[variant] || 'text-zinc-400'}`}>{label}</label>
       <input
         type="number"
         placeholder={placeholder}

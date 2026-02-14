@@ -1,10 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-poe-dark: #0A0A0A;
-  --color-poe-card: #222324;
-  --color-poe-input: #444444;
-  --color-poe-border: #555555;
+  /* Calculator-specific tokens — kept intact */
   --color-poe-row-even: #333333;
   --color-poe-row-odd: #292929;
   --color-poe-best-even: #303C30;
@@ -18,8 +15,6 @@
   --color-poe-white-socket: #606060;
   --color-poe-gold: #DAA520;
   --color-poe-tainted: #CC77DD;
-  --color-poe-text: #F0F0F0;
-  --color-poe-muted: #999999;
   --color-poe-highlight: #EEEEAA;
   --color-poe-best-text: #EEFFEE;
   --color-poe-jeweller-best-even: #3C3C28;
@@ -27,70 +22,15 @@
   --color-poe-jeweller-best-text: #FFFFDD;
 }
 
-/* Light theme overrides */
-html.light {
-  --color-poe-dark: #F0F0F0;
-  --color-poe-card: #FFFFFF;
-  --color-poe-input: #E8E8E8;
-  --color-poe-border: #CCCCCC;
-  --color-poe-row-even: #F5F5F5;
-  --color-poe-row-odd: #EBEBEB;
-  --color-poe-best-even: #E0F0E0;
-  --color-poe-best-odd: #D5EBD5;
-  --color-poe-red: #F5E0E0;
-  --color-poe-red-border: #E0BBBB;
-  --color-poe-green: #E0F0E0;
-  --color-poe-green-border: #BBE0BB;
-  --color-poe-blue: #E0E0F5;
-  --color-poe-blue-border: #BBBBE0;
-  --color-poe-white-socket: #D0D0D0;
-  --color-poe-gold: #B8860B;
-  --color-poe-tainted: #9944AA;
-  --color-poe-text: #1A1A1A;
-  --color-poe-muted: #666666;
-  --color-poe-highlight: #6B6B00;
-  --color-poe-best-text: #1A5A1A;
-  --color-poe-jeweller-best-even: #F5F0D0;
-  --color-poe-jeweller-best-odd: #EDE8C0;
-  --color-poe-jeweller-best-text: #5A5A00;
-}
-
-html.light .glass-card {
-  background: linear-gradient(
-    145deg,
-    rgba(255, 255, 255, 0.9),
-    rgba(255, 255, 255, 0.95)
-  );
-  border: 1px solid rgba(0, 0, 0, 0.1);
-  box-shadow:
-    0 4px 24px rgba(0, 0, 0, 0.08),
-    0 1px 0 rgba(255, 255, 255, 0.8) inset;
-}
-
-html.light .calc-input {
-  color: #1A1A1A;
-}
-
-html.light .calc-input::placeholder {
-  color: rgba(0, 0, 0, 0.3);
-}
-
-html.light .calc-input:focus {
-  border-color: rgba(0, 0, 0, 0.3);
-  box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.06);
-}
-
 html {
-  background: var(--color-poe-dark);
-  color: var(--color-poe-text);
-  transition: background-color 0.2s, color 0.2s;
+  background: #09090b;
+  color: #f4f4f5;
 }
 
 body {
   margin: 0;
-  background: var(--color-poe-dark);
+  background: #09090b;
   font-family: 'Inter', 'Segoe UI', Arial, sans-serif;
-  transition: background-color 0.2s;
 }
 
 /* Hide number input spinners */
@@ -106,53 +46,78 @@ input[type="number"] {
 
 /* Glass card */
 .glass-card {
-  background: linear-gradient(
-    145deg,
-    rgba(34, 35, 36, 0.85),
-    rgba(34, 35, 36, 0.95)
-  );
-  border: 1px solid rgba(85, 85, 85, 0.25);
-  backdrop-filter: blur(12px);
+  background: rgba(24, 24, 27, 0.40);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(24px);
   box-shadow:
     0 4px 24px rgba(0, 0, 0, 0.4),
     0 1px 0 rgba(255, 255, 255, 0.03) inset;
-  transition: background 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
 
 /* Shared input style */
 .calc-input {
-  background: var(--color-poe-input);
-  border: 1px solid var(--color-poe-border);
-  border-radius: 0.5rem;
+  background: rgba(39, 39, 42, 0.60);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0.75rem;
   padding: 0.5rem 0.75rem;
-  color: var(--color-poe-text);
+  color: #f4f4f5;
   font-size: 0.9rem;
   text-align: center;
-  transition: border-color 0.15s, box-shadow 0.15s, background-color 0.2s, color 0.2s;
+  transition: border-color 0.15s, box-shadow 0.15s;
   outline: none;
 }
 .calc-input::placeholder {
-  color: rgba(240, 240, 240, 0.35);
+  color: rgba(244, 244, 245, 0.35);
 }
 .calc-input:focus {
-  border-color: rgba(240, 240, 240, 0.4);
-  box-shadow: 0 0 0 3px rgba(240, 240, 240, 0.08);
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 0 0 3px rgba(56, 189, 248, 0.15);
 }
 
 /* Shared button style */
 .calc-button {
   padding: 0.5rem 1.75rem;
-  border-radius: 0.5rem;
-  border: 1px solid var(--color-poe-border);
-  color: var(--color-poe-text);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  color: #f4f4f5;
   font-size: 0.9rem;
   font-weight: 500;
   cursor: pointer;
-  transition: background-color 0.2s, transform 0.1s, color 0.2s, border-color 0.2s;
+  transition: background-color 0.2s, transform 0.1s;
 }
 .calc-button:hover {
   transform: translateY(-1px);
 }
 .calc-button:active {
   transform: translateY(0);
+}
+
+/* Range slider — fusing orange */
+.fusing-range {
+  -webkit-appearance: none;
+  appearance: none;
+  height: 6px;
+  border-radius: 3px;
+  background: rgba(39, 39, 42, 0.60);
+  outline: none;
+}
+.fusing-range::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #f97316;
+  cursor: pointer;
+  border: 2px solid #ea580c;
+  box-shadow: 0 0 6px rgba(249, 115, 22, 0.4);
+}
+.fusing-range::-moz-range-thumb {
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: #f97316;
+  cursor: pointer;
+  border: 2px solid #ea580c;
+  box-shadow: 0 0 6px rgba(249, 115, 22, 0.4);
 }

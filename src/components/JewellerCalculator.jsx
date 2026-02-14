@@ -69,14 +69,14 @@ export default function JewellerCalculator({ prices }) {
     <div className="space-y-6">
       <div className="text-center space-y-1">
         <h2 className="text-2xl font-bold text-poe-gold">Jeweller's Method Calculator</h2>
-        <p className="text-sm text-poe-muted">
+        <p className="text-sm text-zinc-400">
           Uses the Crafting Bench to add/remove sockets one at a time, locking in desired colors cheaply. Compares every base-chrome size to find the optimal strategy.
         </p>
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-md mx-auto">
         <div className="sm:col-span-3 max-w-[120px] mx-auto space-y-1">
-          <label className="block text-xs uppercase tracking-wider text-poe-muted text-center">Sockets</label>
+          <label className="block text-xs uppercase tracking-wider text-zinc-400 text-center">Sockets</label>
           <input type="number" placeholder="#" value={inputs.sockets} onChange={e => set('sockets', e.target.value)} onKeyDown={handleKeyDown}
             className="calc-input w-full" />
         </div>
@@ -130,7 +130,7 @@ export default function JewellerCalculator({ prices }) {
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
-              <tr className="text-poe-muted text-xs uppercase tracking-wider">
+              <tr className="text-zinc-400 text-xs uppercase tracking-wider">
                 <th className="px-4 py-2 text-left">Strategy</th>
                 <th className="px-4 py-2 text-right">Avg. Chromatics</th>
                 <th className="px-4 py-2 text-right">Avg. Jewellers</th>
