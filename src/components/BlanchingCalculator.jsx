@@ -68,12 +68,9 @@ export default function BlanchingCalculator({ prices }) {
 
   return (
     <div className="space-y-6">
-      <div className="text-center space-y-1">
-        <h2 className="text-2xl font-bold text-zinc-100 flex items-center justify-center gap-3">
-          <img src={`${import.meta.env.BASE_URL}Omen_of_Blanching.png`} alt="" className="w-8 h-8" />
-          Omen of Blanching Calculator
-        </h2>
-        <p className="text-sm text-zinc-400">
+      <div>
+        <h2 className="text-lg font-semibold text-sky-300">Omen of Blanching Calculator</h2>
+        <p className="text-sm text-zinc-400 mt-1">
           Uses a normal Chromatic Orb (stat requirements affect colors), then turns <strong className="text-zinc-100">1&ndash;3</strong> random sockets white (<strong className="text-zinc-100">50% / 25% / 25%</strong>).
         </p>
       </div>
@@ -137,19 +134,19 @@ export default function BlanchingCalculator({ prices }) {
       {error && !socketsInvalid && <p className="text-center text-red-400 text-sm">{error}</p>}
 
       {result && (
-        <div className="overflow-x-auto">
+        <div className="overflow-x-auto rounded-lg border border-white/5">
           {result.chance === 0 ? (
-            <p className="text-center text-red-400">Impossible with these parameters.</p>
+            <p className="text-center text-red-400 p-4">Impossible with these parameters.</p>
           ) : (
             <table className="w-full text-sm">
               <thead>
-                <tr className="text-zinc-400 text-xs uppercase tracking-wider">
-                  <th className="px-4 py-2 text-center">Success Chance</th>
-                  <th className="px-4 py-2 text-center">Avg. Attempts<span className="block text-[10px] normal-case tracking-normal opacity-60">(mean)</span></th>
+                <tr className="border-b border-white/5">
+                  <th className="px-4 py-2 text-center text-zinc-400 font-medium">Success Chance</th>
+                  <th className="px-4 py-2 text-center text-zinc-400 font-medium">Avg. Attempts<span className="block text-[10px] normal-case tracking-normal opacity-60">(mean)</span></th>
                   {hasPrices && (
-                    <th className="px-4 py-2 text-center">Avg. Cost<span className="block text-[10px] normal-case tracking-normal opacity-60">(in chaos)</span></th>
+                    <th className="px-4 py-2 text-center text-zinc-400 font-medium">Avg. Cost<span className="block text-[10px] normal-case tracking-normal opacity-60">(in chaos)</span></th>
                   )}
-                  <th className="px-4 py-2 text-center">Std. Deviation</th>
+                  <th className="px-4 py-2 text-center text-zinc-400 font-medium">Std. Deviation</th>
                 </tr>
               </thead>
               <tbody>
@@ -168,9 +165,11 @@ export default function BlanchingCalculator({ prices }) {
       )}
 
       {hasPrices && result && result.chance > 0 && (
-        <p className="text-xs text-zinc-400 text-center">
-          Cost per attempt: {chromePrice.toFixed(2)}c (Chromatic) + {omenPrice.toFixed(1)}c (Omen) = <strong className="text-zinc-100">{attemptCostChaos.toFixed(1)}c</strong>
-        </p>
+        <div className="rounded-xl bg-sky-900/10 border border-sky-800/20 p-4">
+          <p className="text-xs text-zinc-400">
+            Cost per attempt: {chromePrice.toFixed(2)}c (Chromatic) + {omenPrice.toFixed(1)}c (Omen) = <strong className="text-zinc-100">{attemptCostChaos.toFixed(1)}c</strong>
+          </p>
+        </div>
       )}
     </div>
   );

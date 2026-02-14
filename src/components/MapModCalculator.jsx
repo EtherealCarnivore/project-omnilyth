@@ -260,7 +260,13 @@ export default function MapModCalculator() {
   const barColor = charCount > 250 ? 'bg-red-500' : charCount > 200 ? 'bg-yellow-500' : 'bg-teal-500';
 
   return (
-    <div className="space-y-5">
+    <div className="space-y-6">
+
+      {/* Header */}
+      <div>
+        <h2 className="text-lg font-semibold text-teal-300">Map Mod Regex Generator</h2>
+        <p className="text-sm text-zinc-400 mt-1">Build regex patterns to highlight or filter map mods in-game.</p>
+      </div>
 
       {/* ── Result Box (sticky-like prominence) ── */}
       <div ref={resultRef} className="rounded-xl bg-zinc-950/50 border border-white/5 p-4">
