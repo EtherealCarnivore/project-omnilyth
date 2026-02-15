@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
 import { getModuleTree } from '../modules/registry';
 import modules from '../modules/registry';
-import { useLeague, LEAGUES } from '../contexts/LeagueContext';
+import { usePinned } from '../contexts/PinnedContext';
 
 const COMING_SOON = [
   { category: 'Trading/Economy', items: ['Bulk Exchange', 'Flip Tracker'] },
@@ -10,12 +10,75 @@ const COMING_SOON = [
   { category: 'Utilities', items: ['Stash Valuation', 'Seed Finder'] },
 ];
 
+function PinButton({ isPinned, onClick }) {
+  return (
+    <button
+      onClick={onClick}
+      title={isPinned ? 'Unpin' : 'Pin to top'}
+      className={`p-0.5 rounded transition-all ${
+        isPinned
+          ? 'text-amber-400 opacity-100'
+          : 'text-zinc-600 opacity-0 group-hover:opacity-100 hover:text-zinc-300'
+      }`}
+    >
+      <svg className="w-3 h-3" viewBox="0 0 16 16" fill="currentColor">
+        <path d="M9.828.722a.5.5 0 0 1 .354.146l4.95 4.95a.5.5 0 0 1-.707.707l-.71-.71-3.18 3.18a5.5 5.5 0 0 1-1.062 3.044l-.216.27a.5.5 0 0 1-.764.02L6.17 10.106l-3.64 3.647a.5.5 0 1 1-.707-.707l3.64-3.647L3.24 7.176a.5.5 0 0 1 .02-.764l.27-.216a5.5 5.5 0 0 1 3.044-1.062l3.18-3.18-.71-.71a.5.5 0 0 1 .146-.854l.636-.318z" />
+      </svg>
+    </button>
+  );
+}
+
+function SidebarLink({ mod, onClose, isPinned, onTogglePin }) {
+  if (mod.external) {
+    return (
+      <div className="group flex items-center">
+        <a
+          href={mod.externalUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+          onClick={onClose}
+          className="flex-1 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm transition-all duration-150 text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.04]"
+        >
+          {mod.title}
+          <svg className="w-3 h-3 text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+          </svg>
+        </a>
+        <PinButton isPinned={isPinned} onClick={onTogglePin} />
+      </div>
+    );
+  }
+
+  return (
+    <div className="group flex items-center">
+      <NavLink
+        to={mod.route}
+        onClick={onClose}
+        className={({ isActive }) => `
+          flex-1 block px-3 py-1.5 rounded-lg text-sm transition-all duration-150
+          ${isActive
+            ? 'text-sky-400 bg-sky-400/10 font-medium'
+            : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.04]'
+          }
+        `}
+      >
+        {mod.title}
+      </NavLink>
+      <PinButton isPinned={isPinned} onClick={onTogglePin} />
+    </div>
+  );
+}
+
 export default function Sidebar({ open, onClose }) {
   const [search, setSearch] = useState('');
   const [collapsed, setCollapsed] = useState({});
-  const { league, setLeague } = useLeague();
-
+  const { pinnedIds, togglePin, isPinned } = usePinned();
   const tree = useMemo(() => getModuleTree(), []);
+
+  const pinnedModules = useMemo(
+    () => pinnedIds.map(id => modules.find(m => m.id === id)).filter(Boolean),
+    [pinnedIds]
+  );
 
   const filtered = search
     ? modules.filter(m =>
@@ -70,37 +133,41 @@ export default function Sidebar({ open, onClose }) {
 
         {/* Nav */}
         <nav className="flex-1 overflow-y-auto px-3 pb-3 space-y-1">
+
+          {/* Pinned section */}
+          {!filtered && pinnedModules.length > 0 && (
+            <div className="mb-1">
+              <div className="px-3 py-2 text-[11px] uppercase tracking-wider text-amber-500/70 font-semibold flex items-center gap-1.5">
+                <svg className="w-3 h-3" viewBox="0 0 16 16" fill="currentColor">
+                  <path d="M9.828.722a.5.5 0 0 1 .354.146l4.95 4.95a.5.5 0 0 1-.707.707l-.71-.71-3.18 3.18a5.5 5.5 0 0 1-1.062 3.044l-.216.27a.5.5 0 0 1-.764.02L6.17 10.106l-3.64 3.647a.5.5 0 1 1-.707-.707l3.64-3.647L3.24 7.176a.5.5 0 0 1 .02-.764l.27-.216a5.5 5.5 0 0 1 3.044-1.062l3.18-3.18-.71-.71a.5.5 0 0 1 .146-.854l.636-.318z" />
+                </svg>
+                Pinned
+              </div>
+              {pinnedModules.map(mod => (
+                <div key={mod.id} className="ml-2">
+                  <SidebarLink
+                    mod={mod}
+                    onClose={onClose}
+                    isPinned={true}
+                    onTogglePin={() => togglePin(mod.id)}
+                  />
+                </div>
+              ))}
+              <div className="mx-3 my-2 border-t border-white/5" />
+            </div>
+          )}
+
           {filtered ? (
             /* Search results */
-            filtered.map(mod => mod.external ? (
-              <a
-                key={mod.id}
-                href={mod.externalUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                onClick={onClose}
-                className="flex items-center gap-1.5 px-3 py-2 rounded-lg text-sm transition-all duration-150 text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.04]"
-              >
-                {mod.title}
-                <svg className="w-3 h-3 text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                </svg>
-              </a>
-            ) : (
-              <NavLink
-                key={mod.id}
-                to={mod.route}
-                onClick={onClose}
-                className={({ isActive }) => `
-                  block px-3 py-2 rounded-lg text-sm transition-all duration-150
-                  ${isActive
-                    ? 'text-sky-400 bg-sky-400/10 font-medium'
-                    : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.04]'
-                  }
-                `}
-              >
-                {mod.title}
-              </NavLink>
+            filtered.map(mod => (
+              <div key={mod.id} className="ml-0">
+                <SidebarLink
+                  mod={mod}
+                  onClose={onClose}
+                  isPinned={isPinned(mod.id)}
+                  onTogglePin={() => togglePin(mod.id)}
+                />
+              </div>
             ))
           ) : (
             /* Grouped navigation */
@@ -124,35 +191,15 @@ export default function Sidebar({ open, onClose }) {
                     <div className="px-3 py-1 text-[10px] uppercase tracking-wider text-zinc-600">
                       {sub}
                     </div>
-                    {mods.map(mod => mod.external ? (
-                      <a
-                        key={mod.id}
-                        href={mod.externalUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={onClose}
-                        className="flex items-center gap-1.5 px-3 py-1.5 ml-2 rounded-lg text-sm transition-all duration-150 text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.04]"
-                      >
-                        {mod.title}
-                        <svg className="w-3 h-3 text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                        </svg>
-                      </a>
-                    ) : (
-                      <NavLink
-                        key={mod.id}
-                        to={mod.route}
-                        onClick={onClose}
-                        className={({ isActive }) => `
-                          block px-3 py-1.5 ml-2 rounded-lg text-sm transition-all duration-150
-                          ${isActive
-                            ? 'text-sky-400 bg-sky-400/10 font-medium'
-                            : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.04]'
-                          }
-                        `}
-                      >
-                        {mod.title}
-                      </NavLink>
+                    {mods.map(mod => (
+                      <div key={mod.id} className="ml-2">
+                        <SidebarLink
+                          mod={mod}
+                          onClose={onClose}
+                          isPinned={isPinned(mod.id)}
+                          onTogglePin={() => togglePin(mod.id)}
+                        />
+                      </div>
                     ))}
                   </div>
                 ))}
@@ -186,21 +233,7 @@ export default function Sidebar({ open, onClose }) {
         </nav>
 
         {/* Bottom pinned */}
-        <div className="border-t border-white/5 px-4 py-3 space-y-3">
-          {/* League selector */}
-          <div className="space-y-1">
-            <label className="text-[10px] uppercase tracking-wider text-zinc-600">League</label>
-            <select
-              value={league}
-              onChange={e => setLeague(e.target.value)}
-              className="w-full bg-zinc-900/60 border border-white/[0.06] rounded-lg text-sm py-1.5 px-2 text-zinc-300 outline-none focus:border-sky-400/30 transition-colors cursor-pointer"
-            >
-              {LEAGUES.map(l => (
-                <option key={l.value} value={l.value}>{l.label}</option>
-              ))}
-            </select>
-          </div>
-
+        <div className="border-t border-white/5 px-4 py-3">
           {/* Watermark */}
           <div className="text-center">
             <span className="text-[10px] text-zinc-700">EtherealCarnivore</span>

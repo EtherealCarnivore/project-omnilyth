@@ -1,10 +1,14 @@
 import { useState, Suspense } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar';
 import Topbar from './Topbar';
+import modules from '../modules/registry';
 
 export default function AppShell() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const location = useLocation();
+  const currentModule = modules.find(m => m.route === location.pathname);
+  const isFullWidth = currentModule?.fullWidth;
 
   return (
     <div className="flex h-screen overflow-hidden">
@@ -13,8 +17,8 @@ export default function AppShell() {
       <div className="flex-1 flex flex-col min-w-0">
         <Topbar onMenuClick={() => setSidebarOpen(prev => !prev)} />
 
-        <main className="flex-1 overflow-y-auto">
-          <div className="max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        <main className={`flex-1 ${isFullWidth ? '' : 'overflow-y-auto'}`}>
+          <div className={isFullWidth ? 'h-full px-4 sm:px-6 py-6 sm:py-8' : 'max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8'}>
             <Suspense
               fallback={
                 <div className="flex items-center justify-center py-20">

@@ -37,7 +37,7 @@ export function calculateFusing(quality, sockets = 6) {
   // 2-4 sockets: bench is very cheap, manual isn't meaningful
   if (target <= 4) {
     const baseP = BASE_CHANCE_BY_LINKS[target];
-    const p = baseP * (1 + q / 100);
+    const p = Math.min(1, baseP * (1 + q / 100));
     const avgFusings = 1 / p;
     const stdDev = Math.sqrt((1 - p) / (p * p));
     const milestones = MILESTONES_BY_LINKS[target];
@@ -60,7 +60,7 @@ export function calculateFusing(quality, sockets = 6) {
 
   // 5-6 sockets: full calculation
   const baseP = BASE_CHANCE_BY_LINKS[target];
-  const p = baseP * (1 + q / 100);
+  const p = Math.min(1, baseP * (1 + q / 100));
   const avgFusings = 1 / p;
   const stdDev = Math.sqrt((1 - p) / (p * p));
 

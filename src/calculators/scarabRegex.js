@@ -1,0 +1,40 @@
+import { scarabs } from '../data/scarabData';
+
+const MAX_LEN = 250;
+
+/**
+ * Generates one or more regex strings from selected scarab names,
+ * each fitting within PoE's 250-character limit.
+ * Cuts at valid token boundaries (between `|`-separated tokens).
+ * Returns an array of regex strings like `"tok1|tok2|tok3"`.
+ */
+export function generateScarabRegexes(selectedNames) {
+  const tokens = selectedNames.map(name => scarabs[name]?.regex).filter(Boolean);
+  if (tokens.length === 0) return [];
+
+  const chunks = [];
+  let current = [];
+
+  for (const token of tokens) {
+    // Check if adding this token would exceed the limit
+    // Format: "tok1|tok2|...|tokN" — quotes (2) + joins (|) between tokens
+    const wouldBe = current.length === 0
+      ? 2 + token.length                                    // "token"
+      : 2 + current.reduce((s, t) => s + t.length, 0) + (current.length - 1) + 1 + token.length;
+      // 2 quotes + existing tokens + existing pipes + new pipe + new token
+
+    if (wouldBe > MAX_LEN && current.length > 0) {
+      // Flush current chunk
+      chunks.push(`"${current.join('|')}"`);
+      current = [token];
+    } else {
+      current.push(token);
+    }
+  }
+
+  if (current.length > 0) {
+    chunks.push(`"${current.join('|')}"`);
+  }
+
+  return chunks;
+}

@@ -7,12 +7,29 @@ export default function VoriciCalculator({ prices }) {
   const [results, setResults] = useState(null);
   const [jewellerComparison, setJewellerComparison] = useState(null);
   const [error, setError] = useState('');
+  const [showLore, setShowLore] = useState(false);
 
   const chromePrice = prices?.['chromatic-orb']?.chaosRate;
   const jewellerPrice = prices?.['jewellers-orb']?.chaosRate;
   const hasPrices = chromePrice && jewellerPrice;
 
   function set(field, value) {
+    if (field === 'sockets' && value !== '') {
+      const n = parseInt(value, 10);
+      if (isNaN(n) || n < 1 || n > 6) { setInputs(prev => ({ ...prev, sockets: '' })); return; }
+    }
+    if (['red', 'green', 'blue'].includes(field) && value !== '') {
+      const n = parseInt(value, 10);
+      if (isNaN(n) || n < 0) { setInputs(prev => ({ ...prev, [field]: '' })); return; }
+      setInputs(prev => {
+        const sockets = prev.sockets === '' ? 6 : parseInt(prev.sockets, 10);
+        const others = ['red', 'green', 'blue'].filter(f => f !== field).reduce((sum, f) => sum + (prev[f] === '' ? 0 : parseInt(prev[f], 10)), 0);
+        const clamped = Math.min(n, sockets - others);
+        if (clamped < 0) return { ...prev, [field]: '' };
+        return { ...prev, [field]: String(clamped) };
+      });
+      return;
+    }
     setInputs(prev => ({ ...prev, [field]: value }));
   }
 
@@ -110,6 +127,25 @@ export default function VoriciCalculator({ prices }) {
       <div>
         <h2 className="text-lg font-semibold text-sky-300">Vorici Chromatic Calculator</h2>
         <p className="text-sm text-zinc-400 mt-1">Compares Vorici bench crafts vs raw Chromatic Orbs to find the cheapest method.</p>
+        <button
+          onClick={() => setShowLore(prev => !prev)}
+          className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors mt-1.5 flex items-center gap-1"
+        >
+          <svg className={`w-3 h-3 transition-transform duration-200 ${showLore ? 'rotate-90' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+            <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+          </svg>
+          Why "Vorici"?
+        </button>
+        {showLore && (
+          <div className="mt-2 rounded-lg bg-zinc-800/40 border border-white/5 p-3 text-xs text-zinc-400 space-y-2 animate-in fade-in">
+            <p>
+              Back in the old days of PoE, <strong className="text-zinc-300">Vorici</strong> was a master NPC whose bench was the only way to get guaranteed socket colors. Players discovered that by toggling his "Set Socket Number" crafts up and down, they could force off-colors one socket at a time — locking in good rolls and only re-rolling the newest socket.
+            </p>
+            <p>
+              Vorici is no longer a master, but the technique lives on at the standard <strong className="text-zinc-300">Crafting Bench</strong>. The community kept calling it <em>"The Vorici Method"</em> — a legacy name honoring the guy who first gave exiles the tools to cheat chromatic RNG.
+            </p>
+          </div>
+        )}
       </div>
 
       <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-lg mx-auto">

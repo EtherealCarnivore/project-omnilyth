@@ -396,8 +396,12 @@ export default function FusingCalculator({ prices }) {
           </div>
           <div className="rounded-xl bg-orange-900/30 border border-orange-800/40 p-4 text-center">
             <div className="text-xs uppercase tracking-wider text-orange-300/70 mb-1">Average Manual</div>
-            <div className="text-2xl font-bold text-orange-300">{stats.avgFusings < 10 ? stats.avgFusings.toFixed(1) : Math.round(stats.avgFusings).toLocaleString()}</div>
-            <div className="text-xs text-zinc-400 mt-1">fusings at {quality}% quality</div>
+            <div className="text-2xl font-bold text-orange-300">
+              {stats.successChance >= 1 ? '1' : stats.avgFusings < 10 ? stats.avgFusings.toFixed(1) : Math.round(stats.avgFusings).toLocaleString()}
+            </div>
+            <div className="text-xs text-zinc-400 mt-1">
+              {stats.successChance >= 1 ? 'guaranteed — every fusing links' : `fusings at ${quality}% quality`}
+            </div>
           </div>
         </div>
       ) : !corrupted ? (
@@ -594,6 +598,16 @@ export default function FusingCalculator({ prices }) {
             While trying for a 6-link, you'll likely hit a 5-link first. At {quality}% quality,
             a 5-link takes roughly <strong className="text-orange-300">{Math.round(stats.fiveLink.avgFusings).toLocaleString()}</strong> fusings
             on average (~1 in {Math.round(1 / stats.fiveLink.chance)}).
+          </p>
+        </div>
+      )}
+
+      {/* Price Disclaimer */}
+      {hasPrices && (
+        <div className="rounded-xl bg-zinc-800/30 border border-zinc-700/20 p-3 flex items-start gap-2">
+          <span className="text-zinc-500 mt-0.5 shrink-0">⚠</span>
+          <p className="text-[11px] text-zinc-500 leading-relaxed">
+            Prices sourced from <strong className="text-zinc-400">poe.ninja</strong>, which scrapes GGG data roughly every hour. In-game merchant prices update in real time and may differ significantly. Always verify in-game before committing currency.
           </p>
         </div>
       )}

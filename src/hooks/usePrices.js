@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 
-const CURRENCY_IDS = ['chromatic-orb', 'jewellers-orb', 'tainted-chromatic-orb', 'orb-of-fusing', 'tainted-orb-of-fusing', 'vaal-orb'];
+const CURRENCY_IDS = ['chromatic-orb', 'jewellers-orb', 'tainted-chromatic-orb', 'orb-of-fusing', 'tainted-orb-of-fusing', 'vaal-orb', 'divine-orb'];
 
 // In dev, Vite proxies /api/poe-ninja/* -> https://poe.ninja/*
 // In production, we route through a CORS proxy since poe.ninja doesn't allow browser requests
@@ -47,29 +47,26 @@ export function usePrices(league) {
         }
       });
 
-      // Fetch omen prices
+      // Fetch omen prices from exchange endpoint (more accurate than item overview)
       const omenFetch = (async () => {
         try {
-          const url = ninjaUrl(`/api/data/itemoverview?league=${encodeURIComponent(league)}&type=Omen`);
+          const url = ninjaUrl(`/poe1/api/economy/exchange/current/overview?league=${encodeURIComponent(league)}&type=Omen`);
           const res = await fetch(url);
           if (!res.ok) return;
           const data = await res.json();
-          const blanching = data.lines?.find(l =>
-            l.name?.toLowerCase().includes('blanching')
-          );
+
+          const blanching = data.lines?.find(l => l.id === 'omen-of-blanching');
           if (blanching) {
             result['omen-of-blanching'] = {
-              chaosValue: blanching.chaosValue,
-              name: blanching.name || 'Omen of Blanching',
+              chaosValue: blanching.volumePrimaryValue || blanching.primaryValue || 0,
+              name: 'Omen of Blanching',
             };
           }
-          const connections = data.lines?.find(l =>
-            l.name?.toLowerCase().includes('connections')
-          );
+          const connections = data.lines?.find(l => l.id === 'omen-of-connections');
           if (connections) {
             result['omen-of-connections'] = {
-              chaosValue: connections.chaosValue,
-              name: connections.name || 'Omen of Connections',
+              chaosValue: connections.volumePrimaryValue || connections.primaryValue || 0,
+              name: 'Omen of Connections',
             };
           }
         } catch {

@@ -11,6 +11,22 @@ export default function JewellerCalculator({ prices }) {
   const hasPrices = chromePrice && jewellerPrice;
 
   function set(field, value) {
+    if (field === 'sockets' && value !== '') {
+      const n = parseInt(value, 10);
+      if (isNaN(n) || n < 2 || n > 6) { setInputs(prev => ({ ...prev, sockets: '' })); return; }
+    }
+    if (['red', 'green', 'blue'].includes(field) && value !== '') {
+      const n = parseInt(value, 10);
+      if (isNaN(n) || n < 0) { setInputs(prev => ({ ...prev, [field]: '' })); return; }
+      setInputs(prev => {
+        const sockets = prev.sockets === '' ? 6 : parseInt(prev.sockets, 10);
+        const others = ['red', 'green', 'blue'].filter(f => f !== field).reduce((sum, f) => sum + (prev[f] === '' ? 0 : parseInt(prev[f], 10)), 0);
+        const clamped = Math.min(n, sockets - others);
+        if (clamped < 0) return { ...prev, [field]: '' };
+        return { ...prev, [field]: String(clamped) };
+      });
+      return;
+    }
     setInputs(prev => ({ ...prev, [field]: value }));
   }
 
