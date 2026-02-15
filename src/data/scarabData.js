@@ -1,3 +1,17 @@
+/*
+ * scarabData.js — Every scarab in PoE with hand-picked regex fragments.
+ *
+ * Each `regex` field is the shortest unique substring that matches only
+ * that scarab in a stash search. These were found by trial and error,
+ * not by algorithm, because sometimes brute force is just faster than
+ * writing a suffix tree implementation in JavaScript.
+ *
+ * If you're reading this and wondering why the regex for "Abyss Scarab"
+ * is just "uls" — it's because that's the shortest string that doesn't
+ * collide with any other scarab name. You're welcome.
+ *
+ * ~170 entries. Do not manually comment each one unless you hate yourself.
+ */
 export const scarabs = {
  "Abyss Scarab": {
    name: "Abyss Scarab",

@@ -1,3 +1,10 @@
+/*
+ * AppShell.jsx — The main layout skeleton.
+ *
+ * Sidebar + Topbar + content area. Classic dashboard layout that every
+ * frontend framework has reinvented 47 times. This is attempt #48.
+ * I just wanted to write API endpoints, man.
+ */
 import { useState, Suspense } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';
 import Sidebar from './Sidebar';
@@ -7,6 +14,7 @@ import modules from '../modules/registry';
 export default function AppShell() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
+  // Look up current module to check if it needs fullWidth (e.g., Timeless Jewel tree)
   const currentModule = modules.find(m => m.route === location.pathname);
   const isFullWidth = currentModule?.fullWidth;
 
@@ -19,6 +27,8 @@ export default function AppShell() {
 
         <main className={`flex-1 ${isFullWidth ? '' : 'overflow-y-auto'}`}>
           <div className={isFullWidth ? 'h-full px-4 sm:px-6 py-6 sm:py-8' : 'max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8'}>
+            {/* Suspense boundary for lazy-loaded modules. The spinner is pure CSS — */}
+            {/* because importing a spinner library to show while other things load felt too ironic */}
             <Suspense
               fallback={
                 <div className="flex items-center justify-center py-20">

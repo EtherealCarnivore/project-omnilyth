@@ -1,3 +1,9 @@
+/*
+ * ScarabCalculator.jsx — Select scarabs, get regex. Simple concept, 260 lines of JSX.
+ *
+ * Fetches its own prices directly from poe.ninja (separate from the global price context)
+ * because scarab pricing uses a different API endpoint. Because of course it does.
+ */
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useLeague } from '../contexts/LeagueContext';
 import { scarabs, scarabList } from '../data/scarabData';
@@ -69,7 +75,8 @@ export default function ScarabCalculator() {
   const [prices, setPrices] = useState(new Map());
   const [priceLoading, setPriceLoading] = useState(false);
 
-  // Fetch scarab prices from poe.ninja
+  // Fetch scarab prices from poe.ninja — the useEffect dependency array is just [league],
+  // which means this fires on every league change. React devs: "this is fine."
   useEffect(() => {
     if (!league) return;
     setPriceLoading(true);
@@ -119,7 +126,8 @@ export default function ScarabCalculator() {
     setMaxPrice('');
   }, []);
 
-  // Selected scarabs on top, then sort by price descending within each group
+  // Selected scarabs on top, then sort by price descending within each group.
+  // useMemo because sorting 100+ scarabs on every keystroke made React cry.
   const sortedScarabs = useMemo(() => {
     const filtered = search.length >= 2
       ? scarabList.filter(s => s.name.toLowerCase().includes(search.toLowerCase()))

@@ -1,5 +1,18 @@
+/*
+ * usePrices.js — Fetches currency + omen prices from poe.ninja.
+ *
+ * The hook that keeps the entire app's economy data flowing. Fires off
+ * parallel fetch requests for each currency type because poe.ninja's API
+ * doesn't have a "give me everything" endpoint. Classic third-party API design.
+ *
+ * In production we route through a CORS proxy because browsers won't let you
+ * fetch from poe.ninja directly. CORS: making simple HTTP requests complicated
+ * since 2014. On the backend this would just be... a GET request. That works.
+ */
 import { useState, useEffect, useCallback } from 'react';
 
+// Every currency we care about. Adding a new one? Just append the slug here.
+// If only React state management were this straightforward.
 const CURRENCY_IDS = ['chromatic-orb', 'jewellers-orb', 'tainted-chromatic-orb', 'orb-of-fusing', 'tainted-orb-of-fusing', 'vaal-orb', 'divine-orb'];
 
 // In dev, Vite proxies /api/poe-ninja/* -> https://poe.ninja/*
@@ -28,7 +41,8 @@ export function usePrices(league) {
     try {
       const result = {};
 
-      // Fetch currency prices in parallel
+      // Fetch currency prices in parallel — Promise.all because sequential fetches
+      // are for people who enjoy watching loading spinners
       const currencyFetches = CURRENCY_IDS.map(async (id) => {
         try {
           const url = ninjaUrl(`/poe1/api/economy/exchange/current/details?league=${encodeURIComponent(league)}&type=Currency&id=${id}`);
@@ -90,6 +104,7 @@ export function usePrices(league) {
     }
   }, [league]);
 
+  // useEffect + useCallback: the "please trust me React, I know when to fetch" ritual
   useEffect(() => {
     fetchPrices();
   }, [fetchPrices]);

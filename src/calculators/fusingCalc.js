@@ -3,6 +3,10 @@
  *
  * Base chance at 0% quality: 1/1500
  * Quality bonus: chance = (1/1500) * (1 + quality/100)
+ *
+ * Finally, a file with PURE MATH and ZERO JSX. No useEffect, no re-renders,
+ * no CSS classes. Just functions that take inputs and return outputs.
+ * This is what programming is supposed to feel like.
  */
 
 // Base chance at 0% quality per target link count (index = link count)
@@ -70,7 +74,7 @@ export function calculateFusing(quality, sockets = 6) {
     probability: 1 - Math.pow(1 - p, n),
   }));
 
-  // For 6-socket, also calculate 5-link milestone info
+  // For 6-socket, also calculate 5-link milestone info — the consolation prize
   const fiveLink = target === 6 ? (() => {
     const p5 = BASE_CHANCE_BY_LINKS[5] * (1 + q / 100);
     return { chance: p5, avgFusings: 1 / p5 };
@@ -150,6 +154,7 @@ export function calculateTaintedStrategy(sockets, currentLinks) {
   };
 }
 
+// Markov chain probability computation — the one time a CS degree actually pays off
 function computeTaintedCumulative(startState, target) {
   const milestones = [1, 2, 3, 4, 5, 6, 8, 10, 15, 20, 25, 30, 35];
   const maxN = milestones[milestones.length - 1];
@@ -272,7 +277,8 @@ export function calculateCostComparison(stats, fusingPrice, taintedFusingPrice, 
     }
   }
 
-  // Mark best — use risk-adjusted cost (75th percentile) when available, else chaos cost
+  // Mark best — use risk-adjusted cost (75th percentile) when available, else chaos cost.
+  // Because "average" means half the players get screwed harder than that.
   const withCosts = strategies.filter(s => s.chaosCost != null);
   if (withCosts.length > 0) {
     const costKey = withCosts.some(s => s.riskAdjustedCost != null) ? 'riskAdjustedCost' : 'chaosCost';

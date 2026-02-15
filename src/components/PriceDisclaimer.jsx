@@ -1,8 +1,12 @@
+// PriceDisclaimer.jsx — The "not financial advice" banner of PoE tooling.
+// Dismissible and persisted to localStorage because showing it every
+// page load would be more annoying than a reflect map with no leech.
 import { useState } from 'react';
 
 const DISMISSED_KEY = 'omnilyth_price_disclaimer_dismissed';
 
 export default function PriceDisclaimer() {
+  // Lazy initializer to avoid reading localStorage on every render. Small wins.
   const [dismissed, setDismissed] = useState(() => {
     try { return localStorage.getItem(DISMISSED_KEY) === '1'; }
     catch { return false; }

@@ -1,9 +1,17 @@
+/*
+ * Sidebar.jsx — 245 lines of navigation UI that could have been a <ul>.
+ *
+ * Features: collapsible categories, pinned modules, search filtering,
+ * "Coming Soon" copium section, and more inline SVG than any human
+ * should have to look at. I used to write database migrations.
+ */
 import { useState, useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
 import { getModuleTree } from '../modules/registry';
 import modules from '../modules/registry';
 import { usePinned } from '../contexts/PinnedContext';
 
+// Features we've promised but haven't built yet. Pure copium.
 const COMING_SOON = [
   { category: 'Trading/Economy', items: ['Bulk Exchange', 'Flip Tracker'] },
   { category: 'Builds', items: ['DPS Simulator', 'Passive Planner'] },
@@ -80,6 +88,7 @@ export default function Sidebar({ open, onClose }) {
     [pinnedIds]
   );
 
+  // Case-insensitive search because JavaScript doesn't believe in enums or proper search indices
   const filtered = search
     ? modules.filter(m =>
         m.title.toLowerCase().includes(search.toLowerCase()) ||
@@ -87,6 +96,7 @@ export default function Sidebar({ open, onClose }) {
       )
     : null;
 
+  // Spreading prev into a new object just to flip one boolean. Peak JS immutability theater.
   function toggleCategory(cat) {
     setCollapsed(prev => ({ ...prev, [cat]: !prev[cat] }));
   }
