@@ -4,7 +4,10 @@
  * Lazy-loaded via React.lazy() so the initial bundle doesn't include every
  * calculator known to mankind. This is the closest thing to a proper service
  * registry I'll ever get in frontend land. No dependency injection, no IoC
- * container, just an array of objects. It's not much, but it's honest work.
+ * container, no Spring Boot autoconfiguration, just an array of objects.
+ * My Java services auto-discover each other via Consul. This one is a hardcoded array.
+ * But you know what? It works, it's readable, and it's never caused an outage at 2 AM.
+ * Can't say the same about Spring Cloud.
  */
 import { lazy } from 'react';
 
@@ -125,8 +128,10 @@ const modules = [
 export default modules;
 
 // Builds a nested category → subcategory → modules tree for the sidebar.
-// In SQL this would be a GROUP BY with two levels. In JS it's a manual loop
-// that checks for undefined twice. I'm not bitter, you're bitter.
+// In SQL this would be GROUP BY category, subcategory. In Java it would be
+// Collectors.groupingBy(). In JS it's a manual loop that checks for undefined twice.
+// I've written order aggregation logic that groups millions of trades per second.
+// This groups 11 modules and I still had to debug it. Frontend is humbling.
 export function getModuleTree() {
   const tree = {};
   for (const mod of modules) {

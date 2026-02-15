@@ -2,9 +2,10 @@
  * PricesContext.jsx — The thinnest context wrapper known to mankind.
  *
  * This file exists solely to lift usePrices() into React context so every
- * child component can access price data without prop drilling. In a backend
- * world this would just be... a function call. But no, we need a Provider,
- * a Context, a custom hook, and a partridge in a pear tree.
+ * child component can access price data without prop drilling. In Java
+ * this would be a singleton with @Inject. Here we need a Provider, a Context,
+ * a custom hook, and a partridge in a pear tree. 23 lines to share one object.
+ * My FIX protocol parser has a better data model than this.
  */
 import { createContext, useContext } from 'react';
 import { usePrices } from '../hooks/usePrices';

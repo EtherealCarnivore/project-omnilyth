@@ -3,7 +3,9 @@
  *
  * Features: collapsible categories, pinned modules, search filtering,
  * "Coming Soon" copium section, and more inline SVG than any human
- * should have to look at. I used to write database migrations.
+ * should have to look at. I used to write order book data structures in Java.
+ * Red-black trees, lock-free queues, memory-mapped files. Now I'm toggling
+ * CSS classes on a div. This is fine. Everything is fine.
  */
 import { useState, useMemo } from 'react';
 import { NavLink } from 'react-router-dom';

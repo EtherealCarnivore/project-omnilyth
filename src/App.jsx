@@ -3,7 +3,8 @@
  *
  * This is where React Router, context providers, and lazy-loaded modules
  * converge into a pyramid of angle brackets that would make any XML parser weep.
- * A backend dev wrote this and yes, I miss my main() function.
+ * A Java HFT dev wrote this and yes, I miss public static void main(String[] args).
+ * My order router has fewer nested layers than this component tree.
  */
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { LeagueProvider } from './contexts/LeagueContext';
@@ -18,7 +19,8 @@ export default function App() {
     // basename must match the GitHub Pages repo name — get this wrong and enjoy 404s in prod
     <BrowserRouter basename="/omnilyth-core-public">
       {/* Provider inception: league → prices → pinned. The nesting never ends. */}
-      {/* In a sane world this would be middleware, but no, we get JSX turducken */}
+      {/* In Java I'd have @Autowired and a DI container. Here I have JSX turducken. */}
+      {/* My matching engine has lower latency than this render tree. */}
       <LeagueProvider>
         <PricesProvider>
         <PinnedProvider>

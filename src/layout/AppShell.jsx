@@ -3,7 +3,9 @@
  *
  * Sidebar + Topbar + content area. Classic dashboard layout that every
  * frontend framework has reinvented 47 times. This is attempt #48.
- * I just wanted to write API endpoints, man.
+ * I write low-latency order execution systems in Java. I can route a market order
+ * through three exchanges in under 200 microseconds. But positioning a sidebar
+ * next to a content area? That took me 45 minutes and a Stack Overflow tab.
  */
 import { useState, Suspense } from 'react';
 import { Outlet, useLocation } from 'react-router-dom';

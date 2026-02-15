@@ -4,7 +4,10 @@
  * Contains THREE separate components that each independently implement
  * "close on outside click" via useRef + useEffect + document.addEventListener.
  * Yes, I copy-pasted it three times. No, I don't want to talk about it.
- * A custom hook would fix this but that would require me to care about frontend patterns.
+ * In Java I'd extract a base class. Here they told me "composition over inheritance"
+ * and then gave me no good way to compose this. Respect to frontend devs who
+ * deal with this daily. I write market makers for a living and this dropdown
+ * code made me question my career choices more than any flash crash ever did.
  */
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
@@ -104,7 +107,9 @@ function PriceStatusPopover({ loading, error, prices }) {
     return () => document.removeEventListener('mousedown', handler);
   }, [open]);
 
-  // Ternary chain from hell — but at least it's not a switch statement returning JSX
+  // Ternary chain from hell — a ? b : c ? d : e ? f : g. In Java I'd use an enum with
+  // a getLabel() method. JS doesn't have real enums so here we are, nesting ternaries
+  // like it's 2005 and we're writing PHP. Shoutout to frontend engineers who read these daily.
   const label = loading ? 'Fetching...' : error ? 'Error' : prices ? 'Live*' : 'No data';
   const dotClass = loading ? 'bg-zinc-500 animate-pulse' : error ? 'bg-red-500' : prices ? 'bg-green-500' : 'bg-zinc-600';
   const textClass = loading ? 'text-zinc-500' : error ? 'text-red-400/80' : prices ? 'text-green-400/80' : 'text-zinc-500';

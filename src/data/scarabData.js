@@ -11,6 +11,10 @@
  * collide with any other scarab name. You're welcome.
  *
  * ~170 entries. Do not manually comment each one unless you hate yourself.
+ * This whole file is essentially static reference data — in my trading systems
+ * this would be loaded from a database at startup. Here it's hardcoded in a JS file
+ * and shipped to every user's browser. The SEC would have questions about my data pipeline
+ * if I ran my exchange feeds like this.
  */
 export const scarabs = {
  "Abyss Scarab": {
