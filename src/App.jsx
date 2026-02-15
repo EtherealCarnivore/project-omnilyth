@@ -10,8 +10,12 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { LeagueProvider } from './contexts/LeagueContext';
 import { PricesProvider } from './contexts/PricesContext';
 import { PinnedProvider } from './contexts/PinnedContext';
+import { DesignProvider } from './contexts/DesignContext';
 import AppShell from './layout/AppShell';
 import HomePage from './pages/HomePage';
+import CraftingOverviewPage from './pages/CraftingOverviewPage';
+import AtlasOverviewPage from './pages/AtlasOverviewPage';
+import BuildPlanningOverviewPage from './pages/BuildPlanningOverviewPage';
 import modules from './modules/registry';
 
 export default function App() {
@@ -24,9 +28,14 @@ export default function App() {
       <LeagueProvider>
         <PricesProvider>
         <PinnedProvider>
+        <DesignProvider>
           <Routes>
             <Route element={<AppShell />}>
               <Route index element={<HomePage />} />
+              {/* Category overview pages (v2 layout hubs) */}
+              <Route path="/crafting" element={<CraftingOverviewPage />} />
+              <Route path="/atlas" element={<AtlasOverviewPage />} />
+              <Route path="/build" element={<BuildPlanningOverviewPage />} />
               {/* Dynamically generate routes from registry — at least ONE thing feels like proper architecture */}
               {modules.filter(mod => !mod.external).map(mod => (
                 <Route key={mod.id} path={mod.route} element={<mod.component />} />
@@ -35,6 +44,7 @@ export default function App() {
               <Route path="*" element={<HomePage />} />
             </Route>
           </Routes>
+        </DesignProvider>
         </PinnedProvider>
         </PricesProvider>
       </LeagueProvider>

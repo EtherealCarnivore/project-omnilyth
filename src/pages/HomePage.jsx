@@ -13,11 +13,52 @@ import { Link } from 'react-router-dom';
 import modules from '../modules/registry';
 import YouTubeCard from '../components/YouTubeCard';
 import { usePinned } from '../contexts/PinnedContext';
+import { useDesign } from '../contexts/DesignContext';
 
 const CATEGORY_COLORS = {
   'Crafting': 'from-sky-500/20 to-sky-500/5 border-sky-500/20',
   'Atlas/Mapping': 'from-teal-500/20 to-teal-500/5 border-teal-500/20',
+  'Build Planning': 'from-violet-500/20 to-violet-500/5 border-violet-500/20',
 };
+
+const CATEGORY_HUBS = [
+  {
+    name: 'Crafting',
+    route: '/crafting',
+    description: 'Socket coloring, linking, and item crafting calculators',
+    colors: 'from-sky-500/20 to-sky-500/5 border-sky-500/20',
+    hoverAccent: 'group-hover:text-sky-400',
+    icon: (
+      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+        <circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Atlas / Mapping',
+    route: '/atlas',
+    description: 'Map mod filtering and scarab regex tools',
+    colors: 'from-teal-500/20 to-teal-500/5 border-teal-500/20',
+    hoverAccent: 'group-hover:text-teal-400',
+    icon: (
+      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+        <path d="M9 2L3 7v13l6-4 6 4 6-4V3l-6 4-6-4z" />
+      </svg>
+    ),
+  },
+  {
+    name: 'Build Planning',
+    route: '/build',
+    description: 'Jewel calculators and build optimization tools',
+    colors: 'from-violet-500/20 to-violet-500/5 border-violet-500/20',
+    hoverAccent: 'group-hover:text-violet-400',
+    icon: (
+      <svg className="w-8 h-8" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+      </svg>
+    ),
+  },
+];
 
 const SUBCATEGORY_ICONS = {
   Coloring: (
@@ -39,6 +80,16 @@ const SUBCATEGORY_ICONS = {
   Maps: (
     <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
       <path d="M9 2L3 7v13l6-4 6 4 6-4V3l-6 4-6-4z" />
+    </svg>
+  ),
+  'Cluster Jewels': (
+    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+      <circle cx="12" cy="8" r="3" /><circle cx="7" cy="16" r="3" /><circle cx="17" cy="16" r="3" />
+    </svg>
+  ),
+  'Timeless Jewels': (
+    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+      <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
     </svg>
   ),
 };
@@ -122,10 +173,49 @@ function ModuleCard({ mod, pinned, onTogglePin }) {
   );
 }
 
+function CategoryHubCard({ hub }) {
+  const toolCount = modules.filter(m =>
+    m.category === hub.name || (hub.name === 'Atlas / Mapping' && m.category === 'Atlas/Mapping')
+  ).length;
+
+  return (
+    <Link
+      to={hub.route}
+      className={`group relative rounded-2xl border bg-gradient-to-br p-8 transition-all duration-150 ease-out hover:scale-[1.02] hover:shadow-lg hover:shadow-black/20 ${hub.colors}`}
+    >
+      <div className="flex items-start gap-4">
+        <div className={`shrink-0 text-zinc-400 ${hub.hoverAccent} transition-colors`}>
+          {hub.icon}
+        </div>
+        <div className="min-w-0">
+          <h3 className={`text-lg font-semibold text-zinc-100 ${hub.hoverAccent} transition-colors`}>
+            {hub.name}
+          </h3>
+          <p className="text-sm text-zinc-500 mt-1 leading-relaxed">
+            {hub.description}
+          </p>
+          <div className="flex items-center gap-2 mt-4">
+            <span className="text-[10px] uppercase tracking-wider text-zinc-600 font-medium">
+              {toolCount} {toolCount === 1 ? 'tool' : 'tools'}
+            </span>
+            <span className={`text-xs ${hub.hoverAccent} text-zinc-600 transition-colors flex items-center gap-1`}>
+              Explore
+              <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </div>
+    </Link>
+  );
+}
+
 export default function HomePage() {
   const [search, setSearch] = useState('');
   const [showCredits, setShowCredits] = useState(false);
   const { pinnedIds, togglePin, isPinned } = usePinned();
+  const { variant } = useDesign();
 
   const pinnedModules = useMemo(
     () => pinnedIds.map(id => modules.find(m => m.id === id)).filter(Boolean),
@@ -194,27 +284,43 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* All Modules heading */}
-      {!search && pinnedModules.length > 0 && (
-        <div className="flex items-center gap-2 px-1 -mb-4">
-          <h2 className="text-xs font-semibold text-zinc-500 uppercase tracking-widest">All Modules</h2>
-        </div>
-      )}
+      {/* v2 + no search: category hub cards */}
+      {variant === 'v2' && !search ? (
+        <>
+          <div className="flex items-center gap-2 px-1 -mb-4">
+            <h2 className="text-xs font-semibold text-zinc-500 uppercase tracking-widest">Categories</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {CATEGORY_HUBS.map(hub => (
+              <CategoryHubCard key={hub.name} hub={hub} />
+            ))}
+          </div>
+        </>
+      ) : (
+        <>
+          {/* All Modules heading */}
+          {!search && pinnedModules.length > 0 && (
+            <div className="flex items-center gap-2 px-1 -mb-4">
+              <h2 className="text-xs font-semibold text-zinc-500 uppercase tracking-widest">All Modules</h2>
+            </div>
+          )}
 
-      {/* Module Cards Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filtered.map(mod => (
-          <ModuleCard
-            key={mod.id}
-            mod={mod}
-            pinned={isPinned(mod.id)}
-            onTogglePin={() => togglePin(mod.id)}
-          />
-        ))}
-      </div>
+          {/* Module Cards Grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filtered.map(mod => (
+              <ModuleCard
+                key={mod.id}
+                mod={mod}
+                pinned={isPinned(mod.id)}
+                onTogglePin={() => togglePin(mod.id)}
+              />
+            ))}
+          </div>
 
-      {filtered.length === 0 && (
-        <p className="text-center text-zinc-500 text-sm py-8">No modules match your search.</p>
+          {filtered.length === 0 && (
+            <p className="text-center text-zinc-500 text-sm py-8">No modules match your search.</p>
+          )}
+        </>
       )}
 
       <YouTubeCard />
