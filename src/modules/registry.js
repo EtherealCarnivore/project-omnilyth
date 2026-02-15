@@ -1,3 +1,11 @@
+/*
+ * registry.js — The module registry. Every tool in the app is registered here.
+ *
+ * Lazy-loaded via React.lazy() so the initial bundle doesn't include every
+ * calculator known to mankind. This is the closest thing to a proper service
+ * registry I'll ever get in frontend land. No dependency injection, no IoC
+ * container, just an array of objects. It's not much, but it's honest work.
+ */
 import { lazy } from 'react';
 
 const modules = [
@@ -116,6 +124,9 @@ const modules = [
 
 export default modules;
 
+// Builds a nested category → subcategory → modules tree for the sidebar.
+// In SQL this would be a GROUP BY with two levels. In JS it's a manual loop
+// that checks for undefined twice. I'm not bitter, you're bitter.
 export function getModuleTree() {
   const tree = {};
   for (const mod of modules) {

@@ -1,3 +1,11 @@
+/*
+ * Topbar.jsx — The header bar containing league selector, price status, and support dropdown.
+ *
+ * Contains THREE separate components that each independently implement
+ * "close on outside click" via useRef + useEffect + document.addEventListener.
+ * Yes, I copy-pasted it three times. No, I don't want to talk about it.
+ * A custom hook would fix this but that would require me to care about frontend patterns.
+ */
 import { useState, useRef, useEffect, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
 import modules from '../modules/registry';
@@ -23,7 +31,8 @@ function LeagueSelector({ league, setLeague, leagues }) {
   const [open, setOpen] = useState(false);
   const ref = useRef(null);
 
-  // Close on outside click
+  // Close on outside click — the frontend ritual of manually detecting clicks outside a div
+  // because HTML was never meant to have dropdowns and we're all just coping
   useEffect(() => {
     if (!open) return;
     const handler = (e) => {
@@ -95,6 +104,7 @@ function PriceStatusPopover({ loading, error, prices }) {
     return () => document.removeEventListener('mousedown', handler);
   }, [open]);
 
+  // Ternary chain from hell — but at least it's not a switch statement returning JSX
   const label = loading ? 'Fetching...' : error ? 'Error' : prices ? 'Live*' : 'No data';
   const dotClass = loading ? 'bg-zinc-500 animate-pulse' : error ? 'bg-red-500' : prices ? 'bg-green-500' : 'bg-zinc-600';
   const textClass = loading ? 'text-zinc-500' : error ? 'text-red-400/80' : prices ? 'text-green-400/80' : 'text-zinc-500';

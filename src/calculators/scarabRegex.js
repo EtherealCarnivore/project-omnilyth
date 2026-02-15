@@ -1,5 +1,7 @@
 import { scarabs } from '../data/scarabData';
 
+// PoE's stash search has a 250-char limit because apparently GGG's regex engine
+// runs on a potato. We must chunk our output to fit.
 const MAX_LEN = 250;
 
 /**
@@ -7,6 +9,9 @@ const MAX_LEN = 250;
  * each fitting within PoE's 250-character limit.
  * Cuts at valid token boundaries (between `|`-separated tokens).
  * Returns an array of regex strings like `"tok1|tok2|tok3"`.
+ *
+ * This is basically a bin-packing problem disguised as string concatenation.
+ * At least it's not NP-hard... just NP-annoying.
  */
 export function generateScarabRegexes(selectedNames) {
   const tokens = selectedNames.map(name => scarabs[name]?.regex).filter(Boolean);

@@ -1,3 +1,11 @@
+/*
+ * HomePage.jsx — The dashboard landing page.
+ *
+ * A grid of module cards with search, pinning, icons, and hover animations.
+ * This file contains more inline SVG path data than actual business logic.
+ * Every time I paste another SVG path string, a backend developer somewhere
+ * sheds a single tear. That developer is me.
+ */
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import modules from '../modules/registry';
@@ -55,6 +63,8 @@ function PinButton({ pinned, onToggle }) {
   );
 }
 
+// Each card is either a <Link> or an <a> depending on whether the module is external.
+// In a typed language I'd use a discriminated union. In JS I use `mod.external ? ... : ...`
 function ModuleCard({ mod, pinned, onTogglePin }) {
   const cardClass = `group relative rounded-2xl border bg-gradient-to-br p-5 transition-all duration-150 ease-out hover:scale-[1.02] hover:shadow-lg hover:shadow-black/20 ${
     CATEGORY_COLORS[mod.category] || 'from-zinc-800/40 to-zinc-900/40 border-white/5'
@@ -129,7 +139,7 @@ export default function HomePage() {
 
   return (
     <div className="space-y-8">
-      {/* Banner */}
+      {/* Banner — negative margins to crop the image. CSS crimes in broad daylight. */}
       <a
         href="https://github.com/EtherealCarnivore"
         target="_blank"

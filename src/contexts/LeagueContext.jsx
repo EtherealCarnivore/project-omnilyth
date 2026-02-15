@@ -1,13 +1,21 @@
+/*
+ * LeagueContext.jsx — Fetches and caches PoE league data.
+ *
+ * Three layers of fallback: API → localStorage cache → hardcoded list.
+ * This is the kind of defensive programming you learn from years of
+ * APIs going down at 3 AM. GGG's API doesn't need an auth token though,
+ * which honestly shocked me. No API key? In this economy?
+ */
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
 const CACHE_KEY = 'poe_leagues_cache_v2';
-const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours
+const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours — localStorage is our Redis at home
 const API_URL = 'https://www.pathofexile.com/api/leagues?type=main&limit=50';
 
 // PoE2 leagues use version-style names (e.g. "Phrecia 2.0", "Dawn 3.0")
 const POE2_PATTERN = /\d+\.\d+/;
 
-// Classify league by its name/id
+// Classify league by its name/id — string parsing that makes me miss SQL enums
 function classifyLeague(id) {
   const lower = id.toLowerCase();
   const isHc = lower.startsWith('hardcore') || lower.startsWith('hc ');
@@ -42,7 +50,7 @@ function shortenLabel(name) {
 }
 
 function transformAndSort(apiLeagues) {
-  // Filter out Ruthless variants
+  // Filter out Ruthless variants — nobody plays Ruthless and deep down we all know it
   const filtered = apiLeagues.filter(l => !l.id.toLowerCase().includes('ruthless'));
 
   const mapped = filtered.map(l => ({
@@ -128,6 +136,7 @@ export function LeagueProvider({ children }) {
     }
   }, []);
 
+  // The classic useEffect-calls-useCallback dance. React devs call this "elegant".
   useEffect(() => { fetchLeagues(); }, [fetchLeagues]);
 
   return (

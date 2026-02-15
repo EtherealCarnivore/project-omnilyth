@@ -1,3 +1,13 @@
+/*
+ * FusingCalculator.jsx — The big one. 636 lines of PoE linking strategy UI.
+ *
+ * Handles normal fusings, corrupted items, tainted orb strategies, Omen of Connections,
+ * Markov chain probability tables, cost comparisons, and more toggle states than a
+ * Boeing 747 cockpit. This component has more useState calls than some entire apps.
+ *
+ * I wrote the math in fusingCalc.js and it was beautiful. Then I had to wrap it
+ * in JSX and everything went wrong.
+ */
 import { useState, useMemo, useRef, useCallback } from 'react';
 import { calculateFusing, calculateCostComparison, calculateTaintedStrategy } from '../calculators/fusingCalc.js';
 
@@ -33,6 +43,7 @@ export default function FusingCalculator({ prices }) {
     if (currentLinks >= n) setCurrentLinks(Math.max(1, n - 1));
   }
 
+  // Corrupted items can't be quality'd, so we force 0. GGG giveth and GGG taketh away.
   const effectiveQuality = corrupted ? 0 : quality;
   const stats = useMemo(() => calculateFusing(effectiveQuality, targetLinks), [effectiveQuality, targetLinks]);
 
@@ -64,6 +75,7 @@ export default function FusingCalculator({ prices }) {
   // Auto-disable omen toggle when not eligible
   const effectiveUseOmen = useOmen && omenEligible;
 
+  // useMemo with 9 dependencies — the dependency array is longer than some SQL queries
   const costComparison = useMemo(() => {
     if (!hasPrices) return null;
     return calculateCostComparison(stats, fusingPrice, taintedFusingPrice, vaalPrice, corrupted, taintedStrategy, effectiveUseOmen ? omenPrice : null);

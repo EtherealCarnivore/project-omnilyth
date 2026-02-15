@@ -1,8 +1,17 @@
+/*
+ * VoriciCalculator.jsx — Chromatic socket color optimization.
+ *
+ * Compares every Vorici bench craft method against raw chromes and
+ * the Jeweller's trick. The input validation alone is 40 lines because
+ * RGB socket counts must not exceed total sockets and I can't just
+ * add a CHECK constraint like a civilized database person.
+ */
 import { useState } from 'react';
 import { calculateVorici } from '../calculators/voriciCalc.js';
 import { calculateJeweller } from '../calculators/jewellerCalc.js';
 
 export default function VoriciCalculator({ prices }) {
+  // Seven fields of state in one object. This is what happens when you don't have forms libraries.
   const [inputs, setInputs] = useState({ sockets: '', str: '', dex: '', int: '', red: '', green: '', blue: '' });
   const [results, setResults] = useState(null);
   const [jewellerComparison, setJewellerComparison] = useState(null);
@@ -13,6 +22,8 @@ export default function VoriciCalculator({ prices }) {
   const jewellerPrice = prices?.['jewellers-orb']?.chaosRate;
   const hasPrices = chromePrice && jewellerPrice;
 
+  // Input validation that would be one line of Joi/Zod on the backend but is
+  // instead 20 lines of parseInt and NaN checks. I love JavaScript.
   function set(field, value) {
     if (field === 'sockets' && value !== '') {
       const n = parseInt(value, 10);
@@ -76,7 +87,8 @@ export default function VoriciCalculator({ prices }) {
     const voriciResults = calculateVorici(sockets, str, dex, int, dr, dg, db);
     setResults(voriciResults);
 
-    // Run Jeweller's Method comparison if we have prices and >= 2 sockets
+    // Run Jeweller's Method comparison if we have prices and >= 2 sockets.
+    // Cross-strategy optimization — the fun part that makes this calc actually useful.
     if (hasPrices && sockets >= 2) {
       const jewellerResults = calculateJeweller(sockets, str, dex, int, dr, dg, db);
       const bestJeweller = jewellerResults.find(s => s.isBest);
