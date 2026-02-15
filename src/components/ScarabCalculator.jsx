@@ -3,6 +3,10 @@
  *
  * Fetches its own prices directly from poe.ninja (separate from the global price context)
  * because scarab pricing uses a different API endpoint. Because of course it does.
+ * In a proper system I'd have one unified price service with typed responses.
+ * In JS land, we fetch JSON and pray the shape hasn't changed since last Tuesday.
+ * At least in HFT when a feed format changes, the exchange sends a notification.
+ * poe.ninja just vibes.
  */
 import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useLeague } from '../contexts/LeagueContext';
@@ -128,6 +132,7 @@ export default function ScarabCalculator() {
 
   // Selected scarabs on top, then sort by price descending within each group.
   // useMemo because sorting 100+ scarabs on every keystroke made React cry.
+  // 100 items. My order book handles 10M price levels without breaking a sweat.
   const sortedScarabs = useMemo(() => {
     const filtered = search.length >= 2
       ? scarabList.filter(s => s.name.toLowerCase().includes(search.toLowerCase()))

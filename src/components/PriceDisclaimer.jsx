@@ -1,4 +1,6 @@
 // PriceDisclaimer.jsx — The "not financial advice" banner of PoE tooling.
+// As an HFT dev I'm legally required to add disclaimers to everything involving prices.
+// Old habits die hard. At least this one doesn't need SEC approval.
 // Dismissible and persisted to localStorage because showing it every
 // page load would be more annoying than a reflect map with no leech.
 import { useState } from 'react';

@@ -7,7 +7,8 @@
  *
  * In production we route through a CORS proxy because browsers won't let you
  * fetch from poe.ninja directly. CORS: making simple HTTP requests complicated
- * since 2014. On the backend this would just be... a GET request. That works.
+ * since 2014. In my HFT stack I make 50,000 API calls per second with raw
+ * sockets. Here I need a proxy service just to do ONE fetch. Clown world.
  */
 import { useState, useEffect, useCallback } from 'react';
 
@@ -42,7 +43,9 @@ export function usePrices(league) {
       const result = {};
 
       // Fetch currency prices in parallel — Promise.all because sequential fetches
-      // are for people who enjoy watching loading spinners
+      // are for people who enjoy watching loading spinners.
+      // In Java I'd use CompletableFuture.allOf() and it would feel exactly the same.
+      // OK fine, JS got this one right. I'll allow it.
       const currencyFetches = CURRENCY_IDS.map(async (id) => {
         try {
           const url = ninjaUrl(`/poe1/api/economy/exchange/current/details?league=${encodeURIComponent(league)}&type=Currency&id=${id}`);

@@ -5,8 +5,11 @@
  * Markov chain probability tables, cost comparisons, and more toggle states than a
  * Boeing 747 cockpit. This component has more useState calls than some entire apps.
  *
- * I wrote the math in fusingCalc.js and it was beautiful. Then I had to wrap it
- * in JSX and everything went wrong.
+ * I wrote the math in fusingCalc.js and it was beautiful — pure functions, no side effects,
+ * deterministic like a well-tuned matching engine. Then I had to wrap it in JSX and
+ * suddenly I'm managing 8 pieces of mutable state with no type safety. In my trading
+ * systems every state transition is logged, validated, and auditable. Here? useState
+ * and a prayer. Shoutout to the React devs who do this full time — you are built different.
  */
 import { useState, useMemo, useRef, useCallback } from 'react';
 import { calculateFusing, calculateCostComparison, calculateTaintedStrategy } from '../calculators/fusingCalc.js';
@@ -75,7 +78,9 @@ export default function FusingCalculator({ prices }) {
   // Auto-disable omen toggle when not eligible
   const effectiveUseOmen = useOmen && omenEligible;
 
-  // useMemo with 9 dependencies — the dependency array is longer than some SQL queries
+  // useMemo with 9 dependencies — the dependency array is longer than some FIX messages.
+  // In Java this would be a cached computation with explicit invalidation. Here we list
+  // every variable and hope React's shallow comparison doesn't betray us.
   const costComparison = useMemo(() => {
     if (!hasPrices) return null;
     return calculateCostComparison(stats, fusingPrice, taintedFusingPrice, vaalPrice, corrupted, taintedStrategy, effectiveUseOmen ? omenPrice : null);

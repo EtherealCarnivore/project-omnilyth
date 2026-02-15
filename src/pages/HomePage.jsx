@@ -3,8 +3,10 @@
  *
  * A grid of module cards with search, pinning, icons, and hover animations.
  * This file contains more inline SVG path data than actual business logic.
- * Every time I paste another SVG path string, a backend developer somewhere
- * sheds a single tear. That developer is me.
+ * In Java, my UI is a terminal with colored log lines. It's beautiful.
+ * Here I'm hand-placing SVG coordinates like a graphic designer.
+ * My matching engine's entire codebase has fewer magic numbers than this
+ * file has SVG path coordinates. Frontend devs have my eternal respect.
  */
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
@@ -64,7 +66,8 @@ function PinButton({ pinned, onToggle }) {
 }
 
 // Each card is either a <Link> or an <a> depending on whether the module is external.
-// In a typed language I'd use a discriminated union. In JS I use `mod.external ? ... : ...`
+// In Java I'd use a sealed interface with pattern matching: case Internal i -> ... case External e -> ...
+// In JS I use `mod.external ? ... : ...` and trust that the field exists. No compiler, no safety net.
 function ModuleCard({ mod, pinned, onTogglePin }) {
   const cardClass = `group relative rounded-2xl border bg-gradient-to-br p-5 transition-all duration-150 ease-out hover:scale-[1.02] hover:shadow-lg hover:shadow-black/20 ${
     CATEGORY_COLORS[mod.category] || 'from-zinc-800/40 to-zinc-900/40 border-white/5'

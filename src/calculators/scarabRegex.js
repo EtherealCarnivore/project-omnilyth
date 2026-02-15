@@ -12,6 +12,8 @@ const MAX_LEN = 250;
  *
  * This is basically a bin-packing problem disguised as string concatenation.
  * At least it's not NP-hard... just NP-annoying.
+ * Same greedy algorithm I'd use for order batching. Except there the chunks
+ * go to an exchange and here they go to a PoE stash search bar. Same energy.
  */
 export function generateScarabRegexes(selectedNames) {
   const tokens = selectedNames.map(name => scarabs[name]?.regex).filter(Boolean);

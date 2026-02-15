@@ -6,7 +6,9 @@
  *
  * Finally, a file with PURE MATH and ZERO JSX. No useEffect, no re-renders,
  * no CSS classes. Just functions that take inputs and return outputs.
- * This is what programming is supposed to feel like.
+ * This is what programming is supposed to feel like. If my entire codebase
+ * could be pure functions with deterministic outputs, I'd mass produce these
+ * like limit orders on a hot book. Stateless. Predictable. Beautiful.
  */
 
 // Base chance at 0% quality per target link count (index = link count)
@@ -154,7 +156,9 @@ export function calculateTaintedStrategy(sockets, currentLinks) {
   };
 }
 
-// Markov chain probability computation — the one time a CS degree actually pays off
+// Markov chain probability computation — the one time a CS degree actually pays off.
+// Also the same math I use for modeling order fill probability. PoE and HFT:
+// both are gambling, one just has better graphics.
 function computeTaintedCumulative(startState, target) {
   const milestones = [1, 2, 3, 4, 5, 6, 8, 10, 15, 20, 25, 30, 35];
   const maxN = milestones[milestones.length - 1];
@@ -279,6 +283,7 @@ export function calculateCostComparison(stats, fusingPrice, taintedFusingPrice, 
 
   // Mark best — use risk-adjusted cost (75th percentile) when available, else chaos cost.
   // Because "average" means half the players get screwed harder than that.
+  // Same reason we use VaR instead of mean in risk management. The expected value is a lie.
   const withCosts = strategies.filter(s => s.chaosCost != null);
   if (withCosts.length > 0) {
     const costKey = withCosts.some(s => s.riskAdjustedCost != null) ? 'riskAdjustedCost' : 'chaosCost';

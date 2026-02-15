@@ -3,13 +3,15 @@
  *
  * Three layers of fallback: API → localStorage cache → hardcoded list.
  * This is the kind of defensive programming you learn from years of
- * APIs going down at 3 AM. GGG's API doesn't need an auth token though,
- * which honestly shocked me. No API key? In this economy?
+ * exchange APIs going down at 3 AM during a flash crash.
+ * GGG's API doesn't need an auth token though, which honestly shocked me.
+ * No API key? No rate limits? No HMAC signatures? My exchange feeds require
+ * more auth to get a heartbeat than GGG needs for their entire league list.
  */
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
 const CACHE_KEY = 'poe_leagues_cache_v2';
-const CACHE_TTL = 24 * 60 * 60 * 1000; // 24 hours — localStorage is our Redis at home
+const CACHE_TTL = 24 * 60 * 60 * 1000; // 24h TTL. My market data cache expires in 50μs. This one? A whole day. Living slow.
 const API_URL = 'https://www.pathofexile.com/api/leagues?type=main&limit=50';
 
 // PoE2 leagues use version-style names (e.g. "Phrecia 2.0", "Dawn 3.0")
