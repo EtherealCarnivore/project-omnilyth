@@ -72,6 +72,16 @@ const modules = [
     component: lazy(() => import('../pages/MapModsPage')),
   },
   {
+    id: 'scarab-regex',
+    title: 'Scarab Regex',
+    description: 'Generate regex to search for cheap scarabs in stash',
+    category: 'Atlas/Mapping',
+    subcategory: 'Scarabs',
+    route: '/atlas/scarab-regex',
+    icon: 'scarab',
+    component: lazy(() => import('../pages/ScarabPage')),
+  },
+  {
     id: 'item-regex',
     title: 'Item Mod Regex',
     description: 'Generate regex patterns to find items with specific mods',
@@ -97,11 +107,10 @@ const modules = [
     description: 'Interactive skill tree for timeless jewel seed searching',
     category: 'Crafting',
     subcategory: 'Timeless Jewels',
+    route: '/crafting/timeless-jewel',
     icon: 'timeless',
-    external: true,
-    externalUrl: import.meta.env.DEV
-      ? 'http://localhost:5179/timeless-jewels/tree'
-      : 'https://vilsol.github.io/timeless-jewels/tree',
+    fullWidth: true,
+    component: lazy(() => import('../pages/TimelessJewelPage')),
   },
 ];
 

@@ -1,7 +1,8 @@
-import { useState } from 'react';
+import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import modules from '../modules/registry';
 import YouTubeCard from '../components/YouTubeCard';
+import { usePinned } from '../contexts/PinnedContext';
 
 const CATEGORY_COLORS = {
   'Crafting': 'from-sky-500/20 to-sky-500/5 border-sky-500/20',
@@ -32,9 +33,91 @@ const SUBCATEGORY_ICONS = {
   ),
 };
 
+const PIN_ICON = (
+  <svg className="w-3.5 h-3.5" viewBox="0 0 16 16" fill="currentColor">
+    <path d="M9.828.722a.5.5 0 0 1 .354.146l4.95 4.95a.5.5 0 0 1-.707.707l-.71-.71-3.18 3.18a5.5 5.5 0 0 1-1.062 3.044l-.216.27a.5.5 0 0 1-.764.02L6.17 10.106l-3.64 3.647a.5.5 0 1 1-.707-.707l3.64-3.647L3.24 7.176a.5.5 0 0 1 .02-.764l.27-.216a5.5 5.5 0 0 1 3.044-1.062l3.18-3.18-.71-.71a.5.5 0 0 1 .146-.854l.636-.318z" />
+  </svg>
+);
+
+function PinButton({ pinned, onToggle }) {
+  return (
+    <button
+      onClick={(e) => { e.preventDefault(); e.stopPropagation(); onToggle(); }}
+      title={pinned ? 'Unpin' : 'Pin to top'}
+      className={`absolute top-3 right-3 p-1.5 rounded-lg transition-all ${
+        pinned
+          ? 'text-amber-400 opacity-100 bg-amber-400/10'
+          : 'text-zinc-600 opacity-0 group-hover:opacity-100 hover:text-zinc-300 hover:bg-white/[0.06]'
+      }`}
+    >
+      {PIN_ICON}
+    </button>
+  );
+}
+
+function ModuleCard({ mod, pinned, onTogglePin }) {
+  const cardClass = `group relative rounded-2xl border bg-gradient-to-br p-5 transition-all duration-150 ease-out hover:scale-[1.02] hover:shadow-lg hover:shadow-black/20 ${
+    CATEGORY_COLORS[mod.category] || 'from-zinc-800/40 to-zinc-900/40 border-white/5'
+  }`;
+
+  const cardContent = (
+    <>
+      <div className="flex items-start gap-3">
+        <div className="shrink-0 mt-0.5 text-zinc-400 group-hover:text-sky-400 transition-colors">
+          {SUBCATEGORY_ICONS[mod.subcategory] || SUBCATEGORY_ICONS.Coloring}
+        </div>
+        <div className="min-w-0 pr-6">
+          <h3 className="text-sm font-semibold text-zinc-100 group-hover:text-sky-400 transition-colors flex items-center gap-1.5">
+            {mod.title}
+            {mod.external && (
+              <svg className="w-3 h-3 text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            )}
+          </h3>
+          <p className="text-xs text-zinc-500 mt-1 leading-relaxed">
+            {mod.description}
+          </p>
+          <div className="flex items-center gap-2 mt-3">
+            <span className="text-[10px] uppercase tracking-wider text-zinc-600 font-medium">
+              {mod.category}
+            </span>
+            <span className="text-zinc-700">&middot;</span>
+            <span className="text-[10px] uppercase tracking-wider text-zinc-600">
+              {mod.subcategory}
+            </span>
+          </div>
+        </div>
+      </div>
+      <PinButton pinned={pinned} onToggle={onTogglePin} />
+    </>
+  );
+
+  return mod.external ? (
+    <a
+      href={mod.externalUrl}
+      target="_blank"
+      rel="noopener noreferrer"
+      className={cardClass}
+    >
+      {cardContent}
+    </a>
+  ) : (
+    <Link to={mod.route} className={cardClass}>
+      {cardContent}
+    </Link>
+  );
+}
+
 export default function HomePage() {
   const [search, setSearch] = useState('');
   const [showCredits, setShowCredits] = useState(false);
+  const { pinnedIds, togglePin, isPinned } = usePinned();
+
+  const pinnedModules = useMemo(
+    () => pinnedIds.map(id => modules.find(m => m.id === id)).filter(Boolean),
+    [pinnedIds]
+  );
 
   const filtered = search
     ? modules.filter(m =>
@@ -77,58 +160,44 @@ export default function HomePage() {
         />
       </div>
 
+      {/* Pinned Section */}
+      {!search && pinnedModules.length > 0 && (
+        <div className="space-y-3">
+          <div className="flex items-center gap-2 px-1">
+            <span className="text-amber-500/70">{PIN_ICON}</span>
+            <h2 className="text-xs font-semibold text-amber-500/70 uppercase tracking-widest">Pinned</h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {pinnedModules.map(mod => (
+              <ModuleCard
+                key={`pinned-${mod.id}`}
+                mod={mod}
+                pinned={true}
+                onTogglePin={() => togglePin(mod.id)}
+              />
+            ))}
+          </div>
+          <div className="border-t border-white/5" />
+        </div>
+      )}
+
+      {/* All Modules heading */}
+      {!search && pinnedModules.length > 0 && (
+        <div className="flex items-center gap-2 px-1 -mb-4">
+          <h2 className="text-xs font-semibold text-zinc-500 uppercase tracking-widest">All Modules</h2>
+        </div>
+      )}
+
       {/* Module Cards Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-        {filtered.map(mod => {
-          const cardClass = `group relative rounded-2xl border bg-gradient-to-br p-5 transition-all duration-150 ease-out hover:scale-[1.02] hover:shadow-lg hover:shadow-black/20 ${
-            CATEGORY_COLORS[mod.category] || 'from-zinc-800/40 to-zinc-900/40 border-white/5'
-          }`;
-          const cardContent = (
-            <div className="flex items-start gap-3">
-              <div className="shrink-0 mt-0.5 text-zinc-400 group-hover:text-sky-400 transition-colors">
-                {SUBCATEGORY_ICONS[mod.subcategory] || SUBCATEGORY_ICONS.Coloring}
-              </div>
-              <div className="min-w-0">
-                <h3 className="text-sm font-semibold text-zinc-100 group-hover:text-sky-400 transition-colors flex items-center gap-1.5">
-                  {mod.title}
-                  {mod.external && (
-                    <svg className="w-3 h-3 text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                    </svg>
-                  )}
-                </h3>
-                <p className="text-xs text-zinc-500 mt-1 leading-relaxed">
-                  {mod.description}
-                </p>
-                <div className="flex items-center gap-2 mt-3">
-                  <span className="text-[10px] uppercase tracking-wider text-zinc-600 font-medium">
-                    {mod.category}
-                  </span>
-                  <span className="text-zinc-700">&middot;</span>
-                  <span className="text-[10px] uppercase tracking-wider text-zinc-600">
-                    {mod.subcategory}
-                  </span>
-                </div>
-              </div>
-            </div>
-          );
-
-          return mod.external ? (
-            <a
-              key={mod.id}
-              href={mod.externalUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className={cardClass}
-            >
-              {cardContent}
-            </a>
-          ) : (
-            <Link key={mod.id} to={mod.route} className={cardClass}>
-              {cardContent}
-            </Link>
-          );
-        })}
+        {filtered.map(mod => (
+          <ModuleCard
+            key={mod.id}
+            mod={mod}
+            pinned={isPinned(mod.id)}
+            onTogglePin={() => togglePin(mod.id)}
+          />
+        ))}
       </div>
 
       {filtered.length === 0 && (
