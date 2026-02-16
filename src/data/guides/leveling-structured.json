@@ -1,0 +1,1347 @@
+[
+  {
+    "act": 1,
+    "zones": [
+      {
+        "name": "Hillock",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "TarkleighCoast",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "Mud Flats",
+        "notes": "3 eggs",
+        "waypoint": false
+      },
+      {
+        "name": "Submerged Passage",
+        "notes": "WPCoast",
+        "waypoint": true
+      },
+      {
+        "name": "Tidal Island",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Hailrake",
+        "notes": "DC/TP Submerged Passage, (1)",
+        "waypoint": false
+      },
+      {
+        "name": "Ledge (N)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Climb",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Lower Prison",
+        "notes": "WPSubmerged Passage",
+        "waypoint": true
+      },
+      {
+        "name": "Flooded Depths (S)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Dweller of the Deep",
+        "notes": "DC/TPLower Prison",
+        "waypoint": false
+      },
+      {
+        "name": "Trial",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Upper Prison",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Warden's Quarters",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Warden's Chambers",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Brutus",
+        "notes": "DC/TPPrisoner's Gate",
+        "waypoint": false
+      },
+      {
+        "name": "Ship Graveyard",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "Cavern of Wrath",
+        "notes": "WPShip Graveyard",
+        "waypoint": true
+      },
+      {
+        "name": "Cave",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "AllFlame",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Ship Graveyard",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Fairgraves",
+        "notes": "DC/TPCavern of Wrath",
+        "waypoint": false
+      },
+      {
+        "name": "Cavern of Anger",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Merveil's Lair",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Merveil",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Southern Forest",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Forest Encampment",
+        "notes": "",
+        "waypoint": false
+      }
+    ]
+  },
+  {
+    "act": 2,
+    "zones": [
+      {
+        "name": "Old Fields",
+        "notes": "(2)",
+        "waypoint": false
+      },
+      {
+        "name": "Crossroads (N)",
+        "notes": "WP (N)",
+        "waypoint": true
+      },
+      {
+        "name": "Chamber of Sins 1 (W)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Chamber of Sins 2",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Trial",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Helena",
+        "notes": "DC/TPRiverways, WP",
+        "waypoint": true
+      },
+      {
+        "name": "Western Forest",
+        "notes": "WP, Weaver's Chambers (opposite of the waypoint side)Weaver's Nest",
+        "waypoint": true
+      },
+      {
+        "name": "Weaver",
+        "notes": "DC/TPRiverways",
+        "waypoint": false
+      },
+      {
+        "name": "Wetlands (W)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Oak",
+        "notes": "WPWestern Forest",
+        "waypoint": true
+      },
+      {
+        "name": "Alira",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Blackguards/Blocked Pass (S)",
+        "notes": "DC/TPCrossroads",
+        "waypoint": false
+      },
+      {
+        "name": "Broken Bridge (N)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Kraityn",
+        "notes": "DC/TP",
+        "waypoint": false
+      },
+      {
+        "name": "Apex",
+        "notes": "WPA1 Town, WP",
+        "waypoint": true
+      },
+      {
+        "name": "Crossroads",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Fellshrine Ruins (E)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Crypt 1",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "Trial",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Crypt 2",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Golden Hand",
+        "notes": "DC/TPA1 Town (Bestel)",
+        "waypoint": false
+      },
+      {
+        "name": "Wetlands",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Vaal Ruins",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Seal",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Northern Forest",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "Caverns",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Pyramid",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Apex",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Vaal Oversoul (!)City of Sarn (!)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Clarissa",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Sarn Encampment",
+        "notes": "",
+        "waypoint": false
+      }
+    ]
+  },
+  {
+    "act": 3,
+    "zones": [
+      {
+        "name": "Slum",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Crematorium",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "Trial",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Piety (!)",
+        "notes": "DC/TPSlum",
+        "waypoint": false
+      },
+      {
+        "name": "Sewer",
+        "notes": "3 Busts, WP",
+        "waypoint": true
+      },
+      {
+        "name": "Marketplace",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "Catacombs",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Trial (!)",
+        "notes": "DC/TPMarketplace",
+        "waypoint": false
+      },
+      {
+        "name": "Battlefront",
+        "notes": "Ribbon Spool/WP",
+        "waypoint": true
+      },
+      {
+        "name": "Docks",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Thaumetic Sulphate",
+        "notes": "DC/TPBattlefront",
+        "waypoint": false
+      },
+      {
+        "name": "Solaris 1",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Solaris 2",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Dialla (!)(1)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Sewers (!)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Ebony Barracks",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "Lunaris 1",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Lunaris 2",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Piety (!)",
+        "notes": "DC/TPEbony Barracks",
+        "waypoint": false
+      },
+      {
+        "name": "Imperial Gardens",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "Trial (!)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Lower Sceptre",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Upper Sceptre",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Dominus",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Aqueduct",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Highgate",
+        "notes": "",
+        "waypoint": false
+      }
+    ]
+  },
+  {
+    "act": 4,
+    "zones": [
+      {
+        "name": "Dried Lake",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Voll (!)",
+        "notes": "DC/TP Mines 1",
+        "waypoint": false
+      },
+      {
+        "name": "Mines 2",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Deshret's Spirit",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Crystal Veins (!)",
+        "notes": "WP (3)Crystal Veins",
+        "waypoint": true
+      },
+      {
+        "name": "Daresso's Dream",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Grand Arena",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Daresso Crystal Veins",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Kaom's Dream",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Kaom's Stronghold",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Kaom",
+        "notes": "DC/TPCrystal Veins",
+        "waypoint": false
+      },
+      {
+        "name": "Dialla",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Belly of the Beast 1",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Belly of the Beast 2",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Bowels of the Beast",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Piety (!)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Harvest",
+        "notes": "WPHarvest, 3 Guardians",
+        "waypoint": true
+      },
+      {
+        "name": "Black Core",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Malachai",
+        "notes": "DC/TP",
+        "waypoint": false
+      }
+    ]
+  },
+  {
+    "act": 5,
+    "zones": [
+      {
+        "name": "Ascent (!)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Oriath Portal",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "Overseer Crow",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Overseer's TowerControl Blocks",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Supplies",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Justicar Casticus",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Oriath Square",
+        "notes": "WPOriath Square",
+        "waypoint": true
+      },
+      {
+        "name": "Templar Courts",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Chamber of Innocence (!)",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "High Templar Avarius",
+        "notes": "DC/TPChamber of Innocence",
+        "waypoint": false
+      },
+      {
+        "name": "Torched Courts",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Ruined Square",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "Kill Utula",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Reliquary (!)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Kitava's Torments",
+        "notes": "DC/TPRuined Square",
+        "waypoint": false
+      },
+      {
+        "name": "Ossuary (!)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Sign of Purity",
+        "notes": "DC/TPRuined Square",
+        "waypoint": false
+      },
+      {
+        "name": "Cathedral Rooftop",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Cathedral Apex",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Kitava",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Wraeclast",
+        "notes": "",
+        "waypoint": false
+      }
+    ]
+  },
+  {
+    "act": 6,
+    "zones": [
+      {
+        "name": "Twilight Strand",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Buy missing gemsCoast",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "Mud Flats",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Forgotten Warrior",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Nessa",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Karui Fortress",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Tukohama's Keep",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Tukohama (!)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Ridge",
+        "notes": "WPRidge",
+        "waypoint": true
+      },
+      {
+        "name": "Lower Prison (!)",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "Trial",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Shavronne's Tower",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Prison RooftopShavronne",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Warden's Chambers (!)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Prisoner's Gate",
+        "notes": "WPPrisoner's Gate",
+        "waypoint": true
+      },
+      {
+        "name": "Valley of the Fire Drinker",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Abberath",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Gloven Pass",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Valley of the Fire Drinker",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Abberath",
+        "notes": "DC/TPPrisoner's Gate",
+        "waypoint": false
+      },
+      {
+        "name": "Western Forest (!)",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "Riverways",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "Wetlands",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Spawning Grounds",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Puppet Mistress",
+        "notes": "DC/TPRiverways",
+        "waypoint": false
+      },
+      {
+        "name": "Southern Forest",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "Cavern of Anger",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Beacon (!)",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "Beacon",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Brine King's ReefBrine King's Throne",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Brine King",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Act 7",
+        "notes": "",
+        "waypoint": false
+      }
+    ]
+  },
+  {
+    "act": 7,
+    "zones": [
+      {
+        "name": "Broken Bridge",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Crossroads",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "Fellshrine Ruins (E)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Crypt (!)",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "Trial/Maligaro's Map",
+        "notes": "DC/TPCrossroads",
+        "waypoint": false
+      },
+      {
+        "name": "Chamber of Sins 1 (W) (!)",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "Map Device",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Maligaro's MapMaligaro",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Chamber of Sins 1",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Chamber of Sins 2",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Trial (!)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Den",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Ashen FieldsFortress Encampment",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Greust",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Northern Forest",
+        "notes": "WP (4)Northern Forest",
+        "waypoint": true
+      },
+      {
+        "name": "Dread Thicket (!)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Fireflies",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Den Despair",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Gruthkul",
+        "notes": "DC/TPNorthern Forest",
+        "waypoint": false
+      },
+      {
+        "name": "Causeway (!)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Kishara's Star",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Vaal City",
+        "notes": "WPVaal City",
+        "waypoint": true
+      },
+      {
+        "name": "Temple of Decay 1",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Temple of Decay 2 (!)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Arakaali's Web",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Arakaali",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Sarn Ramparts",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "Sarn Encampment",
+        "notes": "",
+        "waypoint": false
+      }
+    ]
+  },
+  {
+    "act": 8,
+    "zones": [
+      {
+        "name": "Toxic Conduits",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Doedre's Cesspool",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Loose Crate",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Doedre the Vile",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Sewer Outlet (!)",
+        "notes": "WPSewer Outlet",
+        "waypoint": true
+      },
+      {
+        "name": "Quay",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Ankh of Eternity",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Resurrection Site",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Tolman",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Grain Gate",
+        "notes": "WPGrain Gate",
+        "waypoint": true
+      },
+      {
+        "name": "Gemling Legionnaires",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Imperial Fields",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "Solaris Temple 1",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "Solaris Temple 2",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Dawn (!) -Solaris Concourse",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Harbour Bridge",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Lunaris Concourse",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "Lunaris Temple 1",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Lunaris Temple 2",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Dusk (!)",
+        "notes": "DC/TPLunaris Concourse",
+        "waypoint": false
+      },
+      {
+        "name": "Bath House",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Trial (!)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "High Gardens",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Pool of Terror",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Yugul",
+        "notes": "DC/TPLunaris Concourse",
+        "waypoint": false
+      },
+      {
+        "name": "Harbour Bridge",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Sky Shrine",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Solaris & Lunar",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Blood Aqueduct",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Highgate",
+        "notes": "",
+        "waypoint": false
+      }
+    ]
+  },
+  {
+    "act": 9,
+    "zones": [
+      {
+        "name": "Descent",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Supply Hoist",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Vastiri Desert (!)",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "Storm Chest",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Oasis (Portal outside",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "TP) Sin",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Petarus & Vanja",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Portal",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Oasis",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Sand Pit",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Shakari",
+        "notes": "DC/TPVastiri Desert",
+        "waypoint": false
+      },
+      {
+        "name": "Foothills",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Boiling Lake (!)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Basilisk Acid",
+        "notes": "DC/TPFoothills",
+        "waypoint": false
+      },
+      {
+        "name": "Tunnel",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "Trial (!)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Quarry (!)",
+        "notes": "WP",
+        "waypoint": true
+      },
+      {
+        "name": "Shrine of the Winds (S)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Kira & GurukhanQuarry",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Refinery (N)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Trarthan Powder",
+        "notes": "DC/TPSin",
+        "waypoint": false
+      },
+      {
+        "name": "Quarry",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Belly of the Beast",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Rotting Core",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Black Heart",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Spirits of Shavronne",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Black Heart",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Depraved Trinity",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Oriath",
+        "notes": "",
+        "waypoint": false
+      }
+    ]
+  },
+  {
+    "act": 10,
+    "zones": [
+      {
+        "name": "Cathedral Rooftop",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Kitava's Cultists",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Ravaged Square",
+        "notes": "WP (N)",
+        "waypoint": true
+      },
+      {
+        "name": "Torched CourtsDesecrated Chambers (!)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Sanctum of Innocence",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Avarius",
+        "notes": "DC/TPRavaged Square",
+        "waypoint": false
+      },
+      {
+        "name": "Control Blocks",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Vilenta",
+        "notes": "DC/TPRavaged Square",
+        "waypoint": false
+      },
+      {
+        "name": "Ossuary (!)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Bone Pits",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Trial",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Lab",
+        "notes": "DC/TPRavaged Square",
+        "waypoint": false
+      },
+      {
+        "name": "Innocence",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Canals",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Feeding Through (!)",
+        "notes": "",
+        "waypoint": false
+      },
+      {
+        "name": "Kitava",
+        "notes": "DC/TP (!)(2)",
+        "waypoint": false
+      }
+    ]
+  }
+]
