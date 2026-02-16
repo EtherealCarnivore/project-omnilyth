@@ -18,6 +18,7 @@ const CATEGORY_ROUTES = {
   'Crafting': '/crafting',
   'Atlas/Mapping': '/atlas',
   'Build Planning': '/build',
+  'Leveling': '/leveling',
 };
 
 // Features we've promised but haven't built yet. Pure copium.
