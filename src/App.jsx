@@ -16,6 +16,7 @@ import HomePage from './pages/HomePage';
 import CraftingOverviewPage from './pages/CraftingOverviewPage';
 import AtlasOverviewPage from './pages/AtlasOverviewPage';
 import BuildPlanningOverviewPage from './pages/BuildPlanningOverviewPage';
+import LevelingOverviewPage from './pages/LevelingOverviewPage';
 import modules from './modules/registry';
 
 export default function App() {
@@ -36,6 +37,7 @@ export default function App() {
               <Route path="/crafting" element={<CraftingOverviewPage />} />
               <Route path="/atlas" element={<AtlasOverviewPage />} />
               <Route path="/build" element={<BuildPlanningOverviewPage />} />
+              <Route path="/leveling" element={<LevelingOverviewPage />} />
               {/* Dynamically generate routes from registry — at least ONE thing feels like proper architecture */}
               {modules.filter(mod => !mod.external).map(mod => (
                 <Route key={mod.id} path={mod.route} element={<mod.component />} />
