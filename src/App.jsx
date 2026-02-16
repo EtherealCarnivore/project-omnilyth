@@ -11,6 +11,7 @@ import { LeagueProvider } from './contexts/LeagueContext';
 import { PricesProvider } from './contexts/PricesContext';
 import { PinnedProvider } from './contexts/PinnedContext';
 import { DesignProvider } from './contexts/DesignContext';
+import { LevelingProgressProvider } from './contexts/LevelingProgressContext';
 import AppShell from './layout/AppShell';
 import HomePage from './pages/HomePage';
 import CraftingOverviewPage from './pages/CraftingOverviewPage';
@@ -18,6 +19,7 @@ import AtlasOverviewPage from './pages/AtlasOverviewPage';
 import BuildPlanningOverviewPage from './pages/BuildPlanningOverviewPage';
 import LevelingOverviewPage from './pages/LevelingOverviewPage';
 import modules from './modules/registry';
+import GuideOverlay from './components/guides/GuideOverlay';
 
 export default function App() {
   return (
@@ -30,6 +32,9 @@ export default function App() {
         <PricesProvider>
         <PinnedProvider>
         <DesignProvider>
+        <LevelingProgressProvider>
+          {/* Global guide overlay - toggle with G key */}
+          <GuideOverlay />
           <Routes>
             <Route element={<AppShell />}>
               <Route index element={<HomePage />} />
@@ -46,6 +51,7 @@ export default function App() {
               <Route path="*" element={<HomePage />} />
             </Route>
           </Routes>
+        </LevelingProgressProvider>
         </DesignProvider>
         </PinnedProvider>
         </PricesProvider>
