@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
-  base: '/omnilyth-core-public/',
+  base: process.env.VITE_BASE_PATH || '/',
   plugins: [react(), tailwindcss()],
   build: {
     rollupOptions: {

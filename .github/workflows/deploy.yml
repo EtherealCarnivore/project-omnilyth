@@ -20,6 +20,8 @@ jobs:
           cache: npm
       - run: npm ci
       - run: npm run build
+        env:
+          VITE_BASE_PATH: /omnilyth-core-public/
       - name: Deploy to omnilyth-core-public
         uses: peaceiris/actions-gh-pages@v4
         with:
