@@ -5,9 +5,9 @@
 
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
-const STORAGE_KEY_CACHE = 'omnilyth_patch_notes_cache_v2'; // v2 to force refresh for 3.27
-const STORAGE_KEY_READ_IDS = 'omnilyth_patch_notes_read_ids_v2';
-const STORAGE_KEY_LAST_FETCH = 'omnilyth_patch_notes_last_fetch_v2';
+const STORAGE_KEY_CACHE = 'omnilyth_patch_notes_cache_v3'; // v3 to force refresh for highlights fix
+const STORAGE_KEY_READ_IDS = 'omnilyth_patch_notes_read_ids_v3';
+const STORAGE_KEY_LAST_FETCH = 'omnilyth_patch_notes_last_fetch_v3';
 const CACHE_TTL = 60 * 60 * 1000; // 1 hour
 
 const REDDIT_API_URL = 'https://www.reddit.com/r/pathofexile/search.json?q=flair_name:"GGG"&sort=new&limit=50&restrict_sr=1';

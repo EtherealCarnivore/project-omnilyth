@@ -47,7 +47,11 @@ function checkRateLimit(ip) {
 
 function validateOrigin(origin) {
   const requestOrigin = origin || '';
-  return ALLOWED_ORIGINS.some(allowed => requestOrigin.startsWith(allowed));
+  // Check whitelist
+  const inWhitelist = ALLOWED_ORIGINS.some(allowed => requestOrigin.startsWith(allowed));
+  // Also allow any localhost port for development
+  const isLocalhost = requestOrigin.startsWith('http://localhost:');
+  return inWhitelist || isLocalhost;
 }
 
 export default async function handler(req, res) {
