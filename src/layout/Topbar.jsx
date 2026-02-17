@@ -16,6 +16,7 @@ import { usePricesContext } from '../contexts/PricesContext';
 import { useLeague } from '../contexts/LeagueContext';
 import { usePatchNotes } from '../contexts/PatchNotesContext';
 import { useRegexLibrary } from '../hooks/useRegexLibrary';
+import FeedbackButton from '../components/FeedbackButton';
 
 const KIND_STYLES = {
   softcore:      { dot: 'bg-emerald-400',  text: 'text-emerald-300' },
@@ -361,6 +362,7 @@ export default function Topbar({ onMenuClick }) {
       {/* Right: status + refresh */}
       <div className="flex items-center gap-3">
         <LibraryButton />
+        <FeedbackButton />
         <PatchNotesBadge />
         <PriceStatusPopover loading={loading} error={error} prices={prices} />
         <button
