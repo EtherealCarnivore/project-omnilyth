@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login Test</title>
+</head>
+<body>
+  <h1>Password Test</h1>
+  <input type="password" id="pwd" value="privat3Be7@_SUB_TO_IVA_NOOBS_uwu^.^_" style="width: 400px">
+  <button onclick="test()">Test</button>
+  <pre id="result"></pre>
+
+  <script>
+    const EXPECTED = '84888b5a1307ee2d23bec804e3c7aa949dd1f84174a4ae632a15ffd377f37f3dc3b5220097c40aa3148b96a9f92aab09c48888810f2ab4856f37f4b165919a69';
+
+    async function hashPassword(password) {
+      const encoder = new TextEncoder();
+      const data = encoder.encode(password);
+      const buffer = await crypto.subtle.digest('SHA-512', data);
+      return Array.from(new Uint8Array(buffer))
+        .map(b => b.toString(16).padStart(2, '0'))
+        .join('');
+    }
+
+    async function test() {
+      const pwd = document.getElementById('pwd').value.trim();
+      const result = document.getElementById('result');
+
+      const start = Date.now();
+      const hash = await hashPassword(pwd);
+      const elapsed = Date.now() - start;
+
+      result.textContent = `Password: "${pwd}"\n\n`;
+      result.textContent += `Expected: ${EXPECTED}\n`;
+      result.textContent += `Computed: ${hash}\n\n`;
+      result.textContent += `Match: ${hash === EXPECTED ? '✅ YES' : '❌ NO'}\n`;
+      result.textContent += `Time: ${elapsed}ms\n`;
+    }
+
+    // Auto-run on load
+    window.onload = test;
+  </script>
+</body>
+</html>
