@@ -91,7 +91,7 @@ export function validateRegexComplexity(pattern) {
 export function validateString(value, options = {}) {
   const {
     maxLength = 1000,
-    allowedChars = null, // Regex pattern for allowed characters
+    allowedChars = null, // Predefined pattern name or null
     trim = true,
     defaultValue = ''
   } = options;
@@ -107,9 +107,23 @@ export function validateString(value, options = {}) {
     str = str.slice(0, maxLength);
   }
 
-  // Check allowed characters
-  if (allowedChars && !new RegExp(`^${allowedChars}*$`).test(str)) {
-    return defaultValue;
+  // Check allowed characters using safe predefined patterns only
+  if (allowedChars) {
+    // Predefined safe patterns to prevent ReDoS
+    const SAFE_PATTERNS = {
+      'alphanumeric': /^[a-zA-Z0-9]*$/,
+      'alphanumericSpace': /^[a-zA-Z0-9\s]*$/,
+      'alphanumericDash': /^[a-zA-Z0-9\s\-_]*$/,
+      'numeric': /^[0-9]*$/,
+      'alpha': /^[a-zA-Z]*$/,
+      'hex': /^[0-9a-fA-F]*$/,
+    };
+
+    // Only allow predefined patterns, not arbitrary regex
+    const pattern = SAFE_PATTERNS[allowedChars];
+    if (pattern && !pattern.test(str)) {
+      return defaultValue;
+    }
   }
 
   return str;
@@ -126,7 +140,7 @@ export function validateLeagueName(league) {
   // League names should be alphanumeric with hyphens/spaces
   const sanitized = validateString(league, {
     maxLength: 100,
-    allowedChars: '[a-zA-Z0-9\\s\\-_]',
+    allowedChars: 'alphanumericDash', // Use predefined safe pattern
     trim: true
   });
 

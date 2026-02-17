@@ -73,18 +73,80 @@ async function decryptData(encryptedBase64, password) {
   return JSON.parse(decoder.decode(decrypted));
 }
 
-// Get a device-specific key (simple version)
-// In production, consider more sophisticated key management
+// Get a device-specific key using obfuscated storage
+// NOTE: This provides defense-in-depth but is NOT fully secure against XSS
+// True security requires preventing XSS vulnerabilities in the first place
 function getDeviceKey() {
-  let key = localStorage.getItem('__device_key');
-  if (!key) {
+  const keyName = '__dk_v1';
+
+  // Try to retrieve existing key
+  let storedData = localStorage.getItem(keyName);
+
+  if (!storedData) {
     // Generate a random device key on first use
     const array = new Uint8Array(32);
     crypto.getRandomValues(array);
-    key = btoa(String.fromCharCode(...array));
-    localStorage.setItem('__device_key', key);
+    const key = btoa(String.fromCharCode(...array));
+
+    // Obfuscate the key before storage (basic XOR with browser fingerprint)
+    // This doesn't prevent determined attackers but raises the bar
+    const fingerprint = getSimpleFingerprint();
+    const obfuscated = xorStrings(key, fingerprint);
+
+    localStorage.setItem(keyName, obfuscated);
+    return key;
   }
-  return key;
+
+  // De-obfuscate on retrieval
+  const fingerprint = getSimpleFingerprint();
+  return xorStrings(storedData, fingerprint);
+}
+
+// Generate a simple browser fingerprint (not for tracking, just key derivation)
+function getSimpleFingerprint() {
+  const components = [
+    navigator.userAgent,
+    navigator.language,
+    screen.colorDepth,
+    screen.width + 'x' + screen.height,
+    new Date().getTimezoneOffset(),
+    !!window.sessionStorage,
+    !!window.localStorage,
+  ].join('|');
+
+  // Simple hash function
+  let hash = 0;
+  for (let i = 0; i < components.length; i++) {
+    const char = components.charCodeAt(i);
+    hash = ((hash << 5) - hash) + char;
+    hash = hash & hash; // Convert to 32-bit integer
+  }
+
+  return Math.abs(hash).toString(36);
+}
+
+// XOR two strings for basic obfuscation (handles both encoding and decoding)
+function xorStrings(str, key) {
+  // Try to decode if it's base64 (for decoding path)
+  let input = str;
+  try {
+    // If it's base64, decode it first
+    if (/^[A-Za-z0-9+/=]+$/.test(str)) {
+      input = atob(str);
+    }
+  } catch {
+    // Not base64, use as-is
+  }
+
+  let result = '';
+  for (let i = 0; i < input.length; i++) {
+    const strChar = input.charCodeAt(i);
+    const keyChar = key.charCodeAt(i % key.length);
+    result += String.fromCharCode(strChar ^ keyChar);
+  }
+
+  // Only encode if we're storing (input was not base64)
+  return /^[A-Za-z0-9+/=]+$/.test(str) ? result : btoa(result);
 }
 
 /**

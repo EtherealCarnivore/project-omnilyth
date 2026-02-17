@@ -9,14 +9,58 @@
  *   Permissions: Issues (Read and write)
  */
 
+import { getCORSHeaders, createForbiddenResponse } from './_shared/cors.js';
+
+// Simple in-memory rate limiter
+const rateLimiter = new Map();
+const RATE_LIMIT = 5; // requests per window
+const WINDOW_MS = 60000; // 1 minute
+
+function checkRateLimit(ip) {
+  const now = Date.now();
+  const userLimits = rateLimiter.get(ip) || [];
+  const recentRequests = userLimits.filter(time => now - time < WINDOW_MS);
+
+  if (recentRequests.length >= RATE_LIMIT) {
+    return false;
+  }
+
+  recentRequests.push(now);
+  rateLimiter.set(ip, recentRequests);
+
+  // Cleanup old entries periodically
+  if (Math.random() < 0.1) {
+    for (const [key, timestamps] of rateLimiter.entries()) {
+      const valid = timestamps.filter(t => now - t < WINDOW_MS);
+      if (valid.length === 0) {
+        rateLimiter.delete(key);
+      } else {
+        rateLimiter.set(key, valid);
+      }
+    }
+  }
+
+  return true;
+}
+
+function sanitizeInput(str) {
+  if (typeof str !== 'string') return '';
+  // Remove null bytes and control characters except newlines/tabs
+  return str.replace(/[\x00-\x08\x0B\x0C\x0E-\x1F\x7F]/g, '')
+    // Limit consecutive whitespace
+    .replace(/\s{10,}/g, ' '.repeat(9))
+    .trim();
+}
+
 export async function handler(event) {
-  // CORS headers
-  const headers = {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Headers': 'Content-Type',
-    'Access-Control-Allow-Methods': 'POST, OPTIONS',
-    'Content-Type': 'application/json',
-  };
+  // Get origin for CORS validation
+  const origin = event.headers.origin || event.headers.referer || '';
+  const headers = getCORSHeaders(origin);
+
+  // Validate origin
+  if (!headers['Access-Control-Allow-Origin']) {
+    return createForbiddenResponse();
+  }
 
   // Handle preflight
   if (event.httpMethod === 'OPTIONS') {
@@ -32,9 +76,29 @@ export async function handler(event) {
     };
   }
 
+  // Rate limiting
+  const ip = event.headers['x-forwarded-for']?.split(',')[0] ||
+             event.headers['client-ip'] ||
+             'unknown';
+
+  if (!checkRateLimit(ip)) {
+    return {
+      statusCode: 429,
+      headers,
+      body: JSON.stringify({ error: 'Too many requests. Please wait before trying again.' }),
+    };
+  }
+
   try {
     // Parse request body
-    const { type, title, description, url, userAgent } = JSON.parse(event.body || '{}');
+    const body = JSON.parse(event.body || '{}');
+
+    // Sanitize inputs
+    const type = sanitizeInput(body.type);
+    const title = sanitizeInput(body.title);
+    const description = sanitizeInput(body.description);
+    const url = sanitizeInput(body.url);
+    const userAgent = sanitizeInput(body.userAgent);
 
     // Validate required fields
     if (!type || !title || !description) {
@@ -124,8 +188,15 @@ export async function handler(event) {
     });
 
     if (!response.ok) {
-      const errorData = await response.json();
-      console.error('GitHub API error:', errorData);
+      const errorData = await response.json().catch(() => ({}));
+
+      // Log error details internally only
+      if (process.env.NODE_ENV !== 'production') {
+        console.error('GitHub API error:', {
+          status: response.status,
+          data: errorData
+        });
+      }
 
       // Don't expose detailed GitHub errors to users
       return {
@@ -148,7 +219,14 @@ export async function handler(event) {
     };
 
   } catch (error) {
-    console.error('Feedback submission error:', error);
+    // Log error details internally only
+    if (process.env.NODE_ENV !== 'production') {
+      console.error('Feedback submission error:', {
+        message: error.message,
+        stack: error.stack
+      });
+    }
+
     return {
       statusCode: 500,
       headers,
