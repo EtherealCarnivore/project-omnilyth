@@ -23,9 +23,14 @@ export function validateOrigin(origin) {
   const requestOrigin = origin || '';
 
   // Check if origin is in whitelist
-  const isAllowed = ALLOWED_ORIGINS.some(allowed =>
+  let isAllowed = ALLOWED_ORIGINS.some(allowed =>
     requestOrigin.startsWith(allowed)
   );
+
+  // Also allow any localhost port for development (http://localhost:*)
+  if (!isAllowed && requestOrigin.startsWith('http://localhost:')) {
+    isAllowed = true;
+  }
 
   if (!isAllowed) {
     return null; // Blocked
