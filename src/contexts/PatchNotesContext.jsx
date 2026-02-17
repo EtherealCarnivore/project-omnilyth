@@ -108,7 +108,8 @@ const categorizePatch = (title) => {
 
 // Extract highlights from markdown content (first 4 bullet points)
 const extractHighlights = (content) => {
-  if (!content) return [];
+  // If no content, return fallback message (for video-only announcements)
+  if (!content) return ['Click to view full announcement'];
 
   const lines = content.split('\n');
   const bullets = lines
