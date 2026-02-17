@@ -12,6 +12,7 @@ import { useState, useEffect, useMemo, useCallback } from 'react';
 import { useLeague } from '../contexts/LeagueContext';
 import { scarabs, scarabList } from '../data/scarabData';
 import { generateScarabRegexes } from '../calculators/scarabRegex';
+import SaveRegexButton from './SaveRegexButton';
 
 const isDev = import.meta.env.DEV;
 
@@ -55,6 +56,14 @@ function RegexOutputBox({ regex, index, total }) {
           >
             {copied ? 'Copied!' : 'Copy'}
           </button>
+          {regex && (
+            <SaveRegexButton
+              pattern={regex}
+              toolId="scarab-regex"
+              toolLabel="Scarab Regex"
+              variant="compact"
+            />
+          )}
         </div>
       </div>
       <div className="bg-black/30 rounded-lg p-3 font-mono text-sm text-zinc-100 break-all min-h-[2.5rem] select-all leading-relaxed">

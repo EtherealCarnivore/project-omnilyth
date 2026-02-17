@@ -17,12 +17,16 @@ import { useState, useEffect, useCallback } from 'react';
 const CURRENCY_IDS = ['chromatic-orb', 'jewellers-orb', 'tainted-chromatic-orb', 'orb-of-fusing', 'tainted-orb-of-fusing', 'vaal-orb', 'divine-orb'];
 
 // In dev, Vite proxies /api/poe-ninja/* -> https://poe.ninja/*
-// In production, we route through a CORS proxy since poe.ninja doesn't allow browser requests
+// In production, use our secure serverless function proxy
 const isDev = import.meta.env.DEV;
 
 function ninjaUrl(path) {
   if (isDev) return `/api/poe-ninja${path}`;
-  return `https://corsproxy.io/?url=${encodeURIComponent(`https://poe.ninja${path}`)}`;
+
+  // Use serverless function proxy (works with Netlify, Vercel, or Cloudflare Workers)
+  // The function validates the path and proxies to poe.ninja securely
+  const proxyUrl = import.meta.env.VITE_PROXY_URL || '/.netlify/functions/poe-ninja-proxy';
+  return `${proxyUrl}?path=${encodeURIComponent(path)}`;
 }
 
 /**

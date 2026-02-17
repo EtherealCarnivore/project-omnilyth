@@ -12,6 +12,7 @@ import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import modules from '../modules/registry';
 import YouTubeCard from '../components/YouTubeCard';
+import PatchNotesWidget from '../components/PatchNotesWidget';
 import { usePinned } from '../contexts/PinnedContext';
 import { useDesign } from '../contexts/DesignContext';
 
@@ -262,6 +263,9 @@ export default function HomePage() {
           className="w-full bg-zinc-900/60 border border-white/[0.08] rounded-xl py-3 pl-11 pr-4 text-zinc-100 placeholder:text-zinc-500 outline-none focus:border-sky-400/40 focus:ring-2 focus:ring-sky-400/15 transition-all"
         />
       </div>
+
+      {/* Patch Notes Widget */}
+      {!search && <PatchNotesWidget />}
 
       {/* Pinned Section */}
       {!search && pinnedModules.length > 0 && (

@@ -133,6 +133,26 @@ const modules = [
     icon: 'gem',
     component: lazy(() => import('../pages/GemPage')),
   },
+  {
+    id: 'vendor-leveling',
+    title: 'Vendor Leveling Regex',
+    description: 'Find vendor items with movement speed, sockets, links, and leveling stats',
+    category: 'Leveling',
+    subcategory: 'Vendors',
+    route: '/leveling/vendor-regex',
+    icon: 'vendor',
+    component: lazy(() => import('../pages/VendorLevelingPage')),
+  },
+  {
+    id: 'regex-library',
+    title: 'Regex Library',
+    description: 'View and manage your saved regex patterns from all tools',
+    category: 'Utilities',
+    subcategory: 'Library',
+    route: '/library',
+    icon: 'library',
+    component: lazy(() => import('../pages/RegexLibraryPage')),
+  },
 ];
 
 export default modules;

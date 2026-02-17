@@ -9,8 +9,8 @@ A Path of Exile toolkit — crafting calculators, regex generators, and atlas to
 - React 19 + Vite 6 + Tailwind CSS 4
 - React Router v7 (lazy-loaded modules)
 - Context API for state (league, prices, pinning, design variants)
-- Prices from poe.ninja (CORS proxy in prod, Vite proxy in dev)
-- GitHub Actions CI/CD → GitHub Pages
+- Prices from poe.ninja (secure serverless proxy in prod, Vite proxy in dev)
+- GitHub Actions CI/CD → Netlify/Vercel/GitHub Pages
 
 ## Modules
 
@@ -64,3 +64,37 @@ npm run dev
 ## Deployment
 
 Pushes to `master` trigger GitHub Actions → builds → deploys to `omnilyth-core-public` repo (`gh-pages` branch).
+
+For production deployment with secure proxy, see `SECURITY_FIXES_IMPLEMENTATION.md` for:
+- Netlify deployment (recommended)
+- Vercel deployment
+- Cloudflare Pages + Workers deployment
+
+## Security
+
+Project Omnilyth implements comprehensive security measures:
+
+### ✅ Secure API Proxy
+- Self-hosted serverless functions replace third-party CORS proxy
+- Path validation and request sanitization
+- 5-minute edge caching for performance
+- Available for Netlify, Vercel, and Cloudflare Workers
+
+### ✅ Security Headers
+- Content-Security-Policy (XSS prevention)
+- X-Frame-Options (clickjacking protection)
+- X-Content-Type-Options (MIME sniffing prevention)
+- Referrer-Policy (privacy protection)
+
+### ✅ Encrypted Storage
+- AES-256-GCM encryption for sensitive localStorage data
+- Per-device key generation using Web Crypto API
+- Backwards compatible migration utilities
+
+### ✅ Input Validation
+- XSS prevention through HTML sanitization
+- ReDoS protection for regex patterns
+- Number/string validation with range checking
+- Debouncing and rate limiting for expensive operations
+
+**See `SECURITY_FIXES_SUMMARY.md` for complete details.**

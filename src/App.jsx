@@ -12,6 +12,7 @@ import { PricesProvider } from './contexts/PricesContext';
 import { PinnedProvider } from './contexts/PinnedContext';
 import { DesignProvider } from './contexts/DesignContext';
 import { LevelingProgressProvider } from './contexts/LevelingProgressContext';
+import { PatchNotesProvider } from './contexts/PatchNotesContext';
 import AppShell from './layout/AppShell';
 import HomePage from './pages/HomePage';
 import CraftingOverviewPage from './pages/CraftingOverviewPage';
@@ -33,6 +34,7 @@ export default function App() {
         <PinnedProvider>
         <DesignProvider>
         <LevelingProgressProvider>
+        <PatchNotesProvider>
           {/* Global guide overlay - toggle with G key */}
           <GuideOverlay />
           <Routes>
@@ -51,6 +53,7 @@ export default function App() {
               <Route path="*" element={<HomePage />} />
             </Route>
           </Routes>
+        </PatchNotesProvider>
         </LevelingProgressProvider>
         </DesignProvider>
         </PinnedProvider>
