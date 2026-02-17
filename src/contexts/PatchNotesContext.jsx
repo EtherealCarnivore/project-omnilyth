@@ -12,9 +12,14 @@ const STORAGE_KEY_LAST_CHECK = 'omnilyth_patch_notes_last_check_v4';
 const CACHE_TTL = 5 * 60 * 1000; // 5 minutes (reduced for better responsiveness)
 const POLL_INTERVAL = 30 * 1000; // Poll every 30 seconds when active
 
-// Fetch more posts to ensure we catch all announcements
-const REDDIT_API_URL = 'https://www.reddit.com/r/pathofexile/new.json?limit=100';
-const REDDIT_RSS_URL = 'https://www.reddit.com/r/pathofexile/new.rss?limit=50';
+// Use serverless proxy to avoid CORS issues (Reddit blocks direct browser requests)
+const REDDIT_PROXY_BASE = import.meta.env.DEV
+  ? 'http://localhost:8888/.netlify/functions/reddit-proxy'
+  : '/.netlify/functions/reddit-proxy';
+
+// Build proxy URLs
+const REDDIT_API_URL = `${REDDIT_PROXY_BASE}?endpoint=/r/pathofexile/new.json?limit=100`;
+const REDDIT_RSS_URL = `${REDDIT_PROXY_BASE}?endpoint=/r/pathofexile/new.rss?limit=50`;
 
 // Mock data for when Reddit API is unavailable
 const MOCK_PATCHES = [
@@ -158,7 +163,14 @@ const transformRedditPost = (post) => {
 };
 
 // Parse RSS feed (lightweight check for new patches)
+// Note: RSS not yet supported through proxy, so we skip RSS polling for now
+// and rely on full API polling instead. RSS would need XML parsing on server side.
 const parseRSSFeed = async () => {
+  // For now, just return empty array to skip RSS checks
+  // The 30-second polling will use the full JSON API instead
+  return [];
+
+  /* TODO: Implement RSS proxy with XML parsing
   try {
     const response = await fetch(REDDIT_RSS_URL);
     if (!response.ok) throw new Error('RSS fetch failed');
@@ -179,6 +191,7 @@ const parseRSSFeed = async () => {
     console.error('RSS feed parse error:', error);
     return [];
   }
+  */
 };
 
 export const PatchNotesProvider = ({ children }) => {
@@ -219,14 +232,14 @@ export const PatchNotesProvider = ({ children }) => {
       console.log(`⚠️ Cache read failed, fetching fresh data`);
     }
 
-    // Fetch from Reddit
+    // Fetch from Reddit (via proxy)
     setLoading(true);
     setError(null);
 
     try {
       const response = await fetch(REDDIT_API_URL);
       if (!response.ok) {
-        throw new Error(`Reddit API returned ${response.status}`);
+        throw new Error(`Reddit proxy returned ${response.status}`);
       }
 
       const data = await response.json();
