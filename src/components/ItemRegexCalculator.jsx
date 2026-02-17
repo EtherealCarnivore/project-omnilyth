@@ -5,6 +5,7 @@ import { generateRareItemRegex, generateMagicItemRegex } from '../calculators/it
 import ItemBaseSelector from './ItemBaseSelector';
 import RareModSelect from './RareModSelect';
 import MagicModSelect from './MagicModSelect';
+import SaveRegexButton from './SaveRegexButton';
 
 // Base types that don't support magic affixes (force Rare)
 const RARE_ONLY_PATTERNS = ['blueprint', 'contract', 'heist'];
@@ -163,6 +164,14 @@ export default function ItemRegexCalculator() {
             >
               {copied ? 'Copied!' : 'Copy'}
             </button>
+            {result && (
+              <SaveRegexButton
+                pattern={result}
+                toolId="item-regex"
+                toolLabel="Item Mod Regex"
+                variant="compact"
+              />
+            )}
           </div>
         </div>
         <div className="bg-black/30 rounded-lg p-3 font-mono text-sm text-zinc-100 break-all min-h-[2.5rem] select-all leading-relaxed">

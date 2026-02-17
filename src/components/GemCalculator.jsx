@@ -1,6 +1,7 @@
 import { useState, useMemo, useCallback } from 'react';
 import { skillGemList, supportGemList, allGems } from '../data/gemData';
 import { generateGemRegexes } from '../calculators/gemRegex';
+import SaveRegexButton from './SaveRegexButton';
 
 const allGemList = [...skillGemList, ...supportGemList];
 
@@ -39,6 +40,14 @@ function RegexOutputBox({ regex, index, total }) {
           >
             {copied ? 'Copied!' : 'Copy'}
           </button>
+          {regex && (
+            <SaveRegexButton
+              pattern={regex}
+              toolId="gem-regex"
+              toolLabel="Gem Regex"
+              variant="compact"
+            />
+          )}
         </div>
       </div>
       <div className="bg-black/30 rounded-lg p-3 font-mono text-sm text-zinc-100 break-all min-h-[2.5rem] select-all leading-relaxed">

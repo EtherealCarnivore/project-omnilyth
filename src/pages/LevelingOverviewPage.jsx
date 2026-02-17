@@ -11,9 +11,16 @@ const ICONS = {
       <path d="M12 2l5 7-5 13-5-13z" />
     </svg>
   ),
+  Vendors: (
+    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+      <path d="M3 3h18v4H3V3z" />
+      <path d="M3 7v14h18V7" />
+      <path d="M8 10h8M8 14h5" />
+    </svg>
+  ),
 };
 
-const SUBCATEGORY_ORDER = ['Gems'];
+const SUBCATEGORY_ORDER = ['Gems', 'Vendors'];
 
 export default function LevelingOverviewPage() {
   const levelingMods = modules.filter(m => m.category === 'Leveling');

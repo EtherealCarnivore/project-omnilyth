@@ -10,10 +10,12 @@
  * code made me question my career choices more than any flash crash ever did.
  */
 import { useState, useRef, useEffect, useCallback } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import modules from '../modules/registry';
 import { usePricesContext } from '../contexts/PricesContext';
 import { useLeague } from '../contexts/LeagueContext';
+import { usePatchNotes } from '../contexts/PatchNotesContext';
+import { useRegexLibrary } from '../hooks/useRegexLibrary';
 
 const KIND_STYLES = {
   softcore:      { dot: 'bg-emerald-400',  text: 'text-emerald-300' },
@@ -91,6 +93,124 @@ function LeagueSelector({ league, setLeague, leagues }) {
         </div>
       )}
     </div>
+  );
+}
+
+function PatchNotesBadge() {
+  const { unreadCount, getMajorPatches } = usePatchNotes();
+  const hasMajorUnread = getMajorPatches().some(p => unreadCount > 0);
+
+  if (unreadCount === 0) {
+    // Subtle icon when no unread
+    return (
+      <button
+        onClick={() => {
+          // Simulate pressing G key to open overlay, then switch to tab 6
+          const event = new KeyboardEvent('keydown', { key: 'g' });
+          window.dispatchEvent(event);
+          setTimeout(() => {
+            const tabEvent = new KeyboardEvent('keydown', { key: '6' });
+            window.dispatchEvent(tabEvent);
+          }, 100);
+        }}
+        className="p-1.5 rounded-lg text-zinc-600 hover:text-zinc-400 hover:bg-white/[0.04] transition-colors"
+        title="Patch Notes (G → 6)"
+      >
+        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+          <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+      </button>
+    );
+  }
+
+  // Has unread patches
+  return (
+    <button
+      onClick={() => {
+        const event = new KeyboardEvent('keydown', { key: 'g' });
+        window.dispatchEvent(event);
+        setTimeout(() => {
+          const tabEvent = new KeyboardEvent('keydown', { key: '6' });
+          window.dispatchEvent(tabEvent);
+        }, 100);
+      }}
+      className={`relative p-1.5 rounded-lg transition-colors ${
+        hasMajorUnread
+          ? 'text-red-400 hover:text-red-300 hover:bg-red-400/[0.06] animate-pulse'
+          : 'text-amber-400 hover:text-amber-300 hover:bg-amber-400/[0.06] animate-pulse'
+      }`}
+      title={`${unreadCount} new patch note${unreadCount !== 1 ? 's' : ''} (G → 6)`}
+    >
+      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+        <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+      </svg>
+      <span className={`absolute -top-1 -right-1 min-w-[20px] h-5 px-1 text-[10px] font-bold rounded-full flex items-center justify-center ${
+        hasMajorUnread
+          ? 'bg-red-500 text-white'
+          : 'bg-amber-500 text-black'
+      }`}>
+        {unreadCount > 9 ? '9+' : unreadCount}
+      </span>
+    </button>
+  );
+}
+
+function LibraryButton() {
+  const navigate = useNavigate();
+  const { patterns } = useRegexLibrary();
+  const count = patterns.length;
+
+  if (count === 0) {
+    // Subtle icon when no patterns saved
+    return (
+      <button
+        onClick={() => navigate('/library')}
+        className="p-1.5 rounded-lg text-zinc-600 hover:text-zinc-400 hover:bg-white/[0.04] transition-colors"
+        title="Regex Library (Empty)"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="w-4 h-4"
+        >
+          <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+          <polyline points="17 21 17 13 7 13 7 21" />
+          <polyline points="7 3 7 8 15 8" />
+        </svg>
+      </button>
+    );
+  }
+
+  // Has saved patterns
+  return (
+    <button
+      onClick={() => navigate('/library')}
+      className="relative p-1.5 rounded-lg text-indigo-400 hover:text-indigo-300 hover:bg-indigo-400/[0.06] transition-colors"
+      title={`${count} saved pattern${count !== 1 ? 's' : ''} in library`}
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        className="w-4 h-4"
+      >
+        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+        <polyline points="17 21 17 13 7 13 7 21" />
+        <polyline points="7 3 7 8 15 8" />
+      </svg>
+      <span className="absolute -top-1 -right-1 min-w-[20px] h-5 px-1 text-[10px] font-bold rounded-full flex items-center justify-center bg-indigo-500 text-white">
+        {count > 9 ? '9+' : count}
+      </span>
+    </button>
   );
 }
 
@@ -240,6 +360,8 @@ export default function Topbar({ onMenuClick }) {
 
       {/* Right: status + refresh */}
       <div className="flex items-center gap-3">
+        <LibraryButton />
+        <PatchNotesBadge />
         <PriceStatusPopover loading={loading} error={error} prices={prices} />
         <button
           onClick={refresh}

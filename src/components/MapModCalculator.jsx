@@ -2,6 +2,7 @@ import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
 import { regexMapModifiersRegular } from '../data/mapModsRegular';
 import { regexMapModifierT17 } from '../data/mapModsT17';
 import { generateMapModRegex } from '../calculators/mapModRegex';
+import SaveRegexButton from './SaveRegexButton';
 
 const DEFAULT_SETTINGS = {
   badIds: [],
@@ -331,6 +332,14 @@ export default function MapModCalculator() {
             >
               {copied ? 'Copied!' : 'Copy'}
             </button>
+            {result && (
+              <SaveRegexButton
+                pattern={result}
+                toolId="map-mods"
+                toolLabel="Map Mod Regex"
+                variant="compact"
+              />
+            )}
           </div>
         </div>
         {/* Regex display */}
