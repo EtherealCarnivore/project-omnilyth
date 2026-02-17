@@ -34,11 +34,9 @@ import { useState, useCallback, useEffect } from 'react';
 // ══════════════════════════════════════════════════════════════
 // 🔐 CONFIGURATION - SECURE PASSWORD HASH
 // ══════════════════════════════════════════════════════════════
-// Generated with: node scripts/generate-password-hash-simple.js
-// SHA-512 with 10,000 iterations - secure and fast (~1 second to compute)
+// Single SHA-512 hash - simple and instant
 
-const PASSWORD_HASH = '120241223f31a42ae7f53fdcd41ce6d8605c23fabf82f168c6f9d568acfb077ac1cdf5ce157e3e0ed0a23122f1fd5fc07c91559574355e6e03026b0b2cd48967';
-const ITERATIONS = 10000;
+const PASSWORD_HASH = '84888b5a1307ee2d23bec804e3c7aa949dd1f84174a4ae632a15ffd377f37f3dc3b5220097c40aa3148b96a9f92aab09c48888810f2ab4856f37f4b165919a69';
 
 // ══════════════════════════════════════════════════════════════
 
@@ -50,26 +48,16 @@ const MAX_ATTEMPTS = 5;
 const AUTH_DURATION = 30 * 24 * 60 * 60 * 1000; // 30 days
 
 /**
- * Hash password with SHA-512 and multiple iterations
- * Computationally expensive to brute force
- * Matches Node.js crypto implementation
+ * Hash password with SHA-512 (single hash - simple and fast)
  */
-async function hashPassword(password, iterations) {
+async function hashPassword(password) {
   const encoder = new TextEncoder();
-  let hash = password;
+  const data = encoder.encode(password);
+  const buffer = await crypto.subtle.digest('SHA-512', data);
 
-  for (let i = 0; i < iterations; i++) {
-    // Hash the string (or hex from previous iteration)
-    const data = encoder.encode(hash);
-    const buffer = await crypto.subtle.digest('SHA-512', data);
-
-    // Convert to hex string for next iteration
-    hash = Array.from(new Uint8Array(buffer))
-      .map(b => b.toString(16).padStart(2, '0'))
-      .join('');
-  }
-
-  return hash;
+  return Array.from(new Uint8Array(buffer))
+    .map(b => b.toString(16).padStart(2, '0'))
+    .join('');
 }
 
 /**
@@ -176,8 +164,8 @@ export default function BetaGate({ children }) {
     setChecking(true);
 
     try {
-      // Hash the trimmed password
-      const inputHash = await hashPassword(trimmedInput, ITERATIONS);
+      // Hash the trimmed password (single SHA-512)
+      const inputHash = await hashPassword(trimmedInput);
 
       // Record this attempt
       recordAttempt();
