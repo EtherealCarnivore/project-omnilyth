@@ -33,8 +33,13 @@ export default function YouTubeCard() {
               alt={CHANNEL_NAME}
               className="w-full h-full object-cover"
               onError={e => {
+                const parent = e.target.parentElement;
                 e.target.style.display = 'none';
-                e.target.parentElement.innerHTML = `<div class="w-full h-full flex items-center justify-center text-lg font-bold text-red-400 bg-zinc-800/60">${CHANNEL_NAME[0]}</div>`;
+                // Safe DOM manipulation - no XSS risk
+                const fallback = document.createElement('div');
+                fallback.className = 'w-full h-full flex items-center justify-center text-lg font-bold text-red-400 bg-zinc-800/60';
+                fallback.textContent = CHANNEL_NAME[0]; // textContent is safe, not innerHTML
+                parent.appendChild(fallback);
               }}
             />
           </div>
