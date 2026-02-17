@@ -9,7 +9,7 @@ const STORAGE_KEY_CACHE = 'omnilyth_patch_notes_cache_v4'; // v4 to force refres
 const STORAGE_KEY_READ_IDS = 'omnilyth_patch_notes_read_ids_v4';
 const STORAGE_KEY_LAST_FETCH = 'omnilyth_patch_notes_last_fetch_v4';
 const STORAGE_KEY_LAST_CHECK = 'omnilyth_patch_notes_last_check_v4';
-const CACHE_TTL = 60 * 60 * 1000; // 1 hour
+const CACHE_TTL = 5 * 60 * 1000; // 5 minutes (reduced for better responsiveness)
 const POLL_INTERVAL = 30 * 1000; // Poll every 30 seconds when active
 
 // Fetch more posts to ensure we catch all announcements
@@ -205,12 +205,18 @@ export const PatchNotesProvider = ({ children }) => {
       if (lastFetch && cachedPatches) {
         const age = Date.now() - parseInt(lastFetch);
         if (age < CACHE_TTL) {
+          console.log(`💾 Loading from cache (age: ${Math.round(age / 1000)}s)`);
           setPatches(JSON.parse(cachedPatches));
           return;
+        } else {
+          console.log(`🔄 Cache expired (age: ${Math.round(age / 1000)}s), fetching fresh data`);
         }
+      } else {
+        console.log(`🆕 No cache found, fetching fresh data`);
       }
     } catch {
       // Cache read failed, continue to fetch
+      console.log(`⚠️ Cache read failed, fetching fresh data`);
     }
 
     // Fetch from Reddit
@@ -226,19 +232,29 @@ export const PatchNotesProvider = ({ children }) => {
       const data = await response.json();
       const posts = data.data?.children || [];
 
+      console.log(`📡 Fetched ${posts.length} posts from Reddit`);
+
       // Transform and filter
       // Accept multiple flair types: GGG, Announcement, Official, News
       const acceptedFlairs = ['GGG', 'Announcement', 'Official', 'News'];
       const transformed = posts
         .filter(post => {
           const flair = post.data?.link_flair_text;
+          const author = post.data?.author;
           // Check if it's from a GGG author OR has accepted flair
-          const isGGGAuthor = post.data?.author?.includes('_GGG');
+          const isGGGAuthor = author && author.includes('_GGG');
           const hasAcceptedFlair = flair && acceptedFlairs.includes(flair);
+
+          if (isGGGAuthor || hasAcceptedFlair) {
+            console.log(`✅ Including: "${post.data?.title}" (author: ${author}, flair: ${flair})`);
+          }
+
           return isGGGAuthor || hasAcceptedFlair;
         })
         .map(transformRedditPost)
         .filter(patch => patch.title && patch.id);
+
+      console.log(`✨ Filtered to ${transformed.length} patch notes`);
 
       // Cache
       localStorage.setItem(STORAGE_KEY_CACHE, JSON.stringify(transformed));
