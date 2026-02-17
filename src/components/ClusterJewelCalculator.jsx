@@ -240,7 +240,7 @@ export default function ClusterJewelCalculator() {
                       title={suffix ? 'Suffix' : 'Prefix'}
                     />
                     <span className="text-zinc-100 flex-1 truncate">{name}</span>
-                    <span className="text-[11px] text-zinc-600 shrink-0">
+                    <span className="text-[11px] text-zinc-500 shrink-0">
                       {enchCount} enchant{enchCount !== 1 ? 's' : ''}
                     </span>
                     <span className="text-[11px] text-zinc-500 shrink-0 tabular-nums w-10 text-right">
@@ -332,7 +332,7 @@ export default function ClusterJewelCalculator() {
           className={`w-full sm:w-auto px-8 py-3 rounded-xl text-sm font-semibold tracking-wide transition-all duration-200 ${
             enabledCount >= 2
               ? 'bg-gradient-to-r from-amber-500/25 to-amber-600/20 border border-amber-400/30 text-amber-200 hover:from-amber-500/35 hover:to-amber-600/30 hover:border-amber-400/50 shadow-[0_0_20px_rgba(245,158,11,0.08)] hover:shadow-[0_0_28px_rgba(245,158,11,0.15)]'
-              : 'bg-zinc-900/40 border border-zinc-800/40 text-zinc-600 cursor-not-allowed'
+              : 'bg-zinc-900/40 border border-zinc-800/40 text-zinc-500 cursor-not-allowed'
           }`}
         >
           {enabledCount >= 2 ? (
@@ -444,7 +444,7 @@ function ResultPanel({ result, league, clusterData }) {
       <div className="flex flex-wrap items-center gap-2 px-4 py-3 bg-amber-500/[0.04] border-b border-white/5">
         <span className="text-amber-300 font-medium text-sm">{notableName1}</span>
         <span className="text-[11px] text-zinc-500 tabular-nums">ilvl {notable1.Mod.Level}</span>
-        <span className="text-zinc-600 text-xs">+</span>
+        <span className="text-zinc-500 text-xs">+</span>
         <span className="text-amber-300 font-medium text-sm">{notableName3}</span>
         <span className="text-[11px] text-zinc-500 tabular-nums">ilvl {notable3.Mod.Level}</span>
       </div>
@@ -465,7 +465,7 @@ function ResultPanel({ result, league, clusterData }) {
             <span className="uppercase tracking-wider font-semibold">
               Position 2 options
             </span>
-            <span className="text-zinc-600 font-normal">({notablesBetween.length} notables)</span>
+            <span className="text-zinc-500 font-normal">({notablesBetween.length} notables)</span>
           </button>
           {middleOpen && (
             <div className="mt-2 ml-5 flex flex-wrap gap-1.5 fade-in">
@@ -475,7 +475,7 @@ function ResultPanel({ result, league, clusterData }) {
                   className="inline-flex items-center gap-1 px-2 py-0.5 rounded-md text-[11px] bg-zinc-900/60 border border-white/5 text-zinc-300"
                 >
                   {nObj.PassiveSkill.Name}
-                  <span className="text-zinc-600 tabular-nums">({nObj.Mod.Level})</span>
+                  <span className="text-zinc-500 tabular-nums">({nObj.Mod.Level})</span>
                 </span>
               ))}
             </div>
@@ -506,7 +506,7 @@ function ResultPanel({ result, league, clusterData }) {
                 >
                   <div className="flex-1 min-w-0">
                     <p className="text-sm text-zinc-300 truncate" title={enchLabel}>{enchLabel}</p>
-                    <p className="text-[11px] text-zinc-600">{validMiddle.length} middle notable{validMiddle.length !== 1 ? 's' : ''}</p>
+                    <p className="text-[11px] text-zinc-500">{validMiddle.length} middle notable{validMiddle.length !== 1 ? 's' : ''}</p>
                   </div>
                   <a
                     href={url}
@@ -528,7 +528,7 @@ function ResultPanel({ result, league, clusterData }) {
               <div className="flex items-center gap-3 px-3 py-2 rounded-lg bg-amber-500/[0.04] border border-amber-400/10">
                 <div className="flex-1 min-w-0">
                   <p className="text-sm text-zinc-300">Any Enchant</p>
-                  <p className="text-[11px] text-zinc-600">{betweenNames.length} middle notables &middot; all enchant types</p>
+                  <p className="text-[11px] text-zinc-500">{betweenNames.length} middle notables &middot; all enchant types</p>
                 </div>
                 <a
                   href={buildTradeUrl(league, [notableName1, notableName3], betweenNames, null, clusterData)}

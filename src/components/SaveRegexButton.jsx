@@ -135,7 +135,7 @@ export default function SaveRegexButton({ pattern, toolId, toolLabel, defaultNam
       {/* Save Modal - Using Portal to prevent clipping */}
       {isModalOpen && createPortal(
         <div
-          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm"
+          className="fixed inset-0 z-[9999] flex items-center justify-center p-4 bg-black/85 backdrop-blur-md"
           onClick={handleClose}
         >
           <div
@@ -197,7 +197,7 @@ export default function SaveRegexButton({ pattern, toolId, toolLabel, defaultNam
                 placeholder="Enter a name for this pattern"
                 autoFocus
               />
-              <div className="text-xs text-zinc-500 text-right">
+              <div className="text-xs text-zinc-400 text-right">
                 {patternName.length}/50 characters
               </div>
             </div>

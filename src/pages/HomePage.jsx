@@ -109,7 +109,7 @@ function PinButton({ pinned, onToggle }) {
       className={`absolute top-3 right-3 p-1.5 rounded-lg transition-all ${
         pinned
           ? 'text-amber-400 opacity-100 bg-amber-400/10'
-          : 'text-zinc-600 opacity-0 group-hover:opacity-100 hover:text-zinc-300 hover:bg-white/[0.06]'
+          : 'text-zinc-600/50 group-hover:opacity-100 hover:text-zinc-300 hover:bg-white/[0.06]'
       }`}
     >
       {PIN_ICON}
@@ -144,11 +144,11 @@ function ModuleCard({ mod, pinned, onTogglePin }) {
             {mod.description}
           </p>
           <div className="flex items-center gap-2 mt-3">
-            <span className="text-[10px] uppercase tracking-wider text-zinc-600 font-medium">
+            <span className="text-[10px] uppercase tracking-wider text-zinc-500 font-medium">
               {mod.category}
             </span>
-            <span className="text-zinc-700">&middot;</span>
-            <span className="text-[10px] uppercase tracking-wider text-zinc-600">
+            <span className="text-zinc-500">&middot;</span>
+            <span className="text-[10px] uppercase tracking-wider text-zinc-500">
               {mod.subcategory}
             </span>
           </div>
@@ -196,10 +196,10 @@ function CategoryHubCard({ hub }) {
             {hub.description}
           </p>
           <div className="flex items-center gap-2 mt-4">
-            <span className="text-[10px] uppercase tracking-wider text-zinc-600 font-medium">
+            <span className="text-[10px] uppercase tracking-wider text-zinc-500 font-medium">
               {toolCount} {toolCount === 1 ? 'tool' : 'tools'}
             </span>
-            <span className={`text-xs ${hub.hoverAccent} text-zinc-600 transition-colors flex items-center gap-1`}>
+            <span className={`text-xs ${hub.hoverAccent} text-zinc-500 transition-colors flex items-center gap-1`}>
               Explore
               <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
@@ -260,7 +260,7 @@ export default function HomePage() {
           value={search}
           onChange={e => setSearch(e.target.value)}
           placeholder="Search modules..."
-          className="w-full bg-zinc-900/60 border border-white/[0.08] rounded-xl py-3 pl-11 pr-4 text-zinc-100 placeholder:text-zinc-500 outline-none focus:border-sky-400/40 focus:ring-2 focus:ring-sky-400/15 transition-all"
+          className="w-full bg-zinc-900/80 border border-white/[0.12] rounded-xl py-3 pl-11 pr-4 text-zinc-100 placeholder:text-zinc-400 outline-none focus:border-sky-400/40 focus:ring-2 focus:ring-sky-400/15 transition-all"
         />
       </div>
 
@@ -333,7 +333,7 @@ export default function HomePage() {
       <div className="text-center pb-4">
         <button
           onClick={() => setShowCredits(prev => !prev)}
-          className="text-xs text-zinc-600 hover:text-zinc-400 transition-colors"
+          className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors"
         >
           {showCredits ? 'Hide credits ▲' : 'Credits ▼'}
         </button>

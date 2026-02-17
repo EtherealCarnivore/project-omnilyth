@@ -26,7 +26,7 @@ export default function CategoryOverviewCard({ subcategory, icon, modules, accen
                 {mod.description}
               </div>
             </div>
-            <svg className="w-4 h-4 shrink-0 mt-0.5 ml-auto text-zinc-700 group-hover:text-zinc-400 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg className="w-4 h-4 shrink-0 mt-0.5 ml-auto text-zinc-500 group-hover:text-zinc-300 transition-colors" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
             </svg>
           </Link>

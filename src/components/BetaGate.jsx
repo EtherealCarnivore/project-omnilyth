@@ -232,7 +232,7 @@ export default function BetaGate({ children }) {
                 error ? 'border-red-500/60' : ''
               } disabled:opacity-50 disabled:cursor-not-allowed`}
             />
-            <p className="mt-1.5 text-xs text-zinc-600">
+            <p className="mt-1.5 text-xs text-zinc-500">
               Spaces are automatically trimmed from the password.
             </p>
           </div>
