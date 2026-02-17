@@ -8,9 +8,12 @@ import { createContext, useContext, useState, useEffect, useCallback } from 'rea
 const STORAGE_KEY_CACHE = 'omnilyth_patch_notes_cache_v3'; // v3 to force refresh for highlights fix
 const STORAGE_KEY_READ_IDS = 'omnilyth_patch_notes_read_ids_v3';
 const STORAGE_KEY_LAST_FETCH = 'omnilyth_patch_notes_last_fetch_v3';
+const STORAGE_KEY_LAST_CHECK = 'omnilyth_patch_notes_last_check_v3';
 const CACHE_TTL = 60 * 60 * 1000; // 1 hour
+const POLL_INTERVAL = 30 * 1000; // Poll every 30 seconds when active
 
 const REDDIT_API_URL = 'https://www.reddit.com/r/pathofexile/search.json?q=flair_name:"GGG"&sort=new&limit=50&restrict_sr=1';
+const REDDIT_RSS_URL = 'https://www.reddit.com/r/pathofexile/search.rss?q=flair_name:"GGG"&sort=new&limit=20&restrict_sr=1';
 
 // Mock data for when Reddit API is unavailable
 const MOCK_PATCHES = [
@@ -153,10 +156,35 @@ const transformRedditPost = (post) => {
   };
 };
 
+// Parse RSS feed (lightweight check for new patches)
+const parseRSSFeed = async () => {
+  try {
+    const response = await fetch(REDDIT_RSS_URL);
+    if (!response.ok) throw new Error('RSS fetch failed');
+
+    const text = await response.text();
+    const parser = new DOMParser();
+    const xml = parser.parseFromString(text, 'text/xml');
+
+    const items = xml.querySelectorAll('entry');
+    const patchIds = Array.from(items).slice(0, 10).map(item => {
+      const link = item.querySelector('link')?.getAttribute('href') || '';
+      const match = link.match(/\/comments\/([a-z0-9]+)\//);
+      return match ? match[1] : null;
+    }).filter(Boolean);
+
+    return patchIds;
+  } catch (error) {
+    console.error('RSS feed parse error:', error);
+    return [];
+  }
+};
+
 export const PatchNotesProvider = ({ children }) => {
   const [patches, setPatches] = useState(MOCK_PATCHES); // Start with mock data
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
+  const [hasNewPatches, setHasNewPatches] = useState(false); // Notification badge
   const [readIds, setReadIds] = useState(() => {
     try {
       const stored = localStorage.getItem(STORAGE_KEY_READ_IDS);
@@ -231,10 +259,93 @@ export const PatchNotesProvider = ({ children }) => {
     }
   }, []);
 
+  // Check for new patches (lightweight RSS check)
+  const checkForUpdates = useCallback(async () => {
+    try {
+      const lastCheck = localStorage.getItem(STORAGE_KEY_LAST_CHECK);
+      const now = Date.now();
+
+      // Debounce checks (minimum 10 seconds between checks)
+      if (lastCheck && (now - parseInt(lastCheck)) < 10000) {
+        return;
+      }
+
+      localStorage.setItem(STORAGE_KEY_LAST_CHECK, now.toString());
+
+      // Get current patch IDs
+      const currentIds = patches.map(p => p.id);
+
+      // Check RSS feed for new IDs
+      const latestIds = await parseRSSFeed();
+
+      // If RSS has IDs we don't have, flag as new
+      const hasNew = latestIds.some(id => !currentIds.includes(id));
+
+      if (hasNew) {
+        setHasNewPatches(true);
+      }
+    } catch (error) {
+      console.error('Update check failed:', error);
+    }
+  }, [patches]);
+
+  // Manual refresh with notification clear
+  const refreshPatches = useCallback(async () => {
+    setHasNewPatches(false);
+    // Clear cache to force fresh fetch
+    localStorage.removeItem(STORAGE_KEY_CACHE);
+    localStorage.removeItem(STORAGE_KEY_LAST_FETCH);
+    await fetchPatches();
+  }, [fetchPatches]);
+
   // Initial fetch
   useEffect(() => {
     fetchPatches();
   }, [fetchPatches]);
+
+  // Smart polling: only poll when tab is visible
+  useEffect(() => {
+    let pollInterval;
+
+    const startPolling = () => {
+      // Check immediately
+      checkForUpdates();
+
+      // Then poll every 30 seconds
+      pollInterval = setInterval(() => {
+        checkForUpdates();
+      }, POLL_INTERVAL);
+    };
+
+    const stopPolling = () => {
+      if (pollInterval) {
+        clearInterval(pollInterval);
+        pollInterval = null;
+      }
+    };
+
+    // Handle visibility changes
+    const handleVisibilityChange = () => {
+      if (document.hidden) {
+        stopPolling();
+      } else {
+        startPolling();
+      }
+    };
+
+    // Start polling if tab is visible
+    if (!document.hidden) {
+      startPolling();
+    }
+
+    // Listen for visibility changes
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+
+    return () => {
+      stopPolling();
+      document.removeEventListener('visibilitychange', handleVisibilityChange);
+    };
+  }, [checkForUpdates]);
 
   // Mark patch as read
   const markAsRead = useCallback((patchId) => {
@@ -276,7 +387,9 @@ export const PatchNotesProvider = ({ children }) => {
     loading,
     error,
     unreadCount,
+    hasNewPatches, // NEW: notification for updates
     fetchPatches,
+    refreshPatches, // NEW: manual refresh
     markAsRead,
     markAllAsRead,
     getLatestPatch,
