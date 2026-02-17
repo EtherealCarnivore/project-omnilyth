@@ -13,9 +13,28 @@ const CACHE_TTL = 5 * 60 * 1000; // 5 minutes (reduced for better responsiveness
 const POLL_INTERVAL = 30 * 1000; // Poll every 30 seconds when active
 
 // Use serverless proxy to avoid CORS issues (Reddit blocks direct browser requests)
-const REDDIT_PROXY_BASE = import.meta.env.DEV
-  ? 'http://localhost:8888/.netlify/functions/reddit-proxy'
-  : '/.netlify/functions/reddit-proxy';
+// GitHub Pages = static hosting (no functions), so use Netlify proxy
+// Netlify = has functions, use relative path
+// Dev = use localhost:8888 (Netlify Dev) or fallback to production
+const getProxyBase = () => {
+  // Development mode
+  if (import.meta.env.DEV) {
+    return 'http://localhost:8888/.netlify/functions/reddit-proxy';
+  }
+
+  // Production: Check if we're on Netlify or GitHub Pages
+  const hostname = window.location.hostname;
+
+  // If on Netlify, use relative path (same-origin, faster)
+  if (hostname.includes('netlify.app') || hostname === 'omnilyth.app' || hostname === 'www.omnilyth.app') {
+    return '/.netlify/functions/reddit-proxy';
+  }
+
+  // If on GitHub Pages, use Netlify proxy (cross-origin)
+  return 'https://omnilyth-beta.netlify.app/.netlify/functions/reddit-proxy';
+};
+
+const REDDIT_PROXY_BASE = getProxyBase();
 
 // Build proxy URLs
 const REDDIT_API_URL = `${REDDIT_PROXY_BASE}?endpoint=/r/pathofexile/new.json?limit=100`;
