@@ -24,8 +24,8 @@ import GuideOverlay from './components/guides/GuideOverlay';
 
 export default function App() {
   return (
-    // basename must match the GitHub Pages repo name — get this wrong and enjoy 404s in prod
-    <BrowserRouter basename="/omnilyth-core-public">
+    // basename: GitHub Pages needs /omnilyth-core-public/, Netlify needs /
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       {/* Provider inception: league → prices → pinned. The nesting never ends. */}
       {/* In Java I'd have @Autowired and a DI container. Here I have JSX turducken. */}
       {/* My matching engine has lower latency than this render tree. */}
