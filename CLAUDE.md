@@ -74,6 +74,12 @@ src/
 - **Forum Link Extraction** - Auto-detects official PoE forum links
 - **Read/Unread Tracking** - LocalStorage-based read status
 
+### User Feedback System
+- **Feedback Button** - Submit bugs, UI issues, suggestions, feature requests
+- **GitHub Issues Integration** - Submissions create GitHub issues automatically
+- **No Account Required** - Users don't need GitHub accounts
+- **Serverless Backend** - Secure proxy via Netlify function
+
 ---
 
 ## Security Implementation
@@ -90,6 +96,7 @@ src/
 ### 🛡️ Security Measures
 1. **Serverless API Proxy** - Replaced corsproxy.io with own functions
    - `netlify/functions/poe-ninja-proxy.js` (Netlify)
+   - `netlify/functions/github-feedback.js` (Feedback system)
    - `api/poe-ninja-proxy.js` (Vercel)
    - `workers/poe-ninja-proxy.js` (Cloudflare)
 
@@ -262,6 +269,7 @@ npm run build
 ### Documentation
 - **CLAUDE.md** (this file) - Project context for AI
 - **README.md** - Public project documentation
+- **FEEDBACK_SYSTEM_SETUP.md** - User feedback system setup guide
 - **SECURITY_FIXES_SUMMARY.md** - Security improvements overview
 - **PERFORMANCE_ANALYSIS.md** - Performance review and optimizations
 - **BETA_GATE_SETUP.md** - Password authentication setup
@@ -273,6 +281,7 @@ npm run build
 
 ### Key Components
 - **BetaGate.jsx** - Password authentication
+- **FeedbackButton.jsx** - User feedback submission (uses React Portal)
 - **SaveRegexButton.jsx** - Regex pattern saving (uses React Portal)
 - **PatchNotesWidget.jsx** - Dashboard patch notes display
 - **Sidebar.jsx** / **Topbar.jsx** - App navigation
