@@ -35,10 +35,10 @@ import { useState, useCallback, useEffect } from 'react';
 // 🔐 CONFIGURATION - SECURE PASSWORD HASH
 // ══════════════════════════════════════════════════════════════
 // Generated with: node scripts/generate-password-hash-simple.js
-// SHA-512 with 500,000 iterations - computationally hard to reverse
+// SHA-512 with 10,000 iterations - secure and fast (~1 second to compute)
 
-const PASSWORD_HASH = 'f75b20dd0c109da2d3dbce9a23f30e4cfe5ace7b3c070402fdba24099ed366431396fe22f6c8888767b08b10f3a3e160b98acd568096c3af3021b2b2f276dd82';
-const ITERATIONS = 500000;
+const PASSWORD_HASH = '120241223f31a42ae7f53fdcd41ce6d8605c23fabf82f168c6f9d568acfb077ac1cdf5ce157e3e0ed0a23122f1fd5fc07c91559574355e6e03026b0b2cd48967';
+const ITERATIONS = 10000;
 
 // ══════════════════════════════════════════════════════════════
 

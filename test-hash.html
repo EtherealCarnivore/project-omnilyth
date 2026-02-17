@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hash Test</title>
+</head>
+<body>
+  <h1>Password Hash Test</h1>
+  <input type="text" id="password" value="privat3Be7@_SUB_TO_IVA_NOOBS_uwu^.^_" style="width: 400px">
+  <button onclick="testHash()">Test Hash</button>
+  <pre id="result"></pre>
+
+  <script>
+    const EXPECTED_HASH = 'f75b20dd0c109da2d3dbce9a23f30e4cfe5ace7b3c070402fdba24099ed366431396fe22f6c8888767b08b10f3a3e160b98acd568096c3af3021b2b2f276dd82';
+    const ITERATIONS = 500000;
+
+    async function hashPassword(password, iterations) {
+      const encoder = new TextEncoder();
+      let hash = password;
+
+      for (let i = 0; i < iterations; i++) {
+        // Hash the string (or hex from previous iteration)
+        const data = encoder.encode(hash);
+        const buffer = await crypto.subtle.digest('SHA-512', data);
+
+        // Convert to hex string for next iteration
+        hash = Array.from(new Uint8Array(buffer))
+          .map(b => b.toString(16).padStart(2, '0'))
+          .join('');
+
+        if (i < 5 || i === iterations - 1) {
+          console.log(`Iteration ${i}: ${hash.substring(0, 32)}...`);
+        }
+      }
+
+      return hash;
+    }
+
+    async function testHash() {
+      const password = document.getElementById('password').value;
+      const result = document.getElementById('result');
+
+      result.textContent = 'Computing hash (this will take ~30 seconds)...\n';
+
+      const start = Date.now();
+      const hash = await hashPassword(password, ITERATIONS);
+      const elapsed = Date.now() - start;
+
+      result.textContent = `Password: "${password}"\n\n`;
+      result.textContent += `Expected: ${EXPECTED_HASH}\n`;
+      result.textContent += `Computed: ${hash}\n\n`;
+      result.textContent += `Match: ${hash === EXPECTED_HASH ? '✅ YES' : '❌ NO'}\n`;
+      result.textContent += `Time: ${elapsed}ms\n`;
+    }
+  </script>
+</body>
+</html>

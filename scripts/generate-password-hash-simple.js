@@ -19,7 +19,7 @@ if (!password) {
   process.exit(1);
 }
 
-const ITERATIONS = 500000; // Half a million iterations
+const ITERATIONS = 10000; // 10k iterations - fast but still secure
 
 function strongHash(password, iterations) {
   let hash = password;
