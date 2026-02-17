@@ -181,7 +181,7 @@ export default function RegexLibraryPage() {
             strokeWidth="2"
             strokeLinecap="round"
             strokeLinejoin="round"
-            className="w-16 h-16 mx-auto text-zinc-700 mb-4"
+            className="w-16 h-16 mx-auto text-zinc-500 mb-4"
           >
             <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
             <polyline points="17 21 17 13 7 13 7 21" />

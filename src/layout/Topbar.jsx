@@ -66,7 +66,7 @@ function LeagueSelector({ league, setLeague, leagues }) {
 
       {/* Dropdown */}
       {open && (
-        <div className="absolute top-full right-0 mt-1 w-56 py-1 rounded-xl bg-zinc-900 border border-white/[0.08] shadow-xl shadow-black/40 z-50 max-h-72 overflow-y-auto">
+        <div className="absolute top-full right-0 mt-1 w-56 py-1 rounded-xl bg-zinc-900/95 backdrop-blur-xl border border-white/[0.15] shadow-xl shadow-black/40 z-50 max-h-72 overflow-y-auto">
           {leagues.map(l => {
             const s = leagueStyle(l.kind);
             const isActive = l.value === league;
@@ -113,7 +113,7 @@ function PatchNotesBadge() {
             window.dispatchEvent(tabEvent);
           }, 100);
         }}
-        className="p-1.5 rounded-lg text-zinc-600 hover:text-zinc-400 hover:bg-white/[0.04] transition-colors"
+        className="p-1.5 rounded-lg text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.08] transition-colors"
         title="Patch Notes (G → 6)"
       >
         <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
@@ -165,7 +165,7 @@ function LibraryButton() {
     return (
       <button
         onClick={() => navigate('/library')}
-        className="p-1.5 rounded-lg text-zinc-600 hover:text-zinc-400 hover:bg-white/[0.04] transition-colors"
+        className="p-1.5 rounded-lg text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.08] transition-colors"
         title="Regex Library (Empty)"
       >
         <svg
@@ -245,7 +245,7 @@ function PriceStatusPopover({ loading, error, prices }) {
       </button>
 
       {open && (
-        <div className="absolute top-full right-0 mt-1 w-64 rounded-xl bg-zinc-900 border border-white/[0.08] shadow-xl shadow-black/40 z-50 p-3">
+        <div className="absolute top-full right-0 mt-1 w-64 rounded-xl bg-zinc-900/95 backdrop-blur-xl border border-white/[0.15] shadow-xl shadow-black/40 z-50 p-3">
           <div className="flex items-start gap-2.5">
             <svg className="w-4 h-4 text-amber-400 shrink-0 mt-0.5" viewBox="0 0 20 20" fill="currentColor">
               <path fillRule="evenodd" d="M8.485 2.495c.673-1.167 2.357-1.167 3.03 0l6.28 10.875c.673 1.167-.17 2.625-1.516 2.625H3.72c-1.347 0-2.189-1.458-1.515-2.625L8.485 2.495zM10 6a.75.75 0 01.75.75v3.5a.75.75 0 01-1.5 0v-3.5A.75.75 0 0110 6zm0 9a1 1 0 100-2 1 1 0 000 2z" clipRule="evenodd" />
@@ -293,7 +293,7 @@ function SupportDropdown() {
       </button>
 
       {open && (
-        <div className="absolute top-full right-0 mt-1 w-52 py-2 rounded-xl bg-zinc-900 border border-white/[0.08] shadow-xl shadow-black/40 z-50">
+        <div className="absolute top-full right-0 mt-1 w-52 py-2 rounded-xl bg-zinc-900/95 backdrop-blur-xl border border-white/[0.15] shadow-xl shadow-black/40 z-50">
           <div className="px-3 pb-2 mb-1 border-b border-white/5">
             <p className="text-[11px] text-zinc-500 leading-relaxed">Support links coming soon. Culture first.</p>
           </div>
@@ -305,7 +305,7 @@ function SupportDropdown() {
             </svg>
             <div>
               <span className="text-sm text-zinc-300 block">Buy Me a Coffee</span>
-              <span className="text-[10px] text-zinc-600">Coming soon</span>
+              <span className="text-[10px] text-zinc-500">Coming soon</span>
             </div>
           </div>
 
@@ -316,7 +316,7 @@ function SupportDropdown() {
             </svg>
             <div>
               <span className="text-sm text-zinc-300 block">Patreon</span>
-              <span className="text-[10px] text-zinc-600">Coming soon</span>
+              <span className="text-[10px] text-zinc-500">Coming soon</span>
             </div>
           </div>
         </div>
@@ -373,7 +373,7 @@ export default function Topbar({ onMenuClick }) {
             <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
           </svg>
         </button>
-        <span className="text-zinc-700 hidden sm:inline">|</span>
+        <span className="text-zinc-500 hidden sm:inline">|</span>
         <SupportDropdown />
       </div>
     </header>

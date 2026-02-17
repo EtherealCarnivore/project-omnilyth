@@ -171,7 +171,7 @@ const PatchNotesWidget = () => {
                   </div>
 
                   {/* Metadata */}
-                  <div className="flex items-center gap-2 text-xs text-zinc-600">
+                  <div className="flex items-center gap-2 text-xs text-zinc-500">
                     <span>{timeAgo(patch.posted)}</span>
                     <span>•</span>
                     {getCategoryBadge(patch.category)}
@@ -189,7 +189,7 @@ const PatchNotesWidget = () => {
                         </li>
                       ))}
                       {patch.highlights.length > 2 && (
-                        <li className="text-zinc-600 italic">
+                        <li className="text-zinc-500 italic">
                           +{patch.highlights.length - 2} more changes
                         </li>
                       )}
@@ -224,7 +224,7 @@ const PatchNotesWidget = () => {
 
       {/* Footer with keybind hint */}
       <div className="px-4 py-3 bg-black/40 border-t border-amber-500/10">
-        <p className="text-xs text-zinc-600 text-center">
+        <p className="text-xs text-zinc-500 text-center">
           Press <kbd className="px-1.5 py-0.5 bg-white/10 rounded text-zinc-500">G</kbd> to open full guide overlay
         </p>
       </div>
