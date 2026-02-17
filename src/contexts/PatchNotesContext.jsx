@@ -5,15 +5,16 @@
 
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
-const STORAGE_KEY_CACHE = 'omnilyth_patch_notes_cache_v3'; // v3 to force refresh for highlights fix
-const STORAGE_KEY_READ_IDS = 'omnilyth_patch_notes_read_ids_v3';
-const STORAGE_KEY_LAST_FETCH = 'omnilyth_patch_notes_last_fetch_v3';
-const STORAGE_KEY_LAST_CHECK = 'omnilyth_patch_notes_last_check_v3';
+const STORAGE_KEY_CACHE = 'omnilyth_patch_notes_cache_v4'; // v4 to force refresh with improved filtering
+const STORAGE_KEY_READ_IDS = 'omnilyth_patch_notes_read_ids_v4';
+const STORAGE_KEY_LAST_FETCH = 'omnilyth_patch_notes_last_fetch_v4';
+const STORAGE_KEY_LAST_CHECK = 'omnilyth_patch_notes_last_check_v4';
 const CACHE_TTL = 60 * 60 * 1000; // 1 hour
 const POLL_INTERVAL = 30 * 1000; // Poll every 30 seconds when active
 
-const REDDIT_API_URL = 'https://www.reddit.com/r/pathofexile/search.json?q=flair_name:"GGG"&sort=new&limit=50&restrict_sr=1';
-const REDDIT_RSS_URL = 'https://www.reddit.com/r/pathofexile/search.rss?q=flair_name:"GGG"&sort=new&limit=20&restrict_sr=1';
+// Fetch more posts to ensure we catch all announcements
+const REDDIT_API_URL = 'https://www.reddit.com/r/pathofexile/new.json?limit=100';
+const REDDIT_RSS_URL = 'https://www.reddit.com/r/pathofexile/new.rss?limit=50';
 
 // Mock data for when Reddit API is unavailable
 const MOCK_PATCHES = [
@@ -226,8 +227,16 @@ export const PatchNotesProvider = ({ children }) => {
       const posts = data.data?.children || [];
 
       // Transform and filter
+      // Accept multiple flair types: GGG, Announcement, Official, News
+      const acceptedFlairs = ['GGG', 'Announcement', 'Official', 'News'];
       const transformed = posts
-        .filter(post => post.data?.link_flair_text === 'GGG')
+        .filter(post => {
+          const flair = post.data?.link_flair_text;
+          // Check if it's from a GGG author OR has accepted flair
+          const isGGGAuthor = post.data?.author?.includes('_GGG');
+          const hasAcceptedFlair = flair && acceptedFlairs.includes(flair);
+          return isGGGAuthor || hasAcceptedFlair;
+        })
         .map(transformRedditPost)
         .filter(patch => patch.title && patch.id);
 
