@@ -52,19 +52,24 @@ const AUTH_DURATION = 30 * 24 * 60 * 60 * 1000; // 30 days
 /**
  * Hash password with SHA-512 and multiple iterations
  * Computationally expensive to brute force
+ * Matches Node.js crypto implementation
  */
 async function hashPassword(password, iterations) {
   const encoder = new TextEncoder();
-  let data = encoder.encode(password);
+  let hash = password;
 
   for (let i = 0; i < iterations; i++) {
+    // Hash the string (or hex from previous iteration)
+    const data = encoder.encode(hash);
     const buffer = await crypto.subtle.digest('SHA-512', data);
-    data = new Uint8Array(buffer);
+
+    // Convert to hex string for next iteration
+    hash = Array.from(new Uint8Array(buffer))
+      .map(b => b.toString(16).padStart(2, '0'))
+      .join('');
   }
 
-  return Array.from(data)
-    .map(b => b.toString(16).padStart(2, '0'))
-    .join('');
+  return hash;
 }
 
 /**
