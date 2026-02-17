@@ -7,8 +7,10 @@
 Project Omnilyth is a **Path of Exile toolkit** - a comprehensive web application for PoE players featuring crafting calculators, regex generators, atlas tools, and build planning utilities.
 
 **Tech Stack:** React 19 + Vite 7 + Tailwind CSS 4
-**Deployment:** GitHub Pages (private beta with password gate)
-**Live URL:** https://etherealcarnivore.github.io/omnilyth-core-public/
+**Deployment:** Netlify (primary) + GitHub Pages (backup)
+**Live URLs:**
+- Netlify (with feedback): https://omnilyth-beta.netlify.app/
+- GitHub Pages: https://etherealcarnivore.github.io/omnilyth-core-public/
 
 ---
 
@@ -177,11 +179,18 @@ git push origin master
 ```
 
 ### Deployment
-- **Source Repo:** `EtherealCarnivore/project-omnilyth`
+
+**Primary (Netlify):**
+- **URL:** https://omnilyth-beta.netlify.app/
+- **Auto-deploy:** Push to master triggers build
+- **Build Time:** ~1-2 minutes
+- **Features:** Serverless functions, environment variables, feedback system
+
+**Backup (GitHub Pages):**
+- **URL:** https://etherealcarnivore.github.io/omnilyth-core-public/
 - **Deploy Repo:** `EtherealCarnivore/omnilyth-core-public` (gh-pages branch)
 - **GitHub Actions:** `.github/workflows/deploy.yml`
-- **Build Time:** ~20-25 seconds
-- **Deploy Time:** Total ~2-3 minutes after push
+- **Limitation:** No serverless functions (feedback button won't work)
 
 ---
 
