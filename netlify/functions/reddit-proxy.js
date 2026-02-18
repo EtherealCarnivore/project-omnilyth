@@ -3,7 +3,7 @@
  * Proxies Reddit API requests to avoid CORS issues
  */
 
-import { getCORSHeaders, createForbiddenResponse } from './_shared/cors.js';
+const { getCORSHeaders, createForbiddenResponse } = require('./_shared/cors.js');
 
 // Simple in-memory rate limiter
 const rateLimiter = new Map();
@@ -37,7 +37,7 @@ function checkRateLimit(ip) {
   return true;
 }
 
-export async function handler(event) {
+exports.handler = async function(event) {
   // Get origin for CORS validation
   const origin = event.headers.origin || event.headers.referer || '';
   const headers = getCORSHeaders(origin);
@@ -163,4 +163,4 @@ export async function handler(event) {
       })
     };
   }
-}
+};

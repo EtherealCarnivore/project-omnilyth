@@ -18,7 +18,7 @@ const ALLOWED_ORIGINS = [
  * @param {string} origin - Request origin from headers
  * @returns {object|null} - CORS headers if valid, null if blocked
  */
-export function validateOrigin(origin) {
+function validateOrigin(origin) {
   // Extract origin from various header formats
   const requestOrigin = origin || '';
 
@@ -58,7 +58,7 @@ export function validateOrigin(origin) {
  * @param {string} origin - Request origin
  * @returns {object} - Response headers
  */
-export function getCORSHeaders(origin) {
+function getCORSHeaders(origin) {
   const corsHeaders = validateOrigin(origin);
 
   if (!corsHeaders) {
@@ -78,10 +78,16 @@ export function getCORSHeaders(origin) {
  * Create forbidden response for invalid origins
  * @returns {object} - 403 response
  */
-export function createForbiddenResponse() {
+function createForbiddenResponse() {
   return {
     statusCode: 403,
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ error: 'Origin not allowed' }),
   };
 }
+
+module.exports = {
+  validateOrigin,
+  getCORSHeaders,
+  createForbiddenResponse
+};
