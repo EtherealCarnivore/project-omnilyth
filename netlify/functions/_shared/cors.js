@@ -7,7 +7,8 @@
 const ALLOWED_ORIGINS = [
   'https://omnilyth.app',
   'https://www.omnilyth.app',
-  'https://omnilyth-beta.netlify.app',
+  'https://super-duper-secret-hoho.netlify.app',
+  'https://omnilyth-beta.netlify.app', // Old account (paused)
   'https://etherealcarnivore.github.io',
   'http://localhost:5173', // Dev mode
   'http://localhost:8888', // Netlify dev
