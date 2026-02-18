@@ -20,7 +20,7 @@ const getProxyBase = () => {
   // Development mode - use production proxy for simplicity
   // (To test with local functions, run `netlify dev` instead of `npm run dev`)
   if (import.meta.env.DEV) {
-    return 'https://omnilyth-beta.netlify.app/.netlify/functions/reddit-proxy';
+    return 'https://super-duper-secret-hoho.netlify.app/.netlify/functions/reddit-proxy';
   }
 
   // Production: Check if we're on Netlify or GitHub Pages
@@ -32,7 +32,7 @@ const getProxyBase = () => {
   }
 
   // If on GitHub Pages, use Netlify proxy (cross-origin)
-  return 'https://omnilyth-beta.netlify.app/.netlify/functions/reddit-proxy';
+  return 'https://super-duper-secret-hoho.netlify.app/.netlify/functions/reddit-proxy';
 };
 
 const REDDIT_PROXY_BASE = getProxyBase();

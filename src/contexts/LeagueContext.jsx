@@ -18,7 +18,7 @@ const getProxyUrl = () => {
   // Development mode - use production proxy for simplicity
   // (To test with local functions, run `netlify dev` instead of `npm run dev`)
   if (import.meta.env.DEV) {
-    return 'https://omnilyth-beta.netlify.app/.netlify/functions/poe-proxy?endpoint=/api/leagues?type=main&limit=50';
+    return 'https://super-duper-secret-hoho.netlify.app/.netlify/functions/poe-proxy?endpoint=/api/leagues?type=main&limit=50';
   }
 
   // Production: Check if we're on Netlify or GitHub Pages
@@ -30,7 +30,7 @@ const getProxyUrl = () => {
   }
 
   // If on GitHub Pages, use Netlify proxy (cross-origin)
-  return 'https://omnilyth-beta.netlify.app/.netlify/functions/poe-proxy?endpoint=/api/leagues?type=main&limit=50';
+  return 'https://super-duper-secret-hoho.netlify.app/.netlify/functions/poe-proxy?endpoint=/api/leagues?type=main&limit=50';
 };
 
 const API_URL = getProxyUrl();
