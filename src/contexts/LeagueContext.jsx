@@ -12,7 +12,27 @@ import { createContext, useContext, useState, useEffect, useCallback } from 'rea
 
 const CACHE_KEY = 'poe_leagues_cache_v2';
 const CACHE_TTL = 24 * 60 * 60 * 1000; // 24h TTL. My market data cache expires in 50μs. This one? A whole day. Living slow.
-const API_URL = 'https://www.pathofexile.com/api/leagues?type=main&limit=50';
+
+// Use serverless proxy to avoid CORS issues (pathofexile.com blocks direct browser requests)
+const getProxyUrl = () => {
+  // Development mode
+  if (import.meta.env.DEV) {
+    return 'http://localhost:8888/.netlify/functions/poe-proxy?endpoint=/api/leagues?type=main&limit=50';
+  }
+
+  // Production: Check if we're on Netlify or GitHub Pages
+  const hostname = window.location.hostname;
+
+  // If on Netlify, use relative path (same-origin)
+  if (hostname.includes('netlify.app') || hostname === 'omnilyth.app' || hostname === 'www.omnilyth.app') {
+    return '/.netlify/functions/poe-proxy?endpoint=/api/leagues?type=main&limit=50';
+  }
+
+  // If on GitHub Pages, use Netlify proxy (cross-origin)
+  return 'https://omnilyth-beta.netlify.app/.netlify/functions/poe-proxy?endpoint=/api/leagues?type=main&limit=50';
+};
+
+const API_URL = getProxyUrl();
 
 // PoE2 leagues use version-style names (e.g. "Phrecia 2.0", "Dawn 3.0")
 const POE2_PATTERN = /\d+\.\d+/;
