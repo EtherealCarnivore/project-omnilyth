@@ -121,17 +121,21 @@ export async function handler(event) {
 
     if (!response.ok) {
       // Log error details internally only
-      if (process.env.NODE_ENV !== 'production') {
-        console.error('Reddit API error:', {
-          status: response.status,
-          url
-        });
-      }
+      const responseText = await response.text();
+      console.error('Reddit API error:', {
+        status: response.status,
+        statusText: response.statusText,
+        url,
+        responseBody: responseText.substring(0, 500) // First 500 chars
+      });
 
       return {
         statusCode: response.status,
         headers,
-        body: JSON.stringify({ error: 'Reddit API error' })
+        body: JSON.stringify({
+          error: 'Reddit API error',
+          details: process.env.NODE_ENV !== 'production' ? responseText.substring(0, 200) : undefined
+        })
       };
     }
 
