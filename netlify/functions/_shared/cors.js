@@ -32,6 +32,14 @@ export function validateOrigin(origin) {
     isAllowed = true;
   }
 
+  // Also allow local network IPs for WiFi testing (http://192.168.*, http://10.*, http://172.16-31.*, http://127.*)
+  if (!isAllowed) {
+    const localNetworkPattern = /^http:\/\/(192\.168\.|10\.|172\.(1[6-9]|2[0-9]|3[0-1])\.|127\.)/;
+    if (localNetworkPattern.test(requestOrigin)) {
+      isAllowed = true;
+    }
+  }
+
   if (!isAllowed) {
     return null; // Blocked
   }
