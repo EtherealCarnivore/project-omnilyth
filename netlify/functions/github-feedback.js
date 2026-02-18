@@ -5,7 +5,7 @@
  * Environment Variables Required:
  * - GITHUB_TOKEN: Fine-grained personal access token with 'issues:write' permission
  *   Create at: https://github.com/settings/tokens?type=beta
- *   Repository: EtherealCarnivore/project-omnilyth
+ *   Repository: EtherealCarnivore/omnilyth-core-public
  *   Permissions: Issues (Read and write)
  */
 
@@ -172,7 +172,7 @@ export async function handler(event) {
     const issueTitle = `${emoji} ${title}`;
 
     // Create GitHub issue
-    const response = await fetch('https://api.github.com/repos/EtherealCarnivore/project-omnilyth/issues', {
+    const response = await fetch('https://api.github.com/repos/EtherealCarnivore/omnilyth-core-public/issues', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,
