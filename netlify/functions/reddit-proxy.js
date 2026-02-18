@@ -4,7 +4,6 @@
  */
 
 import { getCORSHeaders, createForbiddenResponse } from './_shared/cors.js';
-import https from 'https';
 
 // Simple in-memory rate limiter
 const rateLimiter = new Map();
@@ -107,50 +106,40 @@ export async function handler(event) {
     // Construct full Reddit URL
     const url = `https://www.reddit.com${endpoint}`;
 
-    // Fetch from Reddit using native https module (ensures User-Agent is sent correctly)
-    const data = await new Promise((resolve, reject) => {
-      const timeout = setTimeout(() => reject(new Error('Request timeout')), 10000);
+    // Fetch from Reddit with timeout
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 10000); // 10s timeout
 
-      const req = https.get(url, {
-        headers: {
-          'User-Agent': 'Omnilyth-PatchNotes/1.0 (https://omnilyth.app)',
-          'Accept': 'application/json'
-        }
-      }, (res) => {
-        clearTimeout(timeout);
-
-        let body = '';
-        res.on('data', chunk => body += chunk);
-        res.on('end', () => {
-          if (res.statusCode !== 200) {
-            console.error('Reddit API error:', {
-              status: res.statusCode,
-              statusMessage: res.statusMessage,
-              url,
-              responseBody: body.substring(0, 500)
-            });
-
-            reject({
-              statusCode: res.statusCode,
-              message: 'Reddit API error',
-              details: body.substring(0, 200)
-            });
-            return;
-          }
-
-          try {
-            resolve(JSON.parse(body));
-          } catch (err) {
-            reject(new Error('Invalid JSON response'));
-          }
-        });
-      });
-
-      req.on('error', (err) => {
-        clearTimeout(timeout);
-        reject(err);
-      });
+    const response = await fetch(url, {
+      signal: controller.signal,
+      headers: {
+        'User-Agent': 'Omnilyth-PatchNotes/1.0 (https://omnilyth.app)',
+        'Accept': 'application/json'
+      }
     });
+
+    clearTimeout(timeoutId);
+
+    if (!response.ok) {
+      const responseText = await response.text();
+      console.error('Reddit API error:', {
+        status: response.status,
+        statusText: response.statusText,
+        url,
+        responseBody: responseText.substring(0, 500)
+      });
+
+      return {
+        statusCode: response.status,
+        headers,
+        body: JSON.stringify({
+          error: 'Reddit API error',
+          details: process.env.NODE_ENV !== 'production' ? responseText.substring(0, 200) : undefined
+        })
+      };
+    }
+
+    const data = await response.json();
 
     return {
       statusCode: 200,
@@ -161,31 +150,16 @@ export async function handler(event) {
       body: JSON.stringify(data)
     };
   } catch (error) {
-    // Log error details internally only
     console.error('Reddit proxy error:', {
       message: error.message,
-      name: error.name,
-      statusCode: error.statusCode
+      name: error.name
     });
 
-    // Handle Reddit API errors
-    if (error.statusCode) {
-      return {
-        statusCode: error.statusCode,
-        headers,
-        body: JSON.stringify({
-          error: error.message,
-          details: process.env.NODE_ENV !== 'production' ? error.details : undefined
-        })
-      };
-    }
-
-    // Handle other errors (timeout, network, etc.)
     return {
       statusCode: 500,
       headers,
       body: JSON.stringify({
-        error: error.message === 'Request timeout' ? 'Request timeout' : 'Internal server error'
+        error: error.name === 'AbortError' ? 'Request timeout' : 'Internal server error'
       })
     };
   }
