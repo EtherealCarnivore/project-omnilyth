@@ -15,11 +15,12 @@ const POLL_INTERVAL = 30 * 1000; // Poll every 30 seconds when active
 // Use serverless proxy to avoid CORS issues (Reddit blocks direct browser requests)
 // GitHub Pages = static hosting (no functions), so use Netlify proxy
 // Netlify = has functions, use relative path
-// Dev = use localhost:8888 (Netlify Dev) or fallback to production
+// Dev = use production proxy (unless running Netlify Dev on 8888)
 const getProxyBase = () => {
-  // Development mode
+  // Development mode - use production proxy for simplicity
+  // (To test with local functions, run `netlify dev` instead of `npm run dev`)
   if (import.meta.env.DEV) {
-    return 'http://localhost:8888/.netlify/functions/reddit-proxy';
+    return 'https://omnilyth-beta.netlify.app/.netlify/functions/reddit-proxy';
   }
 
   // Production: Check if we're on Netlify or GitHub Pages
