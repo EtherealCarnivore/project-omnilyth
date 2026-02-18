@@ -15,9 +15,10 @@ const CACHE_TTL = 24 * 60 * 60 * 1000; // 24h TTL. My market data cache expires 
 
 // Use serverless proxy to avoid CORS issues (pathofexile.com blocks direct browser requests)
 const getProxyUrl = () => {
-  // Development mode
+  // Development mode - use production proxy for simplicity
+  // (To test with local functions, run `netlify dev` instead of `npm run dev`)
   if (import.meta.env.DEV) {
-    return 'http://localhost:8888/.netlify/functions/poe-proxy?endpoint=/api/leagues?type=main&limit=50';
+    return 'https://omnilyth-beta.netlify.app/.netlify/functions/poe-proxy?endpoint=/api/leagues?type=main&limit=50';
   }
 
   // Production: Check if we're on Netlify or GitHub Pages
