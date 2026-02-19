@@ -1,6 +1,6 @@
 /**
  * acts456.js - Leveling data for Acts 4, 5, 6
- * Generated: 2026-02-19T10:20:03.190Z
+ * Generated: 2026-02-19T10:58:16.316Z
  *
  * Data sources:
  * - exile-leveling by HeartofPhos (GitHub)
@@ -457,7 +457,9 @@ export const acts456Data = {
         }
       ],
       "tips": [],
-      "craftingRecipes": []
+      "craftingRecipes": [],
+      "hasTrial": true,
+      "trialType": "Spike traps"
     },
     {
       "id": "act6-area-6",
@@ -703,7 +705,7 @@ export const credits = {
       "description": "Community-maintained game data"
     }
   ],
-  "generatedAt": "2026-02-19T10:20:03.190Z",
+  "generatedAt": "2026-02-19T10:58:16.316Z",
   "disclaimer": "Data compiled for educational purposes. Please support the original sources."
 };
 

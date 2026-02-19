@@ -243,7 +243,7 @@ function generateMockExileLeveling() {
   // Generate areas for all acts
   actData.forEach(act => {
     act.zones.forEach((zone, zoneIndex) => {
-      areas.push({
+      const area = {
         id: `act${act.act}-area-${zoneIndex}`,
         name: zone.name,
         act: act.act,
@@ -256,7 +256,15 @@ function generateMockExileLeveling() {
         ],
         tips: [],
         craftingRecipes: []
-      });
+      };
+
+      // Add trial properties if present
+      if (zone.hasTrial) {
+        area.hasTrial = true;
+        area.trialType = zone.trialType;
+      }
+
+      areas.push(area);
     });
 
     // Generate quests for each act

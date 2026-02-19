@@ -129,6 +129,9 @@ export const trialsData = {
     }
   ],
 
+  // NOTE: Eternal Lab does NOT require completing all 6 trial types.
+  // Any trial completion drops "Offering to the Goddess" which grants one lab entry.
+  // Most players buy offerings from trade instead of farming trials.
   eternal: [
     {
       tier: 'Eternal',
@@ -136,7 +139,7 @@ export const trialsData = {
       trialName: 'Trial of Piercing Truth',
       trapType: 'Spike traps',
       minLevel: 60,
-      notes: 'Random spawn in yellow+ maps'
+      notes: 'Drops Offering to the Goddess (consumable lab entry)'
     },
     {
       tier: 'Eternal',
@@ -144,7 +147,7 @@ export const trialsData = {
       trialName: 'Trial of Swirling Fear',
       trapType: 'Spinning blades',
       minLevel: 60,
-      notes: 'Random spawn in yellow+ maps'
+      notes: 'Drops Offering to the Goddess (consumable lab entry)'
     },
     {
       tier: 'Eternal',
@@ -152,7 +155,7 @@ export const trialsData = {
       trialName: 'Trial of Crippling Grief',
       trapType: 'Sawblades',
       minLevel: 60,
-      notes: 'Random spawn in yellow+ maps'
+      notes: 'Drops Offering to the Goddess (consumable lab entry)'
     },
     {
       tier: 'Eternal',
@@ -160,7 +163,7 @@ export const trialsData = {
       trialName: 'Trial of Burning Rage',
       trapType: 'Furnace traps',
       minLevel: 60,
-      notes: 'Random spawn in yellow+ maps'
+      notes: 'Drops Offering to the Goddess (consumable lab entry)'
     },
     {
       tier: 'Eternal',
@@ -168,7 +171,7 @@ export const trialsData = {
       trialName: 'Trial of Lingering Pain',
       trapType: 'Blade sentries',
       minLevel: 60,
-      notes: 'Random spawn in yellow+ maps'
+      notes: 'Drops Offering to the Goddess (consumable lab entry)'
     },
     {
       tier: 'Eternal',
@@ -176,7 +179,7 @@ export const trialsData = {
       trialName: 'Trial of Stinging Doubt',
       trapType: 'Dart traps',
       minLevel: 60,
-      notes: 'Random spawn in yellow+ maps'
+      notes: 'Drops Offering to the Goddess (consumable lab entry)'
     }
   ]
 };
@@ -204,11 +207,11 @@ export const labyrinthRequirements = {
     rewards: '2 more Ascendancy points (6 total)'
   },
   eternal: {
-    trialsRequired: 6,
+    trialsRequired: 'N/A',
     minLevel: 60,
     location: 'Aspirants\' Plaza (via Offering to the Goddess)',
     rewards: '2 more Ascendancy points (8 total)',
-    notes: 'Requires Offering to the Goddess from completing map trials'
+    notes: 'Requires Offering to the Goddess. Drop from any trial in yellow+ maps (Tier 6+), or buy from trade.'
   }
 };
 

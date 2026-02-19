@@ -1,7 +1,7 @@
 {
   "source": "exile-leveling",
   "sourceUrl": "https://github.com/HeartofPhos/exile-leveling",
-  "fetchedAt": "2026-02-19T10:20:03.185Z",
+  "fetchedAt": "2026-02-19T10:58:16.311Z",
   "areas": [
     {
       "id": "act1-area-0",
@@ -163,7 +163,9 @@
         }
       ],
       "tips": [],
-      "craftingRecipes": []
+      "craftingRecipes": [],
+      "hasTrial": true,
+      "trialType": "Spike traps"
     },
     {
       "id": "act1-area-9",
@@ -343,7 +345,9 @@
         }
       ],
       "tips": [],
-      "craftingRecipes": []
+      "craftingRecipes": [],
+      "hasTrial": true,
+      "trialType": "Sawblades"
     },
     {
       "id": "act2-area-5",
@@ -397,7 +401,9 @@
         }
       ],
       "tips": [],
-      "craftingRecipes": []
+      "craftingRecipes": [],
+      "hasTrial": true,
+      "trialType": "Spinning blades"
     },
     {
       "id": "act2-area-8",
@@ -559,7 +565,9 @@
         }
       ],
       "tips": [],
-      "craftingRecipes": []
+      "craftingRecipes": [],
+      "hasTrial": true,
+      "trialType": "Furnace traps"
     },
     {
       "id": "act3-area-3",
@@ -613,7 +621,9 @@
         }
       ],
       "tips": [],
-      "craftingRecipes": []
+      "craftingRecipes": [],
+      "hasTrial": true,
+      "trialType": "Blade sentries"
     },
     {
       "id": "act3-area-6",
@@ -649,7 +659,9 @@
         }
       ],
       "tips": [],
-      "craftingRecipes": []
+      "craftingRecipes": [],
+      "hasTrial": true,
+      "trialType": "Dart traps"
     },
     {
       "id": "act3-area-8",
@@ -1135,7 +1147,9 @@
         }
       ],
       "tips": [],
-      "craftingRecipes": []
+      "craftingRecipes": [],
+      "hasTrial": true,
+      "trialType": "Spike traps"
     },
     {
       "id": "act6-area-6",
@@ -1279,7 +1293,9 @@
         }
       ],
       "tips": [],
-      "craftingRecipes": []
+      "craftingRecipes": [],
+      "hasTrial": true,
+      "trialType": "Spinning blades"
     },
     {
       "id": "act7-area-5",
@@ -1315,7 +1331,9 @@
         }
       ],
       "tips": [],
-      "craftingRecipes": []
+      "craftingRecipes": [],
+      "hasTrial": true,
+      "trialType": "Sawblades"
     },
     {
       "id": "act7-area-7",
@@ -1459,7 +1477,9 @@
         }
       ],
       "tips": [],
-      "craftingRecipes": []
+      "craftingRecipes": [],
+      "hasTrial": true,
+      "trialType": "Furnace traps"
     },
     {
       "id": "act8-area-5",
@@ -1657,7 +1677,9 @@
         }
       ],
       "tips": [],
-      "craftingRecipes": []
+      "craftingRecipes": [],
+      "hasTrial": true,
+      "trialType": "Blade sentries"
     },
     {
       "id": "act9-area-7",
@@ -1765,7 +1787,9 @@
         }
       ],
       "tips": [],
-      "craftingRecipes": []
+      "craftingRecipes": [],
+      "hasTrial": true,
+      "trialType": "Dart traps"
     },
     {
       "id": "act10-area-5",
