@@ -1,0 +1,97 @@
+{
+  "source": "poewiki.net",
+  "sourceUrl": "https://www.poewiki.net",
+  "scrapedAt": "2026-02-19T10:20:03.186Z",
+  "license": "CC BY-NC-SA 3.0",
+  "gemCount": 2,
+  "rawData": [
+    {
+      "gem": "Cleave",
+      "questRewards": {
+        "Marauder": true,
+        "Duelist": true,
+        "Templar": false
+      },
+      "vendorAvailability": {
+        "Marauder": true,
+        "Duelist": true,
+        "Templar": true,
+        "Ranger": false,
+        "Shadow": false,
+        "Witch": false
+      }
+    },
+    {
+      "gem": "Freezing Pulse",
+      "questRewards": {
+        "Witch": true,
+        "Templar": true,
+        "Shadow": false
+      },
+      "vendorAvailability": {
+        "Witch": true,
+        "Templar": true,
+        "Shadow": true,
+        "Marauder": false,
+        "Duelist": false,
+        "Ranger": false
+      }
+    }
+  ],
+  "byClass": {
+    "Marauder": {
+      "questRewards": [
+        "Cleave"
+      ],
+      "vendorGems": [
+        "Cleave",
+        "Ground Slam"
+      ]
+    },
+    "Duelist": {
+      "questRewards": [
+        "Cleave"
+      ],
+      "vendorGems": [
+        "Cleave",
+        "Splitting Steel"
+      ]
+    },
+    "Ranger": {
+      "questRewards": [],
+      "vendorGems": [
+        "Splitting Steel",
+        "Spectral Throw"
+      ]
+    },
+    "Shadow": {
+      "questRewards": [],
+      "vendorGems": [
+        "Spectral Throw",
+        "Freezing Pulse"
+      ]
+    },
+    "Witch": {
+      "questRewards": [
+        "Freezing Pulse"
+      ],
+      "vendorGems": [
+        "Freezing Pulse",
+        "Spark"
+      ]
+    },
+    "Templar": {
+      "questRewards": [],
+      "vendorGems": [
+        "Cleave",
+        "Freezing Pulse"
+      ]
+    },
+    "Scion": {
+      "questRewards": [],
+      "vendorGems": []
+    }
+  },
+  "disclaimer": "Mock data for testing",
+  "__mock": true
+}

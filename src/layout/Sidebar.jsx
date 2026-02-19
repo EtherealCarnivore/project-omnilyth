@@ -13,6 +13,7 @@ import { getModuleTree } from '../modules/registry';
 import modules from '../modules/registry';
 import { usePinned } from '../contexts/PinnedContext';
 import { useDesign } from '../contexts/DesignContext';
+import { useLevelingMode } from '../contexts/LevelingModeContext';
 
 const CATEGORY_ROUTES = {
   'Crafting': '/crafting',
@@ -92,6 +93,7 @@ export default function Sidebar({ open, onClose }) {
   const [collapsed, setCollapsed] = useState({});
   const { pinnedIds, togglePin, isPinned } = usePinned();
   const { variant, setVariant } = useDesign();
+  const { isActive: isLevelingMode, enterLevelingMode } = useLevelingMode();
   const tree = useMemo(() => getModuleTree(), []);
 
   const pinnedModules = useMemo(
@@ -244,23 +246,47 @@ export default function Sidebar({ open, onClose }) {
                   </button>
                 )}
 
-                {!isCategoryCollapsed(category) && Object.entries(subcategories).map(([sub, mods]) => (
-                  <div key={sub} className="mb-1">
-                    <div className="px-3 py-1 text-[10px] uppercase tracking-wider text-zinc-500">
-                      {sub}
-                    </div>
-                    {mods.map(mod => (
-                      <div key={mod.id} className="ml-2">
-                        <SidebarLink
-                          mod={mod}
-                          onClose={onClose}
-                          isPinned={isPinned(mod.id)}
-                          onTogglePin={() => togglePin(mod.id)}
-                        />
+                {!isCategoryCollapsed(category) && (
+                  <>
+                    {/* Special Leveling Mode Entry Button */}
+                    {category === 'Leveling' && !isLevelingMode && (
+                      <div className="mb-2 ml-2">
+                        <NavLink
+                          to="/leveling/mode"
+                          onClick={() => {
+                            enterLevelingMode();
+                            onClose();
+                          }}
+                          className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-all duration-150 bg-gradient-to-r from-teal-500/10 to-teal-600/5 border border-teal-500/20 text-teal-400 hover:bg-teal-500/20 hover:border-teal-500/40"
+                        >
+                          <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                            <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
+                          </svg>
+                          <span>Enter Leveling Mode</span>
+                          <span className="text-teal-400">✨</span>
+                        </NavLink>
+                      </div>
+                    )}
+
+                    {Object.entries(subcategories).map(([sub, mods]) => (
+                      <div key={sub} className="mb-1">
+                        <div className="px-3 py-1 text-[10px] uppercase tracking-wider text-zinc-500">
+                          {sub}
+                        </div>
+                        {mods.map(mod => (
+                          <div key={mod.id} className="ml-2">
+                            <SidebarLink
+                              mod={mod}
+                              onClose={onClose}
+                              isPinned={isPinned(mod.id)}
+                              onTogglePin={() => togglePin(mod.id)}
+                            />
+                          </div>
+                        ))}
                       </div>
                     ))}
-                  </div>
-                ))}
+                  </>
+                )}
               </div>
             ))
           )}

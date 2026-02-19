@@ -17,6 +17,18 @@ export const useLevelingProgress = () => {
 
 export const LevelingProgressProvider = ({ children }) => {
   const STORAGE_KEY = 'poe-leveling-progress';
+  const MODE_KEY = 'poe-leveling-mode';
+
+  // Load mode from localStorage (default: 'fresh')
+  const [mode, setMode] = useState(() => {
+    try {
+      const saved = localStorage.getItem(MODE_KEY);
+      return saved || 'fresh';
+    } catch (error) {
+      console.error('Failed to load leveling mode:', error);
+      return 'fresh';
+    }
+  });
 
   // Load progress from localStorage or initialize empty
   const [progress, setProgress] = useState(() => {
@@ -37,6 +49,15 @@ export const LevelingProgressProvider = ({ children }) => {
       console.error('Failed to save leveling progress:', error);
     }
   }, [progress]);
+
+  // Save mode to localStorage whenever it changes
+  useEffect(() => {
+    try {
+      localStorage.setItem(MODE_KEY, mode);
+    } catch (error) {
+      console.error('Failed to save leveling mode:', error);
+    }
+  }, [mode]);
 
   // Check if a zone is completed
   const isZoneCompleted = (actNum, zoneIndex) => {
@@ -146,6 +167,8 @@ export const LevelingProgressProvider = ({ children }) => {
   };
 
   const value = {
+    mode,
+    setMode,
     progress,
     isZoneCompleted,
     isActCompleted,

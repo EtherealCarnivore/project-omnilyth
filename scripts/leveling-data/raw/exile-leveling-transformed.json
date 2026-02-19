@@ -1,0 +1,2528 @@
+{
+  "source": "exile-leveling",
+  "sourceUrl": "https://github.com/HeartofPhos/exile-leveling",
+  "fetchedAt": "2026-02-19T10:20:03.185Z",
+  "areas": [
+    {
+      "id": "act1-area-0",
+      "name": "Lioneye's Watch",
+      "act": 1,
+      "level": 1,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in Lioneye's Watch",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act1-area-1",
+      "name": "The Coast",
+      "act": 1,
+      "level": 1,
+      "hasWaypoint": false,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Coast",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act1-area-2",
+      "name": "The Mud Flats",
+      "act": 1,
+      "level": 2,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Mud Flats",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act1-area-3",
+      "name": "The Fetid Pool",
+      "act": 1,
+      "level": 3,
+      "hasWaypoint": false,
+      "isOptional": true,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Fetid Pool",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act1-area-4",
+      "name": "The Submerged Passage",
+      "act": 1,
+      "level": 3,
+      "hasWaypoint": false,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Submerged Passage",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act1-area-5",
+      "name": "The Flooded Depths",
+      "act": 1,
+      "level": 4,
+      "hasWaypoint": false,
+      "isOptional": true,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Flooded Depths",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act1-area-6",
+      "name": "The Ledge",
+      "act": 1,
+      "level": 5,
+      "hasWaypoint": false,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Ledge",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act1-area-7",
+      "name": "The Climb",
+      "act": 1,
+      "level": 8,
+      "hasWaypoint": false,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Climb",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act1-area-8",
+      "name": "The Lower Prison",
+      "act": 1,
+      "level": 9,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Lower Prison",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act1-area-9",
+      "name": "The Upper Prison",
+      "act": 1,
+      "level": 10,
+      "hasWaypoint": false,
+      "isOptional": true,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Upper Prison",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act1-area-10",
+      "name": "Prisoner's Gate",
+      "act": 1,
+      "level": 11,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in Prisoner's Gate",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act1-area-11",
+      "name": "The Ship Graveyard",
+      "act": 1,
+      "level": 11,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Ship Graveyard",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act1-area-12",
+      "name": "The Cavern of Wrath",
+      "act": 1,
+      "level": 12,
+      "hasWaypoint": false,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Cavern of Wrath",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act1-area-13",
+      "name": "The Cavern of Anger",
+      "act": 1,
+      "level": 13,
+      "hasWaypoint": false,
+      "isOptional": true,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Cavern of Anger",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act2-area-0",
+      "name": "The Forest Encampment",
+      "act": 2,
+      "level": 14,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Forest Encampment",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act2-area-1",
+      "name": "The Riverways",
+      "act": 2,
+      "level": 14,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Riverways",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act2-area-2",
+      "name": "The Crossroads",
+      "act": 2,
+      "level": 15,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Crossroads",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act2-area-3",
+      "name": "The Chamber of Sins Level 1",
+      "act": 2,
+      "level": 16,
+      "hasWaypoint": false,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Chamber of Sins Level 1",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act2-area-4",
+      "name": "The Chamber of Sins Level 2",
+      "act": 2,
+      "level": 18,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Chamber of Sins Level 2",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act2-area-5",
+      "name": "The Broken Bridge",
+      "act": 2,
+      "level": 16,
+      "hasWaypoint": false,
+      "isOptional": true,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Broken Bridge",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act2-area-6",
+      "name": "The Fellshrine Ruins",
+      "act": 2,
+      "level": 17,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Fellshrine Ruins",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act2-area-7",
+      "name": "The Crypt Level 1",
+      "act": 2,
+      "level": 18,
+      "hasWaypoint": false,
+      "isOptional": true,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Crypt Level 1",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act2-area-8",
+      "name": "The Western Forest",
+      "act": 2,
+      "level": 17,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Western Forest",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act2-area-9",
+      "name": "The Weaver's Chambers",
+      "act": 2,
+      "level": 19,
+      "hasWaypoint": false,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Weaver's Chambers",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act2-area-10",
+      "name": "The Wetlands",
+      "act": 2,
+      "level": 18,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Wetlands",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act2-area-11",
+      "name": "The Vaal Ruins",
+      "act": 2,
+      "level": 20,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Vaal Ruins",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act2-area-12",
+      "name": "The Northern Forest",
+      "act": 2,
+      "level": 21,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Northern Forest",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act2-area-13",
+      "name": "The Caverns",
+      "act": 2,
+      "level": 22,
+      "hasWaypoint": false,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Caverns",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act3-area-0",
+      "name": "The Sarn Encampment",
+      "act": 3,
+      "level": 23,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Sarn Encampment",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act3-area-1",
+      "name": "The Slums",
+      "act": 3,
+      "level": 23,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Slums",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act3-area-2",
+      "name": "The Crematorium",
+      "act": 3,
+      "level": 24,
+      "hasWaypoint": false,
+      "isOptional": true,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Crematorium",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act3-area-3",
+      "name": "The Sewers",
+      "act": 3,
+      "level": 24,
+      "hasWaypoint": false,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Sewers",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act3-area-4",
+      "name": "The Marketplace",
+      "act": 3,
+      "level": 25,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Marketplace",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act3-area-5",
+      "name": "The Catacombs",
+      "act": 3,
+      "level": 26,
+      "hasWaypoint": false,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Catacombs",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act3-area-6",
+      "name": "The Battlefront",
+      "act": 3,
+      "level": 27,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Battlefront",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act3-area-7",
+      "name": "The Imperial Gardens",
+      "act": 3,
+      "level": 27,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Imperial Gardens",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act3-area-8",
+      "name": "The Docks",
+      "act": 3,
+      "level": 26,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Docks",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act3-area-9",
+      "name": "The Solaris Temple Level 2",
+      "act": 3,
+      "level": 28,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Solaris Temple Level 2",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act3-area-10",
+      "name": "The Eternal Laboratory",
+      "act": 3,
+      "level": 30,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Eternal Laboratory",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act3-area-11",
+      "name": "The Sceptre of God",
+      "act": 3,
+      "level": 32,
+      "hasWaypoint": false,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Sceptre of God",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act4-area-0",
+      "name": "Highgate",
+      "act": 4,
+      "level": 33,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in Highgate",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act4-area-1",
+      "name": "The Aqueduct",
+      "act": 4,
+      "level": 33,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Aqueduct",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act4-area-2",
+      "name": "The Dried Lake",
+      "act": 4,
+      "level": 34,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Dried Lake",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act4-area-3",
+      "name": "The Mines Level 1",
+      "act": 4,
+      "level": 35,
+      "hasWaypoint": false,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Mines Level 1",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act4-area-4",
+      "name": "The Mines Level 2",
+      "act": 4,
+      "level": 36,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Mines Level 2",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act4-area-5",
+      "name": "The Crystal Veins",
+      "act": 4,
+      "level": 37,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Crystal Veins",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act4-area-6",
+      "name": "Daresso's Dream",
+      "act": 4,
+      "level": 38,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in Daresso's Dream",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act4-area-7",
+      "name": "Kaom's Dream",
+      "act": 4,
+      "level": 39,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in Kaom's Dream",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act4-area-8",
+      "name": "The Harvest",
+      "act": 4,
+      "level": 41,
+      "hasWaypoint": false,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Harvest",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act5-area-0",
+      "name": "Oriath Square",
+      "act": 5,
+      "level": 42,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in Oriath Square",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act5-area-1",
+      "name": "The Torched Courts",
+      "act": 5,
+      "level": 42,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Torched Courts",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act5-area-2",
+      "name": "The Ruined Square",
+      "act": 5,
+      "level": 43,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Ruined Square",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act5-area-3",
+      "name": "The Ossuary",
+      "act": 5,
+      "level": 44,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Ossuary",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act5-area-4",
+      "name": "The Reliquary",
+      "act": 5,
+      "level": 45,
+      "hasWaypoint": false,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Reliquary",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act5-area-5",
+      "name": "The Cathedral Rooftop",
+      "act": 5,
+      "level": 45,
+      "hasWaypoint": false,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Cathedral Rooftop",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act5-area-6",
+      "name": "The Templar Courts",
+      "act": 5,
+      "level": 46,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Templar Courts",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act5-area-7",
+      "name": "The Chamber of Innocence",
+      "act": 5,
+      "level": 47,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Chamber of Innocence",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act6-area-0",
+      "name": "Lioneye's Watch",
+      "act": 6,
+      "level": 48,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in Lioneye's Watch",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act6-area-1",
+      "name": "The Coast",
+      "act": 6,
+      "level": 48,
+      "hasWaypoint": false,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Coast",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act6-area-2",
+      "name": "The Mud Flats",
+      "act": 6,
+      "level": 49,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Mud Flats",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act6-area-3",
+      "name": "The Karui Fortress",
+      "act": 6,
+      "level": 50,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Karui Fortress",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act6-area-4",
+      "name": "The Ridge",
+      "act": 6,
+      "level": 51,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Ridge",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act6-area-5",
+      "name": "The Prison",
+      "act": 6,
+      "level": 52,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Prison",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act6-area-6",
+      "name": "Shavronne's Tower",
+      "act": 6,
+      "level": 53,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in Shavronne's Tower",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act6-area-7",
+      "name": "The Beacon",
+      "act": 6,
+      "level": 54,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Beacon",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act6-area-8",
+      "name": "The Twilight Strand",
+      "act": 6,
+      "level": 55,
+      "hasWaypoint": false,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Twilight Strand",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act7-area-0",
+      "name": "The Bridge Encampment",
+      "act": 7,
+      "level": 56,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Bridge Encampment",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act7-area-1",
+      "name": "The Broken Bridge",
+      "act": 7,
+      "level": 56,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Broken Bridge",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act7-area-2",
+      "name": "The Crossroads",
+      "act": 7,
+      "level": 57,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Crossroads",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act7-area-3",
+      "name": "The Fellshrine Ruins",
+      "act": 7,
+      "level": 58,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Fellshrine Ruins",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act7-area-4",
+      "name": "The Crypt",
+      "act": 7,
+      "level": 59,
+      "hasWaypoint": false,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Crypt",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act7-area-5",
+      "name": "The Chamber of Sins Level 1",
+      "act": 7,
+      "level": 59,
+      "hasWaypoint": false,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Chamber of Sins Level 1",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act7-area-6",
+      "name": "The Chamber of Sins Level 2",
+      "act": 7,
+      "level": 60,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Chamber of Sins Level 2",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act7-area-7",
+      "name": "The Den",
+      "act": 7,
+      "level": 60,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Den",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act7-area-8",
+      "name": "The Ashen Fields",
+      "act": 7,
+      "level": 61,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Ashen Fields",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act7-area-9",
+      "name": "The Northern Forest",
+      "act": 7,
+      "level": 62,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Northern Forest",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act8-area-0",
+      "name": "The Sarn Encampment",
+      "act": 8,
+      "level": 63,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Sarn Encampment",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act8-area-1",
+      "name": "The Toxic Conduits",
+      "act": 8,
+      "level": 63,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Toxic Conduits",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act8-area-2",
+      "name": "The Doedre's Cesspool",
+      "act": 8,
+      "level": 64,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Doedre's Cesspool",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act8-area-3",
+      "name": "The Quay",
+      "act": 8,
+      "level": 65,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Quay",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act8-area-4",
+      "name": "The Bath House",
+      "act": 8,
+      "level": 65,
+      "hasWaypoint": false,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Bath House",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act8-area-5",
+      "name": "The Grain Gate",
+      "act": 8,
+      "level": 66,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Grain Gate",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act8-area-6",
+      "name": "The Imperial Fields",
+      "act": 8,
+      "level": 67,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Imperial Fields",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act8-area-7",
+      "name": "The Solaris Temple Level 2",
+      "act": 8,
+      "level": 68,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Solaris Temple Level 2",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act8-area-8",
+      "name": "The Harbour Bridge",
+      "act": 8,
+      "level": 69,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Harbour Bridge",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act9-area-0",
+      "name": "Highgate",
+      "act": 9,
+      "level": 70,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in Highgate",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act9-area-1",
+      "name": "The Descent",
+      "act": 9,
+      "level": 70,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Descent",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act9-area-2",
+      "name": "The Vastiri Desert",
+      "act": 9,
+      "level": 71,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Vastiri Desert",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act9-area-3",
+      "name": "The Oasis",
+      "act": 9,
+      "level": 72,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Oasis",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act9-area-4",
+      "name": "The Foothills",
+      "act": 9,
+      "level": 73,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Foothills",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act9-area-5",
+      "name": "The Boiling Lake",
+      "act": 9,
+      "level": 74,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Boiling Lake",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act9-area-6",
+      "name": "The Tunnel",
+      "act": 9,
+      "level": 75,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Tunnel",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act9-area-7",
+      "name": "The Quarry",
+      "act": 9,
+      "level": 76,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Quarry",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act10-area-0",
+      "name": "Oriath Square",
+      "act": 10,
+      "level": 77,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in Oriath Square",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act10-area-1",
+      "name": "The Ravaged Square",
+      "act": 10,
+      "level": 77,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Ravaged Square",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act10-area-2",
+      "name": "The Torched Courts",
+      "act": 10,
+      "level": 78,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Torched Courts",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act10-area-3",
+      "name": "The Desecrated Chambers",
+      "act": 10,
+      "level": 79,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Desecrated Chambers",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act10-area-4",
+      "name": "The Ossuary",
+      "act": 10,
+      "level": 80,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Ossuary",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act10-area-5",
+      "name": "The Feeding Trough",
+      "act": 10,
+      "level": 81,
+      "hasWaypoint": false,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Feeding Trough",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act10-area-6",
+      "name": "The Canals",
+      "act": 10,
+      "level": 82,
+      "hasWaypoint": true,
+      "isOptional": false,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Complete objectives in The Canals",
+          "reward": null
+        }
+      ],
+      "tips": [],
+      "craftingRecipes": []
+    }
+  ],
+  "quests": [
+    {
+      "id": "act1-quest-0",
+      "name": "Enemy at the Gate",
+      "act": 1,
+      "required": true,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 0,
+        "passive": false,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act1-quest-1",
+      "name": "Mercy Mission",
+      "act": 1,
+      "required": false,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 1,
+        "passive": true,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act1-quest-2",
+      "name": "Breaking Some Eggs",
+      "act": 1,
+      "required": true,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 0,
+        "passive": false,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act1-quest-3",
+      "name": "The Caged Brute",
+      "act": 1,
+      "required": true,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 0,
+        "passive": false,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act1-quest-4",
+      "name": "The Siren's Cadence",
+      "act": 1,
+      "required": false,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 1,
+        "passive": true,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act1-quest-5",
+      "name": "The Marooned Mariner",
+      "act": 1,
+      "required": true,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 0,
+        "passive": false,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act1-quest-6",
+      "name": "The Dweller of the Deep",
+      "act": 1,
+      "required": false,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 1,
+        "passive": true,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act2-quest-0",
+      "name": "Deal with the Bandits",
+      "act": 2,
+      "required": false,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 2,
+        "passive": true,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act2-quest-1",
+      "name": "The Way Forward",
+      "act": 2,
+      "required": true,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 0,
+        "passive": false,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act2-quest-2",
+      "name": "Intruders in Black",
+      "act": 2,
+      "required": false,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 1,
+        "passive": true,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act2-quest-3",
+      "name": "Sharp and Cruel",
+      "act": 2,
+      "required": true,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 0,
+        "passive": false,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act2-quest-4",
+      "name": "Through Sacred Ground",
+      "act": 2,
+      "required": true,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 0,
+        "passive": false,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act3-quest-0",
+      "name": "Lost in Love",
+      "act": 3,
+      "required": false,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 1,
+        "passive": true,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act3-quest-1",
+      "name": "Victario's Secrets",
+      "act": 3,
+      "required": false,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 1,
+        "passive": true,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act3-quest-2",
+      "name": "Piety's Pets",
+      "act": 3,
+      "required": true,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 0,
+        "passive": false,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act3-quest-3",
+      "name": "A Fixture of Fate",
+      "act": 3,
+      "required": false,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 2,
+        "passive": true,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act4-quest-0",
+      "name": "Breaking the Seal",
+      "act": 4,
+      "required": true,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 0,
+        "passive": false,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act4-quest-1",
+      "name": "The Eternal Nightmare",
+      "act": 4,
+      "required": false,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 2,
+        "passive": true,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act4-quest-2",
+      "name": "An Indomitable Spirit",
+      "act": 4,
+      "required": true,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 0,
+        "passive": false,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act5-quest-0",
+      "name": "The Key to Freedom",
+      "act": 5,
+      "required": true,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 0,
+        "passive": false,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act5-quest-1",
+      "name": "Death to Purity",
+      "act": 5,
+      "required": false,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 1,
+        "passive": true,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act5-quest-2",
+      "name": "Kitava's Torments",
+      "act": 5,
+      "required": true,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 0,
+        "passive": false,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act6-quest-0",
+      "name": "Fallen from Grace",
+      "act": 6,
+      "required": false,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 1,
+        "passive": true,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act6-quest-1",
+      "name": "The Father of War",
+      "act": 6,
+      "required": true,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 0,
+        "passive": false,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act6-quest-2",
+      "name": "The Cloven One",
+      "act": 6,
+      "required": false,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 1,
+        "passive": true,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act7-quest-0",
+      "name": "The Master of a Million Faces",
+      "act": 7,
+      "required": false,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 2,
+        "passive": true,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act7-quest-1",
+      "name": "Kishara's Star",
+      "act": 7,
+      "required": true,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 0,
+        "passive": false,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act7-quest-2",
+      "name": "Queen of Despair",
+      "act": 7,
+      "required": true,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 0,
+        "passive": false,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act8-quest-0",
+      "name": "Lunar Eclipse",
+      "act": 8,
+      "required": false,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 2,
+        "passive": true,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act8-quest-1",
+      "name": "Solar Eclipse",
+      "act": 8,
+      "required": false,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 2,
+        "passive": true,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act8-quest-2",
+      "name": "Love is Dead",
+      "act": 8,
+      "required": true,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 0,
+        "passive": false,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act9-quest-0",
+      "name": "Queen of the Sands",
+      "act": 9,
+      "required": false,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 2,
+        "passive": true,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act9-quest-1",
+      "name": "The Ruler of Highgate",
+      "act": 9,
+      "required": true,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 0,
+        "passive": false,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act9-quest-2",
+      "name": "Fastis Fortuna",
+      "act": 9,
+      "required": true,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 0,
+        "passive": false,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act10-quest-0",
+      "name": "Safe Passage",
+      "act": 10,
+      "required": true,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 0,
+        "passive": false,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act10-quest-1",
+      "name": "Vilenta's Vengeance",
+      "act": 10,
+      "required": false,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 2,
+        "passive": true,
+        "items": []
+      },
+      "zones": []
+    },
+    {
+      "id": "act10-quest-2",
+      "name": "An End to Hunger",
+      "act": 10,
+      "required": true,
+      "objectives": [
+        "Complete the quest objective"
+      ],
+      "rewards": {
+        "skillPoints": 0,
+        "passive": false,
+        "items": []
+      },
+      "zones": []
+    }
+  ],
+  "gems": [
+    {
+      "id": "gem-0",
+      "name": "Cleave",
+      "level": 1,
+      "act": 1,
+      "source": "vendor",
+      "classes": [
+        "Marauder",
+        "Duelist",
+        "Templar"
+      ],
+      "color": "str",
+      "quest": null,
+      "vendor": "Nessa"
+    },
+    {
+      "id": "gem-1",
+      "name": "Ground Slam",
+      "level": 1,
+      "act": 1,
+      "source": "vendor",
+      "classes": [
+        "Marauder",
+        "Duelist"
+      ],
+      "color": "str",
+      "quest": null,
+      "vendor": "Nessa"
+    },
+    {
+      "id": "gem-2",
+      "name": "Splitting Steel",
+      "level": 1,
+      "act": 1,
+      "source": "vendor",
+      "classes": [
+        "Duelist",
+        "Ranger",
+        "Shadow"
+      ],
+      "color": "dex",
+      "quest": null,
+      "vendor": "Nessa"
+    },
+    {
+      "id": "gem-3",
+      "name": "Spectral Throw",
+      "level": 1,
+      "act": 1,
+      "source": "vendor",
+      "classes": [
+        "Ranger",
+        "Shadow",
+        "Scion"
+      ],
+      "color": "dex",
+      "quest": null,
+      "vendor": "Nessa"
+    },
+    {
+      "id": "gem-4",
+      "name": "Freezing Pulse",
+      "level": 1,
+      "act": 1,
+      "source": "vendor",
+      "classes": [
+        "Witch",
+        "Templar",
+        "Shadow"
+      ],
+      "color": "int",
+      "quest": null,
+      "vendor": "Nessa"
+    },
+    {
+      "id": "gem-5",
+      "name": "Spark",
+      "level": 1,
+      "act": 1,
+      "source": "vendor",
+      "classes": [
+        "Witch",
+        "Shadow"
+      ],
+      "color": "int",
+      "quest": null,
+      "vendor": "Nessa"
+    },
+    {
+      "id": "gem-6",
+      "name": "Herald of Ash",
+      "level": 16,
+      "act": 2,
+      "source": "vendor",
+      "classes": [
+        "Marauder",
+        "Duelist",
+        "Templar"
+      ],
+      "color": "str",
+      "quest": null,
+      "vendor": "Nessa"
+    },
+    {
+      "id": "gem-7",
+      "name": "Herald of Ice",
+      "level": 16,
+      "act": 2,
+      "source": "vendor",
+      "classes": [
+        "Ranger",
+        "Shadow",
+        "Scion"
+      ],
+      "color": "dex",
+      "quest": null,
+      "vendor": "Nessa"
+    },
+    {
+      "id": "gem-8",
+      "name": "Herald of Thunder",
+      "level": 16,
+      "act": 2,
+      "source": "vendor",
+      "classes": [
+        "Witch",
+        "Templar",
+        "Shadow"
+      ],
+      "color": "int",
+      "quest": null,
+      "vendor": "Nessa"
+    },
+    {
+      "id": "gem-9",
+      "name": "Molten Strike",
+      "level": 38,
+      "act": 4,
+      "source": "vendor",
+      "classes": [
+        "Marauder",
+        "Duelist"
+      ],
+      "color": "str",
+      "quest": null,
+      "vendor": "Petarus"
+    },
+    {
+      "id": "gem-10",
+      "name": "Blade Vortex",
+      "level": 38,
+      "act": 4,
+      "source": "vendor",
+      "classes": [
+        "Shadow",
+        "Ranger"
+      ],
+      "color": "dex",
+      "quest": null,
+      "vendor": "Petarus"
+    }
+  ],
+  "__mock": true
+}

@@ -8,7 +8,13 @@
     "build": "vite build",
     "preview": "vite preview",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
+    "deploy": "gh-pages -d dist",
+    "leveling-data:mock": "node scripts/leveling-data/run-all.js --mock",
+    "leveling-data:live": "node scripts/leveling-data/run-all.js",
+    "leveling-data:parse": "node scripts/leveling-data/parse-exile-leveling.js",
+    "leveling-data:scrape-poe": "node scripts/leveling-data/scrape-poe-leveling.js",
+    "leveling-data:scrape-wiki": "node scripts/leveling-data/scrape-poe-wiki.js",
+    "leveling-data:merge": "node scripts/leveling-data/merge-data-sources.js"
   },
   "dependencies": {
     "react": "^19.2.4",
