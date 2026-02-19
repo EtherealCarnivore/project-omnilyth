@@ -13,8 +13,10 @@ import { Link } from 'react-router-dom';
 import modules from '../modules/registry';
 import YouTubeCard from '../components/YouTubeCard';
 import PatchNotesWidget from '../components/PatchNotesWidget';
+import LevelingModeEntryCard from '../components/LevelingModeEntryCard';
 import { usePinned } from '../contexts/PinnedContext';
 import { useDesign } from '../contexts/DesignContext';
+import { useLevelingMode } from '../contexts/LevelingModeContext';
 
 const CATEGORY_COLORS = {
   'Crafting': 'from-sky-500/20 to-sky-500/5 border-sky-500/20',
@@ -217,6 +219,7 @@ export default function HomePage() {
   const [showCredits, setShowCredits] = useState(false);
   const { pinnedIds, togglePin, isPinned } = usePinned();
   const { variant } = useDesign();
+  const { isActive: isLevelingMode } = useLevelingMode();
 
   const pinnedModules = useMemo(
     () => pinnedIds.map(id => modules.find(m => m.id === id)).filter(Boolean),
@@ -263,6 +266,9 @@ export default function HomePage() {
           className="w-full bg-zinc-900/80 border border-white/[0.12] rounded-xl py-3 pl-11 pr-4 text-zinc-100 placeholder:text-zinc-400 outline-none focus:border-sky-400/40 focus:ring-2 focus:ring-sky-400/15 transition-all"
         />
       </div>
+
+      {/* Leveling Mode Entry Card - Only show when not in mode and not searching */}
+      {!search && !isLevelingMode && <LevelingModeEntryCard />}
 
       {/* Patch Notes Widget */}
       {!search && <PatchNotesWidget />}

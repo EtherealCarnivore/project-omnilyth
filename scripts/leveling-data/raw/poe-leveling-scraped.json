@@ -1,0 +1,234 @@
+{
+  "source": "poe-leveling.com",
+  "sourceUrl": "https://www.poe-leveling.com",
+  "scrapedAt": "2026-02-19T10:20:03.186Z",
+  "acts": [
+    {
+      "act": 1,
+      "zones": [
+        {
+          "name": "The Coast",
+          "tips": [
+            {
+              "content": "Skip most monsters, only kill blue packs for flasks",
+              "category": "combat",
+              "freshOnly": false
+            },
+            {
+              "content": "Pick up all movement speed boots at vendors",
+              "category": "vendor",
+              "freshOnly": true
+            }
+          ],
+          "objectives": []
+        },
+        {
+          "name": "The Mud Flats",
+          "tips": [
+            {
+              "content": "Grab the Quicksilver Flask from this zone",
+              "category": "quest",
+              "freshOnly": false
+            },
+            {
+              "content": "Use Flame Dash or Leap Slam for faster movement",
+              "category": "movement",
+              "freshOnly": false
+            }
+          ],
+          "objectives": []
+        }
+      ],
+      "scrapedAt": "2026-02-19T10:20:03.186Z"
+    },
+    {
+      "act": 2,
+      "zones": [
+        {
+          "name": "The Riverways",
+          "tips": [
+            {
+              "content": "Deal with bandits - usually kill all for 2 passive points",
+              "category": "quest",
+              "freshOnly": false
+            }
+          ],
+          "objectives": []
+        },
+        {
+          "name": "The Western Forest",
+          "tips": [
+            {
+              "content": "Get Quicksilver Flask of Adrenaline from Weaver quest",
+              "category": "quest",
+              "freshOnly": false
+            }
+          ],
+          "objectives": []
+        }
+      ],
+      "scrapedAt": "2026-02-19T10:20:03.186Z"
+    },
+    {
+      "act": 3,
+      "zones": [
+        {
+          "name": "The Sarn Encampment",
+          "tips": [
+            {
+              "content": "Stock up on Chromatic Orbs from vendoring RGB items",
+              "category": "vendor",
+              "freshOnly": true
+            }
+          ],
+          "objectives": []
+        },
+        {
+          "name": "The Library",
+          "tips": [
+            {
+              "content": "Pick up skill books for quest rewards",
+              "category": "quest",
+              "freshOnly": false
+            }
+          ],
+          "objectives": []
+        }
+      ],
+      "scrapedAt": "2026-02-19T10:20:03.186Z"
+    },
+    {
+      "act": 4,
+      "zones": [
+        {
+          "name": "The Dried Lake",
+          "tips": [
+            {
+              "content": "Good farming zone if you need levels",
+              "category": "leveling",
+              "freshOnly": false
+            }
+          ],
+          "objectives": []
+        },
+        {
+          "name": "The Mines",
+          "tips": [
+            {
+              "content": "Watch out for explosive enemies",
+              "category": "combat",
+              "freshOnly": false
+            }
+          ],
+          "objectives": []
+        }
+      ],
+      "scrapedAt": "2026-02-19T10:20:03.186Z"
+    },
+    {
+      "act": 5,
+      "zones": [
+        {
+          "name": "The Cathedral Rooftop",
+          "tips": [
+            {
+              "content": "Kitava fight - get resistances ready (-30% after)",
+              "category": "combat",
+              "freshOnly": false
+            }
+          ],
+          "objectives": []
+        }
+      ],
+      "scrapedAt": "2026-02-19T10:20:03.186Z"
+    },
+    {
+      "act": 6,
+      "zones": [
+        {
+          "name": "The Coast",
+          "tips": [
+            {
+              "content": "Back in Act 1 areas but higher level",
+              "category": "general",
+              "freshOnly": false
+            }
+          ],
+          "objectives": []
+        }
+      ],
+      "scrapedAt": "2026-02-19T10:20:03.186Z"
+    },
+    {
+      "act": 7,
+      "zones": [
+        {
+          "name": "The Bridge Encampment",
+          "tips": [
+            {
+              "content": "Grab Maramoa's quest for skill point",
+              "category": "quest",
+              "freshOnly": false
+            }
+          ],
+          "objectives": []
+        }
+      ],
+      "scrapedAt": "2026-02-19T10:20:03.186Z"
+    },
+    {
+      "act": 8,
+      "zones": [
+        {
+          "name": "The Harbour Bridge",
+          "tips": [
+            {
+              "content": "Popular farming spot for Humility cards",
+              "category": "farming",
+              "freshOnly": false
+            }
+          ],
+          "objectives": []
+        }
+      ],
+      "scrapedAt": "2026-02-19T10:20:03.186Z"
+    },
+    {
+      "act": 9,
+      "zones": [
+        {
+          "name": "The Vastiri Desert",
+          "tips": [
+            {
+              "content": "Oasis waypoint is tucked in the corner",
+              "category": "navigation",
+              "freshOnly": false
+            }
+          ],
+          "objectives": []
+        }
+      ],
+      "scrapedAt": "2026-02-19T10:20:03.186Z"
+    },
+    {
+      "act": 10,
+      "zones": [
+        {
+          "name": "The Ravaged Square",
+          "tips": [
+            {
+              "content": "Final Kitava fight - get resistances (-60% total after)",
+              "category": "combat",
+              "freshOnly": false
+            }
+          ],
+          "objectives": []
+        }
+      ],
+      "scrapedAt": "2026-02-19T10:20:03.186Z"
+    }
+  ],
+  "totalZones": 14,
+  "disclaimer": "Mock data for testing",
+  "__mock": true
+}
