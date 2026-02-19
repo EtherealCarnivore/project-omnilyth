@@ -12,6 +12,7 @@
 import { NavLink } from 'react-router-dom';
 import { useLevelingMode } from '../contexts/LevelingModeContext';
 import { useLevelingProgress } from '../contexts/LevelingProgressContext';
+import TrialsTracker from '../components/leveling/TrialsTracker';
 
 export default function LevelingSidebar({ open, onClose }) {
   const { exitLevelingMode } = useLevelingMode();
@@ -170,6 +171,19 @@ export default function LevelingSidebar({ open, onClose }) {
                     Chromatic Calculator
                   </NavLink>
                 </nav>
+              </div>
+
+              {/* Trials of Ascendancy Section */}
+              <div>
+                <div className="flex items-center gap-2 mb-3 px-2">
+                  <svg className="w-4 h-4 text-amber-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                    <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" />
+                  </svg>
+                  <h3 className="text-xs font-medium text-zinc-500 uppercase tracking-wide">Trials of Ascendancy</h3>
+                </div>
+                <div className="px-2">
+                  <TrialsTracker />
+                </div>
               </div>
 
               {/* Quick Tips Section */}

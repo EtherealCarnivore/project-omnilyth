@@ -1,7 +1,7 @@
 {
   "source": "poe-leveling.com",
   "sourceUrl": "https://www.poe-leveling.com",
-  "scrapedAt": "2026-02-19T10:20:03.186Z",
+  "scrapedAt": "2026-02-19T10:58:16.312Z",
   "acts": [
     {
       "act": 1,
@@ -39,7 +39,7 @@
           "objectives": []
         }
       ],
-      "scrapedAt": "2026-02-19T10:20:03.186Z"
+      "scrapedAt": "2026-02-19T10:58:16.312Z"
     },
     {
       "act": 2,
@@ -67,7 +67,7 @@
           "objectives": []
         }
       ],
-      "scrapedAt": "2026-02-19T10:20:03.186Z"
+      "scrapedAt": "2026-02-19T10:58:16.312Z"
     },
     {
       "act": 3,
@@ -95,7 +95,7 @@
           "objectives": []
         }
       ],
-      "scrapedAt": "2026-02-19T10:20:03.186Z"
+      "scrapedAt": "2026-02-19T10:58:16.312Z"
     },
     {
       "act": 4,
@@ -123,7 +123,7 @@
           "objectives": []
         }
       ],
-      "scrapedAt": "2026-02-19T10:20:03.186Z"
+      "scrapedAt": "2026-02-19T10:58:16.312Z"
     },
     {
       "act": 5,
@@ -140,7 +140,7 @@
           "objectives": []
         }
       ],
-      "scrapedAt": "2026-02-19T10:20:03.186Z"
+      "scrapedAt": "2026-02-19T10:58:16.312Z"
     },
     {
       "act": 6,
@@ -157,7 +157,7 @@
           "objectives": []
         }
       ],
-      "scrapedAt": "2026-02-19T10:20:03.186Z"
+      "scrapedAt": "2026-02-19T10:58:16.312Z"
     },
     {
       "act": 7,
@@ -174,7 +174,7 @@
           "objectives": []
         }
       ],
-      "scrapedAt": "2026-02-19T10:20:03.186Z"
+      "scrapedAt": "2026-02-19T10:58:16.312Z"
     },
     {
       "act": 8,
@@ -191,7 +191,7 @@
           "objectives": []
         }
       ],
-      "scrapedAt": "2026-02-19T10:20:03.186Z"
+      "scrapedAt": "2026-02-19T10:58:16.312Z"
     },
     {
       "act": 9,
@@ -208,7 +208,7 @@
           "objectives": []
         }
       ],
-      "scrapedAt": "2026-02-19T10:20:03.186Z"
+      "scrapedAt": "2026-02-19T10:58:16.312Z"
     },
     {
       "act": 10,
@@ -225,7 +225,7 @@
           "objectives": []
         }
       ],
-      "scrapedAt": "2026-02-19T10:20:03.186Z"
+      "scrapedAt": "2026-02-19T10:58:16.312Z"
     }
   ],
   "totalZones": 14,

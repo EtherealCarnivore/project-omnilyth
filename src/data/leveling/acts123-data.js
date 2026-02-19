@@ -1,6 +1,6 @@
 /**
  * acts123.js - Leveling data for Acts 1, 2, 3
- * Generated: 2026-02-19T10:20:03.190Z
+ * Generated: 2026-02-19T10:58:16.316Z
  *
  * Data sources:
  * - exile-leveling by HeartofPhos (GitHub)
@@ -197,7 +197,9 @@ export const acts123Data = {
         }
       ],
       "tips": [],
-      "craftingRecipes": []
+      "craftingRecipes": [],
+      "hasTrial": true,
+      "trialType": "Spike traps"
     },
     {
       "id": "act1-area-9",
@@ -383,7 +385,9 @@ export const acts123Data = {
         }
       ],
       "tips": [],
-      "craftingRecipes": []
+      "craftingRecipes": [],
+      "hasTrial": true,
+      "trialType": "Sawblades"
     },
     {
       "id": "act2-area-5",
@@ -437,7 +441,9 @@ export const acts123Data = {
         }
       ],
       "tips": [],
-      "craftingRecipes": []
+      "craftingRecipes": [],
+      "hasTrial": true,
+      "trialType": "Spinning blades"
     },
     {
       "id": "act2-area-8",
@@ -611,7 +617,9 @@ export const acts123Data = {
         }
       ],
       "tips": [],
-      "craftingRecipes": []
+      "craftingRecipes": [],
+      "hasTrial": true,
+      "trialType": "Furnace traps"
     },
     {
       "id": "act3-area-3",
@@ -665,7 +673,9 @@ export const acts123Data = {
         }
       ],
       "tips": [],
-      "craftingRecipes": []
+      "craftingRecipes": [],
+      "hasTrial": true,
+      "trialType": "Blade sentries"
     },
     {
       "id": "act3-area-6",
@@ -701,7 +711,9 @@ export const acts123Data = {
         }
       ],
       "tips": [],
-      "craftingRecipes": []
+      "craftingRecipes": [],
+      "hasTrial": true,
+      "trialType": "Dart traps"
     },
     {
       "id": "act3-area-8",
@@ -1201,7 +1213,7 @@ export const credits = {
       "description": "Community-maintained game data"
     }
   ],
-  "generatedAt": "2026-02-19T10:20:03.190Z",
+  "generatedAt": "2026-02-19T10:58:16.316Z",
   "disclaimer": "Data compiled for educational purposes. Please support the original sources."
 };
 

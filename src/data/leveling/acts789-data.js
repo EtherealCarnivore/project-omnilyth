@@ -1,6 +1,6 @@
 /**
  * acts789.js - Leveling data for Acts 7, 8, 9
- * Generated: 2026-02-19T10:20:03.191Z
+ * Generated: 2026-02-19T10:58:16.317Z
  *
  * Data sources:
  * - exile-leveling by HeartofPhos (GitHub)
@@ -109,7 +109,9 @@ export const acts789Data = {
         }
       ],
       "tips": [],
-      "craftingRecipes": []
+      "craftingRecipes": [],
+      "hasTrial": true,
+      "trialType": "Spinning blades"
     },
     {
       "id": "act7-area-5",
@@ -145,7 +147,9 @@ export const acts789Data = {
         }
       ],
       "tips": [],
-      "craftingRecipes": []
+      "craftingRecipes": [],
+      "hasTrial": true,
+      "trialType": "Sawblades"
     },
     {
       "id": "act7-area-7",
@@ -289,7 +293,9 @@ export const acts789Data = {
         }
       ],
       "tips": [],
-      "craftingRecipes": []
+      "craftingRecipes": [],
+      "hasTrial": true,
+      "trialType": "Furnace traps"
     },
     {
       "id": "act8-area-5",
@@ -499,7 +505,9 @@ export const acts789Data = {
         }
       ],
       "tips": [],
-      "craftingRecipes": []
+      "craftingRecipes": [],
+      "hasTrial": true,
+      "trialType": "Blade sentries"
     },
     {
       "id": "act9-area-7",
@@ -680,7 +688,7 @@ export const credits = {
       "description": "Community-maintained game data"
     }
   ],
-  "generatedAt": "2026-02-19T10:20:03.190Z",
+  "generatedAt": "2026-02-19T10:58:16.316Z",
   "disclaimer": "Data compiled for educational purposes. Please support the original sources."
 };
 
