@@ -8,6 +8,7 @@
 
 import { useState } from 'react';
 import { useLevelingMode } from '../contexts/LevelingModeContext';
+import { useGlobalSearch } from '../hooks/useKeyboardShortcut';
 import ClassSelector from '../components/leveling/ClassSelector';
 import GemUnlocksSection, { GemUnlocksCount } from '../components/leveling/GemUnlocksSection';
 import SiosaUnlockBanner from '../components/leveling/SiosaUnlockBanner';
@@ -15,6 +16,7 @@ import LillyRothUnlockBanner from '../components/leveling/LillyRothUnlockBanner'
 import GemDetailModal from '../components/leveling/GemDetailModal';
 import QuickSearchModal from '../components/leveling/QuickSearchModal';
 import GemProgressionPanel from '../components/leveling/GemProgressionPanel';
+import FloatingSearchButton from '../components/leveling/FloatingSearchButton';
 
 export default function LevelingPreviewPage() {
   const { selectedClass, mode, currentAct, setCurrentAct } = useLevelingMode();
@@ -34,6 +36,11 @@ export default function LevelingPreviewPage() {
     setIsSearchModalOpen(false);
     setIsDetailModalOpen(true);
   };
+
+  // Global keyboard shortcut: Ctrl+G to open search
+  useGlobalSearch(() => {
+    setIsSearchModalOpen(true);
+  });
 
   return (
     <div className="lg:flex lg:gap-6">
@@ -174,6 +181,9 @@ export default function LevelingPreviewPage() {
           />
         </div>
       </div>
+
+      {/* Mobile FAB */}
+      <FloatingSearchButton onClick={() => setIsSearchModalOpen(true)} />
 
       {/* Modals */}
       <GemDetailModal

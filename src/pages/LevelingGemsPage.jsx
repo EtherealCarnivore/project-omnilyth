@@ -6,12 +6,14 @@
 
 import { useState, useMemo, useEffect } from 'react';
 import { useLevelingMode } from '../contexts/LevelingModeContext';
+import { useGlobalSearch } from '../hooks/useKeyboardShortcut';
 import { gemAvailabilityData } from '../data/leveling/gemAvailability';
 import ClassSelector from '../components/leveling/ClassSelector';
 import FilterSidebar from '../components/leveling/FilterSidebar';
 import GemGridView from '../components/leveling/GemGridView';
 import GemListView from '../components/leveling/GemListView';
 import GemDetailModal from '../components/leveling/GemDetailModal';
+import FloatingSearchButton from '../components/leveling/FloatingSearchButton';
 
 export default function LevelingGemsPage() {
   const { selectedClass, mode } = useLevelingMode();
@@ -98,6 +100,15 @@ export default function LevelingGemsPage() {
     setSelectedGem(gem);
     setIsDetailModalOpen(true);
   };
+
+  // Global keyboard shortcut: Ctrl+G to focus search
+  useGlobalSearch(() => {
+    // Focus the search input
+    const searchInput = document.querySelector('input[type="text"]');
+    if (searchInput) {
+      searchInput.focus();
+    }
+  });
 
   return (
     <div className="lg:flex lg:gap-6">
@@ -272,6 +283,17 @@ export default function LevelingGemsPage() {
           />
         )}
       </div>
+
+      {/* Mobile FAB - scroll to top and focus search */}
+      <FloatingSearchButton
+        onClick={() => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          setTimeout(() => {
+            const searchInput = document.querySelector('input[type="text"]');
+            if (searchInput) searchInput.focus();
+          }, 300);
+        }}
+      />
 
       {/* Detail Modal */}
       <GemDetailModal
