@@ -52,15 +52,22 @@ export default function GemListView({ gems, selectedClass, onSelectGem }) {
                     <h3 className="text-base font-medium text-zinc-200 group-hover:text-zinc-100 mb-1">
                       {gem.name}
                     </h3>
-                    <span
-                      className={`inline-block text-xs px-2 py-0.5 rounded ${
-                        gem.type === 'support'
-                          ? 'bg-blue-500/20 text-blue-400'
-                          : 'bg-amber-500/20 text-amber-400'
-                      }`}
-                    >
-                      {gem.type === 'support' ? 'Support Gem' : 'Active Skill Gem'}
-                    </span>
+                    <div className="flex items-center gap-2 flex-wrap">
+                      <span
+                        className={`inline-block text-xs px-2 py-0.5 rounded ${
+                          gem.type === 'support'
+                            ? 'bg-blue-500/20 text-blue-400'
+                            : 'bg-amber-500/20 text-amber-400'
+                        }`}
+                      >
+                        {gem.type === 'support' ? 'Support Gem' : 'Active Skill Gem'}
+                      </span>
+                      {gem.requiredLevel && (
+                        <span className="inline-block text-xs px-2 py-0.5 rounded bg-zinc-700 text-zinc-300 border border-white/[0.08]">
+                          Level {gem.requiredLevel}
+                        </span>
+                      )}
+                    </div>
                   </div>
 
                   {/* Availability Count */}

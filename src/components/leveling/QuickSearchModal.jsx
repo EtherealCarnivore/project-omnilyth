@@ -173,11 +173,18 @@ export default function QuickSearchModal({ isOpen, onClose, onSelectGem }) {
                         {/* Gem Info */}
                         <div className="flex-1 min-w-0">
                           <div className="flex items-start justify-between gap-2">
-                            <h3 className="text-sm font-medium text-zinc-200 group-hover:text-zinc-100">
-                              {gem.name}
-                            </h3>
+                            <div className="flex-1 min-w-0">
+                              <h3 className="text-sm font-medium text-zinc-200 group-hover:text-zinc-100">
+                                {gem.name}
+                              </h3>
+                              {gem.requiredLevel && (
+                                <span className="text-xs text-zinc-500 mt-0.5 block">
+                                  Requires Level {gem.requiredLevel}
+                                </span>
+                              )}
+                            </div>
                             <span
-                              className={`text-xs px-2 py-0.5 rounded ${
+                              className={`text-xs px-2 py-0.5 rounded flex-shrink-0 ${
                                 gem.type === 'support'
                                   ? 'bg-blue-500/20 text-blue-400'
                                   : 'bg-amber-500/20 text-amber-400'

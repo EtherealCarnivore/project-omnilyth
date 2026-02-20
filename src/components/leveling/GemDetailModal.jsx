@@ -87,6 +87,11 @@ export default function GemDetailModal({ gem, isOpen, onClose }) {
                   >
                     {gem.type === 'support' ? 'Support Gem' : 'Active Skill Gem'}
                   </span>
+                  {gem.requiredLevel && (
+                    <span className="text-xs px-2 py-0.5 rounded bg-zinc-700 text-zinc-300 border border-white/[0.08]">
+                      Requires Level {gem.requiredLevel}
+                    </span>
+                  )}
                 </div>
               </div>
 

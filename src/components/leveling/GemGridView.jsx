@@ -62,6 +62,15 @@ export default function GemGridView({ gems, selectedClass, onSelectGem }) {
                   {gem.type === 'support' ? 'S' : 'A'}
                 </span>
               </div>
+
+              {/* Level Badge (bottom-right corner) */}
+              {gem.requiredLevel && (
+                <div className="absolute -bottom-2 -right-2">
+                  <span className="inline-block text-xs px-2 py-1 rounded font-medium bg-zinc-700 text-white border border-white/[0.2]">
+                    {gem.requiredLevel}
+                  </span>
+                </div>
+              )}
             </div>
 
             {/* Gem Name */}
