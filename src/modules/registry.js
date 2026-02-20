@@ -164,6 +164,16 @@ const modules = [
     component: lazy(() => import('../pages/LevelingPreviewPage')),
   },
   {
+    id: 'leveling-gems',
+    title: 'Gem Browser',
+    description: 'Browse all gems with advanced filtering by class, act, and availability',
+    category: 'Leveling',
+    subcategory: 'Gems',
+    route: '/leveling/gems',
+    icon: 'gem',
+    component: lazy(() => import('../pages/LevelingGemsPage')),
+  },
+  {
     id: 'regex-library',
     title: 'Regex Library',
     description: 'View and manage your saved regex patterns from all tools',
