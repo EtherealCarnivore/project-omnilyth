@@ -24,6 +24,11 @@ export const useLevelingMode = () => {
 const STORAGE_KEY = 'omnilyth_leveling_mode';
 const TIMEOUT_MS = 7 * 24 * 60 * 60 * 1000; // 7 days
 
+// Additional storage keys for gem progression
+const CLASS_STORAGE_KEY = 'omnilyth_selected_class';
+const MODE_STORAGE_KEY = 'omnilyth_leveling_mode_type';
+const ACT_STORAGE_KEY = 'omnilyth_current_act';
+
 export const LevelingModeProvider = ({ children }) => {
   // Load state from localStorage
   const [state, setState] = useState(() => {
@@ -46,6 +51,33 @@ export const LevelingModeProvider = ({ children }) => {
     }
   });
 
+  // Selected character class (for gem filtering)
+  const [selectedClass, setSelectedClass] = useState(() => {
+    try {
+      return localStorage.getItem(CLASS_STORAGE_KEY) || 'all';
+    } catch {
+      return 'all';
+    }
+  });
+
+  // Mode type: 'fresh' (new character) or 'alt' (alt character)
+  const [mode, setMode] = useState(() => {
+    try {
+      return localStorage.getItem(MODE_STORAGE_KEY) || 'fresh';
+    } catch {
+      return 'fresh';
+    }
+  });
+
+  // Current act (for "next unlock" feature)
+  const [currentAct, setCurrentAct] = useState(() => {
+    try {
+      return parseInt(localStorage.getItem(ACT_STORAGE_KEY) || '1');
+    } catch {
+      return 1;
+    }
+  });
+
   // Save to localStorage whenever state changes
   useEffect(() => {
     try {
@@ -54,6 +86,33 @@ export const LevelingModeProvider = ({ children }) => {
       console.error('Failed to save leveling mode state:', error);
     }
   }, [state]);
+
+  // Persist selected class
+  useEffect(() => {
+    try {
+      localStorage.setItem(CLASS_STORAGE_KEY, selectedClass);
+    } catch (error) {
+      console.error('Failed to save selected class:', error);
+    }
+  }, [selectedClass]);
+
+  // Persist mode
+  useEffect(() => {
+    try {
+      localStorage.setItem(MODE_STORAGE_KEY, mode);
+    } catch (error) {
+      console.error('Failed to save mode:', error);
+    }
+  }, [mode]);
+
+  // Persist current act
+  useEffect(() => {
+    try {
+      localStorage.setItem(ACT_STORAGE_KEY, currentAct.toString());
+    } catch (error) {
+      console.error('Failed to save current act:', error);
+    }
+  }, [currentAct]);
 
   // Update last activity timestamp
   const updateActivity = () => {
@@ -88,12 +147,20 @@ export const LevelingModeProvider = ({ children }) => {
   };
 
   const value = {
+    // Legacy leveling mode state
     isActive: state.isActive,
     lastActivity: state.lastActivity,
     enterLevelingMode,
     exitLevelingMode,
     toggleLevelingMode,
-    updateActivity
+    updateActivity,
+    // Gem progression state
+    selectedClass,
+    setSelectedClass,
+    mode,
+    setMode,
+    currentAct,
+    setCurrentAct
   };
 
   return (
