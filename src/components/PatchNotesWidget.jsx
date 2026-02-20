@@ -253,13 +253,6 @@ const PatchNotesWidget = () => {
         })}
       </div>
 
-      {/* Footer with keybind hint */}
-      <div className="px-4 py-3 bg-black/40 border-t border-amber-500/10">
-        <p className="text-xs text-zinc-500 text-center">
-          Press <kbd className="px-1.5 py-0.5 bg-white/10 rounded text-zinc-500">G</kbd> to open full guide overlay
-        </p>
-      </div>
-
       {/* Full-screen Modal for Patch Notes */}
       {modalPatch && createPortal(
         <div
