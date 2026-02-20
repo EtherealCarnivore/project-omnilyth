@@ -32,63 +32,48 @@ export default function GemGridView({ gems, selectedClass, onSelectGem }) {
           <button
             key={gem.gemId}
             onClick={() => onSelectGem(gem)}
-            className="group relative bg-zinc-900/60 backdrop-blur-sm border border-white/[0.08] hover:border-amber-500/30 rounded-lg p-4 transition-all hover:scale-105"
+            className="group relative bg-zinc-900/60 backdrop-blur-sm border border-white/[0.08] hover:border-amber-500/30 rounded-lg p-3 transition-all hover:scale-105"
           >
-            {/* Gem Icon */}
-            <div className="relative aspect-square mb-3">
+            {/* Gem Icon - Reduced to 48px equivalent via padding */}
+            <div className="relative aspect-square mb-2">
               <img
                 src={gem.icon}
                 alt={gem.name}
-                className="w-full h-full object-cover rounded border border-white/[0.08] group-hover:border-amber-500/30 transition-colors"
+                className="w-full h-full object-cover rounded"
                 loading="lazy"
               />
-
-              {/* Availability Badge (top-right corner) */}
-              {bestAvailability && (
-                <div className="absolute -top-2 -right-2">
-                  <AvailabilityBadge availability={bestAvailability} compact />
-                </div>
-              )}
-
-              {/* Type Badge (bottom-left corner) */}
-              <div className="absolute -bottom-2 -left-2">
-                <span
-                  className={`inline-block text-xs px-2 py-1 rounded font-medium ${
-                    gem.type === 'support'
-                      ? 'bg-blue-500/90 text-white'
-                      : 'bg-amber-500/90 text-white'
-                  }`}
-                >
-                  {gem.type === 'support' ? 'S' : 'A'}
-                </span>
-              </div>
-
-              {/* Level Badge (bottom-right corner) */}
-              {gem.requiredLevel && (
-                <div className="absolute -bottom-2 -right-2">
-                  <span className="inline-block text-xs px-2 py-1 rounded font-medium bg-zinc-700 text-white border border-white/[0.2]">
-                    {gem.requiredLevel}
-                  </span>
-                </div>
-              )}
             </div>
 
-            {/* Gem Name */}
-            <h3 className="text-sm font-medium text-zinc-200 group-hover:text-zinc-100 line-clamp-2 min-h-[2.5rem]">
-              {gem.name}
-            </h3>
+            {/* Gem Name with Type Icon */}
+            <div className="flex items-start justify-between gap-1 mb-1">
+              <h3 className="text-sm font-medium text-zinc-200 group-hover:text-zinc-100 line-clamp-2 flex-1">
+                {gem.name}
+              </h3>
+              {/* Type Icon - Simple, no badge */}
+              <span className={`text-base flex-shrink-0 ${gem.type === 'support' ? 'text-blue-400' : 'text-amber-400'}`} title={gem.type === 'support' ? 'Support' : 'Active'}>
+                {gem.type === 'support' ? '🔗' : '⚡'}
+              </span>
+            </div>
 
-            {/* Hover Overlay (Desktop) */}
-            <div className="hidden lg:block absolute inset-0 bg-zinc-900/95 backdrop-blur-sm border border-amber-500/50 rounded-lg p-4 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
+            {/* Level - Minimal */}
+            {gem.requiredLevel && (
+              <div className="text-xs text-zinc-500">
+                Lvl {gem.requiredLevel}
+              </div>
+            )}
+
+            {/* Hover Overlay - Show availability only on hover */}
+            <div className="hidden lg:block absolute inset-0 bg-zinc-900/95 backdrop-blur-sm border border-amber-500/50 rounded-lg p-3 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
               <div className="flex flex-col h-full justify-between">
                 <div>
-                  <h4 className="text-sm font-medium text-zinc-100 mb-2">{gem.name}</h4>
-                  <div className="text-xs text-zinc-400">
-                    {gem.type === 'support' ? 'Support Gem' : 'Active Skill Gem'}
+                  <h4 className="text-sm font-medium text-zinc-100 mb-1">{gem.name}</h4>
+                  <div className="text-xs text-zinc-400 flex items-center gap-1 mb-2">
+                    <span>{gem.type === 'support' ? '🔗 Support' : '⚡ Active'}</span>
+                    {gem.requiredLevel && <span>• Lvl {gem.requiredLevel}</span>}
                   </div>
                 </div>
                 {bestAvailability && (
-                  <div>
+                  <div className="text-xs">
                     <AvailabilityBadge availability={bestAvailability} />
                   </div>
                 )}

@@ -86,33 +86,27 @@ export default function GemUnlocksSection({ act, selectedClass, onSelectGem, com
 
               {/* Gem Info */}
               <div className="flex-1 min-w-0">
-                <div className="flex items-start justify-between gap-2">
-                  <div>
-                    <h4 className="text-sm font-medium text-zinc-200 group-hover:text-zinc-100">
+                <div className="flex items-center justify-between gap-3">
+                  <div className="flex-1 min-w-0">
+                    <h4 className="text-sm font-medium text-zinc-200 group-hover:text-zinc-100 mb-1">
                       {gem.name}
                     </h4>
-                    <div className="flex items-center gap-2 mt-1 flex-wrap">
-                      <span
-                        className={`inline-block text-xs px-2 py-0.5 rounded ${
-                          gem.type === 'support'
-                            ? 'bg-blue-500/20 text-blue-400'
-                            : 'bg-amber-500/20 text-amber-400'
-                        }`}
-                      >
-                        {gem.type === 'support' ? 'Support' : 'Active'}
+                    <div className="flex items-center gap-2 text-xs text-zinc-500">
+                      {/* Type icon */}
+                      <span className={gem.type === 'support' ? 'text-blue-400' : 'text-amber-400'}>
+                        {gem.type === 'support' ? '🔗' : '⚡'}
                       </span>
+                      <span>{gem.type === 'support' ? 'Support' : 'Active'}</span>
                       {gem.requiredLevel && (
-                        <span className="inline-block text-xs px-2 py-0.5 rounded bg-zinc-700 text-zinc-300 border border-white/[0.08]">
-                          Lv {gem.requiredLevel}
-                        </span>
+                        <span>• Lvl {gem.requiredLevel}</span>
                       )}
                     </div>
                   </div>
 
-                  {/* Availability Badge */}
+                  {/* Availability Badge - Keep for this view */}
                   {bestAvailability && (
                     <div className="flex-shrink-0">
-                      <AvailabilityBadge availability={bestAvailability} />
+                      <AvailabilityBadge availability={bestAvailability} compact />
                     </div>
                   )}
                 </div>
