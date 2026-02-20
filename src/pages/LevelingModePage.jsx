@@ -4,11 +4,20 @@
  * Supports Fresh Start (with vendor recipes) and Alt Character (speed focus) modes
  */
 
+import { useState, useMemo } from 'react';
 import { useLevelingProgress } from '../contexts/LevelingProgressContext';
 import ModeToggle from '../components/leveling/ModeToggle';
+import ActNavigation from '../components/leveling/ActNavigation';
+import ZoneCard from '../components/leveling/ZoneCard';
 
 export default function LevelingModePage() {
-  const { mode, resetProgress } = useLevelingProgress();
+  const { mode, resetProgress, areas } = useLevelingProgress();
+  const [currentAct, setCurrentAct] = useState(1);
+
+  // Filter areas for current act
+  const currentActAreas = useMemo(() => {
+    return areas.filter(area => area.act === currentAct);
+  }, [areas, currentAct]);
 
   const handleResetProgress = () => {
     if (window.confirm('Reset all leveling progress? This cannot be undone.')) {
@@ -67,26 +76,32 @@ export default function LevelingModePage() {
         </div>
       </div>
 
-      {/* Placeholder for Act Navigation */}
-      <div className="bg-zinc-900/60 backdrop-blur-sm border border-white/[0.06] rounded-lg p-8 text-center">
-        <svg
-          className="w-16 h-16 text-zinc-700 mx-auto mb-4"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth={1.5}
-        >
-          <path d="M12 2L2 9l10 13L22 9z" />
-          <path d="M2 9h20" />
-          <path d="M12 2l5 7-5 13-5-13z" />
-        </svg>
-        <h2 className="text-xl font-bold text-zinc-400 mb-2">Coming Soon</h2>
-        <p className="text-zinc-500 max-w-md mx-auto">
-          Act-by-act leveling guide with quest tracking, zone tips, vendor recipes, and gem progression will be available here.
+      {/* Act Navigation */}
+      <ActNavigation currentAct={currentAct} onSelectAct={setCurrentAct} />
+
+      {/* Act Header */}
+      <div className="bg-zinc-900/60 backdrop-blur-sm border border-white/[0.06] rounded-lg p-4">
+        <h2 className="text-xl font-bold text-zinc-200">
+          Act {currentAct}
+        </h2>
+        <p className="text-sm text-zinc-500 mt-1">
+          {currentActAreas.length} zones • {currentActAreas.filter(a => a.hasWaypoint).length} waypoints
         </p>
-        <p className="text-xs text-zinc-600 mt-4">
-          Phase 1: Infrastructure complete. Phase 2-6 in progress.
-        </p>
+      </div>
+
+      {/* Zone List */}
+      <div className="space-y-3">
+        {currentActAreas.length > 0 ? (
+          currentActAreas.map(area => (
+            <ZoneCard key={area.id} area={area} />
+          ))
+        ) : (
+          <div className="bg-zinc-900/60 backdrop-blur-sm border border-white/[0.06] rounded-lg p-8 text-center">
+            <p className="text-zinc-500">
+              No data available for Act {currentAct} yet.
+            </p>
+          </div>
+        )}
       </div>
 
       {/* Quick Links */}

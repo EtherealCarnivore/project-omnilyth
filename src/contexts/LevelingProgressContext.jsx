@@ -1,9 +1,14 @@
 /**
  * Leveling Progress Context
  * Tracks completion state for acts and zones with localStorage persistence
+ * Uses area IDs from act data files for zone and objective tracking
  */
 
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState, useEffect, useMemo } from 'react';
+import { acts123Data } from '../data/leveling/acts123-data';
+import { acts456Data } from '../data/leveling/acts456-data';
+import { acts789Data } from '../data/leveling/acts789-data';
+import { act10Data } from '../data/leveling/act10-data';
 
 const LevelingProgressContext = createContext();
 
@@ -16,8 +21,18 @@ export const useLevelingProgress = () => {
 };
 
 export const LevelingProgressProvider = ({ children }) => {
-  const STORAGE_KEY = 'poe-leveling-progress';
+  const STORAGE_KEY = 'poe-leveling-progress-v2';
   const MODE_KEY = 'poe-leveling-mode';
+
+  // Combine all area data
+  const areas = useMemo(() => {
+    return [
+      ...acts123Data.areas,
+      ...acts456Data.areas,
+      ...acts789Data.areas,
+      ...act10Data.areas
+    ];
+  }, []);
 
   // Load mode from localStorage (default: 'fresh')
   const [mode, setMode] = useState(() => {
@@ -34,10 +49,10 @@ export const LevelingProgressProvider = ({ children }) => {
   const [progress, setProgress] = useState(() => {
     try {
       const saved = localStorage.getItem(STORAGE_KEY);
-      return saved ? JSON.parse(saved) : {};
+      return saved ? JSON.parse(saved) : { zones: [], objectives: [] };
     } catch (error) {
       console.error('Failed to load leveling progress:', error);
-      return {};
+      return { zones: [], objectives: [] };
     }
   });
 
@@ -59,124 +74,55 @@ export const LevelingProgressProvider = ({ children }) => {
     }
   }, [mode]);
 
-  // Check if a zone is completed
-  const isZoneCompleted = (actNum, zoneIndex) => {
-    return progress[`act-${actNum}`]?.zones?.[zoneIndex] === true;
-  };
-
-  // Check if an act is completed (all zones done)
-  const isActCompleted = (actNum, totalZones) => {
-    const actProgress = progress[`act-${actNum}`]?.zones;
-    if (!actProgress) return false;
-
-    for (let i = 0; i < totalZones; i++) {
-      if (!actProgress[i]) return false;
-    }
-    return true;
-  };
-
-  // Toggle a single zone
-  const toggleZone = (actNum, zoneIndex) => {
+  // Toggle a single zone (by area ID like "act1-area-0")
+  const toggleZone = (areaId) => {
     setProgress(prev => {
-      const actKey = `act-${actNum}`;
-      const newProgress = { ...prev };
+      const zones = [...prev.zones];
+      const index = zones.indexOf(areaId);
 
-      if (!newProgress[actKey]) {
-        newProgress[actKey] = { zones: {} };
+      if (index >= 0) {
+        // Remove if exists
+        zones.splice(index, 1);
+      } else {
+        // Add if doesn't exist
+        zones.push(areaId);
       }
 
-      if (!newProgress[actKey].zones) {
-        newProgress[actKey].zones = {};
-      }
-
-      // Toggle the zone
-      newProgress[actKey].zones[zoneIndex] = !newProgress[actKey].zones[zoneIndex];
-
-      return newProgress;
+      return { ...prev, zones };
     });
   };
 
-  // Mark entire act as completed
-  const markActCompleted = (actNum, totalZones) => {
+  // Toggle an objective (by composite ID like "act1-area-0-Complete objectives")
+  const toggleObjective = (objectiveId) => {
     setProgress(prev => {
-      const actKey = `act-${actNum}`;
-      const newProgress = { ...prev };
+      const objectives = [...prev.objectives];
+      const index = objectives.indexOf(objectiveId);
 
-      newProgress[actKey] = {
-        zones: {}
-      };
-
-      // Mark all zones as completed
-      for (let i = 0; i < totalZones; i++) {
-        newProgress[actKey].zones[i] = true;
+      if (index >= 0) {
+        // Remove if exists
+        objectives.splice(index, 1);
+      } else {
+        // Add if doesn't exist
+        objectives.push(objectiveId);
       }
 
-      return newProgress;
+      return { ...prev, objectives };
     });
-  };
-
-  // Mark entire act as incomplete
-  const markActIncomplete = (actNum) => {
-    setProgress(prev => {
-      const newProgress = { ...prev };
-      delete newProgress[`act-${actNum}`];
-      return newProgress;
-    });
-  };
-
-  // Get overall progress stats
-  const getOverallProgress = (acts) => {
-    let completedZones = 0;
-    let totalZones = 0;
-
-    acts.forEach(act => {
-      totalZones += act.zones.length;
-      act.zones.forEach((_, index) => {
-        if (isZoneCompleted(act.act, index)) {
-          completedZones++;
-        }
-      });
-    });
-
-    return {
-      completedZones,
-      totalZones,
-      percentage: totalZones > 0 ? Math.round((completedZones / totalZones) * 100) : 0
-    };
-  };
-
-  // Find next incomplete zone
-  const getNextIncompleteZone = (acts) => {
-    for (const act of acts) {
-      for (let i = 0; i < act.zones.length; i++) {
-        if (!isZoneCompleted(act.act, i)) {
-          return {
-            act: act.act,
-            zoneIndex: i,
-            zoneName: act.zones[i].name
-          };
-        }
-      }
-    }
-    return null; // All completed!
   };
 
   // Reset all progress
   const resetProgress = () => {
-    setProgress({});
+    setProgress({ zones: [], objectives: [] });
   };
 
   const value = {
     mode,
     setMode,
-    progress,
-    isZoneCompleted,
-    isActCompleted,
+    areas,
+    completedZones: progress.zones || [],
+    completedObjectives: progress.objectives || [],
     toggleZone,
-    markActCompleted,
-    markActIncomplete,
-    getOverallProgress,
-    getNextIncompleteZone,
+    toggleObjective,
     resetProgress
   };
 
