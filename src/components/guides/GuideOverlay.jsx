@@ -103,11 +103,7 @@ const GuideOverlay = () => {
   }, [isDragging]);
 
   if (!isVisible) {
-    return (
-      <div className="fixed bottom-4 right-4 text-white/50 text-sm">
-        Press <kbd className="px-2 py-1 bg-white/10 rounded">G</kbd> for guides
-      </div>
-    );
+    return null;
   }
 
   return (

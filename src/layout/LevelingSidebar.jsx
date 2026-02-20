@@ -117,7 +117,7 @@ export default function LevelingSidebar({ open, onClose }) {
                       }
                     `}
                   >
-                    Preview Layouts
+                    Gem Progression
                   </NavLink>
                 </nav>
               </div>

@@ -1,9 +1,8 @@
 /**
  * LevelingPreviewPage
- * Preview page for gem progression system
- * Showcases gem unlocks by act with class filtering
- *
- * Accessible at: /leveling-preview
+ * Gem progression system preview - Shows gem unlocks act-by-act
+ * Displays gems available in each act with class-specific filtering
+ * Accessible at: /leveling/preview
  */
 
 import { useState } from 'react';
