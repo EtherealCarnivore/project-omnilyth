@@ -1,10 +1,11 @@
 /**
  * gemAvailability.js
- * Gem quest reward data merged with gem icons
- * Generated: 2026-02-20T18:47:36.075Z
+ * Gem quest reward data merged with gem icons and level requirements
+ * Generated: 2026-02-20T20:06:24.838Z
  *
  * Data sources:
  * - Quest rewards: https://www.poewiki.net/wiki/Quest_Rewards
+ * - Gem levels: https://www.poewiki.net/wiki/Skill_gem
  * - Gem icons: src/data/gemData.js (web.poecdn.com)
  *
  * Special vendors:
@@ -688,7 +689,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Purifying Flame": {
     "gemId": "purifying_flame",
@@ -811,7 +813,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 10
   },
   "Clarity": {
     "gemId": "clarity",
@@ -844,7 +847,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 10
   },
   "Combustion Support": {
     "gemId": "combustion_support",
@@ -968,7 +972,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 10
   },
   "Infernal Legion Support": {
     "gemId": "infernal_legion_support",
@@ -1030,7 +1035,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 10
   },
   "Minion Damage Support": {
     "gemId": "minion_damage_support",
@@ -1091,7 +1097,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 10
   },
   "Unbound Ailments Support": {
     "gemId": "unbound_ailments_support",
@@ -1186,7 +1193,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 10
   },
   "Added Cold Damage Support": {
     "gemId": "added_cold_damage_support",
@@ -1345,7 +1353,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 10
   },
   "Siphoning Trap": {
     "gemId": "siphoning_trap",
@@ -1374,7 +1383,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 10
   },
   "Smoke Mine": {
     "gemId": "smoke_mine",
@@ -1406,7 +1416,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 10
   },
   "Unearth": {
     "gemId": "unearth",
@@ -1435,7 +1446,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 10
   },
   "Whirling Blades": {
     "gemId": "whirling_blades",
@@ -1466,7 +1478,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 10
   },
   "Withering Step": {
     "gemId": "withering_step",
@@ -1496,7 +1509,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 10
   },
   "Arrow Nova Support": {
     "gemId": "arrow_nova_support",
@@ -1557,7 +1571,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 10
   },
   "Manaforged Arrows Support": {
     "gemId": "manaforged_arrows_support",
@@ -1683,7 +1698,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 10
   },
   "Intimidating Cry": {
     "gemId": "intimidating_cry",
@@ -1715,7 +1731,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 10
   },
   "Leap Slam": {
     "gemId": "leap_slam",
@@ -1747,7 +1764,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 10
   },
   "Lifetap Support": {
     "gemId": "lifetap_support",
@@ -1841,7 +1859,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 10
   },
   "Arc": {
     "gemId": "arc",
@@ -1870,7 +1889,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Blazing Salvo": {
     "gemId": "blazing_salvo",
@@ -1900,7 +1920,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Creeping Frost": {
     "gemId": "creeping_frost",
@@ -1929,7 +1950,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Essence Drain": {
     "gemId": "essence_drain",
@@ -1959,7 +1981,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Flesh Offering": {
     "gemId": "flesh_offering",
@@ -1988,7 +2011,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Ice Nova": {
     "gemId": "ice_nova",
@@ -2019,7 +2043,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Manabond": {
     "gemId": "manabond",
@@ -2049,7 +2074,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Scorching Ray": {
     "gemId": "scorching_ray",
@@ -2080,7 +2106,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Volatile Dead": {
     "gemId": "volatile_dead",
@@ -2110,7 +2137,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Blade Vortex": {
     "gemId": "blade_vortex",
@@ -2140,7 +2168,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Fire Trap": {
     "gemId": "fire_trap",
@@ -2169,7 +2198,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Icicle Mine": {
     "gemId": "icicle_mine",
@@ -2198,7 +2228,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Lightning Trap": {
     "gemId": "lightning_trap",
@@ -2227,7 +2258,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Reave": {
     "gemId": "reave",
@@ -2257,7 +2289,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Venom Gyre": {
     "gemId": "venom_gyre",
@@ -2286,7 +2319,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Voltaxic Burst": {
     "gemId": "voltaxic_burst",
@@ -2315,7 +2349,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Elemental Hit": {
     "gemId": "elemental_hit",
@@ -2344,7 +2379,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Lightning Arrow": {
     "gemId": "lightning_arrow",
@@ -2373,7 +2409,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Lightning Strike": {
     "gemId": "lightning_strike",
@@ -2402,7 +2439,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Poisonous Concoction": {
     "gemId": "poisonous_concoction",
@@ -2431,7 +2469,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Rain of Arrows": {
     "gemId": "rain_of_arrows",
@@ -2463,7 +2502,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Siege Ballista": {
     "gemId": "siege_ballista",
@@ -2492,7 +2532,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Toxic Rain": {
     "gemId": "toxic_rain",
@@ -2521,7 +2562,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Earthshatter": {
     "gemId": "earthshatter",
@@ -2551,7 +2593,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Lacerate": {
     "gemId": "lacerate",
@@ -2580,7 +2623,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Shattering Steel": {
     "gemId": "shattering_steel",
@@ -2609,7 +2653,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Sweep": {
     "gemId": "sweep",
@@ -2640,7 +2685,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Volcanic Fissure": {
     "gemId": "volcanic_fissure",
@@ -2671,7 +2717,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Chain Hook": {
     "gemId": "chain_hook",
@@ -2700,7 +2747,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Infernal Blow": {
     "gemId": "infernal_blow",
@@ -2729,7 +2777,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Static Strike": {
     "gemId": "static_strike",
@@ -2760,7 +2809,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Sunder": {
     "gemId": "sunder",
@@ -2789,7 +2839,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Absolution": {
     "gemId": "absolution",
@@ -2818,7 +2869,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 12
   },
   "Armageddon Brand": {
     "gemId": "armageddon_brand",
@@ -2856,7 +2908,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Consecrated Path": {
     "gemId": "consecrated_path",
@@ -2894,7 +2947,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Divine Ire": {
     "gemId": "divine_ire",
@@ -2934,7 +2988,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Dominating Blow": {
     "gemId": "dominating_blow",
@@ -2972,7 +3027,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Firestorm": {
     "gemId": "firestorm",
@@ -3012,7 +3068,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Flameblast": {
     "gemId": "flameblast",
@@ -3053,7 +3110,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Penance Brand": {
     "gemId": "penance_brand",
@@ -3091,7 +3149,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Shock Nova": {
     "gemId": "shock_nova",
@@ -3129,7 +3188,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Shockwave Totem": {
     "gemId": "shockwave_totem",
@@ -3167,7 +3227,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Stormbind": {
     "gemId": "stormbind",
@@ -3207,7 +3268,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Contagion": {
     "gemId": "contagion",
@@ -3238,7 +3300,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 4
   },
   "Detonate Dead": {
     "gemId": "detonate_dead",
@@ -3268,7 +3331,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 4
   },
   "Flame Wall": {
     "gemId": "flame_wall",
@@ -3298,7 +3362,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 4
   },
   "Frost Bomb": {
     "gemId": "frost_bomb",
@@ -3329,7 +3394,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 4
   },
   "Frostblink": {
     "gemId": "frostblink",
@@ -3362,7 +3428,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 4
   },
   "Orb of Storms": {
     "gemId": "orb_of_storms",
@@ -3393,7 +3460,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 4
   },
   "Summon Raging Spirit": {
     "gemId": "summon_raging_spirit",
@@ -3422,7 +3490,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 4
   },
   "Bear Trap": {
     "gemId": "bear_trap",
@@ -3454,7 +3523,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 4
   },
   "Dash": {
     "gemId": "dash",
@@ -3486,7 +3556,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 4
   },
   "Puncture": {
     "gemId": "puncture",
@@ -3516,7 +3587,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 4
   },
   "Shrapnel Ballista": {
     "gemId": "shrapnel_ballista",
@@ -3545,7 +3617,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 4
   },
   "Sniper's Mark": {
     "gemId": "sniper_s_mark",
@@ -3575,7 +3648,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 4
   },
   "Blood and Sand": {
     "gemId": "blood_and_sand",
@@ -3604,7 +3678,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 4
   },
   "Crushing Fist": {
     "gemId": "crushing_fist",
@@ -3634,7 +3709,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 4
   },
   "Decoy Totem": {
     "gemId": "decoy_totem",
@@ -3665,7 +3741,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 4
   },
   "Shield Charge": {
     "gemId": "shield_charge",
@@ -3697,7 +3774,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 4
   },
   "Vigilant Strike": {
     "gemId": "vigilant_strike",
@@ -3729,7 +3807,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 4
   },
   "War Banner": {
     "gemId": "war_banner",
@@ -3758,7 +3837,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 4
   },
   "Steelskin": {
     "gemId": "steelskin",
@@ -3787,7 +3867,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 4
   },
   "Holy Flame Totem": {
     "gemId": "holy_flame_totem",
@@ -3816,7 +3897,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 4
   },
   "Summon Holy Relic": {
     "gemId": "summon_holy_relic",
@@ -3845,7 +3927,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 4
   },
   "Concentrated Effect Support": {
     "gemId": "concentrated_effect_support",
@@ -4604,7 +4687,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Arctic Armour": {
     "gemId": "arctic_armour",
@@ -4638,7 +4722,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Cold Snap": {
     "gemId": "cold_snap",
@@ -4668,7 +4753,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Desecrate": {
     "gemId": "desecrate",
@@ -4697,7 +4783,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Galvanic Field": {
     "gemId": "galvanic_field",
@@ -4726,7 +4813,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Herald of Ice": {
     "gemId": "herald_of_ice",
@@ -4760,7 +4848,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Herald of Thunder": {
     "gemId": "herald_of_thunder",
@@ -4794,7 +4883,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Wall of Force": {
     "gemId": "wall_of_force",
@@ -4823,7 +4913,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Assassin's Mark": {
     "gemId": "assassin_s_mark",
@@ -4852,7 +4943,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Blade Blast": {
     "gemId": "blade_blast",
@@ -4881,7 +4973,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Blood Rage": {
     "gemId": "blood_rage",
@@ -4913,7 +5006,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Herald of Agony": {
     "gemId": "herald_of_agony",
@@ -4943,7 +5037,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Summon Skitterbots": {
     "gemId": "summon_skitterbots",
@@ -4972,7 +5067,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Ensnaring Arrow": {
     "gemId": "ensnaring_arrow",
@@ -5001,7 +5097,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Frenzy": {
     "gemId": "frenzy",
@@ -5032,7 +5129,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Poacher's Mark": {
     "gemId": "poacher_s_mark",
@@ -5062,7 +5160,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Ancestral Cry": {
     "gemId": "ancestral_cry",
@@ -5092,7 +5191,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Corrupting Fever": {
     "gemId": "corrupting_fever",
@@ -5124,7 +5224,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Defiance Banner": {
     "gemId": "defiance_banner",
@@ -5153,7 +5254,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Eviscerate": {
     "gemId": "eviscerate",
@@ -5184,7 +5286,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Flesh and Stone": {
     "gemId": "flesh_and_stone",
@@ -5213,7 +5316,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Glacial Shield Swipe": {
     "gemId": "glacial_shield_swipe",
@@ -5242,7 +5346,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Seismic Cry": {
     "gemId": "seismic_cry",
@@ -5273,7 +5378,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Swordstorm": {
     "gemId": "swordstorm",
@@ -5302,7 +5408,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Warlord's Mark": {
     "gemId": "warlord_s_mark",
@@ -5332,7 +5439,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Molten Shell": {
     "gemId": "molten_shell",
@@ -5361,7 +5469,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Brand Recall": {
     "gemId": "brand_recall",
@@ -5390,7 +5499,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Divine Retribution": {
     "gemId": "divine_retribution",
@@ -5419,7 +5529,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Herald of Purity": {
     "gemId": "herald_of_purity",
@@ -5448,7 +5559,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Wave of Conviction": {
     "gemId": "wave_of_conviction",
@@ -5477,7 +5589,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Herald of Ash": {
     "gemId": "herald_of_ash",
@@ -5506,7 +5619,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 16
   },
   "Bane": {
     "gemId": "bane",
@@ -5536,7 +5650,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Conductivity": {
     "gemId": "conductivity",
@@ -5569,7 +5684,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Despair": {
     "gemId": "despair",
@@ -5600,7 +5716,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Discipline": {
     "gemId": "discipline",
@@ -5629,7 +5746,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Elemental Weakness": {
     "gemId": "elemental_weakness",
@@ -5662,7 +5780,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Enfeeble": {
     "gemId": "enfeeble",
@@ -5694,7 +5813,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Flammability": {
     "gemId": "flammability",
@@ -5727,7 +5847,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Frostbite": {
     "gemId": "frostbite",
@@ -5760,7 +5881,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Malevolence": {
     "gemId": "malevolence",
@@ -5792,7 +5914,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Purity of Elements": {
     "gemId": "purity_of_elements",
@@ -5821,7 +5944,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Spellslinger": {
     "gemId": "spellslinger",
@@ -5850,7 +5974,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Temporal Chains": {
     "gemId": "temporal_chains",
@@ -5882,7 +6007,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Zealotry": {
     "gemId": "zealotry",
@@ -5913,7 +6039,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Hatred": {
     "gemId": "hatred",
@@ -5944,7 +6071,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Plague Bearer": {
     "gemId": "plague_bearer",
@@ -5973,7 +6101,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Wrath": {
     "gemId": "wrath",
@@ -6003,7 +6132,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Alchemist's Mark": {
     "gemId": "alchemist_s_mark",
@@ -6032,7 +6162,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Grace": {
     "gemId": "grace",
@@ -6062,7 +6193,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Dread Banner": {
     "gemId": "dread_banner",
@@ -6091,7 +6223,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Petrified Blood": {
     "gemId": "petrified_blood",
@@ -6123,7 +6256,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Pride": {
     "gemId": "pride",
@@ -6153,7 +6287,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Rallying Cry": {
     "gemId": "rallying_cry",
@@ -6182,7 +6317,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Anger": {
     "gemId": "anger",
@@ -6213,7 +6349,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Determination": {
     "gemId": "determination",
@@ -6242,7 +6379,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "General's Cry": {
     "gemId": "general_s_cry",
@@ -6271,7 +6409,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Infernal Cry": {
     "gemId": "infernal_cry",
@@ -6300,7 +6439,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Punishment": {
     "gemId": "punishment",
@@ -6331,7 +6471,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Vengeful Cry": {
     "gemId": "vengeful_cry",
@@ -6360,7 +6501,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Vulnerability": {
     "gemId": "vulnerability",
@@ -6391,7 +6533,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Battlemage's Cry": {
     "gemId": "battlemage_s_cry",
@@ -6420,7 +6563,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 24
   },
   "Archmage Support": {
     "gemId": "archmage_support",
@@ -7666,7 +7810,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Crackling Lance": {
     "gemId": "crackling_lance",
@@ -7695,7 +7840,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Cremation": {
     "gemId": "cremation",
@@ -7726,7 +7872,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Eye of Winter": {
     "gemId": "eye_of_winter",
@@ -7755,7 +7902,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Glacial Cascade": {
     "gemId": "glacial_cascade",
@@ -7784,7 +7932,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Hexblast": {
     "gemId": "hexblast",
@@ -7814,7 +7963,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Kinetic Blast": {
     "gemId": "kinetic_blast",
@@ -7843,7 +7993,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Kinetic Rain": {
     "gemId": "kinetic_rain",
@@ -7872,7 +8023,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Lightning Conduit": {
     "gemId": "lightning_conduit",
@@ -7901,7 +8053,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Raise Spectre": {
     "gemId": "raise_spectre",
@@ -7930,7 +8083,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Somatic Shell": {
     "gemId": "somatic_shell",
@@ -7959,7 +8113,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Soulrend": {
     "gemId": "soulrend",
@@ -7990,7 +8145,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Summon Reaper": {
     "gemId": "summon_reaper",
@@ -8019,7 +8175,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Blade Flurry": {
     "gemId": "blade_flurry",
@@ -8050,7 +8207,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Bladefall": {
     "gemId": "bladefall",
@@ -8080,7 +8238,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Charged Dash": {
     "gemId": "charged_dash",
@@ -8111,7 +8270,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Flamethrower Trap": {
     "gemId": "flamethrower_trap",
@@ -8140,7 +8300,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Lightning Spire Trap": {
     "gemId": "lightning_spire_trap",
@@ -8169,7 +8330,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Pestilent Strike": {
     "gemId": "pestilent_strike",
@@ -8198,7 +8360,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Pyroclast Mine": {
     "gemId": "pyroclast_mine",
@@ -8227,7 +8390,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Seismic Trap": {
     "gemId": "seismic_trap",
@@ -8256,7 +8420,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Artillery Ballista": {
     "gemId": "artillery_ballista",
@@ -8285,7 +8450,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Blast Rain": {
     "gemId": "blast_rain",
@@ -8315,7 +8481,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Conflagration": {
     "gemId": "conflagration",
@@ -8344,7 +8511,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Explosive Concoction": {
     "gemId": "explosive_concoction",
@@ -8373,7 +8541,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Scourge Arrow": {
     "gemId": "scourge_arrow",
@@ -8402,7 +8571,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Storm Rain": {
     "gemId": "storm_rain",
@@ -8431,7 +8601,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Thunderstorm": {
     "gemId": "thunderstorm",
@@ -8462,7 +8633,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Tornado Shot": {
     "gemId": "tornado_shot",
@@ -8492,7 +8664,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Wild Strike": {
     "gemId": "wild_strike",
@@ -8521,7 +8694,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Bladestorm": {
     "gemId": "bladestorm",
@@ -8550,7 +8724,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Cyclone": {
     "gemId": "cyclone",
@@ -8581,7 +8756,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Ice Crash": {
     "gemId": "ice_crash",
@@ -8612,7 +8788,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Lancing Steel": {
     "gemId": "lancing_steel",
@@ -8641,7 +8818,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Spectral Shield Throw": {
     "gemId": "spectral_shield_throw",
@@ -8670,7 +8848,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Earthquake": {
     "gemId": "earthquake",
@@ -8699,7 +8878,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Rage Vortex": {
     "gemId": "rage_vortex",
@@ -8728,7 +8908,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Tectonic Slam": {
     "gemId": "tectonic_slam",
@@ -8758,7 +8939,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Reap": {
     "gemId": "reap",
@@ -8787,7 +8969,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 28
   },
   "Bonechill Support": {
     "gemId": "bonechill_support",
@@ -9601,7 +9784,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 38
   },
   "Frigid Bond Support": {
     "gemId": "frigid_bond_support",
@@ -9721,7 +9905,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 34
   },
   "Hydrosphere": {
     "gemId": "hydrosphere",
@@ -9751,7 +9936,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 34
   },
   "Sigil of Power": {
     "gemId": "sigil_of_power",
@@ -9781,7 +9967,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 34
   },
   "Summon Carrion Golem": {
     "gemId": "summon_carrion_golem",
@@ -9811,7 +9998,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 34
   },
   "Summon Chaos Golem": {
     "gemId": "summon_chaos_golem",
@@ -9846,7 +10034,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 34
   },
   "Summon Flame Golem": {
     "gemId": "summon_flame_golem",
@@ -9881,7 +10070,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 34
   },
   "Summon Ice Golem": {
     "gemId": "summon_ice_golem",
@@ -9916,7 +10106,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 34
   },
   "Summon Lightning Golem": {
     "gemId": "summon_lightning_golem",
@@ -9951,7 +10142,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 34
   },
   "Summon Stone Golem": {
     "gemId": "summon_stone_golem",
@@ -9986,7 +10178,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 34
   },
   "Void Sphere": {
     "gemId": "void_sphere",
@@ -10017,7 +10210,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 34
   },
   "Ambush": {
     "gemId": "ambush",
@@ -10046,7 +10240,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 34
   },
   "Temporal Rift": {
     "gemId": "temporal_rift",
@@ -10075,7 +10270,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 34
   },
   "Tornado": {
     "gemId": "tornado",
@@ -10105,7 +10301,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 34
   },
   "Snipe": {
     "gemId": "snipe",
@@ -10134,7 +10331,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 34
   },
   "Berserk": {
     "gemId": "berserk",
@@ -10163,7 +10361,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 34
   },
   "Frozen Legion": {
     "gemId": "frozen_legion",
@@ -10192,7 +10391,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 34
   },
   "Flame Link": {
     "gemId": "flame_link",
@@ -10221,7 +10421,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 34
   },
   "Intuitive Link": {
     "gemId": "intuitive_link",
@@ -10250,7 +10451,8 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 34
   },
   "Soul Link": {
     "gemId": "soul_link",
@@ -10279,89 +10481,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ]
+    ],
+    "requiredLevel": 34
   }
 };
-
-/**
- * Special vendors data
- */
-export const specialVendors = [
-  {
-    "npcId": "siosa",
-    "name": "Siosa",
-    "act": 3,
-    "unlockQuest": "A Fixture of Fate",
-    "location": "The Library",
-    "description": "Removes class restrictions for gems unlocked via quests",
-    "provides": "cross_class"
-  },
-  {
-    "npcId": "lilly_roth",
-    "name": "Lilly Roth",
-    "act": 6,
-    "unlockQuest": "Fallen from Grace",
-    "location": "Lioneye's Watch (Act 6+)",
-    "description": "Unlocks all gems regardless of class or quest completion",
-    "provides": "all_gems"
-  }
-];
-
-/**
- * Get gem availability for specific class
- */
-export function getGemAvailabilityForClass(gemName, className) {
-  const gem = gemAvailabilityData[gemName];
-  if (!gem) return null;
-
-  // Filter sources available to this class
-  return gem.availability.filter(source =>
-    source.classes.length === 0 || source.classes.includes(className)
-  );
-}
-
-/**
- * Get earliest act where gem is available for class
- */
-export function getEarliestAct(gemName, className) {
-  const availability = getGemAvailabilityForClass(gemName, className);
-  if (!availability || availability.length === 0) return null;
-
-  return Math.min(...availability.map(a => a.act));
-}
-
-/**
- * Check if gem is available as quest reward for class
- */
-export function isQuestReward(gemName, className) {
-  const availability = getGemAvailabilityForClass(gemName, className);
-  return availability && availability.some(a =>
-    a.source === 'quest' &&
-    (a.classes.length === 0 || a.classes.includes(className))
-  );
-}
-
-/**
- * Get all gems available in specific act
- */
-export function getGemsForAct(actNumber, className) {
-  const actGems = [];
-
-  for (const [gemName, gemData] of Object.entries(gemAvailabilityData)) {
-    const availability = gemData.availability.filter(a =>
-      a.act === actNumber &&
-      (a.classes.length === 0 || a.classes.includes(className))
-    );
-
-    if (availability.length > 0) {
-      actGems.push({
-        ...gemData,
-        actAvailability: availability
-      });
-    }
-  }
-
-  return actGems;
-}
-
-export default gemAvailabilityData;
