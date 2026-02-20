@@ -167,3 +167,38 @@ The Gem Progression System is a comprehensive tool for tracking gem availability
 - [ ] **Community Recommendations** — user-submitted gem guides
 - [ ] **Build-Specific Suggestions** — AI-powered gem recommendations
 - [ ] **API Integration** — real-time data updates from PoE servers
+
+---
+
+## Credits & Attribution
+
+This project uses data from various Path of Exile community resources. We are deeply grateful to these projects and their maintainers.
+
+### Data Sources
+
+- **[exile-leveling](https://github.com/HeartofPhos/exile-leveling)** by HeartofPhos - Act progression data
+- **[poe-leveling.com](https://poe-leveling.com)** - Leveling tips and racing strategies
+- **[Path of Exile Wiki](https://www.poewiki.net)** (CC BY-NC-SA 3.0) - Gem data, quest rewards, game mechanics
+- **[poe.ninja](https://poe.ninja)** - Real-time item and currency prices (public API)
+- **[web.poecdn.com](https://web.poecdn.com)** - Gem icons (official PoE CDN)
+- **Grinding Gear Games** - Path of Exile game data
+
+**Complete attribution details:** See [ATTRIBUTIONS.md](ATTRIBUTIONS.md)
+
+### License
+
+This project is licensed under the MIT License - see [LICENSE](LICENSE) file for details.
+
+**Note:** The MIT License applies to original code only. Third-party data (PoE Wiki, exile-leveling, etc.) remains under its original license terms.
+
+### Privacy
+
+We respect user privacy. No tracking, no ads, no data collection. See [PRIVACY.md](PRIVACY.md) or visit `/privacy` on the live site.
+
+---
+
+## Disclaimer
+
+Omnilyth is a fan-made tool and is not affiliated with Grinding Gear Games. Path of Exile and all related content are trademarks of Grinding Gear Games.
+
+This tool is provided for informational purposes only. We are not responsible for any game decisions made based on calculator results.
