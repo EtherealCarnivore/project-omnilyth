@@ -21,12 +21,13 @@ Project Omnilyth is a **Path of Exile toolkit** - a comprehensive web applicatio
 - **Build Tool:** Vite 7
 - **Styling:** Tailwind CSS 4
 - **State Management:** React Context API (no Redux/Zustand)
-- **Data Sources:** poe.ninja API (prices), Reddit API (patch notes)
+- **Search:** Fuse.js (fuzzy search for gems)
+- **Data Sources:** poe.ninja API (prices), PoE Wiki (gem availability)
 
 ### Key Patterns
 - **Lazy Loading:** All calculator pages use React.lazy() for code splitting
 - **Module Registry:** Centralized module management in `src/modules/registry.js`
-- **Context Providers:** 6 contexts nested in App.jsx (League, Prices, Pinned, Design, LevelingProgress, PatchNotes)
+- **Context Providers:** 7 contexts nested in App.jsx (League, Prices, Pinned, Design, LevelingProgress, LevelingMode, PatchNotes)
 - **Serverless Proxy:** Secure API proxying via Netlify/Vercel/Cloudflare functions
 
 ### Project Structure
@@ -65,6 +66,19 @@ src/
 ### Atlas / Mapping
 - **Map Mod Regex** - Filter map mods by preference
 - **Scarab Regex** - Price-based scarab selection with multi-output regex
+
+### Leveling
+- **Gem Browser** (`/leveling/gems`) - Browse all 335 gems with advanced filtering by class, act, and availability source
+- **Gem Progression** - Track gem unlocks act-by-act with quest rewards, Siosa (Act 3), and Lilly Roth (Act 6)
+- **Quick Search Modal** - Fuzzy search with keyboard shortcuts (Ctrl+G) and mobile FAB
+- **Gem Detail Modal** - Complete gem information with external links to PoE Wiki and trade search
+- **Class Filtering** - Filter by character class (Witch, Shadow, Ranger, Duelist, Marauder, Templar, Scion, All)
+- **Alt Character Mode** - Simplified view for experienced players with all gems unlocked
+- **Multiple Views** - Grid view (compact cards), list view (detailed rows), compact icon grid
+- **Vendor Leveling** - Socket/link regex for vendor shopping with validation
+- **Gem Regex** - Generate search patterns for specific gems in stash
+
+**Data:** 335 unique gems from PoE Wiki, Acts 1-4 complete (256KB), icons from web.poecdn.com CDN
 
 ### Regex Library
 - **Save Regex Button** - Save patterns from any calculator
@@ -141,6 +155,84 @@ The agent provides expert answers with:
 - Mathematical formulas when relevant
 - Trade-offs and alternatives
 - Tool references (PoB, poe.ninja)
+
+---
+
+## Gem Progression System
+
+The Gem Progression System is a comprehensive gem browser and tracking tool for Path of Exile leveling. **See `GEM_PROGRESSION_README.md` for complete documentation.**
+
+### Architecture
+
+**Components** (13 total in `src/components/leveling/`):
+- `ClassSelector.jsx` - Character class dropdown
+- `AvailabilityBadge.jsx` - Color-coded availability indicators
+- `QuickSearchModal.jsx` - Fast fuzzy search overlay
+- `GemDetailModal.jsx` - Detailed gem information
+- `GemProgressionPanel.jsx` - Sidebar with current/next act unlocks
+- `GemUnlocksSection.jsx` - Act-based gem displays
+- `SiosaUnlockBanner.jsx` - Act 3 special vendor info
+- `LillyRothUnlockBanner.jsx` - Act 6 all-gems vendor info
+- `FilterSidebar.jsx` - Advanced filtering panel
+- `GemGridView.jsx` - Compact grid layout
+- `GemListView.jsx` - Detailed list layout
+- `FloatingSearchButton.jsx` - Mobile FAB
+
+**Pages** (2 total):
+- `LevelingGemsPage.jsx` - Full browser at `/leveling/gems`
+- `LevelingPreviewPage.jsx` - Showcase at `/leveling/preview`
+
+**Hooks** (2 total):
+- `useGemSearch.js` - Fuzzy search with Fuse.js, class filtering
+- `useKeyboardShortcut.js` - Global keyboard shortcuts (Ctrl+G)
+
+**Context:**
+- `LevelingModeContext.jsx` - Global state (selectedClass, mode, currentAct)
+
+**Data:**
+- `src/data/leveling/gemAvailability.js` - 335 gems, 256KB
+- Generated from `scripts/leveling-data/transform-gem-data.js`
+- Source: PoE Wiki Quest Rewards page
+
+### Key Features
+
+- **335 Unique Gems** - Acts 1-4 complete, icons from web.poecdn.com
+- **Class Filtering** - 7 classes + "All Classes" option
+- **Act-by-Act Unlocks** - See gems available in each act (1-10)
+- **Special Vendors** - Siosa (Act 3), Lilly Roth (Act 6)
+- **Alt Character Mode** - Simplified view for experienced players
+- **Fuzzy Search** - Fuse.js with 0.3 threshold, min 2 characters
+- **Multiple Views** - Grid (compact cards), List (detailed rows)
+- **Keyboard Shortcuts** - Ctrl+G (or Cmd+G) for quick search
+- **Mobile FAB** - Floating action button for quick access
+- **Accessibility** - WCAG AA compliant
+
+### What's Left to Do
+
+**High Priority:**
+- Mobile filter modal (currently shows alert)
+- Component tests (Jest + React Testing Library)
+- Acts 5-10 gem data (only Acts 1-4 currently)
+- Performance profiling
+
+**Medium Priority:**
+- Gem favorites/bookmarks
+- Export gem lists to clipboard
+- Loading states for gem images
+- Error boundaries
+
+**Nice to Have:**
+- Build integration (suggest gems)
+- Gem level tracking
+- Quality gem indicators
+- Awakened gem support
+- Vaal gem variants
+
+**Long Term:**
+- User accounts (cross-device sync)
+- Community recommendations
+- AI-powered suggestions
+- Real-time API updates
 
 ---
 
@@ -225,6 +317,10 @@ const { prices, loading, error, refresh } = usePrices(league);
 // Pinning
 import { usePinned } from '../contexts/PinnedContext';
 const { pinned, addPin, removePin, isPinned } = usePinned();
+
+// Leveling Mode
+import { useLevelingMode } from '../contexts/LevelingModeContext';
+const { selectedClass, setSelectedClass, mode, setMode, currentAct, setCurrentAct } = useLevelingMode();
 ```
 
 ### Socket Validation
