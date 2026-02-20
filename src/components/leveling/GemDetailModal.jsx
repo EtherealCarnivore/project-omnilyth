@@ -74,23 +74,20 @@ export default function GemDetailModal({ gem, isOpen, onClose }) {
               />
 
               <div className="flex-1 min-w-0">
-                <h2 id="gem-detail-title" className="text-xl font-medium text-zinc-200">
+                <h2 id="gem-detail-title" className="text-xl font-medium text-zinc-200 mb-2">
                   {gem.name}
                 </h2>
-                <div className="flex items-center gap-2 mt-1">
-                  <span
-                    className={`text-xs px-2 py-0.5 rounded ${
-                      gem.type === 'support'
-                        ? 'bg-blue-500/20 text-blue-400'
-                        : 'bg-amber-500/20 text-amber-400'
-                    }`}
-                  >
+                <div className="flex items-center gap-3 text-sm text-zinc-400">
+                  {/* Type */}
+                  <span className="flex items-center gap-1">
+                    <span className={gem.type === 'support' ? 'text-blue-400' : 'text-amber-400'}>
+                      {gem.type === 'support' ? '🔗' : '⚡'}
+                    </span>
                     {gem.type === 'support' ? 'Support Gem' : 'Active Skill Gem'}
                   </span>
+                  {/* Level */}
                   {gem.requiredLevel && (
-                    <span className="text-xs px-2 py-0.5 rounded bg-zinc-700 text-zinc-300 border border-white/[0.08]">
-                      Requires Level {gem.requiredLevel}
-                    </span>
+                    <span>• Requires Level {gem.requiredLevel}</span>
                   )}
                 </div>
               </div>

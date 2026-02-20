@@ -159,48 +159,26 @@ export default function QuickSearchModal({ isOpen, onClose, onSelectGem }) {
                     <button
                       key={gem.gemId}
                       onClick={() => handleGemClick(gem)}
-                      className="w-full p-4 hover:bg-white/[0.02] transition-colors text-left group"
+                      className="w-full px-4 py-3 hover:bg-white/[0.02] transition-colors text-left group flex items-center justify-between gap-3"
                     >
-                      <div className="flex items-start gap-3">
-                        {/* Gem Icon */}
-                        <img
-                          src={gem.icon}
-                          alt={gem.name}
-                          className="w-12 h-12 rounded border border-white/[0.08] group-hover:border-amber-500/30 transition-colors"
-                          loading="lazy"
-                        />
+                      {/* Gem Name - Bold */}
+                      <div className="flex-1 min-w-0">
+                        <h3 className="text-sm font-medium text-zinc-200 group-hover:text-zinc-100">
+                          {gem.name}
+                        </h3>
+                      </div>
 
-                        {/* Gem Info */}
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-start justify-between gap-2">
-                            <div className="flex-1 min-w-0">
-                              <h3 className="text-sm font-medium text-zinc-200 group-hover:text-zinc-100">
-                                {gem.name}
-                              </h3>
-                              {gem.requiredLevel && (
-                                <span className="text-xs text-zinc-500 mt-0.5 block">
-                                  Requires Level {gem.requiredLevel}
-                                </span>
-                              )}
-                            </div>
-                            <span
-                              className={`text-xs px-2 py-0.5 rounded flex-shrink-0 ${
-                                gem.type === 'support'
-                                  ? 'bg-blue-500/20 text-blue-400'
-                                  : 'bg-amber-500/20 text-amber-400'
-                              }`}
-                            >
-                              {gem.type === 'support' ? 'Support' : 'Active'}
-                            </span>
-                          </div>
+                      {/* Metadata - Minimal inline */}
+                      <div className="flex items-center gap-3 text-xs text-zinc-500 flex-shrink-0">
+                        {/* Type icon only */}
+                        <span className={gem.type === 'support' ? 'text-blue-400' : 'text-amber-400'} title={gem.type === 'support' ? 'Support' : 'Active'}>
+                          {gem.type === 'support' ? '🔗' : '⚡'}
+                        </span>
 
-                          {/* Availability */}
-                          {bestAvailability && (
-                            <div className="mt-2">
-                              <AvailabilityBadge availability={bestAvailability} />
-                            </div>
-                          )}
-                        </div>
+                        {/* Level */}
+                        {gem.requiredLevel && (
+                          <span>Lvl {gem.requiredLevel}</span>
+                        )}
                       </div>
                     </button>
                   );
