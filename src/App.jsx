@@ -20,6 +20,7 @@ import CraftingOverviewPage from './pages/CraftingOverviewPage';
 import AtlasOverviewPage from './pages/AtlasOverviewPage';
 import BuildPlanningOverviewPage from './pages/BuildPlanningOverviewPage';
 import LevelingOverviewPage from './pages/LevelingOverviewPage';
+import PrivacyPage from './pages/PrivacyPage';
 import modules from './modules/registry';
 import GuideOverlay from './components/guides/GuideOverlay';
 
@@ -47,6 +48,7 @@ export default function App() {
               <Route path="/atlas" element={<AtlasOverviewPage />} />
               <Route path="/build" element={<BuildPlanningOverviewPage />} />
               <Route path="/leveling" element={<LevelingOverviewPage />} />
+              <Route path="/privacy" element={<PrivacyPage />} />
               {/* Dynamically generate routes from registry — at least ONE thing feels like proper architecture */}
               {modules.filter(mod => !mod.external).map(mod => (
                 <Route key={mod.id} path={mod.route} element={<mod.component />} />
