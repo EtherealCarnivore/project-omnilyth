@@ -1,0 +1,68 @@
+name: Validate Commit Author
+
+on:
+  push:
+    branches: [master, main]
+  pull_request:
+    branches: [master, main]
+
+jobs:
+  validate-author:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Validate commit authors
+        run: |
+          ALLOWED_EMAIL="42915554+EtherealCarnivore@users.noreply.github.com"
+          ALLOWED_NAME="EtherealCarnivore"
+
+          echo "🔍 Validating commit authors..."
+          echo "Allowed: $ALLOWED_NAME <$ALLOWED_EMAIL>"
+          echo ""
+
+          # For push events, check commits in this push
+          if [ "${{ github.event_name }}" = "push" ]; then
+            # Get the range of commits
+            if [ "${{ github.event.before }}" = "0000000000000000000000000000000000000000" ]; then
+              # New branch, check last commit only
+              COMMITS=$(git rev-parse HEAD)
+            else
+              COMMITS=$(git rev-list ${{ github.event.before }}..${{ github.sha }})
+            fi
+          else
+            # For PRs, check all commits in the PR
+            COMMITS=$(git rev-list origin/${{ github.base_ref }}..${{ github.sha }})
+          fi
+
+          INVALID_FOUND=false
+
+          for commit in $COMMITS; do
+            author_email=$(git show -s --format='%ae' $commit)
+            author_name=$(git show -s --format='%an' $commit)
+            commit_msg=$(git show -s --format='%s' $commit)
+
+            if [ "$author_email" != "$ALLOWED_EMAIL" ] || [ "$author_name" != "$ALLOWED_NAME" ]; then
+              echo "❌ Invalid author in commit: $commit"
+              echo "   Message: $commit_msg"
+              echo "   Found: $author_name <$author_email>"
+              echo "   Expected: $ALLOWED_NAME <$ALLOWED_EMAIL>"
+              echo ""
+              INVALID_FOUND=true
+            fi
+          done
+
+          if [ "$INVALID_FOUND" = true ]; then
+            echo ""
+            echo "💡 To fix this:"
+            echo "   1. Set correct git config:"
+            echo "      git config user.name '$ALLOWED_NAME'"
+            echo "      git config user.email '$ALLOWED_EMAIL'"
+            echo ""
+            echo "   2. Amend the commits or rebase with correct author"
+            exit 1
+          fi
+
+          echo "✅ All commit authors validated successfully"

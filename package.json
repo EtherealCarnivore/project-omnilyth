@@ -9,6 +9,8 @@
     "preview": "vite preview",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d dist",
+    "setup-hooks": "bash scripts/setup-hooks.sh",
+    "postinstall": "npm run setup-hooks",
     "leveling-data:mock": "node scripts/leveling-data/run-all.js --mock",
     "leveling-data:live": "node scripts/leveling-data/run-all.js",
     "leveling-data:parse": "node scripts/leveling-data/parse-exile-leveling.js",
