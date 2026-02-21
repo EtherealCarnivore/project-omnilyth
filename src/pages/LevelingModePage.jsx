@@ -9,6 +9,7 @@ import { useLevelingProgress } from '../contexts/LevelingProgressContext';
 import ModeToggle from '../components/leveling/ModeToggle';
 import ActNavigation from '../components/leveling/ActNavigation';
 import ZoneCard from '../components/leveling/ZoneCard';
+import GemPlanPanel from '../components/leveling/GemPlanPanel';
 
 export default function LevelingModePage() {
   const { mode, resetProgress, areas } = useLevelingProgress();
@@ -75,6 +76,9 @@ export default function LevelingModePage() {
           </div>
         </div>
       </div>
+
+      {/* Gem Plan Panel */}
+      <GemPlanPanel currentAct={currentAct} />
 
       {/* Act Navigation */}
       <ActNavigation currentAct={currentAct} onSelectAct={setCurrentAct} />

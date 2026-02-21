@@ -154,6 +154,16 @@ const modules = [
     component: lazy(() => import('../pages/LevelingModePage')),
   },
   {
+    id: 'leveling-planner',
+    title: 'Gem Planner',
+    description: 'Plan your leveling gems before league start - track what to get and when',
+    category: 'Leveling',
+    subcategory: 'Gems',
+    route: '/leveling/planner',
+    icon: 'build',
+    component: lazy(() => import('../pages/LevelingPlannerPage')),
+  },
+  {
     id: 'leveling-preview',
     title: 'Leveling Preview',
     description: 'Compare layout styles for leveling mode (development)',
