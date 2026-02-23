@@ -36,7 +36,7 @@ import { useState, useCallback, useEffect } from 'react';
 // ══════════════════════════════════════════════════════════════
 // Single SHA-512 hash - simple and instant
 
-const PASSWORD_HASH = '84888b5a1307ee2d23bec804e3c7aa949dd1f84174a4ae632a15ffd377f37f3dc3b5220097c40aa3148b96a9f92aab09c48888810f2ab4856f37f4b165919a69';
+const PASSWORD_HASH = '97627ebb15b3160c7c6c58e14da4998061258fe745a9b438917f4efc0a0251d19b6e8f649e7978d858b9089fc9af7c9a3a830c1a2d4b439fc8431c9e7b53a90e';
 
 // ══════════════════════════════════════════════════════════════
 
