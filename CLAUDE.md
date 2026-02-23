@@ -101,7 +101,7 @@ src/
 ## Security Implementation
 
 ### 🔐 Beta Gate (Current)
-- **Password:** `privat3Be7@_SUB_TO_IVA_NOOBS_uwu^.^_`
+- **Password:** `BurntEm@LL_D0wn-.`
 - **Hash:** Single SHA-512 (no iterations for simplicity)
 - **Storage:** localStorage with 30-day expiry
 - **Rate Limiting:** 5 attempts per minute
@@ -451,7 +451,7 @@ npm run build
 
 ## Contact & Access
 
-**Password for Beta:** `privat3Be7@_SUB_TO_IVA_NOOBS_uwu^.^_`
+**Password for Beta:** `BurntEm@LL_D0wn-.`
 
 **Git User:** EtherealCarnivore
 **GitHub:** https://github.com/EtherealCarnivore
