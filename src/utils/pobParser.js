@@ -130,22 +130,209 @@ export function extractClassFromXML(doc) {
 }
 
 /**
+ * Extract link groups from a parsed PoB XML document.
+ * Each <Skill> element represents a link group (gear slot with linked gems).
+ * Preserves gem order within each group.
+ *
+ * Smart filtering:
+ * - Skips single-gem groups (standalone auras/buffs don't need link group treatment)
+ * - Deduplicates by main skill: keeps the group with the most gems (the "final form")
+ * - Prefers slotted groups over unslotted ones (slotted = actual gear setup)
+ * - Skips disabled groups
+ *
+ * Returns array of { id, label, slot, mainSkill, gems: [{ name, isSupport, gemData }], activeLinks, enabled }
+ */
+export function extractLinkGroupsFromXML(doc) {
+  if (!doc) return [];
+
+  const allGroups = [];
+  const skillElements = doc.querySelectorAll('Skill');
+
+  skillElements.forEach((skill, index) => {
+    const slot = skill.getAttribute('slot') || '';
+    const label = skill.getAttribute('label') || '';
+    const enabled = skill.getAttribute('enabled') !== 'false';
+    const gemElements = skill.querySelectorAll('Gem');
+
+    if (gemElements.length === 0) return;
+    if (!enabled) return;
+
+    const gemsInGroup = [];
+
+    gemElements.forEach((gem) => {
+      const nameSpec = gem.getAttribute('nameSpec') || gem.getAttribute('skillId') || '';
+      const gemEnabled = gem.getAttribute('enabled') !== 'false';
+
+      if (!nameSpec || !gemEnabled) return;
+
+      const name = normalizeGemName(nameSpec);
+      if (!name) return;
+
+      gemsInGroup.push({
+        name,
+        isSupport: name.toLowerCase().includes('support'),
+      });
+    });
+
+    // Skip empty or single-gem groups
+    if (gemsInGroup.length < 2) return;
+
+    // mainSkill = first non-support gem, or first gem if all are supports (e.g. aura setups)
+    const mainSkill = gemsInGroup.find(g => !g.isSupport) || gemsInGroup[0];
+
+    allGroups.push({
+      id: `lg-${index}`,
+      label: label || slot || `Group ${index + 1}`,
+      slot,
+      mainSkill: mainSkill.name,
+      gems: gemsInGroup,
+      activeLinks: gemsInGroup.length,
+      enabled,
+    });
+  });
+
+  // Deduplicate by main skill: keep the group with the most gems.
+  // If tied, prefer slotted groups (actual gear setup) over unslotted (leveling snapshots).
+  const byMainSkill = new Map();
+  for (const group of allGroups) {
+    const key = group.mainSkill;
+    const existing = byMainSkill.get(key);
+    if (!existing) {
+      byMainSkill.set(key, group);
+      continue;
+    }
+    // Prefer more gems
+    if (group.gems.length > existing.gems.length) {
+      byMainSkill.set(key, group);
+    } else if (group.gems.length === existing.gems.length && group.slot && !existing.slot) {
+      // Same gem count: prefer slotted
+      byMainSkill.set(key, group);
+    }
+  }
+
+  return Array.from(byMainSkill.values());
+}
+
+/**
+ * Detect what kind of input the user pasted.
+ * Returns { type, id, message } where:
+ * - type: 'raw' | 'pobbin' | 'pastebin' | 'unsupported'
+ * - id: extracted ID for URL types, or null for raw
+ * - message: user-facing hint for unsupported URLs
+ */
+export function detectPoBInput(input) {
+  if (!input) return { type: 'raw', id: null, message: null };
+  const trimmed = input.trim();
+
+  // pobb.in: https://pobb.in/ID or pobb.in/ID
+  const pobbinMatch = trimmed.match(/^(?:https?:\/\/)?pobb\.in\/([A-Za-z0-9_-]+)/);
+  if (pobbinMatch) return { type: 'pobbin', id: pobbinMatch[1], message: null };
+
+  // pastebin.com: https://pastebin.com/ID or pastebin.com/raw/ID
+  const pastebinMatch = trimmed.match(/^(?:https?:\/\/)?pastebin\.com\/(?:raw\/)?([A-Za-z0-9]+)/);
+  if (pastebinMatch) return { type: 'pastebin', id: pastebinMatch[1], message: null };
+
+  // Unsupported URLs — give helpful messages
+  if (trimmed.match(/^(?:https?:\/\/)?(?:www\.)?poe\.ninja\//i)) {
+    return { type: 'unsupported', id: null, message: 'poe.ninja doesn\'t expose build codes in URLs. Open the build on poe.ninja, click the PoB export button, copy the raw code, and paste it here.' };
+  }
+  if (trimmed.match(/^(?:https?:\/\/)?(?:www\.)?maxroll\.gg\//i)) {
+    return { type: 'unsupported', id: null, message: 'Maxroll uses its own planner format. Open the build guide, find the PoB code section, copy the raw code, and paste it here.' };
+  }
+  if (trimmed.match(/^(?:https?:\/\/)?(?:www\.)?poedb\.tw\//i)) {
+    return { type: 'unsupported', id: null, message: 'poedb.tw is a reference wiki and doesn\'t have exportable build codes. Use pobb.in or paste a raw PoB code instead.' };
+  }
+  // Any other URL
+  if (trimmed.match(/^https?:\/\//i)) {
+    return { type: 'unsupported', id: null, message: 'This URL isn\'t supported. Paste a pobb.in link, pastebin link, or a raw PoB build code.' };
+  }
+
+  // Not a URL — treat as raw build code
+  return { type: 'raw', id: null, message: null };
+}
+
+/**
+ * Fetch the raw PoB build code from a supported URL.
+ * In production: uses Netlify Functions proxy.
+ * In dev: uses Vite dev server proxy to fetch directly.
+ * Returns { code, error }.
+ */
+export async function fetchPoBCodeFromUrl(source, id) {
+  const isDev = import.meta.env.DEV;
+
+  try {
+    if (isDev) {
+      return await fetchPoBCodeDev(source, id);
+    }
+
+    // Production: use Netlify function
+    const response = await fetch(`/.netlify/functions/pob-proxy?source=${source}&id=${encodeURIComponent(id)}`);
+    const data = await response.json();
+
+    if (!response.ok || data.error) {
+      return { code: null, error: data.error || `Failed to fetch build from ${source}` };
+    }
+
+    return { code: data.code, error: null };
+  } catch (err) {
+    return { code: null, error: `Network error fetching from ${source}. Try pasting the raw build code instead.` };
+  }
+}
+
+/**
+ * Dev-mode fetch: uses Vite proxy to bypass CORS, extracts code client-side.
+ */
+async function fetchPoBCodeDev(source, id) {
+  try {
+    if (source === 'pobbin') {
+      const response = await fetch(`/api/pobbin/${id}`);
+      if (!response.ok) {
+        return { code: null, error: `pobb.in returned ${response.status}` };
+      }
+      const html = await response.text();
+      const match = html.match(/buildcode[^>]*>([eE][A-Za-z0-9_+/=-]{20,})/);
+      if (!match) {
+        return { code: null, error: 'Could not extract build code from pobb.in page' };
+      }
+      return { code: match[1], error: null };
+    }
+
+    if (source === 'pastebin') {
+      const response = await fetch(`/api/pastebin/raw/${id}`);
+      if (!response.ok) {
+        return { code: null, error: `Pastebin returned ${response.status}. The paste may be private or expired.` };
+      }
+      const text = (await response.text()).trim();
+      if (!text.match(/^[A-Za-z0-9_+/=-]{20,}$/)) {
+        return { code: null, error: 'Pastebin content does not look like a PoB build code' };
+      }
+      return { code: text, error: null };
+    }
+
+    return { code: null, error: `Unknown source: ${source}` };
+  } catch (err) {
+    return { code: null, error: `Network error fetching from ${source}. Try pasting the raw build code instead.` };
+  }
+}
+
+/**
  * High-level function: decode PoB code and extract everything.
  */
 export function parsePoBBuild(buildCode) {
   const doc = decodePoBCode(buildCode);
   if (!doc) {
-    return { error: 'Failed to decode build code. Make sure you copied the full code.', gems: [], character: null };
+    return { error: 'Failed to decode build code. Make sure you copied the full code.', gems: [], linkGroups: [], character: null };
   }
 
   const gems = extractGemsFromXML(doc);
+  const linkGroups = extractLinkGroupsFromXML(doc);
   const character = extractClassFromXML(doc);
 
   if (gems.length === 0) {
-    return { error: 'No gems found in build code. The build might not have any skill gems configured.', gems: [], character };
+    return { error: 'No gems found in build code. The build might not have any skill gems configured.', gems: [], linkGroups: [], character };
   }
 
-  return { error: null, gems, character };
+  return { error: null, gems, linkGroups, character };
 }
 
 /**

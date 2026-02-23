@@ -96,6 +96,32 @@ export function LevelingPlanProvider({ children }) {
     }));
   };
 
+  // Set link groups (bulk, from PoB import)
+  const setLinkGroups = (groups) => {
+    setPlan(prev => ({
+      ...prev,
+      linkGroups: groups,
+    }));
+  };
+
+  // Update active link count for a specific group
+  const updateLinkCount = (groupId, count) => {
+    setPlan(prev => ({
+      ...prev,
+      linkGroups: prev.linkGroups.map(g =>
+        g.id === groupId ? { ...g, activeLinks: count } : g
+      ),
+    }));
+  };
+
+  // Remove a link group
+  const removeLinkGroup = (groupId) => {
+    setPlan(prev => ({
+      ...prev,
+      linkGroups: prev.linkGroups.filter(g => g.id !== groupId),
+    }));
+  };
+
   // Clear entire plan
   const clearPlan = () => {
     setPlan(defaultPlan);
@@ -158,11 +184,15 @@ export function LevelingPlanProvider({ children }) {
   const value = {
     plan,
     gems: plan.gems,
+    linkGroups: plan.linkGroups,
     characterClass: plan.characterClass,
     addGem,
     removeGem,
     toggleObtained,
     setCharacterClass,
+    setLinkGroups,
+    updateLinkCount,
+    removeLinkGroup,
     clearPlan,
     gemsByLevel,
     socketRequirements,

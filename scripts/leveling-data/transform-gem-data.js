@@ -101,6 +101,26 @@ function transformToGemAvailability() {
     missingIcons.forEach(gem => console.log(`      - ${gem}`));
   }
 
+  // Add all remaining gems from gemData.js that aren't in quest rewards
+  // These are vendor-purchasable gems, Vaal gems, Transfigured gems, drop-only gems, etc.
+  console.log('📦 Adding non-quest gems from gemData.js...');
+
+  let addedFromGemData = 0;
+  for (const [gemName, gemInfo] of Object.entries(existingGems)) {
+    if (gemAvailability[gemName]) continue; // Already has quest reward data
+
+    gemAvailability[gemName] = {
+      gemId: gemName.toLowerCase().replace(/[^a-z0-9]+/g, '_'),
+      name: gemName,
+      icon: gemInfo.icon,
+      type: gemInfo.isSupport ? 'support' : 'active',
+      availability: []
+    };
+    addedFromGemData++;
+  }
+  console.log(`   Added ${addedFromGemData} gems from gemData.js`);
+  console.log(`   Total unique gems: ${Object.keys(gemAvailability).length}`);
+
   // Add special vendors (Siosa, Lilly Roth) to all gems
   console.log('🔓 Adding special vendor availability...');
 
@@ -137,11 +157,12 @@ function generateProductionFile(gemAvailability) {
 
   const fileContent = `/**
  * gemAvailability.js
- * Gem quest reward data merged with gem icons
+ * Gem quest reward data merged with gem icons and level requirements
  * Generated: ${new Date().toISOString()}
  *
  * Data sources:
  * - Quest rewards: https://www.poewiki.net/wiki/Quest_Rewards
+ * - Gem levels: https://www.poewiki.net/wiki/Skill_gem
  * - Gem icons: src/data/gemData.js (web.poecdn.com)
  *
  * Special vendors:

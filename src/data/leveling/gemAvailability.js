@@ -1,7 +1,7 @@
 /**
  * gemAvailability.js
  * Gem quest reward data merged with gem icons and level requirements
- * Generated: 2026-02-20T20:06:24.838Z
+ * Generated: 2026-02-23T11:40:13.223Z
  *
  * Data sources:
  * - Quest rewards: https://www.poewiki.net/wiki/Quest_Rewards
@@ -689,8 +689,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Purifying Flame": {
     "gemId": "purifying_flame",
@@ -813,8 +812,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 10
+    ]
   },
   "Clarity": {
     "gemId": "clarity",
@@ -847,8 +845,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 10
+    ]
   },
   "Combustion Support": {
     "gemId": "combustion_support",
@@ -972,8 +969,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 10
+    ]
   },
   "Infernal Legion Support": {
     "gemId": "infernal_legion_support",
@@ -1035,8 +1031,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 10
+    ]
   },
   "Minion Damage Support": {
     "gemId": "minion_damage_support",
@@ -1097,8 +1092,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 10
+    ]
   },
   "Unbound Ailments Support": {
     "gemId": "unbound_ailments_support",
@@ -1193,8 +1187,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 10
+    ]
   },
   "Added Cold Damage Support": {
     "gemId": "added_cold_damage_support",
@@ -1353,8 +1346,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 10
+    ]
   },
   "Siphoning Trap": {
     "gemId": "siphoning_trap",
@@ -1383,8 +1375,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 10
+    ]
   },
   "Smoke Mine": {
     "gemId": "smoke_mine",
@@ -1416,8 +1407,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 10
+    ]
   },
   "Unearth": {
     "gemId": "unearth",
@@ -1446,8 +1436,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 10
+    ]
   },
   "Whirling Blades": {
     "gemId": "whirling_blades",
@@ -1478,8 +1467,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 10
+    ]
   },
   "Withering Step": {
     "gemId": "withering_step",
@@ -1509,8 +1497,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 10
+    ]
   },
   "Arrow Nova Support": {
     "gemId": "arrow_nova_support",
@@ -1571,8 +1558,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 10
+    ]
   },
   "Manaforged Arrows Support": {
     "gemId": "manaforged_arrows_support",
@@ -1698,8 +1684,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 10
+    ]
   },
   "Intimidating Cry": {
     "gemId": "intimidating_cry",
@@ -1731,8 +1716,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 10
+    ]
   },
   "Leap Slam": {
     "gemId": "leap_slam",
@@ -1764,8 +1748,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 10
+    ]
   },
   "Lifetap Support": {
     "gemId": "lifetap_support",
@@ -1859,8 +1842,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 10
+    ]
   },
   "Arc": {
     "gemId": "arc",
@@ -1889,8 +1871,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Blazing Salvo": {
     "gemId": "blazing_salvo",
@@ -1920,8 +1901,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Creeping Frost": {
     "gemId": "creeping_frost",
@@ -1950,8 +1930,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Essence Drain": {
     "gemId": "essence_drain",
@@ -1981,8 +1960,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Flesh Offering": {
     "gemId": "flesh_offering",
@@ -2011,8 +1989,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Ice Nova": {
     "gemId": "ice_nova",
@@ -2043,8 +2020,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Manabond": {
     "gemId": "manabond",
@@ -2074,8 +2050,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Scorching Ray": {
     "gemId": "scorching_ray",
@@ -2106,8 +2081,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Volatile Dead": {
     "gemId": "volatile_dead",
@@ -2137,8 +2111,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Blade Vortex": {
     "gemId": "blade_vortex",
@@ -2168,8 +2141,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Fire Trap": {
     "gemId": "fire_trap",
@@ -2198,8 +2170,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Icicle Mine": {
     "gemId": "icicle_mine",
@@ -2228,8 +2199,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Lightning Trap": {
     "gemId": "lightning_trap",
@@ -2258,8 +2228,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Reave": {
     "gemId": "reave",
@@ -2289,8 +2258,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Venom Gyre": {
     "gemId": "venom_gyre",
@@ -2319,8 +2287,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Voltaxic Burst": {
     "gemId": "voltaxic_burst",
@@ -2349,8 +2316,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Elemental Hit": {
     "gemId": "elemental_hit",
@@ -2379,8 +2345,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Lightning Arrow": {
     "gemId": "lightning_arrow",
@@ -2409,8 +2374,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Lightning Strike": {
     "gemId": "lightning_strike",
@@ -2439,8 +2403,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Poisonous Concoction": {
     "gemId": "poisonous_concoction",
@@ -2469,8 +2432,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Rain of Arrows": {
     "gemId": "rain_of_arrows",
@@ -2502,8 +2464,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Siege Ballista": {
     "gemId": "siege_ballista",
@@ -2532,8 +2493,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Toxic Rain": {
     "gemId": "toxic_rain",
@@ -2562,8 +2522,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Earthshatter": {
     "gemId": "earthshatter",
@@ -2593,8 +2552,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Lacerate": {
     "gemId": "lacerate",
@@ -2623,8 +2581,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Shattering Steel": {
     "gemId": "shattering_steel",
@@ -2653,8 +2610,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Sweep": {
     "gemId": "sweep",
@@ -2685,8 +2641,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Volcanic Fissure": {
     "gemId": "volcanic_fissure",
@@ -2717,8 +2672,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Chain Hook": {
     "gemId": "chain_hook",
@@ -2747,8 +2701,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Infernal Blow": {
     "gemId": "infernal_blow",
@@ -2777,8 +2730,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Static Strike": {
     "gemId": "static_strike",
@@ -2809,8 +2761,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Sunder": {
     "gemId": "sunder",
@@ -2839,8 +2790,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Absolution": {
     "gemId": "absolution",
@@ -2869,8 +2819,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 12
+    ]
   },
   "Armageddon Brand": {
     "gemId": "armageddon_brand",
@@ -2908,8 +2857,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Consecrated Path": {
     "gemId": "consecrated_path",
@@ -2947,8 +2895,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Divine Ire": {
     "gemId": "divine_ire",
@@ -2988,8 +2935,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Dominating Blow": {
     "gemId": "dominating_blow",
@@ -3027,8 +2973,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Firestorm": {
     "gemId": "firestorm",
@@ -3068,8 +3013,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Flameblast": {
     "gemId": "flameblast",
@@ -3110,8 +3054,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Penance Brand": {
     "gemId": "penance_brand",
@@ -3149,8 +3092,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Shock Nova": {
     "gemId": "shock_nova",
@@ -3188,8 +3130,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Shockwave Totem": {
     "gemId": "shockwave_totem",
@@ -3227,8 +3168,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Stormbind": {
     "gemId": "stormbind",
@@ -3268,8 +3208,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Contagion": {
     "gemId": "contagion",
@@ -3300,8 +3239,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 4
+    ]
   },
   "Detonate Dead": {
     "gemId": "detonate_dead",
@@ -3331,8 +3269,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 4
+    ]
   },
   "Flame Wall": {
     "gemId": "flame_wall",
@@ -3362,8 +3299,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 4
+    ]
   },
   "Frost Bomb": {
     "gemId": "frost_bomb",
@@ -3394,8 +3330,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 4
+    ]
   },
   "Frostblink": {
     "gemId": "frostblink",
@@ -3428,8 +3363,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 4
+    ]
   },
   "Orb of Storms": {
     "gemId": "orb_of_storms",
@@ -3460,8 +3394,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 4
+    ]
   },
   "Summon Raging Spirit": {
     "gemId": "summon_raging_spirit",
@@ -3490,8 +3423,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 4
+    ]
   },
   "Bear Trap": {
     "gemId": "bear_trap",
@@ -3523,8 +3455,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 4
+    ]
   },
   "Dash": {
     "gemId": "dash",
@@ -3556,8 +3487,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 4
+    ]
   },
   "Puncture": {
     "gemId": "puncture",
@@ -3587,8 +3517,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 4
+    ]
   },
   "Shrapnel Ballista": {
     "gemId": "shrapnel_ballista",
@@ -3617,8 +3546,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 4
+    ]
   },
   "Sniper's Mark": {
     "gemId": "sniper_s_mark",
@@ -3648,8 +3576,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 4
+    ]
   },
   "Blood and Sand": {
     "gemId": "blood_and_sand",
@@ -3678,8 +3605,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 4
+    ]
   },
   "Crushing Fist": {
     "gemId": "crushing_fist",
@@ -3709,8 +3635,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 4
+    ]
   },
   "Decoy Totem": {
     "gemId": "decoy_totem",
@@ -3741,8 +3666,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 4
+    ]
   },
   "Shield Charge": {
     "gemId": "shield_charge",
@@ -3774,8 +3698,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 4
+    ]
   },
   "Vigilant Strike": {
     "gemId": "vigilant_strike",
@@ -3807,8 +3730,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 4
+    ]
   },
   "War Banner": {
     "gemId": "war_banner",
@@ -3837,8 +3759,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 4
+    ]
   },
   "Steelskin": {
     "gemId": "steelskin",
@@ -3867,8 +3788,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 4
+    ]
   },
   "Holy Flame Totem": {
     "gemId": "holy_flame_totem",
@@ -3897,8 +3817,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 4
+    ]
   },
   "Summon Holy Relic": {
     "gemId": "summon_holy_relic",
@@ -3927,8 +3846,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 4
+    ]
   },
   "Concentrated Effect Support": {
     "gemId": "concentrated_effect_support",
@@ -4687,8 +4605,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Arctic Armour": {
     "gemId": "arctic_armour",
@@ -4722,8 +4639,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Cold Snap": {
     "gemId": "cold_snap",
@@ -4753,8 +4669,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Desecrate": {
     "gemId": "desecrate",
@@ -4783,8 +4698,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Galvanic Field": {
     "gemId": "galvanic_field",
@@ -4813,8 +4727,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Herald of Ice": {
     "gemId": "herald_of_ice",
@@ -4848,8 +4761,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Herald of Thunder": {
     "gemId": "herald_of_thunder",
@@ -4883,8 +4795,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Wall of Force": {
     "gemId": "wall_of_force",
@@ -4913,8 +4824,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Assassin's Mark": {
     "gemId": "assassin_s_mark",
@@ -4943,8 +4853,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Blade Blast": {
     "gemId": "blade_blast",
@@ -4973,8 +4882,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Blood Rage": {
     "gemId": "blood_rage",
@@ -5006,8 +4914,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Herald of Agony": {
     "gemId": "herald_of_agony",
@@ -5037,8 +4944,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Summon Skitterbots": {
     "gemId": "summon_skitterbots",
@@ -5067,8 +4973,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Ensnaring Arrow": {
     "gemId": "ensnaring_arrow",
@@ -5097,8 +5002,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Frenzy": {
     "gemId": "frenzy",
@@ -5129,8 +5033,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Poacher's Mark": {
     "gemId": "poacher_s_mark",
@@ -5160,8 +5063,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Ancestral Cry": {
     "gemId": "ancestral_cry",
@@ -5191,8 +5093,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Corrupting Fever": {
     "gemId": "corrupting_fever",
@@ -5224,8 +5125,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Defiance Banner": {
     "gemId": "defiance_banner",
@@ -5254,8 +5154,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Eviscerate": {
     "gemId": "eviscerate",
@@ -5286,8 +5185,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Flesh and Stone": {
     "gemId": "flesh_and_stone",
@@ -5316,8 +5214,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Glacial Shield Swipe": {
     "gemId": "glacial_shield_swipe",
@@ -5346,8 +5243,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Seismic Cry": {
     "gemId": "seismic_cry",
@@ -5378,8 +5274,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Swordstorm": {
     "gemId": "swordstorm",
@@ -5408,8 +5303,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Warlord's Mark": {
     "gemId": "warlord_s_mark",
@@ -5439,8 +5333,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Molten Shell": {
     "gemId": "molten_shell",
@@ -5469,8 +5362,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Brand Recall": {
     "gemId": "brand_recall",
@@ -5499,8 +5391,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Divine Retribution": {
     "gemId": "divine_retribution",
@@ -5529,8 +5420,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Herald of Purity": {
     "gemId": "herald_of_purity",
@@ -5559,8 +5449,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Wave of Conviction": {
     "gemId": "wave_of_conviction",
@@ -5589,8 +5478,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Herald of Ash": {
     "gemId": "herald_of_ash",
@@ -5619,8 +5507,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 16
+    ]
   },
   "Bane": {
     "gemId": "bane",
@@ -5650,8 +5537,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Conductivity": {
     "gemId": "conductivity",
@@ -5684,8 +5570,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Despair": {
     "gemId": "despair",
@@ -5716,8 +5601,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Discipline": {
     "gemId": "discipline",
@@ -5746,8 +5630,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Elemental Weakness": {
     "gemId": "elemental_weakness",
@@ -5780,8 +5663,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Enfeeble": {
     "gemId": "enfeeble",
@@ -5813,8 +5695,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Flammability": {
     "gemId": "flammability",
@@ -5847,8 +5728,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Frostbite": {
     "gemId": "frostbite",
@@ -5881,8 +5761,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Malevolence": {
     "gemId": "malevolence",
@@ -5914,8 +5793,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Purity of Elements": {
     "gemId": "purity_of_elements",
@@ -5944,8 +5822,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Spellslinger": {
     "gemId": "spellslinger",
@@ -5974,8 +5851,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Temporal Chains": {
     "gemId": "temporal_chains",
@@ -6007,8 +5883,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Zealotry": {
     "gemId": "zealotry",
@@ -6039,8 +5914,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Hatred": {
     "gemId": "hatred",
@@ -6071,8 +5945,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Plague Bearer": {
     "gemId": "plague_bearer",
@@ -6101,8 +5974,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Wrath": {
     "gemId": "wrath",
@@ -6132,8 +6004,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Alchemist's Mark": {
     "gemId": "alchemist_s_mark",
@@ -6162,8 +6033,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Grace": {
     "gemId": "grace",
@@ -6193,8 +6063,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Dread Banner": {
     "gemId": "dread_banner",
@@ -6223,8 +6092,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Petrified Blood": {
     "gemId": "petrified_blood",
@@ -6256,8 +6124,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Pride": {
     "gemId": "pride",
@@ -6287,8 +6154,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Rallying Cry": {
     "gemId": "rallying_cry",
@@ -6317,8 +6183,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Anger": {
     "gemId": "anger",
@@ -6349,8 +6214,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Determination": {
     "gemId": "determination",
@@ -6379,8 +6243,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "General's Cry": {
     "gemId": "general_s_cry",
@@ -6409,8 +6272,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Infernal Cry": {
     "gemId": "infernal_cry",
@@ -6439,8 +6301,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Punishment": {
     "gemId": "punishment",
@@ -6471,8 +6332,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Vengeful Cry": {
     "gemId": "vengeful_cry",
@@ -6501,8 +6361,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Vulnerability": {
     "gemId": "vulnerability",
@@ -6533,8 +6392,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Battlemage's Cry": {
     "gemId": "battlemage_s_cry",
@@ -6563,8 +6421,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 24
+    ]
   },
   "Archmage Support": {
     "gemId": "archmage_support",
@@ -7810,8 +7667,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Crackling Lance": {
     "gemId": "crackling_lance",
@@ -7840,8 +7696,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Cremation": {
     "gemId": "cremation",
@@ -7872,8 +7727,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Eye of Winter": {
     "gemId": "eye_of_winter",
@@ -7902,8 +7756,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Glacial Cascade": {
     "gemId": "glacial_cascade",
@@ -7932,8 +7785,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Hexblast": {
     "gemId": "hexblast",
@@ -7963,8 +7815,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Kinetic Blast": {
     "gemId": "kinetic_blast",
@@ -7993,8 +7844,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Kinetic Rain": {
     "gemId": "kinetic_rain",
@@ -8023,8 +7873,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Lightning Conduit": {
     "gemId": "lightning_conduit",
@@ -8053,8 +7902,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Raise Spectre": {
     "gemId": "raise_spectre",
@@ -8083,8 +7931,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Somatic Shell": {
     "gemId": "somatic_shell",
@@ -8113,8 +7960,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Soulrend": {
     "gemId": "soulrend",
@@ -8145,8 +7991,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Summon Reaper": {
     "gemId": "summon_reaper",
@@ -8175,8 +8020,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Blade Flurry": {
     "gemId": "blade_flurry",
@@ -8207,8 +8051,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Bladefall": {
     "gemId": "bladefall",
@@ -8238,8 +8081,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Charged Dash": {
     "gemId": "charged_dash",
@@ -8270,8 +8112,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Flamethrower Trap": {
     "gemId": "flamethrower_trap",
@@ -8300,8 +8141,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Lightning Spire Trap": {
     "gemId": "lightning_spire_trap",
@@ -8330,8 +8170,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Pestilent Strike": {
     "gemId": "pestilent_strike",
@@ -8360,8 +8199,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Pyroclast Mine": {
     "gemId": "pyroclast_mine",
@@ -8390,8 +8228,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Seismic Trap": {
     "gemId": "seismic_trap",
@@ -8420,8 +8257,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Artillery Ballista": {
     "gemId": "artillery_ballista",
@@ -8450,8 +8286,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Blast Rain": {
     "gemId": "blast_rain",
@@ -8481,8 +8316,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Conflagration": {
     "gemId": "conflagration",
@@ -8511,8 +8345,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Explosive Concoction": {
     "gemId": "explosive_concoction",
@@ -8541,8 +8374,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Scourge Arrow": {
     "gemId": "scourge_arrow",
@@ -8571,8 +8403,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Storm Rain": {
     "gemId": "storm_rain",
@@ -8601,8 +8432,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Thunderstorm": {
     "gemId": "thunderstorm",
@@ -8633,8 +8463,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Tornado Shot": {
     "gemId": "tornado_shot",
@@ -8664,8 +8493,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Wild Strike": {
     "gemId": "wild_strike",
@@ -8694,8 +8522,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Bladestorm": {
     "gemId": "bladestorm",
@@ -8724,8 +8551,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Cyclone": {
     "gemId": "cyclone",
@@ -8756,8 +8582,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Ice Crash": {
     "gemId": "ice_crash",
@@ -8788,8 +8613,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Lancing Steel": {
     "gemId": "lancing_steel",
@@ -8818,8 +8642,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Spectral Shield Throw": {
     "gemId": "spectral_shield_throw",
@@ -8848,8 +8671,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Earthquake": {
     "gemId": "earthquake",
@@ -8878,8 +8700,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Rage Vortex": {
     "gemId": "rage_vortex",
@@ -8908,8 +8729,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Tectonic Slam": {
     "gemId": "tectonic_slam",
@@ -8939,8 +8759,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Reap": {
     "gemId": "reap",
@@ -8969,8 +8788,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 28
+    ]
   },
   "Bonechill Support": {
     "gemId": "bonechill_support",
@@ -9784,8 +9602,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 38
+    ]
   },
   "Frigid Bond Support": {
     "gemId": "frigid_bond_support",
@@ -9905,8 +9722,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 34
+    ]
   },
   "Hydrosphere": {
     "gemId": "hydrosphere",
@@ -9936,8 +9752,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 34
+    ]
   },
   "Sigil of Power": {
     "gemId": "sigil_of_power",
@@ -9967,8 +9782,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 34
+    ]
   },
   "Summon Carrion Golem": {
     "gemId": "summon_carrion_golem",
@@ -9998,8 +9812,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 34
+    ]
   },
   "Summon Chaos Golem": {
     "gemId": "summon_chaos_golem",
@@ -10034,8 +9847,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 34
+    ]
   },
   "Summon Flame Golem": {
     "gemId": "summon_flame_golem",
@@ -10070,8 +9882,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 34
+    ]
   },
   "Summon Ice Golem": {
     "gemId": "summon_ice_golem",
@@ -10106,8 +9917,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 34
+    ]
   },
   "Summon Lightning Golem": {
     "gemId": "summon_lightning_golem",
@@ -10142,8 +9952,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 34
+    ]
   },
   "Summon Stone Golem": {
     "gemId": "summon_stone_golem",
@@ -10178,8 +9987,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 34
+    ]
   },
   "Void Sphere": {
     "gemId": "void_sphere",
@@ -10210,8 +10018,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 34
+    ]
   },
   "Ambush": {
     "gemId": "ambush",
@@ -10240,8 +10047,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 34
+    ]
   },
   "Temporal Rift": {
     "gemId": "temporal_rift",
@@ -10270,8 +10076,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 34
+    ]
   },
   "Tornado": {
     "gemId": "tornado",
@@ -10301,8 +10106,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 34
+    ]
   },
   "Snipe": {
     "gemId": "snipe",
@@ -10331,8 +10135,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 34
+    ]
   },
   "Berserk": {
     "gemId": "berserk",
@@ -10361,8 +10164,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 34
+    ]
   },
   "Frozen Legion": {
     "gemId": "frozen_legion",
@@ -10391,8 +10193,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 34
+    ]
   },
   "Flame Link": {
     "gemId": "flame_link",
@@ -10421,8 +10222,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 34
+    ]
   },
   "Intuitive Link": {
     "gemId": "intuitive_link",
@@ -10451,8 +10251,7 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 34
+    ]
   },
   "Soul Link": {
     "gemId": "soul_link",
@@ -10481,7 +10280,7469 @@ export const gemAvailabilityData = {
         "questName": "Fallen from Grace",
         "classes": []
       }
-    ],
-    "requiredLevel": 34
+    ]
+  },
+  "Absolution of Inspiring": {
+    "gemId": "absolution_of_inspiring",
+    "name": "Absolution of Inspiring",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9BYnNvbHV0aW9uQmxhc3RHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjV9XQ/d00d9ba741/AbsolutionBlastGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Animate Guardian": {
+    "gemId": "animate_guardian",
+    "name": "Animate Guardian",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9BbmltYXRlQXJtb3VyIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/825632a807/AnimateArmour.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Animate Guardian of Smiting": {
+    "gemId": "animate_guardian_of_smiting",
+    "name": "Animate Guardian of Smiting",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9BbmltYXRlQXJtb3VyIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo1fV0/65673dac47/AnimateArmour.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Animate Weapon": {
+    "gemId": "animate_weapon",
+    "name": "Animate Weapon",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9BbmltYXRlV2VhcG9uIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/88b5357c1c/AnimateWeapon.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Animate Weapon of Ranged Arms": {
+    "gemId": "animate_weapon_of_ranged_arms",
+    "name": "Animate Weapon of Ranged Arms",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9BbmltYXRlV2VhcG9uIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjoxMH1d/728fce18fa/AnimateWeapon.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Animate Weapon of Self Reflection": {
+    "gemId": "animate_weapon_of_self_reflection",
+    "name": "Animate Weapon of Self Reflection",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9BbmltYXRlV2VhcG9uIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo5fV0/c8cafa8e6f/AnimateWeapon.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Arc of Oscillating": {
+    "gemId": "arc_of_oscillating",
+    "name": "Arc of Oscillating",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9BcmMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjE0fV0/a70f06f791/Arc.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Arc of Surging": {
+    "gemId": "arc_of_surging",
+    "name": "Arc of Surging",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9BcmMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/eb499c547e/Arc.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Armageddon Brand of Recall": {
+    "gemId": "armageddon_brand_of_recall",
+    "name": "Armageddon Brand of Recall",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Bcm1hZ2VkZG9uQnJhbmQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjE0fV0/12dc5e4d94/ArmageddonBrand.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Armageddon Brand of Volatility": {
+    "gemId": "armageddon_brand_of_volatility",
+    "name": "Armageddon Brand of Volatility",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Bcm1hZ2VkZG9uQnJhbmQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/ff35703ca1/ArmageddonBrand.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Artillery Ballista of Cross Strafe": {
+    "gemId": "artillery_ballista_of_cross_strafe",
+    "name": "Artillery Ballista of Cross Strafe",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Nb3J0YXJUb3RlbUJvd1NraWxsR2VtIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo5fV0/7039bd9be9/MortarTotemBowSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Artillery Ballista of Focus Fire": {
+    "gemId": "artillery_ballista_of_focus_fire",
+    "name": "Artillery Ballista of Focus Fire",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Nb3J0YXJUb3RlbUJvd1NraWxsR2VtIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjoxMH1d/319335398e/MortarTotemBowSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Autoexertion": {
+    "gemId": "autoexertion",
+    "name": "Autoexertion",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9BdXRvQ2FzdEluc3RhbnRXYXJjcnkiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/ffc975c2b7/AutoCastInstantWarcry.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Automation": {
+    "gemId": "automation",
+    "name": "Automation",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9BdXRvQ2FzdEluc3RhbnRTa2lsbHMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/ec5d94a83e/AutoCastInstantSkills.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Ball Lightning of Orbiting": {
+    "gemId": "ball_lightning_of_orbiting",
+    "name": "Ball Lightning of Orbiting",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CYWxsTGlnaHRuaW5nIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjoxM31d/b61314b6d0/BallLightning.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Ball Lightning of Static": {
+    "gemId": "ball_lightning_of_static",
+    "name": "Ball Lightning of Static",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CYWxsTGlnaHRuaW5nIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjoxNH1d/dacaea8e33/BallLightning.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Bane of Condemnation": {
+    "gemId": "bane_of_condemnation",
+    "name": "Bane of Condemnation",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9EYXJrUml0dWFsR2VtIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjoxM31d/c65d24377a/DarkRitualGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Barrage": {
+    "gemId": "barrage",
+    "name": "Barrage",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CYXJyYWdlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/8b4b4d2552/Barrage.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Barrage of Volley Fire": {
+    "gemId": "barrage_of_volley_fire",
+    "name": "Barrage of Volley Fire",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CYXJyYWdlIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo5fV0/3cad97b913/Barrage.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Bear Trap of Skewers": {
+    "gemId": "bear_trap_of_skewers",
+    "name": "Bear Trap of Skewers",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CZWFyVHJhcCIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6OX1d/e71db24214/BearTrap.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Blade Blast of Dagger Detonation": {
+    "gemId": "blade_blast_of_dagger_detonation",
+    "name": "Blade Blast of Dagger Detonation",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CbGFkZUJ1cnN0IiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjoxMH1d/04652b5c02/BladeBurst.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Blade Blast of Unloading": {
+    "gemId": "blade_blast_of_unloading",
+    "name": "Blade Blast of Unloading",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CbGFkZUJ1cnN0IiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo5fV0/7b302e477a/BladeBurst.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Blade Flurry of Incision": {
+    "gemId": "blade_flurry_of_incision",
+    "name": "Blade Flurry of Incision",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9DaGFyZ2VkQXR0YWNrIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo5fV0/8099df35d6/ChargedAttack.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Blade Trap": {
+    "gemId": "blade_trap",
+    "name": "Blade Trap",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CbGFkZVRyYXBTa2lsbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/dee7aad991/BladeTrapSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Blade Trap of Greatswords": {
+    "gemId": "blade_trap_of_greatswords",
+    "name": "Blade Trap of Greatswords",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CbGFkZVRyYXBTa2lsbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6OX1d/ac220aa8cb/BladeTrapSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Blade Trap of Laceration": {
+    "gemId": "blade_trap_of_laceration",
+    "name": "Blade Trap of Laceration",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CbGFkZVRyYXBTa2lsbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTB9XQ/2611a82b34/BladeTrapSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Blade Vortex of the Scythe": {
+    "gemId": "blade_vortex_of_the_scythe",
+    "name": "Blade Vortex of the Scythe",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TcGlubmluZ0V0aGVyZWFsQmxhZGVzR2VtIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo5fV0/3fe816b4af/SpinningEtherealBladesGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Bladefall of Impaling": {
+    "gemId": "bladefall_of_impaling",
+    "name": "Bladefall of Impaling",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9SYWluT2ZCbGFkZXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEwfV0/49bf23bcb1/RainOfBlades.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Bladefall of Trarthus": {
+    "gemId": "bladefall_of_trarthus",
+    "name": "Bladefall of Trarthus",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9SYWluT2ZCbGFkZXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ3QiOnRydWV9XQ/92b0a3ac60/RainOfBlades.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Bladefall of Volleys": {
+    "gemId": "bladefall_of_volleys",
+    "name": "Bladefall of Volleys",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9SYWluT2ZCbGFkZXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjl9XQ/f604cb7cc9/RainOfBlades.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Bladestorm of Uncertainty": {
+    "gemId": "bladestorm_of_uncertainty",
+    "name": "Bladestorm of Uncertainty",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CbGFkZXN0b3JtR2VtIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo1fV0/3305a19567/BladestormGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Blast Rain of Trarthus": {
+    "gemId": "blast_rain_of_trarthus",
+    "name": "Blast Rain of Trarthus",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CbGFzdFJhaW5HZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ3QiOnRydWV9XQ/bd0287a3be/BlastRainGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Blight of Atrophy": {
+    "gemId": "blight_of_atrophy",
+    "name": "Blight of Atrophy",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CbGlnaHRHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjE0fV0/c6d2731ddb/BlightGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Blight of Contagion": {
+    "gemId": "blight_of_contagion",
+    "name": "Blight of Contagion",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CbGlnaHRHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/74d16034f8/BlightGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Blink Arrow of Bombarding Clones": {
+    "gemId": "blink_arrow_of_bombarding_clones",
+    "name": "Blink Arrow of Bombarding Clones",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CbGlua0Fycm93IiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo5fV0/98192f7c10/BlinkArrow.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Blink Arrow of Prismatic Clones": {
+    "gemId": "blink_arrow_of_prismatic_clones",
+    "name": "Blink Arrow of Prismatic Clones",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CbGlua0Fycm93IiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjoxMH1d/716b9cebef/BlinkArrow.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Bodyswap of Sacrifice": {
+    "gemId": "bodyswap_of_sacrifice",
+    "name": "Bodyswap of Sacrifice",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Db3Jwc2VXYXJwIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjoxM31d/1a05887b28/CorpseWarp.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Bone Offering": {
+    "gemId": "bone_offering",
+    "name": "Bone Offering",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Cb25lT2ZmZXJpbmciLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/56bfbd6835/BoneOffering.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Boneshatter": {
+    "gemId": "boneshatter",
+    "name": "Boneshatter",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Cb25lc2hhdHRlclNraWxsR2VtIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/d2b3689b1c/BoneshatterSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Boneshatter of Carnage": {
+    "gemId": "boneshatter_of_carnage",
+    "name": "Boneshatter of Carnage",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Cb25lc2hhdHRlclNraWxsR2VtIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo2fV0/de9498b11b/BoneshatterSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Boneshatter of Complex Trauma": {
+    "gemId": "boneshatter_of_complex_trauma",
+    "name": "Boneshatter of Complex Trauma",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Cb25lc2hhdHRlclNraWxsR2VtIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo1fV0/881022f834/BoneshatterSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Burning Arrow": {
+    "gemId": "burning_arrow",
+    "name": "Burning Arrow",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CdXJuaW5nQXJyb3ciLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/a254cbdcb2/BurningArrow.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Burning Arrow of Vigour": {
+    "gemId": "burning_arrow_of_vigour",
+    "name": "Burning Arrow of Vigour",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CdXJuaW5nQXJyb3ciLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjl9XQ/e1638b35dc/BurningArrow.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Caustic Arrow of Poison": {
+    "gemId": "caustic_arrow_of_poison",
+    "name": "Caustic Arrow of Poison",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Qb2lzb25BcnJvdyIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6OX1d/a8fe13d1a6/PoisonArrow.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Chain Hook of Trarthus": {
+    "gemId": "chain_hook_of_trarthus",
+    "name": "Chain Hook of Trarthus",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9DaGFpblN0cmlrZUdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJndCI6dHJ1ZX1d/46b9a12655/ChainStrikeGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Cleave of Rage": {
+    "gemId": "cleave_of_rage",
+    "name": "Cleave of Rage",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9DbGVhdmUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjV9XQ/48d223a640/Cleave.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Cold Snap of Power": {
+    "gemId": "cold_snap_of_power",
+    "name": "Cold Snap of Power",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Db2xkU25hcCIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTN9XQ/1dab8db034/ColdSnap.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Consecrated Path of Endurance": {
+    "gemId": "consecrated_path_of_endurance",
+    "name": "Consecrated Path of Endurance",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Ib2x5UGF0aEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6NX1d/5474e7b0fd/HolyPathGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Contagion of Subsiding": {
+    "gemId": "contagion_of_subsiding",
+    "name": "Contagion of Subsiding",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Db250YWdpb25HZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/4534bc8660/ContagionGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Contagion of Transference": {
+    "gemId": "contagion_of_transference",
+    "name": "Contagion of Transference",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Db250YWdpb25HZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjE0fV0/2681eccd19/ContagionGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Conversion Trap": {
+    "gemId": "conversion_trap",
+    "name": "Conversion Trap",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Db252ZXJzaW9uVHJhcCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/8da2b2bfe3/ConversionTrap.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Convocation": {
+    "gemId": "convocation",
+    "name": "Convocation",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Db252b2NhdGlvbldoaXRlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/b6e7d44c90/ConvocationWhite.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Crackling Lance of Branching": {
+    "gemId": "crackling_lance_of_branching",
+    "name": "Crackling Lance of Branching",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9EaXNlbnRlZ3JhdGVHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/c7d53f959b/DisentegrateGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Crackling Lance of Disintegration": {
+    "gemId": "crackling_lance_of_disintegration",
+    "name": "Crackling Lance of Disintegration",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9EaXNlbnRlZ3JhdGVHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjE0fV0/0e342c3036/DisentegrateGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Cremation of Exhuming": {
+    "gemId": "cremation_of_exhuming",
+    "name": "Cremation of Exhuming",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Db3Jwc2VFcnVwdGlvbiIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6OX1d/3fcacffdca/CorpseEruption.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Cremation of the Volcano": {
+    "gemId": "cremation_of_the_volcano",
+    "name": "Cremation of the Volcano",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Db3Jwc2VFcnVwdGlvbiIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTB9XQ/3032c6861b/CorpseEruption.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Cyclone of Tumult": {
+    "gemId": "cyclone_of_tumult",
+    "name": "Cyclone of Tumult",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9DeWNsb25lIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo5fV0/c2e959cfba/Cyclone.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Dark Pact": {
+    "gemId": "dark_pact",
+    "name": "Dark Pact",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Ta2VsZXRhbENoYWlucyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/c6d86dd2b0/SkeletalChains.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Dark Pact of Trarthus": {
+    "gemId": "dark_pact_of_trarthus",
+    "name": "Dark Pact of Trarthus",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Ta2VsZXRhbENoYWlucyIsInciOjEsImgiOjEsInNjYWxlIjoxLCJndCI6dHJ1ZX1d/c287db047a/SkeletalChains.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Destructive Link": {
+    "gemId": "destructive_link",
+    "name": "Destructive Link",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Dcml0aWNhbExpbmtHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/7d9090dbef/CriticalLinkGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Detonate Dead of Chain Reaction": {
+    "gemId": "detonate_dead_of_chain_reaction",
+    "name": "Detonate Dead of Chain Reaction",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9EZXRvbmF0ZURlYWQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEwfV0/e29c99d1a1/DetonateDead.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Detonate Dead of Scavenging": {
+    "gemId": "detonate_dead_of_scavenging",
+    "name": "Detonate Dead of Scavenging",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9EZXRvbmF0ZURlYWQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjl9XQ/ce6c88958c/DetonateDead.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Detonate Mines": {
+    "gemId": "detonate_mines",
+    "name": "Detonate Mines",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9EZXRvbmF0ZU1pbmVzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/9f863ba7ae/DetonateMines.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Devouring Totem": {
+    "gemId": "devouring_totem",
+    "name": "Devouring Totem",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9EZXZvdXJpbmdUb3RlbSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/c51be24ef9/DevouringTotem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Discharge": {
+    "gemId": "discharge",
+    "name": "Discharge",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9EaXNjaGFyZ2UiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/cbbb607f6c/Discharge.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Discharge of Misery": {
+    "gemId": "discharge_of_misery",
+    "name": "Discharge of Misery",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9EaXNjaGFyZ2UiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/7cdd0e61a1/Discharge.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Divine Ire of Disintegration": {
+    "gemId": "divine_ire_of_disintegration",
+    "name": "Divine Ire of Disintegration",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9EaXZpbmVUZW1wZXN0IiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjoxNH1d/29f1a5c604/DivineTempest.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Divine Ire of Holy Lightning": {
+    "gemId": "divine_ire_of_holy_lightning",
+    "name": "Divine Ire of Holy Lightning",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9EaXZpbmVUZW1wZXN0IiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjoxM31d/ef06110c42/DivineTempest.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Dominating Blow of Inspiring": {
+    "gemId": "dominating_blow_of_inspiring",
+    "name": "Dominating Blow of Inspiring",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Eb21pbmF0aW5nQmxvdyIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6NX1d/3cc6aea460/DominatingBlow.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Double Strike": {
+    "gemId": "double_strike",
+    "name": "Double Strike",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Eb3VibGVTdHJpa2UiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/d2864a8617/DoubleStrike.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Double Strike of Impaling": {
+    "gemId": "double_strike_of_impaling",
+    "name": "Double Strike of Impaling",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Eb3VibGVTdHJpa2UiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjl9XQ/e0c9064ba9/DoubleStrike.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Double Strike of Momentum": {
+    "gemId": "double_strike_of_momentum",
+    "name": "Double Strike of Momentum",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Eb3VibGVTdHJpa2UiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEwfV0/056ab66fc5/DoubleStrike.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Dual Strike": {
+    "gemId": "dual_strike",
+    "name": "Dual Strike",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9EdWFsU3RyaWtlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/656ab2fb9f/DualStrike.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Dual Strike of Ambidexterity": {
+    "gemId": "dual_strike_of_ambidexterity",
+    "name": "Dual Strike of Ambidexterity",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9EdWFsU3RyaWtlIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo5fV0/789379cc39/DualStrike.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Earthquake of Amplification": {
+    "gemId": "earthquake_of_amplification",
+    "name": "Earthquake of Amplification",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9RdWFrZVNsYW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjV9XQ/fd9da35922/QuakeSlam.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Earthshatter of Fragility": {
+    "gemId": "earthshatter_of_fragility",
+    "name": "Earthshatter of Fragility",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TcGlrZVNsYW1HZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjV9XQ/719e28e8b7/SpikeSlamGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Earthshatter of Prominence": {
+    "gemId": "earthshatter_of_prominence",
+    "name": "Earthshatter of Prominence",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TcGlrZVNsYW1HZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjZ9XQ/7d3bf54abd/SpikeSlamGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Elemental Hit of the Spectrum": {
+    "gemId": "elemental_hit_of_the_spectrum",
+    "name": "Elemental Hit of the Spectrum",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9FbGVtZW50YWxoaXQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjl9XQ/00d78f19d4/Elementalhit.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Energy Blade": {
+    "gemId": "energy_blade",
+    "name": "Energy Blade",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdG9ybUJsYWRlR2VtIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/aa45718a55/StormBladeGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Essence Drain of Desperation": {
+    "gemId": "essence_drain_of_desperation",
+    "name": "Essence Drain of Desperation",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TaXBob25HZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/63377d297a/SiphonGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Essence Drain of Wickedness": {
+    "gemId": "essence_drain_of_wickedness",
+    "name": "Essence Drain of Wickedness",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TaXBob25HZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjE0fV0/377468f380/SiphonGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Ethereal Knives of Lingering Blades": {
+    "gemId": "ethereal_knives_of_lingering_blades",
+    "name": "Ethereal Knives of Lingering Blades",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9FdGhlcmVhbEtuaXZlcyIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6OX1d/2f04083038/EtherealKnives.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Ethereal Knives of the Massacre": {
+    "gemId": "ethereal_knives_of_the_massacre",
+    "name": "Ethereal Knives of the Massacre",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9FdGhlcmVhbEtuaXZlcyIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTB9XQ/b708279dd5/EtherealKnives.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Explosive Arrow": {
+    "gemId": "explosive_arrow",
+    "name": "Explosive Arrow",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9FeHBsb3NpdmVBcnJvdyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/ba64eb9241/ExplosiveArrow.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Explosive Concoction of Destruction": {
+    "gemId": "explosive_concoction_of_destruction",
+    "name": "Explosive Concoction of Destruction",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9FeHBsb3NpdmVGbGFza1NraWxsR2VtIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo5fV0/8d3288a261/ExplosiveFlaskSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Explosive Trap of Magnitude": {
+    "gemId": "explosive_trap_of_magnitude",
+    "name": "Explosive Trap of Magnitude",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TaHJhcG5lbFRyYXAiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEwfV0/d0bf7f4688/ShrapnelTrap.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Explosive Trap of Shrapnel": {
+    "gemId": "explosive_trap_of_shrapnel",
+    "name": "Explosive Trap of Shrapnel",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TaHJhcG5lbFRyYXAiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjl9XQ/013168ae27/ShrapnelTrap.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Exsanguinate": {
+    "gemId": "exsanguinate",
+    "name": "Exsanguinate",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CbG9vZFRlbmRyaWxzU2tpbGxHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/8e4ee17442/BloodTendrilsSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Exsanguinate of Transmission": {
+    "gemId": "exsanguinate_of_transmission",
+    "name": "Exsanguinate of Transmission",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CbG9vZFRlbmRyaWxzU2tpbGxHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjV9XQ/8f6e1aa8be/BloodTendrilsSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Eye of Winter of Finality": {
+    "gemId": "eye_of_winter_of_finality",
+    "name": "Eye of Winter of Finality",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Gcm96ZW5TcGhlcmVTa2lsbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTN9XQ/5a6f36fe20/FrozenSphereSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Eye of Winter of Transience": {
+    "gemId": "eye_of_winter_of_transience",
+    "name": "Eye of Winter of Transience",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Gcm96ZW5TcGhlcmVTa2lsbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTR9XQ/0da0a5b41b/FrozenSphereSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Fire Trap of Blasting": {
+    "gemId": "fire_trap_of_blasting",
+    "name": "Fire Trap of Blasting",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9GaXJlVHJhcCIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6OX1d/b4a580c3cb/FireTrap.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Fireball": {
+    "gemId": "fireball",
+    "name": "Fireball",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9GaXJlYmFsbCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/5460095431/Fireball.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Firestorm of Meteors": {
+    "gemId": "firestorm_of_meteors",
+    "name": "Firestorm of Meteors",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9GaXJlc3Rvcm0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/63124fa60c/Firestorm.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Firestorm of Pelting": {
+    "gemId": "firestorm_of_pelting",
+    "name": "Firestorm of Pelting",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9GaXJlc3Rvcm0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjE0fV0/ac42f6b194/Firestorm.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Flame Dash of Return": {
+    "gemId": "flame_dash_of_return",
+    "name": "Flame Dash of Return",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9GbGFtZURhc2giLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjE0fV0/e6b9e5df02/FlameDash.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Flame Surge": {
+    "gemId": "flame_surge",
+    "name": "Flame Surge",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9GbGFtZXdoaXAiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/73a74427e7/Flamewhip.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Flame Surge of Combusting": {
+    "gemId": "flame_surge_of_combusting",
+    "name": "Flame Surge of Combusting",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9GbGFtZXdoaXAiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/2d4a7d80c5/Flamewhip.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Flameblast of Celerity": {
+    "gemId": "flameblast_of_celerity",
+    "name": "Flameblast of Celerity",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9DaGFyZ2VkQmxhc3QiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/e2efcceaa3/ChargedBlast.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Flameblast of Contraction": {
+    "gemId": "flameblast_of_contraction",
+    "name": "Flameblast of Contraction",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9DaGFyZ2VkQmxhc3QiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjE0fV0/02d446cfdb/ChargedBlast.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Flicker Strike": {
+    "gemId": "flicker_strike",
+    "name": "Flicker Strike",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9GbGlja2VyU3RyaWtlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/57ce9eec7e/FlickerStrike.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Flicker Strike of Power": {
+    "gemId": "flicker_strike_of_power",
+    "name": "Flicker Strike of Power",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9GbGlja2VyU3RyaWtlIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo5fV0/eefb04528a/FlickerStrike.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Forbidden Rite": {
+    "gemId": "forbidden_rite",
+    "name": "Forbidden Rite",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Tb3VsZmVhc3RHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/ccd4f76a04/SoulfeastGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Forbidden Rite of Soul Sacrifice": {
+    "gemId": "forbidden_rite_of_soul_sacrifice",
+    "name": "Forbidden Rite of Soul Sacrifice",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Tb3VsZmVhc3RHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/9209c2ea6e/SoulfeastGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Frenzy of Onslaught": {
+    "gemId": "frenzy_of_onslaught",
+    "name": "Frenzy of Onslaught",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9GcmVuenkiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjl9XQ/c087dc0ba2/Frenzy.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Frost Blades of Katabasis": {
+    "gemId": "frost_blades_of_katabasis",
+    "name": "Frost Blades of Katabasis",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9JY2VTdHJpa2UiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjl9XQ/c9324f1032/IceStrike.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Frost Bomb of Forthcoming": {
+    "gemId": "frost_bomb_of_forthcoming",
+    "name": "Frost Bomb of Forthcoming",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Gcm9zdEJvbWIiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjE0fV0/1eb63730d3/FrostBomb.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Frost Bomb of Instability": {
+    "gemId": "frost_bomb_of_instability",
+    "name": "Frost Bomb of Instability",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Gcm9zdEJvbWIiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/158322e3c6/FrostBomb.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Frost Wall": {
+    "gemId": "frost_wall",
+    "name": "Frost Wall",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Gcm9zdFdhbGwiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/455d201c66/FrostWall.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Frostblink of Wintry Blast": {
+    "gemId": "frostblink_of_wintry_blast",
+    "name": "Frostblink of Wintry Blast",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Gcm9zdGJsaW5rU2tpbGxHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/e6977ed1a4/FrostblinkSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Frozen Legion of Rallying": {
+    "gemId": "frozen_legion_of_rallying",
+    "name": "Frozen Legion of Rallying",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Gcm96ZW5MZWdpb25Ta2lsbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6NX1d/32b9a066fb/FrozenLegionSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Galvanic Arrow of Energy": {
+    "gemId": "galvanic_arrow_of_energy",
+    "name": "Galvanic Arrow of Energy",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TaHJhcG5lbFNob3QiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjl9XQ/c7cea34a8c/ShrapnelShot.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Galvanic Arrow of Surging": {
+    "gemId": "galvanic_arrow_of_surging",
+    "name": "Galvanic Arrow of Surging",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TaHJhcG5lbFNob3QiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEwfV0/52156cae29/ShrapnelShot.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Galvanic Field of Intensity": {
+    "gemId": "galvanic_field_of_intensity",
+    "name": "Galvanic Field of Intensity",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9HYWx2YW5pY0ZpZWxkU2tpbGxHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/cd15bd11a6/GalvanicFieldSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Glacial Cascade of the Fissure": {
+    "gemId": "glacial_cascade_of_the_fissure",
+    "name": "Glacial Cascade of the Fissure",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9VcGhlYXZhbCIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTN9XQ/84a7302fa4/Upheaval.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Glacial Hammer": {
+    "gemId": "glacial_hammer",
+    "name": "Glacial Hammer",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9HbGFjaWFsSGFtbWVyIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/982000b6af/GlacialHammer.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Glacial Hammer of Shattering": {
+    "gemId": "glacial_hammer_of_shattering",
+    "name": "Glacial Hammer of Shattering",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9HbGFjaWFsSGFtbWVyIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo1fV0/6299d455c0/GlacialHammer.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Ground Slam of Earthshaking": {
+    "gemId": "ground_slam_of_earthshaking",
+    "name": "Ground Slam of Earthshaking",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Hcm91bmRzbGFtIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo1fV0/eb48a25784/Groundslam.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Haste": {
+    "gemId": "haste",
+    "name": "Haste",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9IYXN0ZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/e0a8c148fc/Haste.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Heavy Strike": {
+    "gemId": "heavy_strike",
+    "name": "Heavy Strike",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9IZWF2eVN0cmlrZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/d42c7dbd54/HeavyStrike.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Heavy Strike of Trarthus": {
+    "gemId": "heavy_strike_of_trarthus",
+    "name": "Heavy Strike of Trarthus",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9IZWF2eVN0cmlrZSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJndCI6dHJ1ZX1d/06d94c8603/HeavyStrike.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Hexblast of Contradiction": {
+    "gemId": "hexblast_of_contradiction",
+    "name": "Hexblast of Contradiction",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Eb29tQmxhc3RTa2lsbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTN9XQ/5fcb8ae77b/DoomBlastSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Hexblast of Havoc": {
+    "gemId": "hexblast_of_havoc",
+    "name": "Hexblast of Havoc",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Eb29tQmxhc3RTa2lsbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTR9XQ/e053e2a437/DoomBlastSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Holy Flame Totem of Ire": {
+    "gemId": "holy_flame_totem_of_ire",
+    "name": "Holy Flame Totem of Ire",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9GbGFtZVRvdGVtIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo1fV0/34273a491a/FlameTotem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Ice Crash of Cadence": {
+    "gemId": "ice_crash_of_cadence",
+    "name": "Ice Crash of Cadence",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9JY2VDcmFzaEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6NX1d/6696511683/IceCrashGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Ice Nova of Deep Freeze": {
+    "gemId": "ice_nova_of_deep_freeze",
+    "name": "Ice Nova of Deep Freeze",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9JY2VOb3ZhIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjoxNH1d/ae240ae12b/IceNova.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Ice Nova of Frostbolts": {
+    "gemId": "ice_nova_of_frostbolts",
+    "name": "Ice Nova of Frostbolts",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9JY2VOb3ZhIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjoxM31d/22ca4fa2fa/IceNova.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Ice Shot of Penetration": {
+    "gemId": "ice_shot_of_penetration",
+    "name": "Ice Shot of Penetration",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9JY2VTaG90IiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo5fV0/2c87d9084f/IceShot.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Ice Spear": {
+    "gemId": "ice_spear",
+    "name": "Ice Spear",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9JY2VTcGVhciIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/1fd37590ac/IceSpear.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Ice Spear of Splitting": {
+    "gemId": "ice_spear_of_splitting",
+    "name": "Ice Spear of Splitting",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9JY2VTcGVhciIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTN9XQ/1cd4d303ae/IceSpear.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Ice Trap": {
+    "gemId": "ice_trap",
+    "name": "Ice Trap",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9JY2VUcmFwUnVuZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/907319c43a/IceTrapRune.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Ice Trap of Hollowness": {
+    "gemId": "ice_trap_of_hollowness",
+    "name": "Ice Trap of Hollowness",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9JY2VUcmFwUnVuZSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6OX1d/79f9d4f61c/IceTrapRune.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Icicle Mine of Fanning": {
+    "gemId": "icicle_mine_of_fanning",
+    "name": "Icicle Mine of Fanning",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Db2xkUHJvamVjdGlsZU1pbmVTa2lsbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTN9XQ/1a0b277e6f/ColdProjectileMineSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Icicle Mine of Sabotage": {
+    "gemId": "icicle_mine_of_sabotage",
+    "name": "Icicle Mine of Sabotage",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Db2xkUHJvamVjdGlsZU1pbmVTa2lsbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTR9XQ/13ffcaec85/ColdProjectileMineSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Immortal Call": {
+    "gemId": "immortal_call",
+    "name": "Immortal Call",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9JbW1vcnRhbENhbGwiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/a88b3eb5d4/ImmortalCall.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Incinerate": {
+    "gemId": "incinerate",
+    "name": "Incinerate",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9GbGFtZXRocm93ZXIiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/8266e1aebc/Flamethrower.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Incinerate of Expanse": {
+    "gemId": "incinerate_of_expanse",
+    "name": "Incinerate of Expanse",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9GbGFtZXRocm93ZXIiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/35d6eb7cf1/Flamethrower.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Incinerate of Venting": {
+    "gemId": "incinerate_of_venting",
+    "name": "Incinerate of Venting",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9GbGFtZXRocm93ZXIiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjE0fV0/072e37882c/Flamethrower.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Infernal Blow of Immolation": {
+    "gemId": "infernal_blow_of_immolation",
+    "name": "Infernal Blow of Immolation",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9JbmZlcm5hbEJsb3ciLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjV9XQ/e5ace170af/InfernalBlow.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Kinetic Blast of Clustering": {
+    "gemId": "kinetic_blast_of_clustering",
+    "name": "Kinetic Blast of Clustering",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9DbHVzdGVyQnVyc3QiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/4fcc032863/ClusterBurst.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Kinetic Bolt of Fragmentation": {
+    "gemId": "kinetic_bolt_of_fragmentation",
+    "name": "Kinetic Bolt of Fragmentation",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9aaWdaYWdXYW5kU2tpbGwiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/8c92beaa2c/ZigZagWandSkill.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Kinetic Fusillade": {
+    "gemId": "kinetic_fusillade",
+    "name": "Kinetic Fusillade",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9LaW5ldGljRnVsbGlzYWRlU2tpbGxHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/78f8aa0e70/KineticFullisadeSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Kinetic Rain of Impact": {
+    "gemId": "kinetic_rain_of_impact",
+    "name": "Kinetic Rain of Impact",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9LaW5ldGljUmFpblNraWxsR2VtIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjoxM31d/5a555ab9ac/KineticRainSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Lacerate of Butchering": {
+    "gemId": "lacerate_of_butchering",
+    "name": "Lacerate of Butchering",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Eb3VibGVTbGFzaCIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6OX1d/8440460326/DoubleSlash.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Lacerate of Haemorrhage": {
+    "gemId": "lacerate_of_haemorrhage",
+    "name": "Lacerate of Haemorrhage",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Eb3VibGVTbGFzaCIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTB9XQ/931e532347/DoubleSlash.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Lancing Steel of Spraying": {
+    "gemId": "lancing_steel_of_spraying",
+    "name": "Lancing Steel of Spraying",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9MYW5jaW5nU3RlZWwiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjl9XQ/f755bdcf2c/LancingSteel.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Leap Slam of Groundbreaking": {
+    "gemId": "leap_slam_of_groundbreaking",
+    "name": "Leap Slam of Groundbreaking",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9MZWFwU2xhbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6NX1d/9b42ed4bfc/LeapSlam.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Lightning Arrow of Electrocution": {
+    "gemId": "lightning_arrow_of_electrocution",
+    "name": "Lightning Arrow of Electrocution",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9MaWdodG5pbmdBcnJvdyIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6OX1d/3e146857f2/LightningArrow.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Lightning Conduit of the Heavens": {
+    "gemId": "lightning_conduit_of_the_heavens",
+    "name": "Lightning Conduit of the Heavens",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9FbmVyZ3lSZWxlYXNlU2tpbGxHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/df017c2286/EnergyReleaseSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Lightning Spire Trap of Overloading": {
+    "gemId": "lightning_spire_trap_of_overloading",
+    "name": "Lightning Spire Trap of Overloading",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9MaWdodG5pbmdTcGlyZSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTR9XQ/a565caace5/LightningSpire.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Lightning Spire Trap of Zapping": {
+    "gemId": "lightning_spire_trap_of_zapping",
+    "name": "Lightning Spire Trap of Zapping",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9MaWdodG5pbmdTcGlyZSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTN9XQ/3c2674f634/LightningSpire.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Lightning Strike of Arcing": {
+    "gemId": "lightning_strike_of_arcing",
+    "name": "Lightning Strike of Arcing",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9MaWdodG5pbmdTdHJpa2UiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjl9XQ/b466cc29d6/LightningStrike.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Lightning Tendrils of Eccentricity": {
+    "gemId": "lightning_tendrils_of_eccentricity",
+    "name": "Lightning Tendrils of Eccentricity",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9MaWdodGVuaW5nVG91Y2giLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/03796ed741/LighteningTouch.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Lightning Tendrils of Escalation": {
+    "gemId": "lightning_tendrils_of_escalation",
+    "name": "Lightning Tendrils of Escalation",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9MaWdodGVuaW5nVG91Y2giLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjE0fV0/5bce26a397/LighteningTouch.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Lightning Trap of Sparking": {
+    "gemId": "lightning_trap_of_sparking",
+    "name": "Lightning Trap of Sparking",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9MaWdodG5pbmdUcmFwIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjoxM31d/a07a38d411/LightningTrap.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Mirror Arrow": {
+    "gemId": "mirror_arrow",
+    "name": "Mirror Arrow",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9NaXJyb3JBcnJvdyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/2c76b112a2/MirrorArrow.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Mirror Arrow of Bombarding Clones": {
+    "gemId": "mirror_arrow_of_bombarding_clones",
+    "name": "Mirror Arrow of Bombarding Clones",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9NaXJyb3JBcnJvdyIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6OX1d/33e5e2d0d5/MirrorArrow.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Mirror Arrow of Prismatic Clones": {
+    "gemId": "mirror_arrow_of_prismatic_clones",
+    "name": "Mirror Arrow of Prismatic Clones",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9NaXJyb3JBcnJvdyIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTB9XQ/cb537f28a3/MirrorArrow.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Molten Strike of the Zenith": {
+    "gemId": "molten_strike_of_the_zenith",
+    "name": "Molten Strike of the Zenith",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Nb2x0ZW5TdHJpa2UiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjV9XQ/b3e2ef9d6c/MoltenStrike.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Penance Brand of Conduction": {
+    "gemId": "penance_brand_of_conduction",
+    "name": "Penance Brand of Conduction",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9QZW5hbmNlQnJhbmRHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjE0fV0/a5c492a55a/PenanceBrandGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Penance Brand of Dissipation": {
+    "gemId": "penance_brand_of_dissipation",
+    "name": "Penance Brand of Dissipation",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9QZW5hbmNlQnJhbmRHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/a0d9631880/PenanceBrandGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Perforate of Bloodshed": {
+    "gemId": "perforate_of_bloodshed",
+    "name": "Perforate of Bloodshed",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CbG9vZFNhbmRTcGVhcnNTa2lsbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6Nn1d/a677bc0c97/BloodSandSpearsSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Perforate of Duality": {
+    "gemId": "perforate_of_duality",
+    "name": "Perforate of Duality",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CbG9vZFNhbmRTcGVhcnNTa2lsbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6NX1d/87d5f52ec4/BloodSandSpearsSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Phase Run": {
+    "gemId": "phase_run",
+    "name": "Phase Run",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9QaGFzZVJ1biIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/b4c9b05661/PhaseRun.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Poisonous Concoction of Bouncing": {
+    "gemId": "poisonous_concoction_of_bouncing",
+    "name": "Poisonous Concoction of Bouncing",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Qb2lzb25vdXNDb25jb2N0aW9uIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo5fV0/125fe1e7b6/PoisonousConcoction.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Portal": {
+    "gemId": "portal",
+    "name": "Portal",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Qb3J0YWwiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/9afa7db328/Portal.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Power Siphon": {
+    "gemId": "power_siphon",
+    "name": "Power Siphon",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Qb3dlclNpcGhvbiIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/4cb2c0df9d/PowerSiphon.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Power Siphon of the Archmage": {
+    "gemId": "power_siphon_of_the_archmage",
+    "name": "Power Siphon of the Archmage",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Qb3dlclNpcGhvbiIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTN9XQ/aa42d339c4/PowerSiphon.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Protective Link": {
+    "gemId": "protective_link",
+    "name": "Protective Link",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CbG9ja0xpbmtHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/43e3851a27/BlockLinkGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Puncture of Shanking": {
+    "gemId": "puncture_of_shanking",
+    "name": "Puncture of Shanking",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9QdW5jdHVyZSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6OX1d/257ebcabf5/Puncture.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Purifying Flame of Revelations": {
+    "gemId": "purifying_flame_of_revelations",
+    "name": "Purifying Flame of Revelations",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9QdXJpZnlpbmdGbGFtZSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTN9XQ/eed5940b77/PurifyingFlame.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Purity of Fire": {
+    "gemId": "purity_of_fire",
+    "name": "Purity of Fire",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9GaXJlUmVzaXN0QXVyYSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/c2ab10c400/FireResistAura.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Purity of Ice": {
+    "gemId": "purity_of_ice",
+    "name": "Purity of Ice",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Db2xkUmVzaXN0QXVyYSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/563af20d28/ColdResistAura.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Purity of Lightning": {
+    "gemId": "purity_of_lightning",
+    "name": "Purity of Lightning",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9MaWdodG5pbmdSZXNpc3RBdXJhIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/98fde57b81/LightningResistAura.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Pyroclast Mine of Sabotage": {
+    "gemId": "pyroclast_mine_of_sabotage",
+    "name": "Pyroclast Mine of Sabotage",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9GaXJlTW9ydGFyQmFycmFnZU1pbmVTa2lsbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTN9XQ/497e84f1f6/FireMortarBarrageMineSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Rage Vortex of Berserking": {
+    "gemId": "rage_vortex_of_berserking",
+    "name": "Rage Vortex of Berserking",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9SYWdlVm9ydGV4IiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo1fV0/3c7c199775/RageVortex.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Rain of Arrows of Artillery": {
+    "gemId": "rain_of_arrows_of_artillery",
+    "name": "Rain of Arrows of Artillery",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9SYWlub2ZBcnJvd3MiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjl9XQ/c10cb98a5d/RainofArrows.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Rain of Arrows of Saturation": {
+    "gemId": "rain_of_arrows_of_saturation",
+    "name": "Rain of Arrows of Saturation",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9SYWlub2ZBcnJvd3MiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEwfV0/85c345921f/RainofArrows.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Raise Spectre of Transience": {
+    "gemId": "raise_spectre_of_transience",
+    "name": "Raise Spectre of Transience",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9SYWlzZVNwZWN0cmUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/04b2979ba3/RaiseSpectre.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Raise Zombie of Falling": {
+    "gemId": "raise_zombie_of_falling",
+    "name": "Raise Zombie of Falling",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9SYWlzZVpvbWJpZSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTR9XQ/f849e6401e/RaiseZombie.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Raise Zombie of Slamming": {
+    "gemId": "raise_zombie_of_slamming",
+    "name": "Raise Zombie of Slamming",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9SYWlzZVpvbWJpZSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTN9XQ/6a83fc03fb/RaiseZombie.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Reave of Refraction": {
+    "gemId": "reave_of_refraction",
+    "name": "Reave of Refraction",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9SZWF2ZSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6OX1d/f6e2b07d1c/Reave.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Rejuvenation Totem": {
+    "gemId": "rejuvenation_totem",
+    "name": "Rejuvenation Totem",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9SZWp1dmluYXRpb25Ub3RlbSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/76ea0aa4da/RejuvinationTotem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Righteous Fire": {
+    "gemId": "righteous_fire",
+    "name": "Righteous Fire",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9SaWdodGVvdXNGaXJlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/8bef0b9592/RighteousFire.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Righteous Fire of Arcane Devotion": {
+    "gemId": "righteous_fire_of_arcane_devotion",
+    "name": "Righteous Fire of Arcane Devotion",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9SaWdodGVvdXNGaXJlIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjoxM31d/c5e70b8417/RighteousFire.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Scorching Ray of Immolation": {
+    "gemId": "scorching_ray_of_immolation",
+    "name": "Scorching Ray of Immolation",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9GaXJlQmVhbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTN9XQ/57e949a46a/FireBeam.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Scourge Arrow of Menace": {
+    "gemId": "scourge_arrow_of_menace",
+    "name": "Scourge Arrow of Menace",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WaXJ1bGVudEFycm93IiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo5fV0/564fcac0e9/VirulentArrow.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Searing Bond": {
+    "gemId": "searing_bond",
+    "name": "Searing Bond",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TZWFyaW5nQm9uZCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/8414473137/SearingBond.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Seismic Trap of Swells": {
+    "gemId": "seismic_trap_of_swells",
+    "name": "Seismic Trap of Swells",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdWJ0ZXJyYW5lYW5UcmFwIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo5fV0/3c9d6cd1fa/SubterraneanTrap.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Shattering Steel of Ammunition": {
+    "gemId": "shattering_steel_of_ammunition",
+    "name": "Shattering Steel of Ammunition",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TaGF0dGVyaW5nU3RlZWwiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjl9XQ/c4d7985f24/ShatteringSteel.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Shield Crush of the Chieftain": {
+    "gemId": "shield_crush_of_the_chieftain",
+    "name": "Shield Crush of the Chieftain",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TaGllbGRDcnVzaCIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6NX1d/b555b42bfa/ShieldCrush.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Shrapnel Ballista of Steel": {
+    "gemId": "shrapnel_ballista_of_steel",
+    "name": "Shrapnel Ballista of Steel",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TaG90Z3VuVG90ZW1Cb3dTa2lsbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6OX1d/1e34356e1d/ShotgunTotemBowSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Siege Ballista of Splintering": {
+    "gemId": "siege_ballista_of_splintering",
+    "name": "Siege Ballista of Splintering",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Dcm9zc0Jvd1RvdGVtR2VtIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo5fV0/fb56475b7d/CrossBowTotemGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Siege Ballista of Trarthus": {
+    "gemId": "siege_ballista_of_trarthus",
+    "name": "Siege Ballista of Trarthus",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Dcm9zc0Jvd1RvdGVtR2VtIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImd0Ijp0cnVlfV0/0c75ef5367/CrossBowTotemGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Smite of Divine Judgement": {
+    "gemId": "smite_of_divine_judgement",
+    "name": "Smite of Divine Judgement",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TbWl0ZUdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6NX1d/6921be17d6/SmiteGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Soulrend of Reaping": {
+    "gemId": "soulrend_of_reaping",
+    "name": "Soulrend of Reaping",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Tb3VscmVuZCIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTN9XQ/5d31d5ec7d/Soulrend.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Soulrend of the Spiral": {
+    "gemId": "soulrend_of_the_spiral",
+    "name": "Soulrend of the Spiral",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Tb3VscmVuZCIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTR9XQ/15d9e2b375/Soulrend.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Spark": {
+    "gemId": "spark",
+    "name": "Spark",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TcGFyayIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/0c52dd0d69/Spark.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Spark of Unpredictability": {
+    "gemId": "spark_of_unpredictability",
+    "name": "Spark of Unpredictability",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TcGFyayIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTR9XQ/c9038eb883/Spark.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Spark of the Nova": {
+    "gemId": "spark_of_the_nova",
+    "name": "Spark of the Nova",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TcGFyayIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTN9XQ/8b3cd63467/Spark.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Spectral Helix": {
+    "gemId": "spectral_helix",
+    "name": "Spectral Helix",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TcGVjdHJhbFNwaXJhbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/c1526f01fa/SpectralSpiralGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Spectral Helix of Trarthus": {
+    "gemId": "spectral_helix_of_trarthus",
+    "name": "Spectral Helix of Trarthus",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TcGVjdHJhbFNwaXJhbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJndCI6dHJ1ZX1d/42fb1ea51d/SpectralSpiralGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Spectral Shield Throw of Shattering": {
+    "gemId": "spectral_shield_throw_of_shattering",
+    "name": "Spectral Shield Throw of Shattering",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9UaHJvd25TaGllbGQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjl9XQ/b6e9811268/ThrownShield.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Spectral Shield Throw of Trarthus": {
+    "gemId": "spectral_shield_throw_of_trarthus",
+    "name": "Spectral Shield Throw of Trarthus",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9UaHJvd25TaGllbGQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ3QiOnRydWV9XQ/18316db2ac/ThrownShield.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Spectral Throw": {
+    "gemId": "spectral_throw",
+    "name": "Spectral Throw",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9HaG9zdGx5VGhyb3ciLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/474ffdaf57/GhostlyThrow.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Spectral Throw of Materialising": {
+    "gemId": "spectral_throw_of_materialising",
+    "name": "Spectral Throw of Materialising",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9HaG9zdGx5VGhyb3ciLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjl9XQ/26dfa91607/GhostlyThrow.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Spectral Throw of Trarthus": {
+    "gemId": "spectral_throw_of_trarthus",
+    "name": "Spectral Throw of Trarthus",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9HaG9zdGx5VGhyb3ciLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ3QiOnRydWV9XQ/627ba7bb1a/GhostlyThrow.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Spirit Offering": {
+    "gemId": "spirit_offering",
+    "name": "Spirit Offering",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TcGlyaXRPZmZlcmluZyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/cb2d2e421c/SpiritOffering.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Split Arrow of Splitting": {
+    "gemId": "split_arrow_of_splitting",
+    "name": "Split Arrow of Splitting",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TcGxpdEFycm93IiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo5fV0/db4008064f/SplitArrow.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Splitting Steel of Ammunition": {
+    "gemId": "splitting_steel_of_ammunition",
+    "name": "Splitting Steel of Ammunition",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9JbXBhY3RpbmdTdGVlbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6OX1d/6351a48174/ImpactingSteelGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Storm Brand": {
+    "gemId": "storm_brand",
+    "name": "Storm Brand",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Db25kdWl0U2lnaWwiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/72d6224653/ConduitSigil.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Storm Brand of Indecision": {
+    "gemId": "storm_brand_of_indecision",
+    "name": "Storm Brand of Indecision",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Db25kdWl0U2lnaWwiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/59360c08b4/ConduitSigil.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Storm Burst": {
+    "gemId": "storm_burst",
+    "name": "Storm Burst",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdG9ybUJ1cnN0IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/242bf124f5/StormBurst.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Storm Call": {
+    "gemId": "storm_call",
+    "name": "Storm Call",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdG9ybWNhbGwiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/3977a4d592/Stormcall.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Storm Call of Trarthus": {
+    "gemId": "storm_call_of_trarthus",
+    "name": "Storm Call of Trarthus",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdG9ybWNhbGwiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ3QiOnRydWV9XQ/6d240f9029/Stormcall.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Storm Rain of the Conduit": {
+    "gemId": "storm_rain_of_the_conduit",
+    "name": "Storm Rain of the Conduit",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9QcmlzbWF0aWNSYWluIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo5fV0/27f34997b3/PrismaticRain.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Storm Rain of the Fence": {
+    "gemId": "storm_rain_of_the_fence",
+    "name": "Storm Rain of the Fence",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9QcmlzbWF0aWNSYWluIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjoxMH1d/ff90e16a53/PrismaticRain.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Stormbind of Teleportation": {
+    "gemId": "stormbind_of_teleportation",
+    "name": "Stormbind of Teleportation",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdG9ybWJpbmRTa2lsbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTN9XQ/c0dae7ab69/StormbindSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Summon Carrion Golem of Hordes": {
+    "gemId": "summon_carrion_golem_of_hordes",
+    "name": "Summon Carrion Golem of Hordes",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdW1tb25DYXJyaW9uR29sZW1HZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/07d6da0052/SummonCarrionGolemGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Summon Carrion Golem of Scavenging": {
+    "gemId": "summon_carrion_golem_of_scavenging",
+    "name": "Summon Carrion Golem of Scavenging",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdW1tb25DYXJyaW9uR29sZW1HZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjE0fV0/99681fd238/SummonCarrionGolemGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Summon Chaos Golem of Hordes": {
+    "gemId": "summon_chaos_golem_of_hordes",
+    "name": "Summon Chaos Golem of Hordes",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9DaGFvc0VsZW1lbnRhbFN1bW1vbiIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTN9XQ/0c3e1f211a/ChaosElementalSummon.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Summon Chaos Golem of the Maelström": {
+    "gemId": "summon_chaos_golem_of_the_maelstr_m",
+    "name": "Summon Chaos Golem of the Maelström",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9DaGFvc0VsZW1lbnRhbFN1bW1vbiIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTR9XQ/72255f972c/ChaosElementalSummon.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Summon Flame Golem of Hordes": {
+    "gemId": "summon_flame_golem_of_hordes",
+    "name": "Summon Flame Golem of Hordes",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9GaXJlRWxlbWVudGFsU3VtbW9uIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo1fV0/2dd4c82e82/FireElementalSummon.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Summon Flame Golem of the Meteor": {
+    "gemId": "summon_flame_golem_of_the_meteor",
+    "name": "Summon Flame Golem of the Meteor",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9GaXJlRWxlbWVudGFsU3VtbW9uIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo2fV0/5ce1412a0b/FireElementalSummon.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Summon Holy Relic of Conviction": {
+    "gemId": "summon_holy_relic_of_conviction",
+    "name": "Summon Holy Relic of Conviction",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Ib2x5UmVsaWMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/e1765b396e/HolyRelic.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Summon Ice Golem of Hordes": {
+    "gemId": "summon_ice_golem_of_hordes",
+    "name": "Summon Ice Golem of Hordes",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9JY2VFbGVtZW50YWxTdW1tb24iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjl9XQ/e910741c11/IceElementalSummon.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Summon Ice Golem of Shattering": {
+    "gemId": "summon_ice_golem_of_shattering",
+    "name": "Summon Ice Golem of Shattering",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9JY2VFbGVtZW50YWxTdW1tb24iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEwfV0/d5b30759bf/IceElementalSummon.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Summon Lightning Golem of Hordes": {
+    "gemId": "summon_lightning_golem_of_hordes",
+    "name": "Summon Lightning Golem of Hordes",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9MaWdodG5pbmdHb2xlbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTN9XQ/2fcd39c368/LightningGolem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Summon Raging Spirit of Enormity": {
+    "gemId": "summon_raging_spirit_of_enormity",
+    "name": "Summon Raging Spirit of Enormity",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdW1tb25FbGVtZW50YWwiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/fb1da2a0cc/SummonElemental.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Summon Reaper of Eviscerating": {
+    "gemId": "summon_reaper_of_eviscerating",
+    "name": "Summon Reaper of Eviscerating",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdW1tb25SZWFwZXJTa2lsbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTR9XQ/b737f5e913/SummonReaperSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Summon Reaper of Revenants": {
+    "gemId": "summon_reaper_of_revenants",
+    "name": "Summon Reaper of Revenants",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdW1tb25SZWFwZXJTa2lsbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTN9XQ/d12fd09c37/SummonReaperSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Summon Skeletons of Archers": {
+    "gemId": "summon_skeletons_of_archers",
+    "name": "Summon Skeletons of Archers",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdW1tb25Ta2VsZXRvbnMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/395d22f13f/SummonSkeletons.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Summon Skeletons of Mages": {
+    "gemId": "summon_skeletons_of_mages",
+    "name": "Summon Skeletons of Mages",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdW1tb25Ta2VsZXRvbnMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjE0fV0/9be85a0cf8/SummonSkeletons.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Summon Stone Golem of Hordes": {
+    "gemId": "summon_stone_golem_of_hordes",
+    "name": "Summon Stone Golem of Hordes",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Sb2NrR29sZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjV9XQ/617f4db947/RockGolem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Summon Stone Golem of Safeguarding": {
+    "gemId": "summon_stone_golem_of_safeguarding",
+    "name": "Summon Stone Golem of Safeguarding",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Sb2NrR29sZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjZ9XQ/d7a7ac4f62/RockGolem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Sunder of Earthbreaking": {
+    "gemId": "sunder_of_earthbreaking",
+    "name": "Sunder of Earthbreaking",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TaG9ja3dhdmVTbGFtIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo1fV0/76fd849b32/ShockwaveSlam.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Sunder of Trarthus": {
+    "gemId": "sunder_of_trarthus",
+    "name": "Sunder of Trarthus",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TaG9ja3dhdmVTbGFtIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImd0Ijp0cnVlfV0/eb6d5aa07f/ShockwaveSlam.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Tectonic Slam of Cataclysm": {
+    "gemId": "tectonic_slam_of_cataclysm",
+    "name": "Tectonic Slam of Cataclysm",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9UZWN0b25pY1NsYW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjV9XQ/51d5a34075/TectonicSlam.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Tempest Shield": {
+    "gemId": "tempest_shield",
+    "name": "Tempest Shield",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9UZW1wZXN0U2hpZWxkIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/df5de3f529/TempestShield.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Tornado Shot of Cloudburst": {
+    "gemId": "tornado_shot_of_cloudburst",
+    "name": "Tornado Shot of Cloudburst",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Ub3JuYWRvU2hvdCIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6OX1d/7f4c99a985/TornadoShot.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Tornado of Elemental Turbulence": {
+    "gemId": "tornado_of_elemental_turbulence",
+    "name": "Tornado of Elemental Turbulence",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Ub3JuYWRvR2VtIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjoxMH1d/dc3b2e243b/TornadoGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Toxic Rain of Sporeburst": {
+    "gemId": "toxic_rain_of_sporeburst",
+    "name": "Toxic Rain of Sporeburst",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9SYWlub2ZTcG9yZXNHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjl9XQ/668eb196ac/RainofSporesGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Toxic Rain of Withering": {
+    "gemId": "toxic_rain_of_withering",
+    "name": "Toxic Rain of Withering",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9SYWlub2ZTcG9yZXNHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEwfV0/e602ae817b/RainofSporesGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Absolution": {
+    "gemId": "vaal_absolution",
+    "name": "Vaal Absolution",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsQWJzb2x1dGlvbkJsYXN0R2VtIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/78d6158d9a/VaalAbsolutionBlastGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Animate Weapon": {
+    "gemId": "vaal_animate_weapon",
+    "name": "Vaal Animate Weapon",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsQW5pbWF0ZVdlYXBvbiIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/1fbfb80825/VaalAnimateWeapon.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Arc": {
+    "gemId": "vaal_arc",
+    "name": "Vaal Arc",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsQXJjIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/72aafca740/VaalArc.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Arctic Armour": {
+    "gemId": "vaal_arctic_armour",
+    "name": "Vaal Arctic Armour",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsSWNlU2hpZWxkIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/d40d65ac7d/VaalIceShield.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Blade Flurry": {
+    "gemId": "vaal_blade_flurry",
+    "name": "Vaal Blade Flurry",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsQmxhZGVGbHVycnkiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/a06a3de124/VaalBladeFlurry.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Blade Vortex": {
+    "gemId": "vaal_blade_vortex",
+    "name": "Vaal Blade Vortex",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsU3Bpbm5pbmdFdGhlcmVhbEJsYWRlc0dlbSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/f922713a8d/VaalSpinningEtherealBladesGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Blight": {
+    "gemId": "vaal_blight",
+    "name": "Vaal Blight",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsQmxpZ2h0R2VtIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjoxM31d/5a27b85a70/VaalBlightGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Breach": {
+    "gemId": "vaal_breach",
+    "name": "Vaal Breach",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsQnJlYWNoUG9ydGFsIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/17bcbe1a68/VaalBreachPortal.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Burning Arrow": {
+    "gemId": "vaal_burning_arrow",
+    "name": "Vaal Burning Arrow",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsQnVybmluZ0Fycm93IiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo5fV0/d5a5baaba6/VaalBurningArrow.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Caustic Arrow": {
+    "gemId": "vaal_caustic_arrow",
+    "name": "Vaal Caustic Arrow",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsUG9pc29uQXJyb3ciLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/6cf894e43f/VaalPoisonArrow.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Clarity": {
+    "gemId": "vaal_clarity",
+    "name": "Vaal Clarity",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsQ2xhcml0eSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/e480915860/VaalClarity.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Cleave": {
+    "gemId": "vaal_cleave",
+    "name": "Vaal Cleave",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsQ2xlYXZlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/523e4d4879/VaalCleave.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Cold Snap": {
+    "gemId": "vaal_cold_snap",
+    "name": "Vaal Cold Snap",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsQ29sZFNuYXAiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/5abbc2483c/VaalColdSnap.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Cyclone": {
+    "gemId": "vaal_cyclone",
+    "name": "Vaal Cyclone",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsQ3ljbG9uZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/4e0f690af9/VaalCyclone.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Detonate Dead": {
+    "gemId": "vaal_detonate_dead",
+    "name": "Vaal Detonate Dead",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsRGV0b25hdGVEZWFkIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/28db5033a3/VaalDetonateDead.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Discipline": {
+    "gemId": "vaal_discipline",
+    "name": "Vaal Discipline",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsRGlzY2lwbGluZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/abe73da97d/VaalDiscipline.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Domination": {
+    "gemId": "vaal_domination",
+    "name": "Vaal Domination",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsRG9taW5hdGluZ0Jsb3ciLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/0e5a55c90e/VaalDominatingBlow.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Double Strike": {
+    "gemId": "vaal_double_strike",
+    "name": "Vaal Double Strike",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsRG91YmxlU3RyaWtlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/b3997a2170/VaalDoubleStrike.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Earthquake": {
+    "gemId": "vaal_earthquake",
+    "name": "Vaal Earthquake",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsUXVha2VTbGFtIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/d76352b29f/VaalQuakeSlam.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Fireball": {
+    "gemId": "vaal_fireball",
+    "name": "Vaal Fireball",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsRmlyZWJhbGwiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/a5d62b561c/VaalFireball.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Firestorm": {
+    "gemId": "vaal_firestorm",
+    "name": "Vaal Firestorm",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsRmlyZXN0b3JtIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/1a96e3e91d/VaalFirestorm.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Flameblast": {
+    "gemId": "vaal_flameblast",
+    "name": "Vaal Flameblast",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsQ2hhcmdlZEJsYXN0IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/30f8fb7bf0/VaalChargedBlast.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Flicker Strike": {
+    "gemId": "vaal_flicker_strike",
+    "name": "Vaal Flicker Strike",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsRmxpY2tlclN0cmlrZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/c1883edcc5/VaalFlickerStrike.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Glacial Hammer": {
+    "gemId": "vaal_glacial_hammer",
+    "name": "Vaal Glacial Hammer",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsR2xhY2lhbEhhbW1lciIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/522b22ffed/VaalGlacialHammer.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Grace": {
+    "gemId": "vaal_grace",
+    "name": "Vaal Grace",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsR3JhY2UiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/bbbc8bdd9c/VaalGrace.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Ground Slam": {
+    "gemId": "vaal_ground_slam",
+    "name": "Vaal Ground Slam",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsR3JvdW5kc2xhbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6NX1d/c5327fae52/VaalGroundslam.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Haste": {
+    "gemId": "vaal_haste",
+    "name": "Vaal Haste",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsSGFzdGUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/f19f4c8a3f/VaalHaste.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Ice Nova": {
+    "gemId": "vaal_ice_nova",
+    "name": "Vaal Ice Nova",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsSWNlTm92YSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/5a5edc499a/VaalIceNova.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Ice Shot": {
+    "gemId": "vaal_ice_shot",
+    "name": "Vaal Ice Shot",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsSWNlU2hvdCIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6OX1d/e7f31dd1c1/VaalIceShot.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Impurity of Fire": {
+    "gemId": "vaal_impurity_of_fire",
+    "name": "Vaal Impurity of Fire",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsRmlyZVJlc2lzdEF1cmEiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/0cf5d8a3a1/VaalFireResistAura.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Impurity of Ice": {
+    "gemId": "vaal_impurity_of_ice",
+    "name": "Vaal Impurity of Ice",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsQ29sZFJlc2lzdEF1cmEiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/7526b46b7e/VaalColdResistAura.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Impurity of Lightning": {
+    "gemId": "vaal_impurity_of_lightning",
+    "name": "Vaal Impurity of Lightning",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsTGlnaHRuaW5nUmVzaXN0QXVyYSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/20a88ab436/VaalLightningResistAura.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Lightning Arrow": {
+    "gemId": "vaal_lightning_arrow",
+    "name": "Vaal Lightning Arrow",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsTGlnaHRuaW5nQXJyb3ciLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/46f597549d/VaalLightningArrow.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Lightning Strike": {
+    "gemId": "vaal_lightning_strike",
+    "name": "Vaal Lightning Strike",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsTGlnaHRuaW5nU3RyaWtlIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo5fV0/a8d3077fca/VaalLightningStrike.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Lightning Trap": {
+    "gemId": "vaal_lightning_trap",
+    "name": "Vaal Lightning Trap",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsTGlnaHRuaW5nVHJhcCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/0ce2176d9d/VaalLightningTrap.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Molten Shell": {
+    "gemId": "vaal_molten_shell",
+    "name": "Vaal Molten Shell",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsTW9sdGVuU2hlbGwiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/d46606b4d4/VaalMoltenShell.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Molten Strike": {
+    "gemId": "vaal_molten_strike",
+    "name": "Vaal Molten Strike",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsTW9sdGVuU3RyaWtlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/bd762b5841/VaalMoltenStrike.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Power Siphon": {
+    "gemId": "vaal_power_siphon",
+    "name": "Vaal Power Siphon",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsUG93ZXJTaXBob24iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/3ed71d8bc9/VaalPowerSiphon.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Rain of Arrows": {
+    "gemId": "vaal_rain_of_arrows",
+    "name": "Vaal Rain of Arrows",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsUmFpbm9mQXJyb3dzIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjo5fV0/b534e6d63a/VaalRainofArrows.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Reap": {
+    "gemId": "vaal_reap",
+    "name": "Vaal Reap",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsQmxvb2RyZWFwR2VtIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/38da6f12d9/VaalBloodreapGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Reave": {
+    "gemId": "vaal_reave",
+    "name": "Vaal Reave",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsUmVhdmUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/5d13f4fd51/VaalReave.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Rejuvenation Totem": {
+    "gemId": "vaal_rejuvenation_totem",
+    "name": "Vaal Rejuvenation Totem",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsUmVqdXZpbmF0aW9uVG90ZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/3469a69816/VaalRejuvinationTotem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Righteous Fire": {
+    "gemId": "vaal_righteous_fire",
+    "name": "Vaal Righteous Fire",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsUmlnaHRlb3VzRmlyZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/a59a827cc2/VaalRighteousFire.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Smite": {
+    "gemId": "vaal_smite",
+    "name": "Vaal Smite",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsU21pdGUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/f770b31aad/VaalSmite.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Spark": {
+    "gemId": "vaal_spark",
+    "name": "Vaal Spark",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsU3BhcmsiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/c709d19b86/VaalSpark.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Spectral Throw": {
+    "gemId": "vaal_spectral_throw",
+    "name": "Vaal Spectral Throw",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsR2hvc3RseVRocm93IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/6ad4bbb77d/VaalGhostlyThrow.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Storm Call": {
+    "gemId": "vaal_storm_call",
+    "name": "Vaal Storm Call",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsU3Rvcm1jYWxsIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjoxM31d/4612e8b97f/VaalStormcall.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Summon Skeletons": {
+    "gemId": "vaal_summon_skeletons",
+    "name": "Vaal Summon Skeletons",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsU3VtbW9uU2tlbGV0b25zIiwidyI6MSwiaCI6MSwic2NhbGUiOjEsImdkIjoxM31d/1ae2ef61bb/VaalSummonSkeletons.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Venom Gyre": {
+    "gemId": "vaal_venom_gyre",
+    "name": "Vaal Venom Gyre",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsU25hcHBpbmdBZGRlciIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/4102e69dad/VaalSnappingAdder.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vaal Volcanic Fissure": {
+    "gemId": "vaal_volcanic_fissure",
+    "name": "Vaal Volcanic Fissure",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WYWFsR2Vtcy9WYWFsVm9sY2FuaWNGaXNzdXJlU2tpbGxHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjV9XQ/5986f49b6a/VaalVolcanicFissureSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vampiric Link": {
+    "gemId": "vampiric_link",
+    "name": "Vampiric Link",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9MZWVjaExpbmtHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/344750af0c/LeechLinkGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Viper Strike": {
+    "gemId": "viper_strike",
+    "name": "Viper Strike",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WaXBlclN0cmlrZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/269332c5f1/ViperStrike.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Viper Strike of the Mamba": {
+    "gemId": "viper_strike_of_the_mamba",
+    "name": "Viper Strike of the Mamba",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9WaXBlclN0cmlrZSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6OX1d/8b37a8f02e/ViperStrike.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Void Sphere of Rending": {
+    "gemId": "void_sphere_of_rending",
+    "name": "Void Sphere of Rending",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9CbGFja0hvbGUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEzfV0/24b8de3b3b/BlackHole.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Volatile Dead of Confinement": {
+    "gemId": "volatile_dead_of_confinement",
+    "name": "Volatile Dead of Confinement",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Wb2xhdGlsZURlYWQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjl9XQ/8438dce15b/VolatileDead.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Volatile Dead of Seething": {
+    "gemId": "volatile_dead_of_seething",
+    "name": "Volatile Dead of Seething",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Wb2xhdGlsZURlYWQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjEwfV0/b467137e39/VolatileDead.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Volcanic Fissure of Snaking": {
+    "gemId": "volcanic_fissure_of_snaking",
+    "name": "Volcanic Fissure of Snaking",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Wb2xjYW5pY0Zpc3N1cmVTa2lsbEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6NX1d/dd1c9ae7c3/VolcanicFissureSkillGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vortex": {
+    "gemId": "vortex",
+    "name": "Vortex",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Gcm9zdFZvcnRleCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/042fdadf6b/FrostVortex.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Vortex of Projection": {
+    "gemId": "vortex_of_projection",
+    "name": "Vortex of Projection",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Gcm9zdFZvcnRleCIsInciOjEsImgiOjEsInNjYWxlIjoxLCJnZCI6MTN9XQ/f9d53f3fbb/FrostVortex.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Wave of Conviction of Trarthus": {
+    "gemId": "wave_of_conviction_of_trarthus",
+    "name": "Wave of Conviction of Trarthus",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9QdXJnZSIsInciOjEsImgiOjEsInNjYWxlIjoxLCJndCI6dHJ1ZX1d/f52c324a26/Purge.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Wild Strike of Extremes": {
+    "gemId": "wild_strike_of_extremes",
+    "name": "Wild Strike of Extremes",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9FbGVtZW50YWxTdHJpa2UiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MSwiZ2QiOjl9XQ/0a871cd87f/ElementalStrike.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Winter Orb": {
+    "gemId": "winter_orb",
+    "name": "Winter Orb",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9Gcm9zdEZ1cnkiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/97ad77aa8e/FrostFury.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Wintertide Brand": {
+    "gemId": "wintertide_brand",
+    "name": "Wintertide Brand",
+    "icon": "https://web.poecdn.com/gen/image/WzMwLDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9XaW50ZXJ0aWRlQnJhbmRHZW0iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/fe8af7f277/WintertideBrandGem.png",
+    "type": "active",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Added Chaos Damage Support": {
+    "gemId": "added_chaos_damage_support",
+    "name": "Added Chaos Damage Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0FkZGVkQ2hhb3NEYW1hZ2UiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/a89e2281e4/AddedChaosDamage.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Additional Accuracy Support": {
+    "gemId": "additional_accuracy_support",
+    "name": "Additional Accuracy Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0luY3JlYXNlZEFjY3VyYWN5IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/6c436c2a7c/IncreasedAccuracy.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Advanced Traps Support": {
+    "gemId": "advanced_traps_support",
+    "name": "Advanced Traps Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1RyYXBDb29sZG93blJlY292ZXJ5IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/30ba703ddf/TrapCooldownRecovery.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Ancestral Call Support": {
+    "gemId": "ancestral_call_support",
+    "name": "Ancestral Call Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L01pcmFnZVN0cmlrZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/e51b75463c/MirageStrike.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Arcane Surge Support": {
+    "gemId": "arcane_surge_support",
+    "name": "Arcane Surge Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0FyY2FuZVN1cmdlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/d3d0499c29/ArcaneSurge.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Ballista Totem Support": {
+    "gemId": "ballista_totem_support",
+    "name": "Ballista Totem Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1JhbmdlZEF0dGFja1RvdGVtIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/b7ee0c564e/RangedAttackTotem.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Blastchain Mine Support": {
+    "gemId": "blastchain_mine_support",
+    "name": "Blastchain Mine Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1JlbW90ZU1pbmUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/6a62456c74/RemoteMine.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Blind Support": {
+    "gemId": "blind_support",
+    "name": "Blind Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0JsaW5kIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/06f95114ae/Blind.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Block Chance Reduction Support": {
+    "gemId": "block_chance_reduction_support",
+    "name": "Block Chance Reduction Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0JyZWFrQmxvY2siLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/18132535a7/BreakBlock.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Bloodlust Support": {
+    "gemId": "bloodlust_support",
+    "name": "Bloodlust Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0Jsb29kbHVzdCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/0f21ba16fe/Bloodlust.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Cast On Critical Strike Support": {
+    "gemId": "cast_on_critical_strike_support",
+    "name": "Cast On Critical Strike Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0Nhc3RPbkNyaXQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/8ebad1afae/CastOnCrit.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Cast on Death Support": {
+    "gemId": "cast_on_death_support",
+    "name": "Cast on Death Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0Nhc3RPbkRlYXRoIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/7a8f023bcf/CastOnDeath.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Cast on Melee Kill Support": {
+    "gemId": "cast_on_melee_kill_support",
+    "name": "Cast on Melee Kill Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0Nhc3RPbk1lbGVlS2lsbCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/cbebb42cbc/CastOnMeleeKill.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Cast when Damage Taken Support": {
+    "gemId": "cast_when_damage_taken_support",
+    "name": "Cast when Damage Taken Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0Nhc3RPbkRtZ1Rha2VuIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/2f075f5964/CastOnDmgTaken.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Cast when Stunned Support": {
+    "gemId": "cast_when_stunned_support",
+    "name": "Cast when Stunned Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0Nhc3RPblN0dW4iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/12b3b0fdfc/CastOnStun.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Cast while Channelling Support": {
+    "gemId": "cast_while_channelling_support",
+    "name": "Cast while Channelling Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0Nhc3RXaGlsZUNoYW5uZWxpbmciLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/7a6045467d/CastWhileChanneling.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Chance to Bleed Support": {
+    "gemId": "chance_to_bleed_support",
+    "name": "Chance to Bleed Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0NoYW5jZVRvQmxlZWQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/51506e2da6/ChanceToBleed.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Chance to Flee Support": {
+    "gemId": "chance_to_flee_support",
+    "name": "Chance to Flee Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0NoYW5jZXRvRmxlZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/ae4e560cd8/ChancetoFlee.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Chance to Poison Support": {
+    "gemId": "chance_to_poison_support",
+    "name": "Chance to Poison Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0xlc3NlclBvaXNvbiIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/9cce1eb7ef/LesserPoison.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Cold to Fire Support": {
+    "gemId": "cold_to_fire_support",
+    "name": "Cold to Fire Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0NvbGR0b0ZpcmUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/cc186488fc/ColdtoFire.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Culling Strike Support": {
+    "gemId": "culling_strike_support",
+    "name": "Culling Strike Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0N1bGxpbmdTdHJpa2UiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/328a156075/CullingStrike.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Cursed Ground Support": {
+    "gemId": "cursed_ground_support",
+    "name": "Cursed Ground Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0hleFpvbmVTdXBwb3J0IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/63e77cc4ae/HexZoneSupport.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Damage on Full Life Support": {
+    "gemId": "damage_on_full_life_support",
+    "name": "Damage on Full Life Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L01lbGVlRGFtYWdlb25GdWxsTGlmZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/487b8dcafd/MeleeDamageonFullLife.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Elemental Army Support": {
+    "gemId": "elemental_army_support",
+    "name": "Elemental Army Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1bW1vbnNFbGVtZW50YWxSZXNpc3RzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/db4dac7400/SummonsElementalResists.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Elemental Penetration Support": {
+    "gemId": "elemental_penetration_support",
+    "name": "Elemental Penetration Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0VsZW1lbnRhbFBlbmV0cmF0aW9uIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/36b75b1496/ElementalPenetration.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Elemental Proliferation Support": {
+    "gemId": "elemental_proliferation_support",
+    "name": "Elemental Proliferation Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0VsZW1lbnRhbFByb2xpZmVyYXRpb24iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/820a3ee1f5/ElementalProliferation.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Empower Support": {
+    "gemId": "empower_support",
+    "name": "Empower Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0VtcG93ZXIiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/c2b1b38b15/Empower.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Endurance Charge on Melee Stun Support": {
+    "gemId": "endurance_charge_on_melee_stun_support",
+    "name": "Endurance Charge on Melee Stun Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0VuZHVyYW5jZUNoYXJnZVN0dW4iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/e3b4ca1900/EnduranceChargeStun.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Enhance Support": {
+    "gemId": "enhance_support",
+    "name": "Enhance Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L2VuaGFuY2UiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/9f8df30377/enhance.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Enlighten Support": {
+    "gemId": "enlighten_support",
+    "name": "Enlighten Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0VubGlnaHRlbiIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/05a949e270/Enlighten.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Flamewood Support": {
+    "gemId": "flamewood_support",
+    "name": "Flamewood Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0ZsYW1ld29vZCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/83ebdeea1c/Flamewood.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Generosity Support": {
+    "gemId": "generosity_support",
+    "name": "Generosity Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0dlbmVyb3NpdHlTdXBwb3J0IiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/a32a095b6b/GenerositySupport.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Hextouch Support": {
+    "gemId": "hextouch_support",
+    "name": "Hextouch Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0N1cnNlT25IaXQiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/da0ae156c5/CurseOnHit.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Increased Critical Damage Support": {
+    "gemId": "increased_critical_damage_support",
+    "name": "Increased Critical Damage Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0luY3JlYXNlZENyaXRpY2FsRGFtYWdlIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/74164474d1/IncreasedCriticalDamage.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Increased Critical Strikes Support": {
+    "gemId": "increased_critical_strikes_support",
+    "name": "Increased Critical Strikes Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0luY3JlYXNlZENyaXRpY2FsU3RyaWtlcyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/afc7a604cf/IncreasedCriticalStrikes.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Infused Channelling Support": {
+    "gemId": "infused_channelling_support",
+    "name": "Infused Channelling Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N0b3JtQmFycmllciIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/7db72233e9/StormBarrier.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Inspiration Support": {
+    "gemId": "inspiration_support",
+    "name": "Inspiration Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1JlZHVjZWRNYW5hQ29zdCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/f9f7503054/ReducedManaCost.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Iron Grip Support": {
+    "gemId": "iron_grip_support",
+    "name": "Iron Grip Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0lyb25HcmlwIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/e4644c9b8b/IronGrip.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Iron Will Support": {
+    "gemId": "iron_will_support",
+    "name": "Iron Will Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0lyb25XaWxsIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/fe7bad1137/IronWill.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Item Rarity Support": {
+    "gemId": "item_rarity_support",
+    "name": "Item Rarity Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0luY3JlYXNlZFF1YWxpdHkiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/3419db9edf/IncreasedQuality.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Knockback Support": {
+    "gemId": "knockback_support",
+    "name": "Knockback Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0tub2NrYmFjayIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/682a61d0bb/Knockback.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Less Duration Support": {
+    "gemId": "less_duration_support",
+    "name": "Less Duration Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1JlZHVjZUR1cmF0aW9uIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/ab88044f5f/ReduceDuration.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Life Gain on Hit Support": {
+    "gemId": "life_gain_on_hit_support",
+    "name": "Life Gain on Hit Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0xpZmVvbkhpdCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/7f577bed88/LifeonHit.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Locus Mine Support": {
+    "gemId": "locus_mine_support",
+    "name": "Locus Mine Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0xvY3VzTWluZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/81e9dcb0a5/LocusMine.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Mana Leech Support": {
+    "gemId": "mana_leech_support",
+    "name": "Mana Leech Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L01hbmFMZWVjaCIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/d7f54dd2b1/ManaLeech.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Mark On Hit Support": {
+    "gemId": "mark_on_hit_support",
+    "name": "Mark On Hit Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L01hcmtPbkhpdHRpbmciLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/082becefa3/MarkOnHitting.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Minion Life Support": {
+    "gemId": "minion_life_support",
+    "name": "Minion Life Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L01pbmlvbkxpZmUiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/efcc549806/MinionLife.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Mirage Archer Support": {
+    "gemId": "mirage_archer_support",
+    "name": "Mirage Archer Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L01pcmFnZUFyY2hlciIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/4f37cfb6a7/MirageArcher.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Momentum Support": {
+    "gemId": "momentum_support",
+    "name": "Momentum Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L01vbWVudHVtU3VwcG9ydEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/ccdd57e05a/MomentumSupportGem.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Physical to Lightning Support": {
+    "gemId": "physical_to_lightning_support",
+    "name": "Physical to Lightning Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1BoeXNpY2FsVG9MaWdodG5pbmciLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/5f0b03c090/PhysicalToLightning.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Pierce Support": {
+    "gemId": "pierce_support",
+    "name": "Pierce Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1BpZXJjZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/9cceecca83/Pierce.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Point Blank Support": {
+    "gemId": "point_blank_support",
+    "name": "Point Blank Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1BvaW50QmxhbmsiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/23dd6314d7/PointBlank.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Power Charge On Critical Support": {
+    "gemId": "power_charge_on_critical_support",
+    "name": "Power Charge On Critical Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1Bvd2VyQ2hhcmdlcyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/d65c84e89f/PowerCharges.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Prismatic Burst Support": {
+    "gemId": "prismatic_burst_support",
+    "name": "Prismatic Burst Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L0VsZW1lbnRhbEJ1cnN0U3VwcG9ydEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/717e468ab8/ElementalBurstSupportGem.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Ruthless Support": {
+    "gemId": "ruthless_support",
+    "name": "Ruthless Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1J1dGhsZXNzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/d8a9bf875d/Ruthless.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Slower Projectiles Support": {
+    "gemId": "slower_projectiles_support",
+    "name": "Slower Projectiles Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1Nsb3dlclByb2plY3RpbGVzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/2192faa440/SlowerProjectiles.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Spell Cascade Support": {
+    "gemId": "spell_cascade_support",
+    "name": "Spell Cascade Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1NwZWxsQ2FzY2FkZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/c72a3fbf82/SpellCascade.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Spell Totem Support": {
+    "gemId": "spell_totem_support",
+    "name": "Spell Totem Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1RvdGVtIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/e168c87ee6/Totem.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Stun Support": {
+    "gemId": "stun_support",
+    "name": "Stun Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N0dW4iLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/38371dbefc/Stun.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Summon Phantasm Support": {
+    "gemId": "summon_phantasm_support",
+    "name": "Summon Phantasm Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1bW1vblBoYW50YXNtIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/beef708237/SummonPhantasm.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Swift Assembly Support": {
+    "gemId": "swift_assembly_support",
+    "name": "Swift Assembly Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1RyYXBNaW5lU3VwcG9ydEdlbSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/809e461b30/TrapMineSupportGem.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Trap Support": {
+    "gemId": "trap_support",
+    "name": "Trap Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1RyYXAiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/8893adb50f/Trap.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
+  },
+  "Volley Support": {
+    "gemId": "volley_support",
+    "name": "Volley Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1BhcmFsbGVsUHJvamVjdGlsZSIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/814ab0a18f/ParallelProjectile.png",
+    "type": "support",
+    "availability": [
+      {
+        "act": 3,
+        "source": "siosa",
+        "questName": "A Fixture of Fate",
+        "classes": []
+      },
+      {
+        "act": 6,
+        "source": "lilly",
+        "questName": "Fallen from Grace",
+        "classes": []
+      }
+    ]
   }
 };
+
+/**
+ * Special vendors data
+ */
+export const specialVendors = [
+  {
+    "npcId": "siosa",
+    "name": "Siosa",
+    "act": 3,
+    "unlockQuest": "A Fixture of Fate",
+    "location": "The Library",
+    "description": "Removes class restrictions for gems unlocked via quests",
+    "provides": "cross_class"
+  },
+  {
+    "npcId": "lilly_roth",
+    "name": "Lilly Roth",
+    "act": 6,
+    "unlockQuest": "Fallen from Grace",
+    "location": "Lioneye's Watch (Act 6+)",
+    "description": "Unlocks all gems regardless of class or quest completion",
+    "provides": "all_gems"
+  }
+];
+
+/**
+ * Get gem availability for specific class
+ */
+export function getGemAvailabilityForClass(gemName, className) {
+  const gem = gemAvailabilityData[gemName];
+  if (!gem) return null;
+
+  // Filter sources available to this class
+  return gem.availability.filter(source =>
+    source.classes.length === 0 || source.classes.includes(className)
+  );
+}
+
+/**
+ * Get earliest act where gem is available for class
+ */
+export function getEarliestAct(gemName, className) {
+  const availability = getGemAvailabilityForClass(gemName, className);
+  if (!availability || availability.length === 0) return null;
+
+  return Math.min(...availability.map(a => a.act));
+}
+
+/**
+ * Check if gem is available as quest reward for class
+ */
+export function isQuestReward(gemName, className) {
+  const availability = getGemAvailabilityForClass(gemName, className);
+  return availability && availability.some(a =>
+    a.source === 'quest' &&
+    (a.classes.length === 0 || a.classes.includes(className))
+  );
+}
+
+/**
+ * Get all gems available in specific act
+ */
+export function getGemsForAct(actNumber, className) {
+  const actGems = [];
+
+  for (const [gemName, gemData] of Object.entries(gemAvailabilityData)) {
+    const availability = gemData.availability.filter(a =>
+      a.act === actNumber &&
+      (a.classes.length === 0 || a.classes.includes(className))
+    );
+
+    if (availability.length > 0) {
+      actGems.push({
+        ...gemData,
+        actAvailability: availability
+      });
+    }
+  }
+
+  return actGems;
+}
+
+export default gemAvailabilityData;

@@ -22,6 +22,16 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path.replace(/^\/api\/poe-ninja/, ''),
       },
+      '/api/pobbin': {
+        target: 'https://pobb.in',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/pobbin/, ''),
+      },
+      '/api/pastebin': {
+        target: 'https://pastebin.com',
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/api\/pastebin/, ''),
+      },
     },
   },
 })
