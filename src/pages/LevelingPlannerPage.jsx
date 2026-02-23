@@ -6,7 +6,8 @@ import { useState, useEffect, useRef } from 'react';
 import { createPortal } from 'react-dom';
 import { useLevelingPlan } from '../contexts/LevelingPlanContext';
 import { gemAvailabilityData } from '../data/leveling/gemAvailability';
-import { parsePoBBuild } from '../utils/pobParser';
+import { parsePoBBuild, detectPoBInput, fetchPoBCodeFromUrl } from '../utils/pobParser';
+import LinkGroupsSection from '../components/leveling/LinkGroupsSection';
 import Fuse from 'fuse.js';
 
 // Popular starter build templates
@@ -56,6 +57,8 @@ export default function LevelingPlannerPage() {
     removeGem,
     toggleObtained,
     clearPlan,
+    linkGroups,
+    setLinkGroups,
     gemsByLevel,
     socketRequirements,
     stats,
@@ -67,6 +70,10 @@ export default function LevelingPlannerPage() {
   const [showPoBImport, setShowPoBImport] = useState(false);
   const [pobCode, setPobCode] = useState('');
   const [pobResult, setPobResult] = useState(null);
+  const [pobLoading, setPobLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState(() =>
+    linkGroups && linkGroups.length > 0 ? 'links' : 'timeline'
+  );
   const [dropdownPosition, setDropdownPosition] = useState({ top: 0, left: 0, width: 0 });
   const searchInputRef = useRef(null);
 
@@ -111,27 +118,38 @@ export default function LevelingPlannerPage() {
     setShowResults(false);
   };
 
-  // PoB Import
-  const handlePoBParse = () => {
-    if (!pobCode.trim()) return;
-    const result = parsePoBBuild(pobCode);
+  // PoB Import - processes raw code into result
+  // Resolve a PoB gem name to our gem database entry.
+  // Tries: exact match → with "Support" suffix → fuzzy search
+  const resolveGemData = (name) => {
+    // Exact match
+    let gemData = gemAvailabilityData[name];
+    if (gemData) return gemData;
+
+    // PoB often omits "Support" suffix — try appending it
+    if (!name.endsWith(' Support')) {
+      gemData = gemAvailabilityData[name + ' Support'];
+      if (gemData) return gemData;
+    }
+
+    // Fuzzy match as last resort
+    const fuzzyResult = fuse.search(name);
+    if (fuzzyResult.length > 0 && fuzzyResult[0].score < 0.3) {
+      return fuzzyResult[0].item;
+    }
+
+    return null;
+  };
+
+  const processPoBCode = (code) => {
+    const result = parsePoBBuild(code);
 
     // Match extracted gem names against our gem data
     const matched = [];
     const unmatched = [];
 
     result.gems.forEach(gem => {
-      // Try exact match first
-      let gemData = gemAvailabilityData[gem.name];
-
-      // Try fuzzy match if exact fails
-      if (!gemData) {
-        const fuzzyResult = fuse.search(gem.name);
-        if (fuzzyResult.length > 0 && fuzzyResult[0].score < 0.3) {
-          gemData = fuzzyResult[0].item;
-        }
-      }
-
+      const gemData = resolveGemData(gem.name);
       if (gemData) {
         matched.push({ ...gem, gemData });
       } else {
@@ -139,13 +157,51 @@ export default function LevelingPlannerPage() {
       }
     });
 
+    // Process link groups: match gem names against our gem data
+    const linkGroups = (result.linkGroups || []).map(group => ({
+      ...group,
+      gems: group.gems.map(gem => ({
+        ...gem,
+        gemData: resolveGemData(gem.name) || null,
+      })),
+    }));
+
     setPobResult({
       error: result.error,
       character: result.character,
       matched,
       unmatched,
+      linkGroups,
       total: result.gems.length,
     });
+  };
+
+  // Entry point: detect URL type or raw code, then process
+  const handlePoBParse = async () => {
+    if (!pobCode.trim()) return;
+
+    const detected = detectPoBInput(pobCode);
+
+    if (detected.type === 'unsupported') {
+      setPobResult({ error: detected.message, matched: [], unmatched: [], linkGroups: [], total: 0 });
+      return;
+    }
+
+    if (detected.type === 'pobbin' || detected.type === 'pastebin') {
+      setPobLoading(true);
+      const { code, error } = await fetchPoBCodeFromUrl(detected.type, detected.id);
+      setPobLoading(false);
+
+      if (error || !code) {
+        setPobResult({ error: error || `Failed to fetch build from ${detected.type}`, matched: [], unmatched: [], linkGroups: [], total: 0 });
+        return;
+      }
+
+      processPoBCode(code);
+    } else {
+      // Raw build code
+      processPoBCode(pobCode);
+    }
   };
 
   const handlePoBImport = () => {
@@ -160,6 +216,14 @@ export default function LevelingPlannerPage() {
     pobResult.matched.forEach(({ gemData }) => {
       addGem(gemData);
     });
+
+    // Set link groups and switch to links tab
+    if (pobResult.linkGroups && pobResult.linkGroups.length > 0) {
+      setLinkGroups(pobResult.linkGroups);
+      setActiveTab('links');
+    } else {
+      setActiveTab('timeline');
+    }
 
     // Close modal
     setShowPoBImport(false);
@@ -353,17 +417,17 @@ export default function LevelingPlannerPage() {
             <div className="p-5 space-y-4">
               <div>
                 <label className="block text-xs font-medium text-zinc-400 mb-2">
-                  Paste your PoB build code
+                  Paste a pobb.in link or raw PoB build code
                 </label>
                 <textarea
                   value={pobCode}
                   onChange={(e) => { setPobCode(e.target.value); setPobResult(null); }}
-                  placeholder="eNqVWFtv4zYS_iuGX3dR2JLs3Jp..."
+                  placeholder="https://pobb.in/xL35WYU-E7uB  or  eNqVWFtv4zYS..."
                   rows={4}
                   className="w-full bg-zinc-950/60 border border-white/5 rounded-lg text-sm p-3 text-zinc-100 placeholder:text-zinc-600 outline-none focus:border-violet-500/40 transition-colors font-mono resize-none"
                 />
                 <p className="text-[11px] text-zinc-600 mt-1.5">
-                  Find PoB codes in build guides, poe.ninja, or export from Path of Building desktop app
+                  Paste a pobb.in link or raw build code from build guides, poe.ninja, or Path of Building
                 </p>
               </div>
 
@@ -371,10 +435,10 @@ export default function LevelingPlannerPage() {
               {!pobResult && (
                 <button
                   onClick={handlePoBParse}
-                  disabled={!pobCode.trim()}
+                  disabled={!pobCode.trim() || pobLoading}
                   className="w-full py-2.5 rounded-lg text-sm font-medium bg-violet-500/15 border border-violet-400/25 text-violet-300 hover:bg-violet-500/25 hover:border-violet-400/40 transition-all disabled:opacity-30 disabled:cursor-not-allowed"
                 >
-                  Decode Build
+                  {pobLoading ? 'Fetching build code...' : 'Decode Build'}
                 </button>
               )}
 
@@ -402,6 +466,11 @@ export default function LevelingPlannerPage() {
                   <div>
                     <p className="text-xs font-medium text-emerald-400 mb-2">
                       {pobResult.matched.length} gems found
+                      {pobResult.linkGroups?.length > 0 && (
+                        <span className="text-zinc-500 ml-2">
+                          ({pobResult.linkGroups.length} link groups)
+                        </span>
+                      )}
                     </p>
                     <div className="max-h-48 overflow-y-auto space-y-1 rounded-lg bg-zinc-950/40 p-2">
                       {pobResult.matched.map(({ name, gemData, isSupport }) => (
@@ -610,164 +679,205 @@ export default function LevelingPlannerPage() {
           document.body
         )}
 
-        {/* Quick stats */}
+        {/* Quick stats (shown only when sticky bar isn't visible) */}
         {gems.length > 0 && (
           <div className="flex items-center gap-4 text-xs text-zinc-400">
             <span>{stats.total} gems planned</span>
             <span>•</span>
-            <span>{stats.obtained} obtained</span>
-            <span>•</span>
             <span>{stats.remaining} remaining</span>
-            {stats.progress > 0 && (
-              <>
-                <span>•</span>
-                <span className="text-emerald-400">{stats.progress}% complete</span>
-              </>
-            )}
           </div>
         )}
       </div>
 
-      {/* Socket Requirements */}
-      {gems.length > 0 && (
-        <div className="glass-card rounded-xl p-5 space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-sm font-semibold text-amber-300 uppercase tracking-wider">Socket Requirements</h2>
-            <button
-              onClick={handleCopyVendorRegex}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-xs font-medium bg-amber-500/10 border border-amber-400/20 text-amber-300 hover:bg-amber-500/20 hover:border-amber-400/30 transition-all"
-            >
-              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                <path strokeLinecap="round" strokeLinejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
-              </svg>
-              Copy Vendor Regex
-            </button>
-          </div>
-          <div className="flex items-center gap-6 flex-wrap">
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-red-500/20 border border-red-400/30 flex items-center justify-center">
-                <span className="text-sm font-bold text-red-300">{socketRequirements.R}</span>
-              </div>
-              <span className="text-sm text-zinc-400">Red</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-green-500/20 border border-green-400/30 flex items-center justify-center">
-                <span className="text-sm font-bold text-green-300">{socketRequirements.G}</span>
-              </div>
-              <span className="text-sm text-zinc-400">Green</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-8 h-8 rounded-full bg-blue-500/20 border border-blue-400/30 flex items-center justify-center">
-                <span className="text-sm font-bold text-blue-300">{socketRequirements.B}</span>
-              </div>
-              <span className="text-sm text-zinc-400">Blue</span>
-            </div>
-            <div className="ml-auto">
-              <span className="text-sm font-mono text-amber-300">{socketRequirements.string}</span>
-            </div>
-          </div>
-          <p className="text-xs text-zinc-500">
-            Recommended: Look for gear with <span className="text-amber-400 font-mono">{socketRequirements.string}</span> sockets
-          </p>
-        </div>
-      )}
-
-      {/* Gem Plan by Level */}
+      {/* Plan Content — Tabbed Layout */}
       {gems.length > 0 ? (
-        <div className="space-y-4">
-          {Object.entries(gemsByLevel).map(([levelRange, gemsInRange]) => {
-            if (gemsInRange.length === 0) return null;
-
-            return (
-              <div key={levelRange} className="glass-card rounded-xl p-5 space-y-4">
-                <div className="flex items-center justify-between">
-                  <h3 className="text-sm font-semibold text-zinc-300">{levelRange}</h3>
-                  <span className="text-xs text-zinc-500">
-                    {gemsInRange.filter(g => g.obtained).length}/{gemsInRange.length} obtained
-                  </span>
+        <>
+          {/* Sticky Socket Requirements Bar */}
+          <div className="sticky top-0 z-30 -mx-4 px-4 py-2.5 bg-zinc-950/90 backdrop-blur-md border-b border-white/5">
+            <div className="flex items-center justify-between gap-4 flex-wrap">
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-1.5">
+                  <div className="w-6 h-6 rounded-full bg-red-500/20 border border-red-400/30 flex items-center justify-center">
+                    <span className="text-[11px] font-bold text-red-300">{socketRequirements.R}</span>
+                  </div>
+                  <div className="w-6 h-6 rounded-full bg-green-500/20 border border-green-400/30 flex items-center justify-center">
+                    <span className="text-[11px] font-bold text-green-300">{socketRequirements.G}</span>
+                  </div>
+                  <div className="w-6 h-6 rounded-full bg-blue-500/20 border border-blue-400/30 flex items-center justify-center">
+                    <span className="text-[11px] font-bold text-blue-300">{socketRequirements.B}</span>
+                  </div>
                 </div>
+                <span className="text-xs font-mono text-amber-300">{socketRequirements.string}</span>
+                <button
+                  onClick={handleCopyVendorRegex}
+                  className="flex items-center gap-1.5 px-2.5 py-1 rounded-md text-[11px] font-medium bg-amber-500/10 border border-amber-400/20 text-amber-300 hover:bg-amber-500/20 hover:border-amber-400/30 transition-all"
+                >
+                  <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z" />
+                  </svg>
+                  Regex
+                </button>
+              </div>
+              <div className="flex items-center gap-3 text-[11px] text-zinc-500">
+                <span>{stats.total} gems</span>
+                <span>{stats.obtained} obtained</span>
+                {stats.progress > 0 && (
+                  <span className="text-emerald-400">{stats.progress}%</span>
+                )}
+              </div>
+            </div>
+          </div>
 
-                <div className="space-y-2">
-                  {gemsInRange.map((gem) => (
-                    <div
-                      key={gem.name}
-                      className={`flex items-center gap-3 p-3 rounded-lg border transition-all ${
-                        gem.obtained
-                          ? 'bg-emerald-500/5 border-emerald-400/20 opacity-60'
-                          : 'bg-zinc-900/40 border-white/5 hover:border-white/10'
-                      }`}
-                    >
-                      <button
-                        onClick={() => toggleObtained(gem.name)}
-                        className={`w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 transition-colors ${
-                          gem.obtained
-                            ? 'bg-emerald-500 border-emerald-400'
-                            : 'border-zinc-600 hover:border-zinc-500'
-                        }`}
-                      >
-                        {gem.obtained && (
-                          <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
-                            <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
-                          </svg>
-                        )}
-                      </button>
+          {/* Tab Navigation */}
+          <div className="flex items-center gap-1 border-b border-white/5 -mb-2">
+            {[
+              { id: 'links', label: 'Link Groups', count: linkGroups?.length || 0 },
+              { id: 'timeline', label: 'Gem Timeline', count: gems.length },
+            ].filter(tab => tab.id !== 'links' || tab.count > 0).map(tab => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`px-4 py-2.5 text-sm font-medium transition-all border-b-2 -mb-px ${
+                  activeTab === tab.id
+                    ? 'text-amber-300 border-amber-400'
+                    : 'text-zinc-500 border-transparent hover:text-zinc-300 hover:border-zinc-600'
+                }`}
+              >
+                {tab.label}
+                <span className={`ml-1.5 text-xs ${
+                  activeTab === tab.id ? 'text-amber-400/60' : 'text-zinc-600'
+                }`}>
+                  {tab.count}
+                </span>
+              </button>
+            ))}
 
-                      <img
-                        src={gem.icon}
-                        alt={gem.name}
-                        className="w-8 h-8 rounded border border-white/10"
-                      />
+            {/* Actions pushed to far right */}
+            <div className="ml-auto flex items-center gap-2">
+              <button
+                onClick={handleExportPlan}
+                className="px-3 py-1.5 rounded-lg text-xs font-medium bg-amber-500/10 border border-amber-400/20 text-amber-300 hover:bg-amber-500/20 hover:border-amber-400/30 transition-all"
+              >
+                Export
+              </button>
+              <button
+                onClick={handleExportJSON}
+                className="px-3 py-1.5 rounded-lg text-xs font-medium bg-zinc-900/40 border border-white/5 text-zinc-400 hover:border-white/10 hover:text-zinc-300 transition-colors"
+              >
+                JSON
+              </button>
+              <button
+                onClick={clearPlan}
+                className="px-3 py-1.5 rounded-lg text-xs text-zinc-500 hover:text-red-400 hover:bg-red-500/10 border border-white/5 hover:border-red-400/20 transition-colors"
+              >
+                Clear
+              </button>
+            </div>
+          </div>
 
-                      <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-2 mb-1">
-                          <p className={`text-sm font-medium truncate ${gem.obtained ? 'text-zinc-500 line-through' : 'text-zinc-200'}`}>
-                            {gem.name}
-                          </p>
-                          {/* Class-restricted badge */}
-                          {gem.source === 'quest' && characterClass && gem.classes.includes(characterClass) && (
-                            <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-400/30">
-                              Quest
-                            </span>
-                          )}
-                          {gem.source === 'quest' && characterClass && !gem.classes.includes(characterClass) && (
-                            <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-zinc-700/20 text-zinc-500 border border-zinc-600/30">
-                              Other Class
-                            </span>
-                          )}
-                        </div>
-                        <div className="flex items-center gap-2 text-xs text-zinc-500">
-                          <span className="text-amber-400/80 font-semibold">Requires Level {gem.level}</span>
-                          <span>•</span>
-                          <span>
-                            {gem.source === 'quest' && `Act ${gem.act}: ${gem.questName}`}
-                            {gem.source === 'siosa' && 'Siosa (Act 3)'}
-                            {gem.source === 'lilly' && 'Lilly Roth (Act 6)'}
-                          </span>
-                          {gem.colors && (
-                            <>
-                              <span>•</span>
-                              <span className="font-mono">{gem.colors}</span>
-                            </>
-                          )}
-                        </div>
+          {/* Tab Content */}
+          <div className="pt-2">
+            {/* Link Groups Tab */}
+            {activeTab === 'links' && <LinkGroupsSection />}
+
+            {/* Gem Timeline Tab */}
+            {activeTab === 'timeline' && (
+              <div className="space-y-4">
+                {Object.entries(gemsByLevel).map(([levelRange, gemsInRange]) => {
+                  if (gemsInRange.length === 0) return null;
+
+                  return (
+                    <div key={levelRange} className="glass-card rounded-xl p-5 space-y-4">
+                      <div className="flex items-center justify-between">
+                        <h3 className="text-sm font-semibold text-zinc-300">{levelRange}</h3>
+                        <span className="text-xs text-zinc-500">
+                          {gemsInRange.filter(g => g.obtained).length}/{gemsInRange.length} obtained
+                        </span>
                       </div>
 
-                      <button
-                        onClick={() => removeGem(gem.name)}
-                        className="p-2 rounded-lg hover:bg-red-500/10 transition-colors"
-                        title="Remove from plan"
-                      >
-                        <svg className="w-4 h-4 text-zinc-500 hover:text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                          <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
-                        </svg>
-                      </button>
+                      <div className="space-y-2">
+                        {gemsInRange.map((gem) => (
+                          <div
+                            key={gem.name}
+                            className={`flex items-center gap-3 p-3 rounded-lg border transition-all ${
+                              gem.obtained
+                                ? 'bg-emerald-500/5 border-emerald-400/20 opacity-60'
+                                : 'bg-zinc-900/40 border-white/5 hover:border-white/10'
+                            }`}
+                          >
+                            <button
+                              onClick={() => toggleObtained(gem.name)}
+                              className={`w-5 h-5 rounded border-2 flex items-center justify-center shrink-0 transition-colors ${
+                                gem.obtained
+                                  ? 'bg-emerald-500 border-emerald-400'
+                                  : 'border-zinc-600 hover:border-zinc-500'
+                              }`}
+                            >
+                              {gem.obtained && (
+                                <svg className="w-3 h-3 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={3}>
+                                  <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
+                                </svg>
+                              )}
+                            </button>
+
+                            <img
+                              src={gem.icon}
+                              alt={gem.name}
+                              className="w-8 h-8 rounded border border-white/10"
+                            />
+
+                            <div className="flex-1 min-w-0">
+                              <div className="flex items-center gap-2 mb-1">
+                                <p className={`text-sm font-medium truncate ${gem.obtained ? 'text-zinc-500 line-through' : 'text-zinc-200'}`}>
+                                  {gem.name}
+                                </p>
+                                {gem.source === 'quest' && characterClass && gem.classes.includes(characterClass) && (
+                                  <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-400/30">
+                                    Quest
+                                  </span>
+                                )}
+                                {gem.source === 'quest' && characterClass && !gem.classes.includes(characterClass) && (
+                                  <span className="px-1.5 py-0.5 rounded text-[10px] font-semibold bg-zinc-700/20 text-zinc-500 border border-zinc-600/30">
+                                    Other Class
+                                  </span>
+                                )}
+                              </div>
+                              <div className="flex items-center gap-2 text-xs text-zinc-500">
+                                <span className="text-amber-400/80 font-semibold">Requires Level {gem.level}</span>
+                                <span>•</span>
+                                <span>
+                                  {gem.source === 'quest' && `Act ${gem.act}: ${gem.questName}`}
+                                  {gem.source === 'siosa' && 'Siosa (Act 3)'}
+                                  {gem.source === 'lilly' && 'Lilly Roth (Act 6)'}
+                                </span>
+                                {gem.colors && (
+                                  <>
+                                    <span>•</span>
+                                    <span className="font-mono">{gem.colors}</span>
+                                  </>
+                                )}
+                              </div>
+                            </div>
+
+                            <button
+                              onClick={() => removeGem(gem.name)}
+                              className="p-2 rounded-lg hover:bg-red-500/10 transition-colors"
+                              title="Remove from plan"
+                            >
+                              <svg className="w-4 h-4 text-zinc-500 hover:text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
+                              </svg>
+                            </button>
+                          </div>
+                        ))}
+                      </div>
                     </div>
-                  ))}
-                </div>
+                  );
+                })}
               </div>
-            );
-          })}
-        </div>
+            )}
+          </div>
+        </>
       ) : (
         <div className="glass-card rounded-xl p-8 text-center">
           <svg className="w-12 h-12 text-zinc-600 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={1.5}>
@@ -775,32 +885,6 @@ export default function LevelingPlannerPage() {
           </svg>
           <p className="text-zinc-400">No gems in your plan yet</p>
           <p className="text-sm text-zinc-600 mt-1">Search and add gems above to get started</p>
-        </div>
-      )}
-
-      {/* Actions */}
-      {gems.length > 0 && (
-        <div className="flex flex-wrap items-center justify-between gap-3 mb-4">
-          <div className="flex items-center gap-2">
-            <button
-              onClick={handleExportPlan}
-              className="px-4 py-2 rounded-lg text-sm font-medium bg-amber-500/10 border border-amber-400/20 text-amber-300 hover:bg-amber-500/20 hover:border-amber-400/30 transition-all"
-            >
-              📋 Export Plan
-            </button>
-            <button
-              onClick={handleExportJSON}
-              className="px-4 py-2 rounded-lg text-sm font-medium bg-zinc-900/40 border border-white/5 text-zinc-400 hover:border-white/10 hover:text-zinc-300 transition-colors"
-            >
-              JSON
-            </button>
-          </div>
-          <button
-            onClick={clearPlan}
-            className="px-4 py-2 rounded-lg text-sm text-zinc-400 hover:text-red-400 hover:bg-red-500/10 border border-white/5 hover:border-red-400/20 transition-colors"
-          >
-            Clear Plan
-          </button>
         </div>
       )}
     </div>
