@@ -12,7 +12,6 @@ import { NavLink } from 'react-router-dom';
 import { getModuleTree } from '../modules/registry';
 import modules from '../modules/registry';
 import { usePinned } from '../contexts/PinnedContext';
-import { useDesign } from '../contexts/DesignContext';
 import { useLevelingMode } from '../contexts/LevelingModeContext';
 
 const CATEGORY_ROUTES = {
@@ -92,7 +91,6 @@ export default function Sidebar({ open, onClose }) {
   const [search, setSearch] = useState('');
   const [collapsed, setCollapsed] = useState({});
   const { pinnedIds, togglePin, isPinned } = usePinned();
-  const { variant, setVariant } = useDesign();
   const { isActive: isLevelingMode, enterLevelingMode } = useLevelingMode();
   const tree = useMemo(() => getModuleTree(), []);
 
@@ -109,19 +107,18 @@ export default function Sidebar({ open, onClose }) {
       )
     : null;
 
-  // Spreading prev into a new object just to flip one boolean. Peak JS immutability theater.
   function toggleCategory(cat) {
     setCollapsed(prev => {
-      const current = cat in prev ? prev[cat] : (variant === 'v2' && !!CATEGORY_ROUTES[cat]);
+      const current = cat in prev ? prev[cat] : !!CATEGORY_ROUTES[cat];
       return { ...prev, [cat]: !current };
     });
   }
 
-  // In v2, categories are collapsed by default (users click the category link instead).
-  // The chevron lets power users expand inline if they want direct tool access.
+  // Categories with hub routes are collapsed by default.
+  // The chevron lets power users expand inline for direct tool access.
   function isCategoryCollapsed(category) {
     if (category in collapsed) return collapsed[category];
-    return variant === 'v2' && !!CATEGORY_ROUTES[category];
+    return !!CATEGORY_ROUTES[category];
   }
 
   return (
@@ -206,45 +203,18 @@ export default function Sidebar({ open, onClose }) {
             /* Grouped navigation */
             Object.entries(tree).map(([category, subcategories]) => (
               <div key={category}>
-                {variant === 'v2' && CATEGORY_ROUTES[category] ? (
-                  <div className="flex items-center">
-                    <NavLink
-                      to={CATEGORY_ROUTES[category]}
-                      onClick={onClose}
-                      className={({ isActive }) =>
-                        `flex-1 px-3 py-2 text-[11px] uppercase tracking-wider font-semibold transition-colors ${
-                          isActive ? 'text-sky-400' : 'text-zinc-500 hover:text-zinc-300'
-                        }`
-                      }
-                    >
-                      {category}
-                    </NavLink>
-                    <button
-                      onClick={() => toggleCategory(category)}
-                      className="p-1 text-zinc-500 hover:text-zinc-300 transition-colors"
-                    >
-                      <svg
-                        className={`w-3 h-3 transition-transform duration-200 ${isCategoryCollapsed(category) ? '' : 'rotate-90'}`}
-                        fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}
-                      >
-                        <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                      </svg>
-                    </button>
-                  </div>
-                ) : (
-                  <button
-                    onClick={() => toggleCategory(category)}
-                    className="w-full flex items-center justify-between px-3 py-2 text-[11px] uppercase tracking-wider text-zinc-500 font-semibold hover:text-zinc-400 transition-colors"
+                <button
+                  onClick={() => toggleCategory(category)}
+                  className="w-full flex items-center justify-between px-3 py-2 text-[11px] uppercase tracking-wider text-zinc-500 font-semibold hover:text-zinc-300 transition-colors"
+                >
+                  {category}
+                  <svg
+                    className={`w-3 h-3 transition-transform duration-200 ${isCategoryCollapsed(category) ? '' : 'rotate-90'}`}
+                    fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}
                   >
-                    {category}
-                    <svg
-                      className={`w-3 h-3 transition-transform duration-200 ${isCategoryCollapsed(category) ? '' : 'rotate-90'}`}
-                      fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}
-                    >
-                      <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
-                    </svg>
-                  </button>
-                )}
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
 
                 {!isCategoryCollapsed(category) && (
                   <>
@@ -285,6 +255,23 @@ export default function Sidebar({ open, onClose }) {
                         ))}
                       </div>
                     ))}
+
+                    {/* View all link to category overview page */}
+                    {CATEGORY_ROUTES[category] && (
+                      <NavLink
+                        to={CATEGORY_ROUTES[category]}
+                        onClick={onClose}
+                        className={({ isActive }) =>
+                          `block ml-2 px-3 py-1.5 mb-1 rounded-lg text-xs transition-all duration-150 ${
+                            isActive
+                              ? 'text-sky-400'
+                              : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.04]'
+                          }`
+                        }
+                      >
+                        View all →
+                      </NavLink>
+                    )}
                   </>
                 )}
               </div>
@@ -316,35 +303,8 @@ export default function Sidebar({ open, onClose }) {
           )}
         </nav>
 
-        {/* Bottom pinned */}
-        <div className="border-t border-white/5 px-4 py-3 space-y-2">
-          {/* Layout variant toggle */}
-          <div className="flex items-center justify-center gap-2">
-            <span className="text-[10px] text-zinc-500">Layout</span>
-            <div className="flex rounded-full border border-white/[0.06] bg-zinc-900/60 p-0.5">
-              <button
-                onClick={() => setVariant('v1')}
-                className={`text-[10px] px-2.5 py-0.5 rounded-full font-medium transition-all ${
-                  variant === 'v1'
-                    ? 'bg-zinc-700 text-zinc-200'
-                    : 'text-zinc-500 hover:text-zinc-300'
-                }`}
-              >
-                v1
-              </button>
-              <button
-                onClick={() => setVariant('v2')}
-                className={`text-[10px] px-2.5 py-0.5 rounded-full font-medium transition-all ${
-                  variant === 'v2'
-                    ? 'bg-zinc-700 text-zinc-200'
-                    : 'text-zinc-500 hover:text-zinc-300'
-                }`}
-              >
-                v2
-              </button>
-            </div>
-          </div>
-          {/* Watermark */}
+        {/* Footer */}
+        <div className="border-t border-white/5 px-4 py-3">
           <div className="text-center">
             <span className="text-[10px] text-zinc-500">EtherealCarnivore</span>
           </div>

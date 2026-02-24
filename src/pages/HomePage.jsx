@@ -15,7 +15,6 @@ import YouTubeCard from '../components/YouTubeCard';
 import PatchNotesWidget from '../components/PatchNotesWidget';
 import LevelingModeEntryCard from '../components/LevelingModeEntryCard';
 import { usePinned } from '../contexts/PinnedContext';
-import { useDesign } from '../contexts/DesignContext';
 import { useLevelingMode } from '../contexts/LevelingModeContext';
 
 const CATEGORY_COLORS = {
@@ -218,7 +217,6 @@ export default function HomePage() {
   const [search, setSearch] = useState('');
   const [showCredits, setShowCredits] = useState(false);
   const { pinnedIds, togglePin, isPinned } = usePinned();
-  const { variant } = useDesign();
   const { isActive: isLevelingMode } = useLevelingMode();
 
   const pinnedModules = useMemo(
@@ -226,13 +224,15 @@ export default function HomePage() {
     [pinnedIds]
   );
 
-  const filtered = search
-    ? modules.filter(m =>
-        m.title.toLowerCase().includes(search.toLowerCase()) ||
-        m.description.toLowerCase().includes(search.toLowerCase()) ||
-        m.category.toLowerCase().includes(search.toLowerCase())
-      )
-    : modules;
+  const filtered = useMemo(() => {
+    if (!search) return [];
+    const q = search.toLowerCase();
+    return modules.filter(m =>
+      m.title.toLowerCase().includes(q) ||
+      m.description.toLowerCase().includes(q) ||
+      m.category.toLowerCase().includes(q)
+    );
+  }, [search]);
 
   return (
     <div className="space-y-8">
@@ -294,28 +294,10 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* v2 + no search: category hub cards */}
-      {variant === 'v2' && !search ? (
+      {/* Category hub cards (default) or search results */}
+      {search ? (
         <>
-          <div className="flex items-center gap-2 px-1 -mb-4">
-            <h2 className="text-xs font-semibold text-zinc-500 uppercase tracking-widest">Categories</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {CATEGORY_HUBS.map(hub => (
-              <CategoryHubCard key={hub.name} hub={hub} />
-            ))}
-          </div>
-        </>
-      ) : (
-        <>
-          {/* All Modules heading */}
-          {!search && pinnedModules.length > 0 && (
-            <div className="flex items-center gap-2 px-1 -mb-4">
-              <h2 className="text-xs font-semibold text-zinc-500 uppercase tracking-widest">All Modules</h2>
-            </div>
-          )}
-
-          {/* Module Cards Grid */}
+          {/* Search Results */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {filtered.map(mod => (
               <ModuleCard
@@ -330,6 +312,17 @@ export default function HomePage() {
           {filtered.length === 0 && (
             <p className="text-center text-zinc-500 text-sm py-8">No modules match your search.</p>
           )}
+        </>
+      ) : (
+        <>
+          <div className="flex items-center gap-2 px-1 -mb-4">
+            <h2 className="text-xs font-semibold text-zinc-500 uppercase tracking-widest">Categories</h2>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+            {CATEGORY_HUBS.map(hub => (
+              <CategoryHubCard key={hub.name} hub={hub} />
+            ))}
+          </div>
         </>
       )}
 
