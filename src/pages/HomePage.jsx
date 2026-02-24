@@ -19,8 +19,8 @@ import { useLevelingMode } from '../contexts/LevelingModeContext';
 
 const CATEGORY_COLORS = {
   'Crafting': 'from-sky-500/20 to-sky-500/5 border-sky-500/20',
-  'Atlas/Mapping': 'from-teal-500/20 to-teal-500/5 border-teal-500/20',
-  'Build Planning': 'from-violet-500/20 to-violet-500/5 border-violet-500/20',
+  'Atlas': 'from-teal-500/20 to-teal-500/5 border-teal-500/20',
+  'Jewels': 'from-violet-500/20 to-violet-500/5 border-violet-500/20',
 };
 
 const CATEGORY_HUBS = [
@@ -37,9 +37,9 @@ const CATEGORY_HUBS = [
     ),
   },
   {
-    name: 'Atlas / Mapping',
+    name: 'Atlas',
     route: '/atlas',
-    description: 'Map mod filtering and scarab regex tools',
+    description: 'Map mod filtering, scarab regex, and atlas tree planner',
     colors: 'from-teal-500/20 to-teal-500/5 border-teal-500/20',
     hoverAccent: 'group-hover:text-teal-400',
     icon: (
@@ -49,9 +49,9 @@ const CATEGORY_HUBS = [
     ),
   },
   {
-    name: 'Build Planning',
+    name: 'Jewels',
     route: '/build',
-    description: 'Jewel calculators and build optimization tools',
+    description: 'Cluster jewel and timeless jewel calculators',
     colors: 'from-violet-500/20 to-violet-500/5 border-violet-500/20',
     hoverAccent: 'group-hover:text-violet-400',
     icon: (
@@ -68,15 +68,10 @@ const SUBCATEGORY_ICONS = {
       <circle cx="12" cy="12" r="10" /><circle cx="12" cy="12" r="4" />
     </svg>
   ),
-  Linking: (
+  'Links & Sockets': (
     <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
       <path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71" />
       <path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71" />
-    </svg>
-  ),
-  Socketing: (
-    <svg className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
-      <rect x="3" y="3" width="18" height="18" rx="4" /><circle cx="12" cy="12" r="3" />
     </svg>
   ),
   Maps: (
@@ -177,7 +172,7 @@ function ModuleCard({ mod, pinned, onTogglePin }) {
 
 function CategoryHubCard({ hub }) {
   const toolCount = modules.filter(m =>
-    m.category === hub.name || (hub.name === 'Atlas / Mapping' && m.category === 'Atlas/Mapping')
+    m.category === hub.name
   ).length;
 
   return (

@@ -45,6 +45,7 @@ function saveBuilds(builds) {
 export function AtlasTreeProvider({ children }) {
   const { data: treeData, loading: dataLoading, error: dataError } = useAtlasTreeData();
   const [maxPoints, setMaxPoints] = useState(132);
+  const [brightness, setBrightness] = useState(1.3); // Default "Normal"
   const pathing = useAtlasPathing(treeData, maxPoints);
 
   const [builds, setBuilds] = useState(loadBuilds);
@@ -144,6 +145,10 @@ export function AtlasTreeProvider({ children }) {
     // Points
     maxPoints,
     setMaxPoints,
+
+    // Brightness
+    brightness,
+    setBrightness,
 
     // Pathing
     allocated: pathing.allocated,

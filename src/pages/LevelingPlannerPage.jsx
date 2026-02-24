@@ -321,7 +321,7 @@ export default function LevelingPlannerPage() {
 
     const json = JSON.stringify(exportData, null, 2);
     navigator.clipboard.writeText(json).then(() => {
-      alert('✅ JSON data copied to clipboard!\n\nYou can save this and import it later (import feature coming soon).');
+      alert('✅ JSON data copied to clipboard!\n\nYou can save this and import it later.');
     }).catch(() => {
       // Fallback: download as file
       const blob = new Blob([json], { type: 'application/json' });

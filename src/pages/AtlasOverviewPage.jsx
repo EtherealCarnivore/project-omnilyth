@@ -20,7 +20,7 @@ const ICONS = {
 const SUBCATEGORY_ORDER = ['Maps', 'Scarabs'];
 
 export default function AtlasOverviewPage() {
-  const atlasMods = modules.filter(m => m.category === 'Atlas/Mapping');
+  const atlasMods = modules.filter(m => m.category === 'Atlas');
   const grouped = {};
   for (const mod of atlasMods) {
     if (!grouped[mod.subcategory]) grouped[mod.subcategory] = [];
@@ -32,8 +32,8 @@ export default function AtlasOverviewPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-zinc-100">Atlas / Mapping</h1>
-        <p className="text-sm text-zinc-500 mt-1">Map mod filtering and scarab regex tools</p>
+        <h1 className="text-2xl font-bold text-zinc-100">Atlas</h1>
+        <p className="text-sm text-zinc-500 mt-1">Map mod filtering, scarab regex, and atlas tree planner</p>
       </div>
 
       <div className="flex flex-wrap gap-2">

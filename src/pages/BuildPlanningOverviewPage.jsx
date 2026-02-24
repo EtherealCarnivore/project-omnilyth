@@ -19,7 +19,7 @@ const ICONS = {
 const SUBCATEGORY_ORDER = ['Cluster Jewels', 'Timeless Jewels'];
 
 export default function BuildPlanningOverviewPage() {
-  const buildMods = modules.filter(m => m.category === 'Build Planning');
+  const buildMods = modules.filter(m => m.category === 'Jewels');
   const grouped = {};
   for (const mod of buildMods) {
     if (!grouped[mod.subcategory]) grouped[mod.subcategory] = [];
@@ -31,8 +31,8 @@ export default function BuildPlanningOverviewPage() {
   return (
     <div className="space-y-8">
       <div>
-        <h1 className="text-2xl font-bold text-zinc-100">Build Planning</h1>
-        <p className="text-sm text-zinc-500 mt-1">Jewel calculators and build optimization tools</p>
+        <h1 className="text-2xl font-bold text-zinc-100">Jewels</h1>
+        <p className="text-sm text-zinc-500 mt-1">Cluster jewel and timeless jewel calculators</p>
       </div>
 
       <div className="flex flex-wrap gap-2">
