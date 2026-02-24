@@ -10,10 +10,11 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { LeagueProvider } from './contexts/LeagueContext';
 import { PricesProvider } from './contexts/PricesContext';
 import { PinnedProvider } from './contexts/PinnedContext';
-import { DesignProvider } from './contexts/DesignContext';
+
 import { LevelingProgressProvider } from './contexts/LevelingProgressContext';
 import { LevelingModeProvider } from './contexts/LevelingModeContext';
 import { LevelingPlanProvider } from './contexts/LevelingPlanContext';
+import { PlaybookProvider } from './contexts/PlaybookContext';
 import { PatchNotesProvider } from './contexts/PatchNotesContext';
 import AppShell from './layout/AppShell';
 import HomePage from './pages/HomePage';
@@ -25,6 +26,9 @@ import PrivacyPage from './pages/PrivacyPage';
 import modules from './modules/registry';
 import GuideOverlay from './components/guides/GuideOverlay';
 
+// Clean up old v1/v2 layout toggle localStorage key (shipped v2, removed DesignContext)
+try { localStorage.removeItem('omnilyth_design_variant'); } catch {}
+
 export default function App() {
   return (
     // basename: GitHub Pages needs /omnilyth-core-public/, Netlify needs /
@@ -35,17 +39,17 @@ export default function App() {
       <LeagueProvider>
         <PricesProvider>
         <PinnedProvider>
-        <DesignProvider>
         <LevelingProgressProvider>
         <LevelingModeProvider>
         <LevelingPlanProvider>
+        <PlaybookProvider>
         <PatchNotesProvider>
           {/* Global guide overlay - toggle with G key */}
           <GuideOverlay />
           <Routes>
             <Route element={<AppShell />}>
               <Route index element={<HomePage />} />
-              {/* Category overview pages (v2 layout hubs) */}
+              {/* Category overview pages */}
               <Route path="/crafting" element={<CraftingOverviewPage />} />
               <Route path="/atlas" element={<AtlasOverviewPage />} />
               <Route path="/build" element={<BuildPlanningOverviewPage />} />
@@ -60,10 +64,10 @@ export default function App() {
             </Route>
           </Routes>
         </PatchNotesProvider>
+        </PlaybookProvider>
         </LevelingPlanProvider>
         </LevelingModeProvider>
         </LevelingProgressProvider>
-        </DesignProvider>
         </PinnedProvider>
         </PricesProvider>
       </LeagueProvider>
