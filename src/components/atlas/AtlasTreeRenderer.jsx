@@ -29,6 +29,7 @@ export default function AtlasTreeRenderer() {
     searchResults,
     hoveredNode,
     setHoveredNode,
+    brightness,
   } = useAtlasTree();
 
   // Set of node IDs in the rejected path (for red highlighting)
@@ -230,7 +231,7 @@ export default function AtlasTreeRenderer() {
               width={bgProps.width}
               height={bgProps.height}
               preserveAspectRatio="none"
-              style={{ filter: 'brightness(1.3)' }}
+              style={{ filter: `brightness(${brightness})` }}
             />
           )}
 
@@ -242,6 +243,7 @@ export default function AtlasTreeRenderer() {
                 x={gb.x}
                 y={gb.y}
                 sprite={gb.sprite}
+                brightness={brightness}
               />
             ))}
           </g>
@@ -300,6 +302,7 @@ export default function AtlasTreeRenderer() {
                 isHovered={hoveredNode === nodeId}
                 isRejected={rejectedNodes.has(nodeId)}
                 spriteMap={treeData.spriteMap}
+                brightness={brightness}
                 onClick={onNodeClick}
                 onMouseEnter={onNodeEnter}
                 onMouseLeave={onNodeLeave}

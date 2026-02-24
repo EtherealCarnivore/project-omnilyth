@@ -153,11 +153,11 @@ const MechanicsGuide = () => {
         </div>
       ))}
 
-      {/* Coming soon placeholder */}
-      <div className="mt-6 p-4 bg-amber-500/10 border border-amber-500/20 rounded-lg text-center">
-        <div className="text-amber-400 font-medium mb-2">🚧 Data Parsing in Progress</div>
-        <div className="text-white/50 text-sm">
-          Full mechanics guide with Oils, Cluster Jewels, Blight, and more coming soon!
+      {/* Placeholder for additional mechanics */}
+      <div className="mt-6 p-4 bg-zinc-800/50 border border-white/5 rounded-lg text-center">
+        <div className="text-zinc-400 font-medium mb-2">Data Parsing in Progress</div>
+        <div className="text-zinc-500 text-sm">
+          Additional mechanics guides (Oils, Cluster Jewels, Blight, and more) are being developed.
         </div>
       </div>
     </div>

@@ -34,12 +34,12 @@ export default function GemGridView({ gems, selectedClass, onSelectGem }) {
             onClick={() => onSelectGem(gem)}
             className="group relative bg-zinc-900/60 backdrop-blur-sm border border-white/[0.08] hover:border-amber-500/30 rounded-lg p-3 transition-all hover:scale-105"
           >
-            {/* Gem Icon - Reduced to 48px equivalent via padding */}
-            <div className="relative aspect-square mb-2">
+            {/* Gem Icon - Capped at native CDN size (47px) to avoid upscale blur */}
+            <div className="relative aspect-square mb-2 flex items-center justify-center">
               <img
                 src={gem.icon}
                 alt={gem.name}
-                className="w-full h-full object-cover rounded"
+                className="w-12 h-12 object-contain rounded"
                 loading="lazy"
               />
             </div>

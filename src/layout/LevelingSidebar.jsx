@@ -107,7 +107,7 @@ export default function LevelingSidebar({ open, onClose }) {
                     Acts 1-10
                   </NavLink>
                   <NavLink
-                    to="/leveling/preview"
+                    to="/leveling/gem-lookup"
                     onClick={onClose}
                     className={({ isActive }) => `
                       block px-3 py-2 rounded-lg text-sm transition-all duration-150

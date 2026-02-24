@@ -22,6 +22,8 @@ function AtlasTreePageInner() {
     loadFromHash,
     resetAllocations,
     treeData,
+    brightness,
+    setBrightness,
   } = useAtlasTree();
 
   const [sidebarTab, setSidebarTab] = useState('builds');
@@ -108,6 +110,29 @@ function AtlasTreePageInner() {
           {sidebarOpen ? 'Hide Panel' : 'Show Panel'} <span className="text-zinc-600">(S)</span>
         </button>
 
+        {/* Brightness presets */}
+        <div className="absolute bottom-10 left-4 hidden sm:flex items-center gap-1 bg-zinc-900/80 backdrop-blur-sm border border-white/10 rounded-lg px-2 py-1.5">
+          <span className="text-[10px] text-zinc-500 mr-1">Brightness</span>
+          {[
+            { label: 'Dark', value: 0.8 },
+            { label: 'Dim', value: 1.0 },
+            { label: 'Normal', value: 1.3 },
+            { label: 'Bright', value: 1.6 },
+          ].map(preset => (
+            <button
+              key={preset.label}
+              onClick={() => setBrightness(preset.value)}
+              className={`px-2 py-0.5 rounded text-[10px] transition-colors ${
+                brightness === preset.value
+                  ? 'bg-sky-500/20 text-sky-400 border border-sky-500/30'
+                  : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/5 border border-transparent'
+              }`}
+            >
+              {preset.label}
+            </button>
+          ))}
+        </div>
+
         {/* Keyboard shortcuts hint */}
         <div className="absolute bottom-4 left-4 text-[10px] text-zinc-600 space-x-3 hidden sm:block">
           <span>R: Reset</span>
@@ -158,7 +183,7 @@ function AtlasTreePageInner() {
               className="w-full px-3 py-2 rounded-lg text-xs bg-zinc-800/30 border border-white/5 text-zinc-600 cursor-not-allowed"
               title="Coming in Phase 2 — waiting on PoE API multi-slot access"
             >
-              Import from PoE — Coming Soon
+              Import from PoE — Not Yet Available
             </button>
           </div>
         </div>

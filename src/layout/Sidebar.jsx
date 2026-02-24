@@ -1,11 +1,6 @@
 /*
- * Sidebar.jsx — 245 lines of navigation UI that could have been a <ul>.
- *
- * Features: collapsible categories, pinned modules, search filtering,
- * "Coming Soon" copium section, and more inline SVG than any human
- * should have to look at. I used to write order book data structures in Java.
- * Red-black trees, lock-free queues, memory-mapped files. Now I'm toggling
- * CSS classes on a div. This is fine. Everything is fine.
+ * Sidebar.jsx — Navigation UI with collapsible categories, pinned modules,
+ * search filtering, and planned features section.
  */
 import { useState, useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
@@ -16,17 +11,12 @@ import { useLevelingMode } from '../contexts/LevelingModeContext';
 
 const CATEGORY_ROUTES = {
   'Crafting': '/crafting',
-  'Atlas/Mapping': '/atlas',
-  'Build Planning': '/build',
+  'Atlas': '/atlas',
+  'Jewels': '/build',
   'Leveling': '/leveling',
 };
 
-// Features we've promised but haven't built yet. Pure copium.
-const COMING_SOON = [
-  { category: 'Build Planning', items: ['DPS Simulator', 'Passive Planner'] },
-  { category: 'Trading/Economy', items: ['Bulk Exchange', 'Flip Tracker'] },
-  { category: 'Utilities', items: ['Stash Valuation', 'Seed Finder'] },
-];
+const PLANNED_FEATURES = ['Passive Planner', 'Stash Valuation', 'Seed Finder'];
 
 function PinButton({ isPinned, onClick }) {
   return (
@@ -278,25 +268,21 @@ export default function Sidebar({ open, onClose }) {
             ))
           )}
 
-          {/* Coming Soon */}
+          {/* Planned Features */}
           {!filtered && (
             <div className="pt-4 border-t border-white/5 mt-4">
-              {COMING_SOON.map(group => (
-                <div key={group.category} className="mb-2">
-                  <div className="px-3 py-2 text-[11px] uppercase tracking-wider text-zinc-500 font-semibold">
-                    {group.category}
-                  </div>
-                  {group.items.map(item => (
-                    <div
-                      key={item}
-                      className="px-3 py-1.5 ml-2 text-sm text-zinc-500 flex items-center gap-2"
-                    >
-                      {item}
-                      <span className="text-[11px] px-2 py-0.5 rounded-full bg-gradient-to-r from-purple-900/40 to-pink-900/40 border border-purple-500/20 text-purple-400/70 font-medium italic whitespace-nowrap" title="We're huffing copium over here">
-                        Soon&trade; <span className="not-italic">- Copium</span>
-                      </span>
-                    </div>
-                  ))}
+              <div className="px-3 py-2 text-[11px] uppercase tracking-wider text-zinc-500 font-semibold">
+                Planned Features
+              </div>
+              {PLANNED_FEATURES.map(item => (
+                <div
+                  key={item}
+                  className="px-3 py-1.5 ml-2 text-sm text-zinc-600 flex items-center gap-2"
+                >
+                  {item}
+                  <span className="text-[10px] px-1.5 py-0.5 rounded bg-zinc-800/60 border border-white/5 text-zinc-500">
+                    Planned
+                  </span>
                 </div>
               ))}
             </div>

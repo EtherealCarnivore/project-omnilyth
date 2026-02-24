@@ -48,7 +48,7 @@ function SpriteImage({ sprite, worldSize, className, brightness }) {
   );
 }
 
-function NodeIcon({ icon, spriteMap, isAllocated, type, radius }) {
+function NodeIcon({ icon, spriteMap, isAllocated, type, radius, brightness = 1.15 }) {
   if (!icon || !spriteMap) return null;
 
   let spriteInfo;
@@ -63,7 +63,7 @@ function NodeIcon({ icon, spriteMap, isAllocated, type, radius }) {
 
   // Icon fills the inner area of the frame (smaller than frame diameter)
   const iconSize = radius * 2 * 0.65;
-  return <SpriteImage sprite={spriteInfo} worldSize={iconSize} brightness={1.15} />;
+  return <SpriteImage sprite={spriteInfo} worldSize={iconSize} brightness={brightness} />;
 }
 
 function NodeFrame({ type, state, spriteMap, radius }) {
@@ -91,6 +91,7 @@ function AtlasNode({
   isHovered,
   isRejected,
   spriteMap,
+  brightness = 1.3,
   onClick,
   onMouseEnter,
   onMouseLeave,
@@ -107,6 +108,7 @@ function AtlasNode({
           isAllocated={false}
           type="mastery"
           radius={size}
+          brightness={brightness * 0.88}
         />
       </g>
     );
@@ -159,6 +161,7 @@ function AtlasNode({
         isAllocated={isAllocated}
         type={type}
         radius={size}
+        brightness={brightness * 0.88}
       />
     </g>
   );

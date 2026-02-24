@@ -296,7 +296,7 @@ function SupportDropdown() {
       {open && (
         <div className="absolute top-full right-0 mt-1 w-52 py-2 rounded-xl bg-zinc-900/95 backdrop-blur-xl border border-white/[0.15] shadow-xl shadow-black/40 z-50">
           <div className="px-3 pb-2 mb-1 border-b border-white/5">
-            <p className="text-[11px] text-zinc-500 leading-relaxed">Support links coming soon. Culture first.</p>
+            <p className="text-[11px] text-zinc-500 leading-relaxed">Support links not yet available.</p>
           </div>
 
           {/* Buy Me a Coffee */}
@@ -306,7 +306,7 @@ function SupportDropdown() {
             </svg>
             <div>
               <span className="text-sm text-zinc-300 block">Buy Me a Coffee</span>
-              <span className="text-[10px] text-zinc-500">Coming soon</span>
+              <span className="text-[10px] text-zinc-500">Not yet available</span>
             </div>
           </div>
 
@@ -317,7 +317,7 @@ function SupportDropdown() {
             </svg>
             <div>
               <span className="text-sm text-zinc-300 block">Patreon</span>
-              <span className="text-[10px] text-zinc-500">Coming soon</span>
+              <span className="text-[10px] text-zinc-500">Not yet available</span>
             </div>
           </div>
         </div>
