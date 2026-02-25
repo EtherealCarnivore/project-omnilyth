@@ -10,6 +10,8 @@ import ModeToggle from '../components/leveling/ModeToggle';
 import ActNavigation from '../components/leveling/ActNavigation';
 import ZoneCard from '../components/leveling/ZoneCard';
 import GemPlanPanel from '../components/leveling/GemPlanPanel';
+import PlaybookTogglePanel from '../components/leveling/PlaybookTogglePanel';
+import ActPlaybookOverview from '../components/leveling/ActPlaybookOverview';
 
 export default function LevelingModePage() {
   const { mode, resetProgress, areas } = useLevelingProgress();
@@ -77,6 +79,9 @@ export default function LevelingModePage() {
         </div>
       </div>
 
+      {/* Playbook Toggle Panel */}
+      <PlaybookTogglePanel />
+
       {/* Gem Plan Panel */}
       <GemPlanPanel currentAct={currentAct} />
 
@@ -92,6 +97,9 @@ export default function LevelingModePage() {
           {currentActAreas.length} zones • {currentActAreas.filter(a => a.hasWaypoint).length} waypoints
         </p>
       </div>
+
+      {/* Act Playbook Overview */}
+      <ActPlaybookOverview currentAct={currentAct} />
 
       {/* Zone List */}
       <div className="space-y-3">
@@ -114,17 +122,17 @@ export default function LevelingModePage() {
           href="/leveling/vendor-regex"
           className="bg-zinc-900/60 backdrop-blur-sm border border-white/[0.06] hover:border-teal-500/30 rounded-lg p-4 transition-colors group"
         >
-          <div className="flex items-center gap-3">
-            <svg className="w-5 h-5 text-teal-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+          <div className="flex items-center gap-3 min-w-0">
+            <svg className="w-5 h-5 text-teal-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
               <path d="M3 3h18v4H3V3z" />
               <path d="M3 7v14h18V7" />
               <path d="M8 10h8M8 14h5" />
             </svg>
-            <div>
-              <h3 className="font-medium text-zinc-200 group-hover:text-teal-400 transition-colors">
+            <div className="min-w-0 flex-1">
+              <h3 className="font-medium text-zinc-200 group-hover:text-teal-400 transition-colors truncate">
                 Vendor Leveling Regex
               </h3>
-              <p className="text-xs text-zinc-500 mt-0.5">
+              <p className="text-xs text-zinc-500 mt-0.5 truncate">
                 Find leveling gear at vendors
               </p>
             </div>
@@ -135,17 +143,17 @@ export default function LevelingModePage() {
           href="/leveling/gem-regex"
           className="bg-zinc-900/60 backdrop-blur-sm border border-white/[0.06] hover:border-teal-500/30 rounded-lg p-4 transition-colors group"
         >
-          <div className="flex items-center gap-3">
-            <svg className="w-5 h-5 text-teal-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
+          <div className="flex items-center gap-3 min-w-0">
+            <svg className="w-5 h-5 text-teal-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={1.5}>
               <path d="M12 2L2 9l10 13L22 9z" />
               <path d="M2 9h20" />
               <path d="M12 2l5 7-5 13-5-13z" />
             </svg>
-            <div>
-              <h3 className="font-medium text-zinc-200 group-hover:text-teal-400 transition-colors">
+            <div className="min-w-0 flex-1">
+              <h3 className="font-medium text-zinc-200 group-hover:text-teal-400 transition-colors truncate">
                 Gem Regex
               </h3>
-              <p className="text-xs text-zinc-500 mt-0.5">
+              <p className="text-xs text-zinc-500 mt-0.5 truncate">
                 Search for skill gems in stash
               </p>
             </div>

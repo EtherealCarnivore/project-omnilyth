@@ -49,6 +49,7 @@ input[type="number"] {
   background: rgba(24, 24, 27, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
   box-shadow:
     0 4px 24px rgba(0, 0, 0, 0.4),
     0 1px 0 rgba(255, 255, 255, 0.03) inset;
@@ -131,6 +132,20 @@ input[type="number"] {
   animation: fadeIn 0.2s ease-out both;
 }
 
+/* Animate-in utility for Tailwind 4 */
+.animate-in {
+  animation-duration: 0.15s;
+  animation-fill-mode: both;
+}
+
+.fade-in {
+  animation-name: fadeIn;
+}
+
+.duration-200 {
+  animation-duration: 200ms;
+}
+
 /* Skeleton shimmer loader */
 @keyframes shimmer {
   0%   { background-position: -200% 0; }
@@ -141,4 +156,36 @@ input[type="number"] {
   background-size: 200% 100%;
   animation: shimmer 1.5s infinite;
   border-radius: 0.375rem;
+}
+
+/* Custom scrollbar styles */
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: #3f3f46 transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  height: 6px;
+  width: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  background: #3f3f46;
+  border-radius: 3px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb:hover {
+  background: #52525b;
+}
+
+.scrollbar-thumb-zinc-700 {
+  scrollbar-color: #3f3f46 transparent;
+}
+
+.scrollbar-track-transparent {
+  scrollbar-color: #3f3f46 transparent;
 }
