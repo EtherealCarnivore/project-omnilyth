@@ -490,7 +490,114 @@ export function searchNodes(query, nodes) {
   return matches;
 }
 
-// ─── Diff (Phase 3 prep) ───────────────────────────────────────────────────
+// ─── Input Detection ────────────────────────────────────────────────────────
+
+/**
+ * Detect what kind of atlas tree input the user pasted.
+ * Returns { type: 'ggg'|'omnilyth'|'raw'|'unknown', hash }
+ */
+export function detectAtlasInput(input) {
+  if (!input || typeof input !== 'string') return { type: 'unknown', hash: '' };
+
+  const trimmed = input.trim();
+
+  // GGG URL: pathofexile.com/fullscreen-atlas-skill-tree/.../{hash}
+  const gggMatch = trimmed.match(
+    /pathofexile\.com\/fullscreen-atlas-skill-tree\/[^/]+\/([A-Za-z0-9_-]+)/
+  );
+  if (gggMatch) return { type: 'ggg', hash: gggMatch[1] };
+
+  // Omnilyth URL: .../atlas/tree#{hash} or .../atlas/tree#...
+  const omnilythMatch = trimmed.match(
+    /\/atlas\/tree#([A-Za-z0-9_+/=-]+)/
+  );
+  if (omnilythMatch) return { type: 'omnilyth', hash: omnilythMatch[1] };
+
+  // Raw hash: base64url characters only, reasonable length
+  if (/^[A-Za-z0-9_+/=-]{4,}$/.test(trimmed)) {
+    return { type: 'raw', hash: trimmed };
+  }
+
+  return { type: 'unknown', hash: '' };
+}
+
+/**
+ * Attempt to decode a GGG atlas hash.
+ * GGG format is not formally documented — try multiple strategies:
+ * 1. Base64url → raw bytes (no compression), varying header sizes
+ * 2. Base64url → pako inflate, varying header sizes
+ * Validates results against known node skill IDs.
+ */
+export function decodeGGGAtlasHash(hash, nodes) {
+  if (!hash) return new Set();
+
+  // Build a set of valid skill IDs for validation
+  const validSkills = new Set();
+  for (const node of Object.values(nodes)) {
+    if (node.skill) validSkills.add(node.skill);
+  }
+
+  // Base64url decode
+  let bytes;
+  try {
+    const base64 = hash.replace(/-/g, '+').replace(/_/g, '/');
+    const padded = base64 + '='.repeat((4 - base64.length % 4) % 4);
+    const binary = atob(padded);
+    bytes = new Uint8Array(binary.length);
+    for (let i = 0; i < binary.length; i++) {
+      bytes[i] = binary.charCodeAt(i);
+    }
+  } catch {
+    return new Set();
+  }
+
+  // Try decompressed first, then raw bytes, with header sizes 0-4
+  const candidates = [];
+
+  // Try pako inflate
+  try {
+    const decompressed = inflate(bytes);
+    candidates.push(decompressed);
+  } catch {
+    // Not compressed — that's expected for GGG format
+  }
+
+  // Also try raw bytes (GGG may not compress)
+  candidates.push(bytes);
+
+  for (const data of candidates) {
+    // Try header sizes 0-4 (skip N bytes, then read 2-byte skill IDs)
+    for (let headerSize = 0; headerSize <= 4; headerSize++) {
+      const remaining = data.length - headerSize;
+      if (remaining < 2 || remaining % 2 !== 0) continue;
+
+      const skillIds = new Set();
+      let allValid = true;
+
+      for (let i = headerSize; i < data.length; i += 2) {
+        const id = (data[i] << 8) | data[i + 1];
+        if (id === 0) { allValid = false; break; }
+        if (!validSkills.has(id)) { allValid = false; break; }
+        skillIds.add(id);
+      }
+
+      // Need at least 1 valid skill and all must be valid
+      if (allValid && skillIds.size > 0) {
+        const nodeIds = new Set();
+        for (const [nodeId, node] of Object.entries(nodes)) {
+          if (node.skill && skillIds.has(node.skill)) {
+            nodeIds.add(nodeId);
+          }
+        }
+        return nodeIds;
+      }
+    }
+  }
+
+  return new Set();
+}
+
+// ─── Diff ───────────────────────────────────────────────────────────────────
 
 /**
  * Compare two sets of allocated nodes and return the diff.

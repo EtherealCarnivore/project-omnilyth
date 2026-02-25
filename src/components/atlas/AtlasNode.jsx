@@ -7,7 +7,7 @@
  */
 
 import { memo } from 'react';
-import { NODE_SIZES, FRAME_NAMES } from '../../data/atlas/atlasTreeConstants';
+import { NODE_SIZES, FRAME_NAMES, DIFF_COLORS } from '../../data/atlas/atlasTreeConstants';
 
 // Sprite pixel sizes are at 0.3835 zoom — divide by this to get world-space
 const ZOOM_FACTOR = 0.3835;
@@ -90,6 +90,8 @@ function AtlasNode({
   isSearchMatch,
   isHovered,
   isRejected,
+  isDiffAdd,
+  isDiffRemove,
   spriteMap,
   brightness = 1.3,
   onClick,
@@ -143,6 +145,26 @@ function AtlasNode({
           stroke="#ef4444"
           strokeWidth={4}
           opacity={0.85}
+        />
+      )}
+
+      {/* Diff glow rings (behind frame) */}
+      {isDiffAdd && (
+        <circle
+          r={size + 8}
+          fill="none"
+          stroke={DIFF_COLORS.add}
+          strokeWidth={5}
+          opacity={0.8}
+        />
+      )}
+      {isDiffRemove && (
+        <circle
+          r={size + 8}
+          fill="none"
+          stroke={DIFF_COLORS.remove}
+          strokeWidth={5}
+          opacity={0.8}
         />
       )}
 

@@ -205,6 +205,17 @@ const modules = [
     component: lazy(() => import('../pages/AtlasTreePage')),
   },
   {
+    id: 'atlas-diff',
+    title: 'Atlas Tree Diff',
+    description: 'Compare two atlas trees and see exactly which nodes differ',
+    category: 'Atlas',
+    subcategory: 'Atlas Tree',
+    route: '/atlas/diff',
+    icon: 'atlas-tree',
+    fullWidth: true,
+    component: lazy(() => import('../pages/AtlasDiffPage')),
+  },
+  {
     id: 'regex-library',
     title: 'Regex Library',
     description: 'View and manage your saved regex patterns from all tools',
