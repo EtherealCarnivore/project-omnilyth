@@ -205,6 +205,17 @@ const modules = [
     component: lazy(() => import('../pages/AtlasTreePage')),
   },
   {
+    id: 'passive-tree',
+    title: 'Passive Tree Planner',
+    description: 'Plan your character passive skill tree with class and ascendancy selection',
+    category: 'Build Planning',
+    subcategory: 'Passive Tree',
+    route: '/build/passive-tree',
+    icon: 'passive-tree',
+    fullWidth: true,
+    component: lazy(() => import('../pages/PassiveTreePage')),
+  },
+  {
     id: 'regex-library',
     title: 'Regex Library',
     description: 'View and manage your saved regex patterns from all tools',

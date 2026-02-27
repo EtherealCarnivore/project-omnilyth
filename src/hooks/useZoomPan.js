@@ -6,11 +6,12 @@
  */
 
 import { useState, useRef, useCallback, useEffect } from 'react';
-import { ZOOM_CONFIG } from '../data/atlas/atlasTreeConstants';
+import { ZOOM_CONFIG as ATLAS_ZOOM_CONFIG } from '../data/atlas/atlasTreeConstants';
 
-export default function useZoomPan(bounds) {
+export default function useZoomPan(bounds, zoomConfig) {
+  const config = zoomConfig || ATLAS_ZOOM_CONFIG;
   const containerRef = useRef(null);
-  const [transform, setTransform] = useState({ x: 0, y: 0, scale: ZOOM_CONFIG.default });
+  const [transform, setTransform] = useState({ x: 0, y: 0, scale: config.default });
   const isPanning = useRef(false);
   const didDrag = useRef(false);
   const lastPointer = useRef({ x: 0, y: 0 });
@@ -22,11 +23,11 @@ export default function useZoomPan(bounds) {
   const fitToView = useCallback(() => {
     if (!containerRef.current || !bounds) return;
     const rect = containerRef.current.getBoundingClientRect();
-    const padding = ZOOM_CONFIG.fitPadding;
+    const padding = config.fitPadding;
 
     const scaleX = (rect.width - padding * 2) / bounds.width;
     const scaleY = (rect.height - padding * 2) / bounds.height;
-    const scale = Math.min(scaleX, scaleY, ZOOM_CONFIG.max);
+    const scale = Math.min(scaleX, scaleY, config.max);
 
     const cx = bounds.minX + bounds.width / 2;
     const cy = bounds.minY + bounds.height / 2;
@@ -42,8 +43,8 @@ export default function useZoomPan(bounds) {
   const zoomAt = useCallback((clientX, clientY, delta) => {
     setTransform(prev => {
       const newScale = Math.min(
-        ZOOM_CONFIG.max,
-        Math.max(ZOOM_CONFIG.min, prev.scale * (1 + delta))
+        config.max,
+        Math.max(config.min, prev.scale * (1 + delta))
       );
       const ratio = newScale / prev.scale;
 
@@ -64,7 +65,7 @@ export default function useZoomPan(bounds) {
   // Mouse wheel zoom
   const onWheel = useCallback((e) => {
     e.preventDefault();
-    const delta = e.deltaY > 0 ? -ZOOM_CONFIG.step : ZOOM_CONFIG.step;
+    const delta = e.deltaY > 0 ? -config.step : config.step;
     zoomAt(e.clientX, e.clientY, delta);
   }, [zoomAt]);
 
@@ -133,14 +134,14 @@ export default function useZoomPan(bounds) {
   const zoomIn = useCallback(() => {
     setTransform(prev => ({
       ...prev,
-      scale: Math.min(ZOOM_CONFIG.max, prev.scale * (1 + ZOOM_CONFIG.step)),
+      scale: Math.min(config.max, prev.scale * (1 + config.step)),
     }));
   }, []);
 
   const zoomOut = useCallback(() => {
     setTransform(prev => ({
       ...prev,
-      scale: Math.max(ZOOM_CONFIG.min, prev.scale * (1 - ZOOM_CONFIG.step)),
+      scale: Math.max(config.min, prev.scale * (1 - config.step)),
     }));
   }, []);
 
