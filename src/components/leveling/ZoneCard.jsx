@@ -6,9 +6,12 @@
 
 import { useState } from 'react';
 import { useLevelingProgress } from '../../contexts/LevelingProgressContext';
+import { usePlaybookEnrichment } from '../../hooks/usePlaybookEnrichment';
+import ZonePlaybookEnrichment from './ZonePlaybookEnrichment';
 
 export default function ZoneCard({ area }) {
   const { mode, completedZones, completedObjectives, toggleZone, toggleObjective } = useLevelingProgress();
+  const enrichment = usePlaybookEnrichment(area);
   const [showTips, setShowTips] = useState(false);
   const [showRecipes, setShowRecipes] = useState(false);
 
@@ -143,10 +146,10 @@ export default function ZoneCard({ area }) {
         <div className="mt-3 ml-8">
           <button
             onClick={() => setShowTips(!showTips)}
-            className="flex items-center gap-2 text-sm text-zinc-400 hover:text-zinc-300 transition-colors"
+            className="flex items-center gap-2 text-sm text-zinc-400 hover:text-zinc-300 transition-colors group"
           >
             <svg
-              className={`w-4 h-4 transition-transform ${showTips ? 'rotate-90' : ''}`}
+              className={`w-4 h-4 transition-transform duration-200 ${showTips ? 'rotate-90' : ''}`}
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -158,11 +161,11 @@ export default function ZoneCard({ area }) {
           </button>
 
           {showTips && (
-            <div className="mt-2 space-y-2">
+            <div className="mt-2 space-y-2 animate-in fade-in duration-200">
               {visibleTips.map((tip, idx) => (
                 <div key={idx} className="flex items-start gap-2 text-sm">
-                  <span className="text-amber-500 mt-0.5">💡</span>
-                  <p className="text-zinc-400 flex-1">{tip.content}</p>
+                  <span className="text-amber-500 mt-0.5 flex-shrink-0">💡</span>
+                  <p className="text-zinc-400 flex-1 break-words">{tip.content}</p>
                 </div>
               ))}
             </div>
@@ -175,10 +178,10 @@ export default function ZoneCard({ area }) {
         <div className="mt-3 ml-8">
           <button
             onClick={() => setShowRecipes(!showRecipes)}
-            className="flex items-center gap-2 text-sm text-zinc-400 hover:text-zinc-300 transition-colors"
+            className="flex items-center gap-2 text-sm text-zinc-400 hover:text-zinc-300 transition-colors group"
           >
             <svg
-              className={`w-4 h-4 transition-transform ${showRecipes ? 'rotate-90' : ''}`}
+              className={`w-4 h-4 transition-transform duration-200 ${showRecipes ? 'rotate-90' : ''}`}
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -190,17 +193,20 @@ export default function ZoneCard({ area }) {
           </button>
 
           {showRecipes && (
-            <div className="mt-2 space-y-2">
+            <div className="mt-2 space-y-2 animate-in fade-in duration-200">
               {visibleRecipes.map((recipe, idx) => (
                 <div key={idx} className="flex items-start gap-2 text-sm">
-                  <span className="text-yellow-500 mt-0.5">⚗️</span>
-                  <p className="text-zinc-400 flex-1">{recipe}</p>
+                  <span className="text-yellow-500 mt-0.5 flex-shrink-0">⚗️</span>
+                  <p className="text-zinc-400 flex-1 break-words">{recipe}</p>
                 </div>
               ))}
             </div>
           )}
         </div>
       )}
+
+      {/* Playbook Enrichment */}
+      <ZonePlaybookEnrichment enrichment={enrichment} />
     </div>
   );
 }
