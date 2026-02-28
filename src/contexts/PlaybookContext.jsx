@@ -27,6 +27,7 @@ const getDefaultState = () => ({
   completedItems: {}, // { 'act1-c1': true, 'act1-c2': false, ... }
   bookmarkedDecisions: [], // ['act2-d1', 'act3-d2']
   collapsedSections: {}, // { 'act1-gear': true, 'act2-quests': false }
+  playbookModeEnabled: false,
   lastUpdated: new Date().toISOString()
 });
 
@@ -220,6 +221,14 @@ export function PlaybookProvider({ children }) {
     }));
   };
 
+  // Toggle playbook mode on/off for leveling mode integration
+  const togglePlaybookMode = () => {
+    setState(prev => ({
+      ...prev,
+      playbookModeEnabled: !prev.playbookModeEnabled
+    }));
+  };
+
   // Reset all state
   const resetAll = () => {
     setState(getDefaultState());
@@ -261,6 +270,7 @@ export function PlaybookProvider({ children }) {
     completedItems: state.completedItems,
     bookmarkedDecisions: state.bookmarkedDecisions,
     collapsedSections: state.collapsedSections,
+    playbookModeEnabled: !!state.playbookModeEnabled,
 
     // Computed
     playbooks,
@@ -283,6 +293,7 @@ export function PlaybookProvider({ children }) {
     isSectionCollapsed,
     resetProgress,
     resetAll,
+    togglePlaybookMode,
 
     // Helpers
     getActProgress,

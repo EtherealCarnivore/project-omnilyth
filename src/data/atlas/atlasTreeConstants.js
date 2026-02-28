@@ -56,10 +56,19 @@ export const CONNECTION_COLORS = {
   partial:   { stroke: '#7a8598', strokeWidth: 3, opacity: 0.7 },
 };
 
-// Diff overlay colors (Phase 3)
+// Diff overlay colors
 export const DIFF_COLORS = {
   add: '#22c55e',
   remove: '#ef4444',
+  match: '#c8a24e',
+};
+
+// Diff connection line styles
+export const DIFF_CONNECTION_COLORS = {
+  add:     { stroke: '#22c55e', strokeWidth: 4, opacity: 0.9 },
+  remove:  { stroke: '#ef4444', strokeWidth: 4, opacity: 0.9 },
+  match:   { stroke: '#c8a24e', strokeWidth: 4, opacity: 0.95 },
+  idle:    { stroke: '#5a6578', strokeWidth: 3, opacity: 0.5 },
 };
 
 // Zoom configuration — tuned for ~11,000 unit coordinate space

@@ -16,6 +16,36 @@ export const acts123Data = {
   ],
   "areas": [
     {
+      "id": "act1-area-pre",
+      "name": "The Twilight Strand",
+      "act": 1,
+      "level": 1,
+      "hasWaypoint": false,
+      "isOptional": false,
+      "isTutorial": true,
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Kill Hillock and pick up starting weapon/gem",
+          "reward": "Skill gem (class-dependent)"
+        }
+      ],
+      "tips": [
+        {
+          "content": "Skip all monsters, run straight to Hillock",
+          "category": "combat",
+          "freshOnly": false
+        },
+        {
+          "content": "Pick up any gear drops to fill empty slots",
+          "category": "combat",
+          "freshOnly": true
+        }
+      ],
+      "craftingRecipes": []
+    },
+    {
       "id": "act1-area-0",
       "name": "Lioneye's Watch",
       "act": 1,
@@ -57,6 +87,32 @@ export const acts123Data = {
         {
           "content": "Pick up all movement speed boots at vendors",
           "category": "vendor",
+          "freshOnly": true
+        }
+      ],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act1-area-1s",
+      "name": "The Tidal Island",
+      "act": 1,
+      "level": 1,
+      "hasWaypoint": false,
+      "isOptional": true,
+      "isSideArea": true,
+      "parentZone": "act1-area-1",
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "Mercy Mission - Find the Medicine Chest",
+          "reward": "Quicksilver Flask"
+        }
+      ],
+      "tips": [
+        {
+          "content": "The Quicksilver Flask reward is essential for leveling speed",
+          "category": "quest",
           "freshOnly": true
         }
       ],
@@ -253,6 +309,37 @@ export const acts123Data = {
         }
       ],
       "tips": [],
+      "craftingRecipes": []
+    },
+    {
+      "id": "act1-area-11s",
+      "name": "The Ship Graveyard Cave",
+      "act": 1,
+      "level": 11,
+      "hasWaypoint": false,
+      "isOptional": true,
+      "isSideArea": true,
+      "parentZone": "act1-area-11",
+      "connections": [],
+      "objectives": [
+        {
+          "type": "quest",
+          "description": "The Marooned Mariner - Defeat Fairgraves for the Allflame",
+          "reward": "Book of Skill (2 passive points)"
+        }
+      ],
+      "tips": [
+        {
+          "content": "Short zone - Fairgraves is right at the end",
+          "category": "combat",
+          "freshOnly": false
+        },
+        {
+          "content": "Worth doing for the 2 passive skill points",
+          "category": "quest",
+          "freshOnly": true
+        }
+      ],
       "craftingRecipes": []
     },
     {
