@@ -14,9 +14,9 @@ const LEAGUE_CONFIG = {
   name: 'Mirage',
 
   // ISO 8601 UTC timestamp for league launch
-  // Typical PoE launch: Friday 2:00 PM PST = 22:00 UTC
+  // Mirage launch: Friday 19:00 UTC / 21:00 EET
   // Update this each league!
-  launchTimestamp: '2026-03-06T22:00:00Z',
+  launchTimestamp: '2026-03-06T19:00:00Z',
 
   // Optional league icon URL (set null if none available)
   iconUrl: null,

@@ -592,6 +592,60 @@ export const vendorLevelingStats = {
   }
 };
 
+// General stats available for all item types
+export const generalStats = [
+  // Attributes
+  { id: 'str', desc: '+# to Strength', regex: '\\+.*streng', minValue: 10, maxValue: 55, hasRange: true },
+  { id: 'dex', desc: '+# to Dexterity', regex: '\\+.*dexter', minValue: 10, maxValue: 55, hasRange: true },
+  { id: 'int', desc: '+# to Intelligence', regex: '\\+.*intell', minValue: 10, maxValue: 55, hasRange: true },
+  { id: 'all_attr', desc: '+# to all Attributes', regex: 'all.*attri', minValue: 5, maxValue: 20, hasRange: true },
+  { id: 'str_dex', desc: '+# to Strength and Dexterity', regex: 'streng.*dexter', minValue: 5, maxValue: 20, hasRange: true },
+  { id: 'str_int', desc: '+# to Strength and Intelligence', regex: 'streng.*intell', minValue: 5, maxValue: 20, hasRange: true },
+  { id: 'dex_int', desc: '+# to Dexterity and Intelligence', regex: 'dexter.*intell', minValue: 5, maxValue: 20, hasRange: true },
+
+  // Life & Mana
+  { id: 'gen_life', desc: '+# to maximum Life', regex: '\\+.*life', minValue: 20, maxValue: 139, hasRange: true },
+  { id: 'gen_mana', desc: '+# to maximum Mana', regex: '\\+.*mana', minValue: 20, maxValue: 75, hasRange: true },
+  { id: 'life_regen', desc: '# Life Regenerated per second', regex: 'life.*regen', minValue: 1, maxValue: 20, hasRange: true },
+  { id: 'mana_regen', desc: '#% increased Mana Regeneration Rate', regex: 'mana.*regen', minValue: 10, maxValue: 60, hasRange: true },
+
+  // Resistances
+  { id: 'gen_fire_res', desc: '+#% to Fire Resistance', regex: 'fire.*resis', minValue: 10, maxValue: 48, hasRange: true },
+  { id: 'gen_cold_res', desc: '+#% to Cold Resistance', regex: 'cold.*resis', minValue: 10, maxValue: 48, hasRange: true },
+  { id: 'gen_lightning_res', desc: '+#% to Lightning Resistance', regex: 'light.*resis', minValue: 10, maxValue: 48, hasRange: true },
+  { id: 'gen_chaos_res', desc: '+#% to Chaos Resistance', regex: 'chaos.*resis', minValue: 5, maxValue: 35, hasRange: true },
+  { id: 'all_ele_res', desc: '+#% to all Elemental Resistances', regex: 'all.*elem.*resis', minValue: 5, maxValue: 16, hasRange: true },
+
+  // Damage
+  { id: 'gen_phys_dmg', desc: 'Adds # to # Physical Damage to Attacks', regex: 'adds.*phys', minValue: 1, maxValue: 40, hasRange: true },
+  { id: 'gen_fire_dmg', desc: 'Adds # to # Fire Damage to Attacks', regex: 'adds.*fire', minValue: 1, maxValue: 40, hasRange: true },
+  { id: 'gen_cold_dmg', desc: 'Adds # to # Cold Damage to Attacks', regex: 'adds.*cold', minValue: 1, maxValue: 40, hasRange: true },
+  { id: 'gen_lightning_dmg', desc: 'Adds # to # Lightning Damage to Attacks', regex: 'adds.*light', minValue: 1, maxValue: 50, hasRange: true },
+  { id: 'spell_dmg', desc: '#% increased Spell Damage', regex: 'spell.*damag', minValue: 10, maxValue: 50, hasRange: true },
+  { id: 'gen_ele_dmg', desc: '#% increased Elemental Damage', regex: 'elem.*damag', minValue: 10, maxValue: 40, hasRange: true },
+
+  // Speed & Crit
+  { id: 'gen_attack_speed', desc: '#% increased Attack Speed', regex: 'attack.*spee', minValue: 5, maxValue: 27, hasRange: true },
+  { id: 'gen_cast_speed', desc: '#% increased Cast Speed', regex: 'cast.*spee', minValue: 5, maxValue: 20, hasRange: true },
+  { id: 'gen_ms', desc: '#% increased Movement Speed', regex: 'mov.*spee', minValue: 5, maxValue: 35, hasRange: true },
+  { id: 'gen_crit_chance', desc: '#% increased Global Critical Strike Chance', regex: 'crit.*chance', minValue: 10, maxValue: 38, hasRange: true },
+  { id: 'gen_crit_multi', desc: '+#% to Global Critical Strike Multiplier', regex: 'crit.*multi', minValue: 10, maxValue: 38, hasRange: true },
+
+  // Defence
+  { id: 'gen_armour', desc: '+# to Armour', regex: '\\+.*armour', minValue: 50, maxValue: 500, hasRange: true },
+  { id: 'gen_evasion', desc: '+# to Evasion Rating', regex: 'evasion', minValue: 50, maxValue: 500, hasRange: true },
+  { id: 'gen_es', desc: '+# to maximum Energy Shield', regex: 'energy.*shiel', minValue: 10, maxValue: 100, hasRange: true },
+  { id: 'inc_armour', desc: '#% increased Armour', regex: 'incr.*armour', minValue: 10, maxValue: 100, hasRange: true },
+  { id: 'inc_evasion', desc: '#% increased Evasion Rating', regex: 'incr.*evasion', minValue: 10, maxValue: 100, hasRange: true },
+  { id: 'inc_es', desc: '#% increased Energy Shield', regex: 'incr.*energy', minValue: 10, maxValue: 100, hasRange: true },
+
+  // Misc
+  { id: 'item_rarity', desc: '#% increased Rarity of Items found', regex: 'rarity', minValue: 10, maxValue: 40, hasRange: true },
+  { id: 'flask_charges', desc: '#% increased Flask Charges gained', regex: 'flask.*charge', minValue: 10, maxValue: 30, hasRange: true },
+  { id: 'flask_effect', desc: '#% increased Flask Effect Duration', regex: 'flask.*durat', minValue: 5, maxValue: 20, hasRange: true },
+  { id: 'stun_recovery', desc: '#% increased Stun and Block Recovery', regex: 'stun.*recov', minValue: 10, maxValue: 30, hasRange: true },
+];
+
 // Item base types by category
 export const vendorItemBases = {
   "Boots": [
