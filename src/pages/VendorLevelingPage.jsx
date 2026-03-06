@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { vendorLevelingStats, vendorItemBases, socketLimits, socketPresets } from '../data/vendorLevelingStats';
+import { vendorLevelingStats, vendorItemBases, socketLimits, socketPresets, generalStats } from '../data/vendorLevelingStats';
 import {
   generateVendorRegex,
   getTotalSockets,
@@ -7,6 +7,7 @@ import {
   validateLinkConfig
 } from '../calculators/vendorRegex';
 import SaveRegexButton from '../components/SaveRegexButton';
+import SocketVisual from '../components/SocketVisual';
 
 export default function VendorLevelingPage() {
   // State
@@ -21,6 +22,7 @@ export default function VendorLevelingPage() {
 
   // Stat selection
   const [selectedStats, setSelectedStats] = useState({});
+  const [statFilter, setStatFilter] = useState('');
 
   // Result
   const [result, setResult] = useState(null);
@@ -75,13 +77,15 @@ export default function VendorLevelingPage() {
     setResult(regex);
   }, [itemType, itemBase, includeBase, sockets, links, selectedStats]);
 
-  // Find stat by ID across priority and secondary lists
+  // Find stat by ID across priority, secondary, and general lists
   function findStatById(statId) {
     const stats = vendorLevelingStats[itemType];
-    if (!stats) return null;
-
-    const allStats = [...(stats.priority || []), ...(stats.secondary || [])];
-    return allStats.find(s => s.id === statId);
+    if (stats) {
+      const itemStats = [...(stats.priority || []), ...(stats.secondary || [])];
+      const found = itemStats.find(s => s.id === statId);
+      if (found) return found;
+    }
+    return generalStats.find(s => s.id === statId) || null;
   }
 
   // Handle preset change
@@ -161,14 +165,34 @@ export default function VendorLevelingPage() {
     }));
   }
 
-  // Copy to clipboard
+  // Copy to clipboard (with fallback for non-HTTPS)
   function handleCopy() {
     if (!result || !result.regex) return;
 
-    navigator.clipboard.writeText(result.regex).then(() => {
-      setCopied(true);
-      setTimeout(() => setCopied(false), 2000);
-    });
+    const text = result.regex;
+
+    if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(text).then(() => {
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      });
+    } else {
+      // Fallback for HTTP / insecure contexts
+      const textarea = document.createElement('textarea');
+      textarea.value = text;
+      textarea.style.position = 'fixed';
+      textarea.style.opacity = '0';
+      document.body.appendChild(textarea);
+      textarea.select();
+      try {
+        document.execCommand('copy');
+        setCopied(true);
+        setTimeout(() => setCopied(false), 2000);
+      } catch {
+        // silent fail
+      }
+      document.body.removeChild(textarea);
+    }
   }
 
   // Get current stats for selected item type
@@ -194,56 +218,120 @@ export default function VendorLevelingPage() {
         </p>
       </div>
 
-      <div className="grid lg:grid-cols-[1fr,400px] gap-6">
-        {/* LEFT: Configuration */}
-        <div className="space-y-4">
+      <div className="space-y-4 max-w-3xl mx-auto">
 
-          {/* Item Type Selection */}
-          <div className="glass-card space-y-3">
-            <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wide">Item Type</h2>
+        {/* Item Type Selection */}
+        <div className="glass-card space-y-3">
+          <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wide">Item Type</h2>
 
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-              {Object.keys(vendorItemBases).map(type => (
-                <button
-                  key={type}
-                  onClick={() => setItemType(type)}
-                  className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${
-                    itemType === type
-                      ? 'bg-indigo-500/20 text-indigo-300 ring-1 ring-indigo-400/30'
-                      : 'bg-zinc-900/60 text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/60'
-                  }`}
-                >
-                  {type}
-                </button>
-              ))}
-            </div>
-
-            {/* Base Selection */}
-            <div className="flex items-center gap-3 pt-2">
-              <input
-                type="checkbox"
-                id="includeBase"
-                checked={includeBase}
-                onChange={(e) => setIncludeBase(e.target.checked)}
-                className="w-4 h-4"
-              />
-              <label htmlFor="includeBase" className="text-sm text-zinc-400">
-                Include specific base:
-              </label>
-              <select
-                value={itemBase}
-                onChange={(e) => setItemBase(e.target.value)}
-                disabled={!includeBase}
-                className="calc-input flex-1 text-left"
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
+            {Object.keys(vendorItemBases).map(type => (
+              <button
+                key={type}
+                onClick={() => setItemType(type)}
+                className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+                  itemType === type
+                    ? 'bg-indigo-500/20 text-indigo-300 ring-1 ring-indigo-400/30'
+                    : 'bg-zinc-900/60 text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800/60'
+                }`}
               >
-                {vendorItemBases[itemType]?.map(base => (
-                  <option key={base} value={base}>{base}</option>
-                ))}
-              </select>
-            </div>
+                {type}
+              </button>
+            ))}
           </div>
 
-          {/* Socket Configuration */}
+          {/* Base Selection */}
+          <div className="flex items-center gap-3 pt-2">
+            <input
+              type="checkbox"
+              id="includeBase"
+              checked={includeBase}
+              onChange={(e) => setIncludeBase(e.target.checked)}
+              className="w-4 h-4"
+            />
+            <label htmlFor="includeBase" className="text-sm text-zinc-400">
+              Include specific base:
+            </label>
+            <select
+              value={itemBase}
+              onChange={(e) => setItemBase(e.target.value)}
+              disabled={!includeBase}
+              className="calc-input flex-1 text-left"
+            >
+              {vendorItemBases[itemType]?.map(base => (
+                <option key={base} value={base}>{base}</option>
+              ))}
+            </select>
+          </div>
+        </div>
+
+        {/* Regex Output */}
+        <div ref={resultRef} className="glass-card space-y-3">
+          <div className="flex items-center justify-between">
+            <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wide">Regex Output</h2>
+            <span className={`text-xs font-mono ${charColor}`}>
+              {charCount}<span className="text-zinc-400/60">/250</span>
+            </span>
+          </div>
+
+          {/* Regex Display */}
+          <div
+            className="bg-black/30 rounded-lg p-3 font-mono text-sm text-zinc-100 break-all min-h-[48px] cursor-pointer select-all"
+            onClick={handleCopy}
+            title="Click to copy"
+          >
+            {result && result.regex ? (
+              result.regex
+            ) : (
+              <span className="text-zinc-400/50">Select filters to generate regex...</span>
+            )}
+          </div>
+
+          {/* Progress Bar + Actions */}
+          <div className="flex items-center gap-3">
+            <div className="flex-1 h-1 rounded-full bg-zinc-950/80 overflow-hidden">
+              <div
+                className={`h-full transition-all ${barColor}`}
+                style={{ width: `${Math.min((charCount / 250) * 100, 100)}%` }}
+              />
+            </div>
+
+            {result && result.valid && result.regex && (
+              <div className="flex gap-2 shrink-0">
+                <button
+                  onClick={handleCopy}
+                  className={`px-3 py-1 text-xs font-medium rounded-lg transition-all ${
+                    copied
+                      ? 'bg-green-500/20 text-green-300'
+                      : 'bg-zinc-900/80 text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800'
+                  }`}
+                >
+                  {copied ? 'Copied!' : 'Copy'}
+                </button>
+                <SaveRegexButton
+                  pattern={result.regex}
+                  toolId="vendor-leveling"
+                  toolLabel="Vendor Leveling Regex"
+                  variant="compact"
+                />
+              </div>
+            )}
+          </div>
+
+          {/* Warnings */}
+          {result && result.warnings && result.warnings.length > 0 && (
+            <div className="space-y-1">
+              {result.warnings.map((warning, i) => (
+                <p key={i} className="text-xs text-yellow-400 flex items-start gap-1.5">
+                  <span className="mt-0.5">!</span>
+                  <span>{warning}</span>
+                </p>
+              ))}
+            </div>
+          )}
+        </div>
+
+        {/* Socket Configuration */}
           <div className="glass-card space-y-3">
             <div className="flex items-center justify-between">
               <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wide">
@@ -286,18 +374,18 @@ export default function VendorLevelingPage() {
                               <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125" />
                             </svg>
                           ) : (
-                            <div className="flex gap-0.5">
+                            <div className="flex gap-1">
                               {Array(preset.sockets?.r || 0).fill(0).map((_, i) => (
-                                <div key={`r${i}`} className="w-3.5 h-3.5 rounded-full bg-red-500 border border-red-600/50" />
+                                <MiniSocket key={`r${i}`} color="r" />
                               ))}
                               {Array(preset.sockets?.g || 0).fill(0).map((_, i) => (
-                                <div key={`g${i}`} className="w-3.5 h-3.5 rounded-full bg-green-500 border border-green-600/50" />
+                                <MiniSocket key={`g${i}`} color="g" />
                               ))}
                               {Array(preset.sockets?.b || 0).fill(0).map((_, i) => (
-                                <div key={`b${i}`} className="w-3.5 h-3.5 rounded-full bg-blue-500 border border-blue-600/50" />
+                                <MiniSocket key={`b${i}`} color="b" />
                               ))}
                               {Array(preset.sockets?.w || 0).fill(0).map((_, i) => (
-                                <div key={`w${i}`} className="w-3.5 h-3.5 rounded-full bg-zinc-300 border border-zinc-400/50" />
+                                <MiniSocket key={`w${i}`} color="w" />
                               ))}
                             </div>
                           )}
@@ -350,21 +438,44 @@ export default function VendorLevelingPage() {
                   Total sockets: {getTotalSockets(sockets)} / {currentLimits.maxSockets}
                   {links > 0 && ` | Requires at least ${links}-link`}
                 </div>
+
+                {/* Live socket visualization */}
+                {getTotalSockets(sockets) > 0 && (
+                  <div className="pt-2 border-t border-white/5">
+                    <SocketVisual sockets={sockets} links={links} layout="line" />
+                  </div>
+                )}
               </>
             )}
           </div>
 
           {/* Stat Selection */}
           <div className="glass-card space-y-3">
-            <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wide">
-              Stats
-            </h2>
+            <div className="flex items-center justify-between">
+              <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wide">
+                Stats
+              </h2>
+              <span className="text-xs text-zinc-500">
+                {Object.values(selectedStats).filter(s => s.enabled).length} selected
+              </span>
+            </div>
+
+            {/* Stat search */}
+            <input
+              type="text"
+              value={statFilter}
+              onChange={(e) => setStatFilter(e.target.value)}
+              placeholder="Filter stats... (life, res, speed)"
+              className="calc-input w-full text-xs"
+            />
 
             {/* Priority Stats */}
-            {priorityStats.length > 0 && (
+            {priorityStats.filter(s => !statFilter || s.desc.toLowerCase().includes(statFilter.toLowerCase())).length > 0 && (
               <div className="space-y-2">
                 <h3 className="text-xs text-indigo-400 font-medium uppercase">Priority</h3>
-                {priorityStats.map(stat => (
+                {priorityStats
+                  .filter(s => !statFilter || s.desc.toLowerCase().includes(statFilter.toLowerCase()))
+                  .map(stat => (
                   <StatRow
                     key={stat.id}
                     stat={stat}
@@ -377,10 +488,30 @@ export default function VendorLevelingPage() {
             )}
 
             {/* Secondary Stats */}
-            {secondaryStats.length > 0 && (
+            {secondaryStats.filter(s => !statFilter || s.desc.toLowerCase().includes(statFilter.toLowerCase())).length > 0 && (
               <div className="space-y-2 pt-2 border-t border-white/5">
                 <h3 className="text-xs text-zinc-400 font-medium uppercase">Secondary</h3>
-                {secondaryStats.map(stat => (
+                {secondaryStats
+                  .filter(s => !statFilter || s.desc.toLowerCase().includes(statFilter.toLowerCase()))
+                  .map(stat => (
+                  <StatRow
+                    key={stat.id}
+                    stat={stat}
+                    config={selectedStats[stat.id] || {}}
+                    onToggle={() => handleStatToggle(stat.id)}
+                    onValueChange={(value) => handleStatValueChange(stat.id, value)}
+                  />
+                ))}
+              </div>
+            )}
+
+            {/* General Stats (all item types) */}
+            {generalStats.filter(s => !statFilter || s.desc.toLowerCase().includes(statFilter.toLowerCase())).length > 0 && (
+              <div className="space-y-2 pt-2 border-t border-white/5">
+                <h3 className="text-xs text-amber-400/80 font-medium uppercase">General</h3>
+                {generalStats
+                  .filter(s => !statFilter || s.desc.toLowerCase().includes(statFilter.toLowerCase()))
+                  .map(stat => (
                   <StatRow
                     key={stat.id}
                     stat={stat}
@@ -392,134 +523,53 @@ export default function VendorLevelingPage() {
               </div>
             )}
           </div>
-        </div>
-
-        {/* RIGHT: Output */}
-        <div className="space-y-4">
-          {/* Result Box */}
-          <div ref={resultRef} className="glass-card fade-in space-y-3">
-            {/* Header */}
-            <div className="space-y-3">
-              <div className="flex items-center justify-between">
-                <h3 className="text-xs font-semibold text-indigo-300 uppercase">Output</h3>
-                <span className={`text-xs font-mono ${charColor}`}>
-                  {charCount}<span className="text-zinc-400/60">/250</span>
-                </span>
-              </div>
-
-              {/* Action Buttons */}
-              {result && result.valid && result.regex && (
-                <div className="flex gap-2">
-                  <button
-                    onClick={handleCopy}
-                    className={`flex-1 px-3 py-1.5 text-xs font-medium rounded-lg transition-all ${
-                      copied
-                        ? 'bg-indigo-500/30 text-indigo-200'
-                        : 'bg-zinc-900/80 text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800'
-                    }`}
-                  >
-                    {copied ? '✓ Copied!' : 'Copy'}
-                  </button>
-                  <SaveRegexButton
-                    pattern={result.regex}
-                    toolId="vendor-leveling"
-                    toolLabel="Vendor Leveling Regex"
-                    variant="compact"
-                  />
-                </div>
-              )}
-            </div>
-
-            {/* Regex Display */}
-            <div className="bg-black/30 rounded-lg p-3 font-mono text-sm text-zinc-100 break-all min-h-[80px]">
-              {result && result.regex ? (
-                result.regex
-              ) : (
-                <span className="text-zinc-400/50">Select filters to generate regex...</span>
-              )}
-            </div>
-
-            {/* Progress Bar */}
-            <div className="h-1 rounded-full bg-zinc-950/80 overflow-hidden">
-              <div
-                className={`h-full transition-all ${barColor}`}
-                style={{ width: `${Math.min((charCount / 250) * 100, 100)}%` }}
-              />
-            </div>
-
-            {/* Warnings */}
-            {result && result.warnings && result.warnings.length > 0 && (
-              <div className="space-y-1">
-                {result.warnings.map((warning, i) => (
-                  <p key={i} className="text-xs text-yellow-400 flex items-start gap-1.5">
-                    <span className="mt-0.5">⚠️</span>
-                    <span>{warning}</span>
-                  </p>
-                ))}
-              </div>
-            )}
-          </div>
-
-          {/* Usage Guide */}
-          <div className="glass-card space-y-3">
-            <h3 className="text-xs font-semibold text-zinc-300 uppercase">How to Use</h3>
-            <ol className="text-xs text-zinc-400 space-y-2">
-              <li className="flex items-start gap-2">
-                <span className="text-indigo-400 font-mono">1.</span>
-                <span>Copy the regex output above</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-indigo-400 font-mono">2.</span>
-                <span>Open your stash in-game</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-indigo-400 font-mono">3.</span>
-                <span>Click the search box</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-indigo-400 font-mono">4.</span>
-                <span>Paste the regex (Ctrl+V / Cmd+V)</span>
-              </li>
-              <li className="flex items-start gap-2">
-                <span className="text-indigo-400 font-mono">5.</span>
-                <span>Matching items will be highlighted!</span>
-              </li>
-            </ol>
-
-            <div className="pt-2 border-t border-white/5">
-              <p className="text-xs text-zinc-500">
-                <strong className="text-zinc-400">Tip:</strong> For boots, always prioritize Movement Speed during leveling!
-              </p>
-            </div>
-          </div>
-
-          {/* Socket Visual Guide */}
-          {getTotalSockets(sockets) > 0 && (
-            <div className="glass-card space-y-3">
-              <h3 className="text-xs font-semibold text-zinc-300 uppercase">Socket Pattern</h3>
-              <div className="flex flex-wrap gap-1.5">
-                {Array(sockets.w).fill(0).map((_, i) => (
-                  <div key={`w${i}`} className="w-8 h-8 rounded-full bg-zinc-300 border-2 border-zinc-400"></div>
-                ))}
-                {Array(sockets.r).fill(0).map((_, i) => (
-                  <div key={`r${i}`} className="w-8 h-8 rounded-full bg-red-500 border-2 border-red-600"></div>
-                ))}
-                {Array(sockets.g).fill(0).map((_, i) => (
-                  <div key={`g${i}`} className="w-8 h-8 rounded-full bg-green-500 border-2 border-green-600"></div>
-                ))}
-                {Array(sockets.b).fill(0).map((_, i) => (
-                  <div key={`b${i}`} className="w-8 h-8 rounded-full bg-blue-500 border-2 border-blue-600"></div>
-                ))}
-              </div>
-              {links > 0 && (
-                <p className="text-xs text-zinc-400">
-                  Looking for at least <strong className="text-indigo-300">{links}-link</strong>
-                </p>
-              )}
-            </div>
-          )}
-        </div>
       </div>
+    </div>
+  );
+}
+
+// Mini socket for preset buttons — PoE authentic style (CSS-based for performance)
+// Structure: Outer colored ring → Golden cradle ring → Dark hole
+const MINI_COLORS = {
+  r: 'border-red-500',
+  g: 'border-green-500',
+  b: 'border-blue-500',
+  w: 'border-zinc-300',
+};
+
+function MiniSocket({ color }) {
+  const ringColor = MINI_COLORS[color];
+
+  return (
+    <div className="relative w-5 h-5 flex items-center justify-center">
+      {/* Outer colored ring (gem socket) — 20px with 3px border */}
+      <div
+        className={`absolute inset-0 rounded-full border-[3px] ${ringColor}`}
+        style={{
+          background: 'transparent'
+        }}
+      />
+
+      {/* Golden cradle ring — 12px diameter, 2px border */}
+      <div
+        className="absolute rounded-full border-[2px]"
+        style={{
+          width: '12px',
+          height: '12px',
+          borderColor: '#9a7541',
+          background: 'transparent'
+        }}
+      />
+
+      {/* Dark center hole — 8px diameter */}
+      <div
+        className="absolute rounded-full"
+        style={{
+          width: '8px',
+          height: '8px',
+          background: 'radial-gradient(circle, #0a0908 0%, #1a1410 100%)'
+        }}
+      />
     </div>
   );
 }
