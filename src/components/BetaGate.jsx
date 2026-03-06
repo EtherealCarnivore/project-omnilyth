@@ -30,6 +30,8 @@
  */
 
 import { useState, useCallback, useEffect } from 'react';
+import LeagueCountdown from './LeagueCountdown';
+import LEAGUE_CONFIG from '../config/leagueConfig';
 
 // ══════════════════════════════════════════════════════════════
 // 🔐 CONFIGURATION - SECURE PASSWORD HASH
@@ -198,7 +200,12 @@ export default function BetaGate({ children }) {
 
   // Show login form
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-zinc-950">
+    <div className="min-h-screen flex flex-col items-center justify-center px-4 bg-zinc-950 gap-8">
+      {/* League Countdown (gate variant) */}
+      {LEAGUE_CONFIG.showCountdown && (
+        <LeagueCountdown variant="gate" />
+      )}
+
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="text-center mb-8">

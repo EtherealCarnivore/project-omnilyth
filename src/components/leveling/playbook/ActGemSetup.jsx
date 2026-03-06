@@ -34,7 +34,8 @@ export default function ActGemSetup({ actNumber, className = '' }) {
     add: 'Add Support',
     switch: 'Switch Main Skill',
     prepare: 'Prepare for Later',
-    remove: 'Remove'
+    remove: 'Remove',
+    keystone: 'Keystone / Passive'
   };
 
   const actionColors = {
@@ -42,7 +43,8 @@ export default function ActGemSetup({ actNumber, className = '' }) {
     add: 'bg-blue-500/20 border-blue-500/50 text-blue-400',
     switch: 'bg-purple-500/20 border-purple-500/50 text-purple-400',
     prepare: 'bg-yellow-500/20 border-yellow-500/50 text-yellow-400',
-    remove: 'bg-red-500/20 border-red-500/50 text-red-400'
+    remove: 'bg-red-500/20 border-red-500/50 text-red-400',
+    keystone: 'bg-amber-500/20 border-amber-500/50 text-amber-400'
   };
 
   return (

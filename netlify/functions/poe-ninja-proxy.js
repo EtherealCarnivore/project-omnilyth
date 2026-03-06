@@ -88,7 +88,8 @@ export async function handler(event) {
     // Validate that path starts with allowed endpoints
     const allowedPaths = [
       '/poe1/api/economy/exchange/current/details',
-      '/poe1/api/economy/exchange/current/overview'
+      '/poe1/api/economy/exchange/current/overview',
+      '/poe1/api/economy/stash/current/item/overview'
     ];
 
     const isAllowed = allowedPaths.some(allowed => path.startsWith(allowed));

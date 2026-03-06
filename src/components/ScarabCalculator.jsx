@@ -18,7 +18,8 @@ const isDev = import.meta.env.DEV;
 
 function ninjaUrl(path) {
   if (isDev) return `/api/poe-ninja${path}`;
-  return `https://corsproxy.io/?url=${encodeURIComponent(`https://poe.ninja${path}`)}`;
+  const proxyUrl = import.meta.env.VITE_PROXY_URL || '/.netlify/functions/poe-ninja-proxy';
+  return `${proxyUrl}?path=${encodeURIComponent(path)}`;
 }
 
 function RegexOutputBox({ regex, index, total }) {

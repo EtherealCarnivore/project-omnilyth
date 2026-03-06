@@ -15,6 +15,7 @@ import PassiveSummaryPanel from '../components/passive/PassiveSummaryPanel';
 import PassiveBuildManager from '../components/passive/PassiveBuildManager';
 import ClassSelector from '../components/passive/ClassSelector';
 import AscendancyPicker from '../components/passive/AscendancyPicker';
+import PassiveTreeVersionSelector from '../components/passive/PassiveTreeVersionSelector';
 import MasteryModal from '../components/passive/MasteryModal';
 
 function PassiveTreePageInner() {
@@ -116,7 +117,10 @@ function PassiveTreePageInner() {
         {/* Top-left: title + class selector + point counter */}
         <div className="absolute top-4 left-4 space-y-2 max-w-sm">
           <div className="bg-zinc-900/90 backdrop-blur-sm border border-white/10 rounded-lg px-4 py-2.5 space-y-2">
-            <div className="text-sm font-semibold text-zinc-100">Passive Tree Planner</div>
+            <div className="flex items-center justify-between gap-3">
+              <div className="text-sm font-semibold text-zinc-100">Passive Tree Planner</div>
+              <PassiveTreeVersionSelector />
+            </div>
             <ClassSelector />
             <AscendancyPicker />
             <PassivePointCounter />

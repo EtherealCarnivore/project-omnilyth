@@ -1,6 +1,7 @@
 /**
  * Patch Notes Widget - Dashboard component for latest PoE patch notes
  * Shows latest 3 patches with full-screen modal view
+ * Data sourced from PoE Wiki (poewiki.net)
  */
 
 import { useState, useEffect } from 'react';
@@ -112,7 +113,7 @@ const PatchNotesWidget = () => {
               </svg>
             </button>
             <a
-              href="https://www.reddit.com/r/pathofexile/search?q=flair_name%3A%22GGG%22&sort=new&restrict_sr=1"
+              href="https://www.poewiki.net/wiki/Version_history"
               target="_blank"
               rel="noopener noreferrer"
               className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors flex items-center gap-1"
@@ -148,7 +149,7 @@ const PatchNotesWidget = () => {
         {loading && patches.length === 0 && (
           <div className="p-8 flex flex-col items-center justify-center text-center">
             <div className="w-8 h-8 border-2 border-amber-500 border-t-transparent rounded-full animate-spin mb-3"></div>
-            <p className="text-zinc-400 text-sm">Loading patch notes from Reddit...</p>
+            <p className="text-zinc-400 text-sm">Loading patch notes...</p>
           </div>
         )}
 
@@ -206,8 +207,12 @@ const PatchNotesWidget = () => {
                     <span>{timeAgo(patch.posted)}</span>
                     <span>•</span>
                     {getCategoryBadge(patch.category)}
-                    <span>•</span>
-                    <span>{patch.comments} comments</span>
+                    {patch.version && (
+                      <>
+                        <span>•</span>
+                        <span>v{patch.version}</span>
+                      </>
+                    )}
                   </div>
 
                   {/* Highlights */}
@@ -243,7 +248,7 @@ const PatchNotesWidget = () => {
                       onClick={() => !isRead && markAsRead(patch.id)}
                       className="text-xs text-sky-400 hover:text-sky-300 transition-colors"
                     >
-                      Discussion →
+                      Wiki Page →
                     </a>
                   </div>
                 </div>
@@ -281,10 +286,12 @@ const PatchNotesWidget = () => {
                   <span>Posted {timeAgo(modalPatch.posted)}</span>
                   <span>•</span>
                   <span>by {modalPatch.author}</span>
-                  <span>•</span>
-                  <span>{modalPatch.upvotes} upvotes</span>
-                  <span>•</span>
-                  <span>{modalPatch.comments} comments</span>
+                  {modalPatch.version && (
+                    <>
+                      <span>•</span>
+                      <span>v{modalPatch.version}</span>
+                    </>
+                  )}
                 </div>
               </div>
 
@@ -367,7 +374,7 @@ const PatchNotesWidget = () => {
                     rel="noopener noreferrer"
                     className="px-4 py-2 bg-sky-500/20 hover:bg-sky-500/30 text-sky-400 rounded-lg transition-colors text-sm font-medium"
                   >
-                    Reddit Discussion →
+                    Wiki Page →
                   </a>
                 </div>
               </div>

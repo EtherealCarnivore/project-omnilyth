@@ -2,14 +2,35 @@
  * GemPlanPanel
  * Shows your planned gems in the leveling mode page
  * Filters by current act and shows only relevant gems
+ * Supports auto-import from active playbooks
  */
 import { useState } from 'react';
 import { useLevelingPlan } from '../../contexts/LevelingPlanContext';
+import { usePlaybook } from '../../contexts/PlaybookContext';
+import { buildGemPlanFromPlaybook } from '../../utils/playbookGemParser';
+import { gemAvailabilityData } from '../../data/leveling/gemAvailability';
 import { Link } from 'react-router-dom';
 
 export default function GemPlanPanel({ currentAct = 1 }) {
-  const { gems, toggleObtained, stats } = useLevelingPlan();
+  const { gems, toggleObtained, stats, importFromPlaybook } = useLevelingPlan();
+  const { currentPlaybook } = usePlaybook();
   const [isExpanded, setIsExpanded] = useState(true);
+  const [showReloadConfirm, setShowReloadConfirm] = useState(false);
+
+  const handleImportFromPlaybook = () => {
+    if (!currentPlaybook) return;
+    const { gems: parsedGems, linkGroups } = buildGemPlanFromPlaybook(currentPlaybook, gemAvailabilityData);
+    importFromPlaybook(parsedGems, linkGroups, currentPlaybook.class);
+  };
+
+  const handleReloadFromPlaybook = () => {
+    if (showReloadConfirm) {
+      handleImportFromPlaybook();
+      setShowReloadConfirm(false);
+    } else {
+      setShowReloadConfirm(true);
+    }
+  };
 
   // Filter gems relevant to current act
   const relevantGems = gems.filter(gem => {
@@ -38,18 +59,33 @@ export default function GemPlanPanel({ currentAct = 1 }) {
           <div>
             <p className="text-sm text-zinc-400 font-medium">No Gem Plan Yet</p>
             <p className="text-xs text-zinc-600 mt-1">
-              Create a leveling plan to track your gems
+              {currentPlaybook
+                ? `Import gems from your active playbook or create a manual plan`
+                : 'Create a leveling plan to track your gems'}
             </p>
           </div>
-          <Link
-            to="/leveling/planner"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-amber-500/10 border border-amber-400/20 text-amber-300 hover:bg-amber-500/20 hover:border-amber-400/30 transition-all"
-          >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-              <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
-            </svg>
-            Create Plan
-          </Link>
+          <div className="flex flex-col items-center gap-2">
+            {currentPlaybook && (
+              <button
+                onClick={handleImportFromPlaybook}
+                className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-emerald-500/10 border border-emerald-400/20 text-emerald-300 hover:bg-emerald-500/20 hover:border-emerald-400/30 transition-all"
+              >
+                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+                </svg>
+                Load from {currentPlaybook.name}
+              </button>
+            )}
+            <Link
+              to="/leveling/planner"
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium bg-amber-500/10 border border-amber-400/20 text-amber-300 hover:bg-amber-500/20 hover:border-amber-400/30 transition-all"
+            >
+              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />
+              </svg>
+              Create Plan
+            </Link>
+          </div>
         </div>
       </div>
     );
@@ -75,10 +111,30 @@ export default function GemPlanPanel({ currentAct = 1 }) {
             </div>
           </div>
           <div className="flex items-center gap-2">
+            {currentPlaybook && (
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleReloadFromPlaybook();
+                }}
+                className={`p-1.5 rounded-lg transition-colors ${
+                  showReloadConfirm
+                    ? 'bg-red-500/20 hover:bg-red-500/30'
+                    : 'hover:bg-white/5'
+                }`}
+                title={showReloadConfirm ? 'Click again to confirm' : 'Reload from playbook'}
+                onBlur={() => setShowReloadConfirm(false)}
+              >
+                <svg className={`w-4 h-4 ${showReloadConfirm ? 'text-red-400' : 'text-zinc-400'}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M16.023 9.348h4.992v-.001M2.985 19.644v-4.992m0 0h4.992m-4.993 0l3.181 3.183a8.25 8.25 0 0013.803-3.7M4.031 9.865a8.25 8.25 0 0113.803-3.7l3.181 3.182" />
+                </svg>
+              </button>
+            )}
             <Link
               to="/leveling/planner"
               className="p-1.5 rounded-lg hover:bg-white/5 transition-colors"
               title="Edit plan"
+              onClick={(e) => e.stopPropagation()}
             >
               <svg className="w-4 h-4 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
@@ -192,11 +248,17 @@ function GemChecklistItem({ gem, toggleObtained, disabled }) {
       )}
 
       {/* Gem icon */}
-      <img
-        src={gem.icon}
-        alt={gem.name}
-        className="w-7 h-7 rounded border border-white/10"
-      />
+      {gem.icon ? (
+        <img
+          src={gem.icon}
+          alt={gem.name}
+          className="w-7 h-7 rounded border border-white/10"
+        />
+      ) : (
+        <div className="w-7 h-7 rounded border border-white/10 bg-zinc-800 flex items-center justify-center">
+          <span className="text-xs text-zinc-500">?</span>
+        </div>
+      )}
 
       {/* Gem info */}
       <div className="flex-1 min-w-0 text-left">
@@ -215,6 +277,7 @@ function GemChecklistItem({ gem, toggleObtained, disabled }) {
           )}
           {gem.source === 'siosa' && <span>Siosa</span>}
           {gem.source === 'lilly' && <span>Lilly</span>}
+          {gem.source === 'unknown' && <span className="text-zinc-600">Unknown source</span>}
         </div>
       </div>
 

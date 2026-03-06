@@ -5,11 +5,12 @@
  */
 
 import lightningArrowRangerPlaybook from './lightning-arrow-ranger.js';
+import smiteScionPlaybook from './smite-scion.js';
 
 // Registry of all playbooks
 export const playbooks = [
-  lightningArrowRangerPlaybook
-  // Add more playbooks here as they're created
+  lightningArrowRangerPlaybook,
+  smiteScionPlaybook,
 ];
 
 // Helper to get playbook by ID

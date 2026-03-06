@@ -9,25 +9,35 @@
  * - Chromatic Calculator
  */
 
+import { useState, useCallback } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useLevelingMode } from '../contexts/LevelingModeContext';
 import { useLevelingProgress } from '../contexts/LevelingProgressContext';
 import TrialsTracker from '../components/leveling/TrialsTracker';
+import ExitLevelingModal, { shouldSkipExitConfirm } from '../components/ExitLevelingModal';
 
 export default function LevelingSidebar({ open, onClose }) {
   const { exitLevelingMode } = useLevelingMode();
   const { progress, mode, getOverallProgress } = useLevelingProgress();
+  const [showExitModal, setShowExitModal] = useState(false);
 
   // Mock data for now - will be replaced with real progress
   const overallProgress = 35; // percentage
 
-  const handleExitMode = () => {
-    // TODO: Add confirmation dialog if significant progress
-    if (window.confirm('Exit Leveling Mode? Your progress will be saved.')) {
+  const handleExitMode = useCallback(() => {
+    if (shouldSkipExitConfirm()) {
       exitLevelingMode();
       onClose();
+    } else {
+      setShowExitModal(true);
     }
-  };
+  }, [exitLevelingMode, onClose]);
+
+  const confirmExit = useCallback(() => {
+    setShowExitModal(false);
+    exitLevelingMode();
+    onClose();
+  }, [exitLevelingMode, onClose]);
 
   return (
     <>
@@ -233,6 +243,13 @@ export default function LevelingSidebar({ open, onClose }) {
           </div>
         </div>
       </aside>
+
+      {showExitModal && (
+        <ExitLevelingModal
+          onConfirm={confirmExit}
+          onCancel={() => setShowExitModal(false)}
+        />
+      )}
     </>
   );
 }

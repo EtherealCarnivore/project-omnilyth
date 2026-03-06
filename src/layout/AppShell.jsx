@@ -38,7 +38,7 @@ export default function AppShell() {
 
         <Topbar onMenuClick={() => setSidebarOpen(prev => !prev)} />
 
-        <main className={`flex-1 ${isFullWidth ? '' : 'overflow-y-auto'}`}>
+        <main className={`flex-1 ${isFullWidth ? 'overflow-hidden' : 'overflow-y-auto'}`}>
           <div className={isFullWidth ? 'h-full px-4 sm:px-6 py-6 sm:py-8' : 'max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8'}>
             {/* Suspense boundary for lazy-loaded modules. The spinner is pure CSS — */}
             {/* because importing a spinner library to show while other things load felt too ironic */}
