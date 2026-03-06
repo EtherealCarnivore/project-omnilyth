@@ -1,6 +1,6 @@
 /**
- * Patch Notes Guide - Official PoE patch notes from Reddit
- * Now with full-screen modal and Escape key support
+ * Patch Notes Guide - Official PoE patch notes from PoE Wiki
+ * Full-screen modal with Escape key support
  */
 
 import { useState, useEffect } from 'react';
@@ -28,8 +28,8 @@ const PatchNotesGuide = () => {
     setIsRefreshing(true);
 
     // Clear cache
-    localStorage.removeItem('omnilyth_patch_notes_cache');
-    localStorage.removeItem('omnilyth_patch_notes_last_fetch');
+    localStorage.removeItem('omnilyth_patch_notes_cache_v5');
+    localStorage.removeItem('omnilyth_patch_notes_last_fetch_v5');
 
     // Fetch fresh data
     await fetchPatches();
@@ -147,7 +147,7 @@ const PatchNotesGuide = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div className="text-white/70 text-sm">
-          🔔 Official PoE Patch Notes from GGG
+          Official PoE Patch Notes
         </div>
         <div className="flex items-center gap-2">
           {/* Sort dropdown */}
@@ -268,12 +268,14 @@ const PatchNotesGuide = () => {
                       rel="noopener noreferrer"
                       className="text-xs text-sky-400 hover:text-sky-300 transition-colors"
                     >
-                      Discussion ({patch.comments}) →
+                      Wiki Page →
                     </a>
 
-                    <span className="text-xs text-white/30 ml-auto">
-                      {patch.upvotes} upvotes
-                    </span>
+                    {patch.version && (
+                      <span className="text-xs text-white/30 ml-auto">
+                        v{patch.version}
+                      </span>
+                    )}
                   </div>
                 </div>
               </div>
@@ -284,9 +286,9 @@ const PatchNotesGuide = () => {
 
       {/* Footer */}
       <div className="mt-6 p-4 bg-amber-500/10 border border-amber-500/20 rounded-lg text-center">
-        <div className="text-amber-400 font-medium mb-2">📰 Patch Notes from Reddit</div>
+        <div className="text-amber-400 font-medium mb-2">Patch Notes from PoE Wiki</div>
         <div className="text-white/50 text-sm">
-          Showing official GGG posts from r/pathofexile. Updates every hour.
+          Official patch notes sourced from poewiki.net. Updates every 10 minutes.
         </div>
       </div>
 
@@ -318,10 +320,12 @@ const PatchNotesGuide = () => {
                   <span>Posted {timeAgo(modalPatch.posted)}</span>
                   <span>•</span>
                   <span>by {modalPatch.author}</span>
-                  <span>•</span>
-                  <span>{modalPatch.upvotes} upvotes</span>
-                  <span>•</span>
-                  <span>{modalPatch.comments} comments</span>
+                  {modalPatch.version && (
+                    <>
+                      <span>•</span>
+                      <span>v{modalPatch.version}</span>
+                    </>
+                  )}
                 </div>
               </div>
 
@@ -404,7 +408,7 @@ const PatchNotesGuide = () => {
                     rel="noopener noreferrer"
                     className="px-4 py-2 bg-sky-500/20 hover:bg-sky-500/30 text-sky-400 rounded-lg transition-colors text-sm font-medium"
                   >
-                    Reddit Discussion →
+                    Wiki Page →
                   </a>
                 </div>
               </div>

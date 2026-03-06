@@ -260,14 +260,10 @@ export default function VendorLevelingPage() {
               </div>
             ) : (
               <>
-                {/* Preset Dropdown */}
-                <div className="space-y-1">
+                {/* Socket Presets — visual grid */}
+                <div className="space-y-1.5">
                   <label className="text-xs text-zinc-400">Socket Preset</label>
-                  <select
-                    value={socketPreset}
-                    onChange={(e) => handlePresetChange(e.target.value)}
-                    className="calc-input w-full"
-                  >
+                  <div className="flex flex-wrap gap-1.5">
                     {socketPresets
                       .filter(preset => {
                         if (preset.id === 'custom') return true;
@@ -275,11 +271,39 @@ export default function VendorLevelingPage() {
                         return getTotalSockets(preset.sockets) <= currentLimits.maxSockets;
                       })
                       .map(preset => (
-                        <option key={preset.id} value={preset.id}>
-                          {preset.label}
-                        </option>
+                        <button
+                          key={preset.id}
+                          onClick={() => handlePresetChange(preset.id)}
+                          title={preset.label}
+                          className={`px-2 py-1.5 rounded-lg border transition-all ${
+                            socketPreset === preset.id
+                              ? 'bg-indigo-500/20 border-indigo-400/40 ring-1 ring-indigo-400/30'
+                              : 'bg-zinc-900/60 border-white/[0.06] hover:border-zinc-500/40 hover:bg-zinc-800/60'
+                          }`}
+                        >
+                          {preset.id === 'custom' ? (
+                            <svg className="w-4 h-4 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                              <path strokeLinecap="round" strokeLinejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125" />
+                            </svg>
+                          ) : (
+                            <div className="flex gap-0.5">
+                              {Array(preset.sockets?.r || 0).fill(0).map((_, i) => (
+                                <div key={`r${i}`} className="w-3.5 h-3.5 rounded-full bg-red-500 border border-red-600/50" />
+                              ))}
+                              {Array(preset.sockets?.g || 0).fill(0).map((_, i) => (
+                                <div key={`g${i}`} className="w-3.5 h-3.5 rounded-full bg-green-500 border border-green-600/50" />
+                              ))}
+                              {Array(preset.sockets?.b || 0).fill(0).map((_, i) => (
+                                <div key={`b${i}`} className="w-3.5 h-3.5 rounded-full bg-blue-500 border border-blue-600/50" />
+                              ))}
+                              {Array(preset.sockets?.w || 0).fill(0).map((_, i) => (
+                                <div key={`w${i}`} className="w-3.5 h-3.5 rounded-full bg-zinc-300 border border-zinc-400/50" />
+                              ))}
+                            </div>
+                          )}
+                        </button>
                       ))}
-                  </select>
+                  </div>
                 </div>
 
                 {/* Socket inputs */}

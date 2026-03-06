@@ -151,6 +151,7 @@ const modules = [
     subcategory: 'Guide',
     route: '/leveling/mode',
     icon: 'guide',
+    fullWidth: true,
     component: lazy(() => import('../pages/LevelingModePage')),
   },
   {

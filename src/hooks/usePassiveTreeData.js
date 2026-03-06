@@ -4,12 +4,24 @@
  * Dynamic import so the large JSON doesn't bloat the initial bundle.
  * Processes raw data into render-ready structures with pre-calculated positions.
  * Also extracts sprite sheet data for node icons, masteries, class starts, and jewel sockets.
+ *
+ * Supports multiple tree versions (e.g. 3.27, 3.28) with per-version caching.
  */
 
 import { useState, useEffect, useRef } from 'react';
 import { calculateAllPositions, buildAdjacencyList, getBoundingBox, getNodeType, isAllocatable, getBridgeNodes } from '../calculators/passiveTree';
 
-let cachedData = null;
+// Per-version cache — avoids reprocessing when switching back and forth
+const cache = {};
+
+// Vite requires static paths for dynamic imports — map versions to their loaders
+const VERSION_LOADERS = {
+  '3.28': () => import('../data/passive/passiveTreeData_3_28.json'),
+  '3.27': () => import('../data/passive/passiveTreeData_3_27.json'),
+};
+
+export const AVAILABLE_VERSIONS = Object.keys(VERSION_LOADERS).sort((a, b) => parseFloat(b) - parseFloat(a));
+export const DEFAULT_VERSION = AVAILABLE_VERSIONS[0]; // Latest first
 
 // Use the highest zoom level for best icon quality
 const BEST_ZOOM = '0.3835';
@@ -162,77 +174,107 @@ function extractAscendancyMap(nodes) {
   return ascendancyMap;
 }
 
-export default function usePassiveTreeData() {
-  const [data, setData] = useState(cachedData);
-  const [loading, setLoading] = useState(!cachedData);
+/**
+ * Process raw GGG JSON into render-ready data structures.
+ */
+function processTreeData(json) {
+  const nodes = json.nodes;
+  const groups = json.groups;
+  const positions = calculateAllPositions(nodes, groups);
+  const adjacencyList = buildAdjacencyList(nodes);
+  const bridgeNodes = getBridgeNodes(nodes);
+  const bounds = getBoundingBox(positions);
+  const spriteMap = buildSpriteMap(json.sprites || {});
+  const classData = extractClassData(nodes, positions);
+  const ascendancyMap = extractAscendancyMap(nodes);
+
+  // Build a lookup of nodeId → skill for encoding
+  const skillToNodeId = {};
+  for (const [nodeId, node] of Object.entries(nodes)) {
+    if (node.skill) {
+      skillToNodeId[node.skill] = nodeId;
+    }
+  }
+
+  // Pre-compute node metadata for fast access
+  const nodeMeta = {};
+  for (const [nodeId, node] of Object.entries(nodes)) {
+    nodeMeta[nodeId] = {
+      type: getNodeType(node),
+      allocatable: isAllocatable(nodeId, node),
+    };
+  }
+
+  return {
+    nodes,
+    groups,
+    positions,
+    adjacencyList,
+    bridgeNodes,
+    bounds,
+    skillToNodeId,
+    nodeMeta,
+    spriteMap,
+    classData,
+    ascendancyMap,
+    constants: json.constants,
+    totalPoints: json.points?.totalPoints || 123,
+  };
+}
+
+export default function usePassiveTreeData(version = DEFAULT_VERSION) {
+  const [data, setData] = useState(cache[version] || null);
+  const [loading, setLoading] = useState(!cache[version]);
   const [error, setError] = useState(null);
-  const loadedRef = useRef(false);
+  const loadingRef = useRef(null); // tracks which version is currently loading
 
   useEffect(() => {
-    if (cachedData || loadedRef.current) {
-      if (cachedData) setData(cachedData);
+    // Already cached
+    if (cache[version]) {
+      setData(cache[version]);
+      setLoading(false);
+      setError(null);
       return;
     }
-    loadedRef.current = true;
+
+    // Already loading this version
+    if (loadingRef.current === version) return;
+
+    const loader = VERSION_LOADERS[version];
+    if (!loader) {
+      setError(new Error(`Unknown tree version: ${version}`));
+      setLoading(false);
+      return;
+    }
+
+    loadingRef.current = version;
+    setLoading(true);
+    setError(null);
 
     (async () => {
       try {
-        const raw = await import('../data/passive/passiveTreeData.json');
+        const raw = await loader();
         const json = raw.default || raw;
+        const processed = processTreeData(json);
 
-        const nodes = json.nodes;
-        const groups = json.groups;
-        const positions = calculateAllPositions(nodes, groups);
-        const adjacencyList = buildAdjacencyList(nodes);
-        const bridgeNodes = getBridgeNodes(nodes);
-        const bounds = getBoundingBox(positions);
-        const spriteMap = buildSpriteMap(json.sprites || {});
-        const classData = extractClassData(nodes, positions);
-        const ascendancyMap = extractAscendancyMap(nodes);
+        cache[version] = processed;
 
-        // Build a lookup of nodeId → skill for encoding
-        const skillToNodeId = {};
-        for (const [nodeId, node] of Object.entries(nodes)) {
-          if (node.skill) {
-            skillToNodeId[node.skill] = nodeId;
-          }
+        // Only update state if this version is still the requested one
+        if (loadingRef.current === version) {
+          setData(processed);
         }
-
-        // Pre-compute node metadata for fast access
-        const nodeMeta = {};
-        for (const [nodeId, node] of Object.entries(nodes)) {
-          nodeMeta[nodeId] = {
-            type: getNodeType(node),
-            allocatable: isAllocatable(nodeId, node),
-          };
-        }
-
-        const processed = {
-          nodes,
-          groups,
-          positions,
-          adjacencyList,
-          bridgeNodes,
-          bounds,
-          skillToNodeId,
-          nodeMeta,
-          spriteMap,
-          classData,
-          ascendancyMap,
-          constants: json.constants,
-          totalPoints: json.points?.totalPoints || 123, // Default for passive tree
-        };
-
-        cachedData = processed;
-        setData(processed);
       } catch (err) {
-        console.error('[usePassiveTreeData] Failed to load passive tree data:', err);
-        setError(err);
+        console.error(`[usePassiveTreeData] Failed to load version ${version}:`, err);
+        if (loadingRef.current === version) {
+          setError(err);
+        }
       } finally {
-        setLoading(false);
+        if (loadingRef.current === version) {
+          setLoading(false);
+        }
       }
     })();
-  }, []);
+  }, [version]);
 
   return { data, loading, error };
 }

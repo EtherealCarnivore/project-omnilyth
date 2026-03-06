@@ -7,7 +7,7 @@
  */
 
 import { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
-import usePassiveTreeData from '../hooks/usePassiveTreeData';
+import usePassiveTreeData, { DEFAULT_VERSION } from '../hooks/usePassiveTreeData';
 import usePassivePathing from '../hooks/usePassivePathing';
 import { encodePassiveTree, decodePassiveTree, searchNodes, groupStatsByCategory } from '../calculators/passiveTree';
 import { TOTAL_PASSIVE_POINTS, TOTAL_ASCENDANCY_POINTS } from '../data/passive/passiveTreeConstants';
@@ -45,7 +45,9 @@ function saveBuildsToStorage(builds) {
 }
 
 export function PassiveTreeProvider({ children }) {
-  const { data: treeData, loading: dataLoading, error: dataError } = usePassiveTreeData();
+  // Tree version selection
+  const [treeVersion, setTreeVersionRaw] = useState(DEFAULT_VERSION);
+  const { data: treeData, loading: dataLoading, error: dataError } = usePassiveTreeData(treeVersion);
 
   // Class & ascendancy selection
   const [selectedClass, setSelectedClass] = useState(null); // classIndex (0-6) or null
@@ -93,6 +95,16 @@ export function PassiveTreeProvider({ children }) {
   useEffect(() => {
     saveBuildsToStorage(builds);
   }, [builds]);
+
+  // Change tree version — resets everything
+  const setTreeVersion = useCallback((newVersion) => {
+    if (newVersion === treeVersion) return;
+    setTreeVersionRaw(newVersion);
+    setSelectedClass(null);
+    setSelectedAscendancy(null);
+    setMasterySelections(new Map());
+    setActiveBuildId(null);
+  }, [treeVersion]);
 
   // Change class — resets allocations
   const selectClass = useCallback((classIndex) => {
@@ -233,6 +245,8 @@ export function PassiveTreeProvider({ children }) {
     treeData,
     dataLoading,
     dataError,
+    treeVersion,
+    setTreeVersion,
 
     // Class & ascendancy
     selectedClass,

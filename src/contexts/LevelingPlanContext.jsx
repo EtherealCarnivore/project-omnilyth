@@ -122,6 +122,17 @@ export function LevelingPlanProvider({ children }) {
     }));
   };
 
+  // Import a complete plan from a playbook (replaces entire plan)
+  const importFromPlaybook = (gems, linkGroups, className) => {
+    setPlan({
+      characterClass: className || null,
+      gems,
+      linkGroups,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    });
+  };
+
   // Clear entire plan
   const clearPlan = () => {
     setPlan(defaultPlan);
@@ -193,6 +204,7 @@ export function LevelingPlanProvider({ children }) {
     setLinkGroups,
     updateLinkCount,
     removeLinkGroup,
+    importFromPlaybook,
     clearPlan,
     gemsByLevel,
     socketRequirements,
@@ -214,8 +226,8 @@ export function useLevelingPlan() {
   return context;
 }
 
-// Helper: Estimate gem level based on availability
-function estimateGemLevel(gemData) {
+// Helper: Estimate gem level based on availability (exported for playbookGemParser)
+export function estimateGemLevel(gemData) {
   const firstAvailability = gemData.availability?.[0];
   if (!firstAvailability) return 1;
 
@@ -265,8 +277,8 @@ function estimateGemLevel(gemData) {
   return 1;
 }
 
-// Helper: Estimate gem socket colors based on name
-function estimateGemColors(gemName) {
+// Helper: Estimate gem socket colors based on name (exported for playbookGemParser)
+export function estimateGemColors(gemName) {
   const name = gemName.toLowerCase();
 
   // Support gems (usually same color as what they support)

@@ -10,7 +10,7 @@
  */
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
-const CACHE_KEY = 'poe_leagues_cache_v2';
+const CACHE_KEY = 'poe_leagues_cache_v3';
 const CACHE_TTL = 24 * 60 * 60 * 1000; // 24h TTL. My market data cache expires in 50μs. This one? A whole day. Living slow.
 
 // Use serverless proxy to avoid CORS issues (pathofexile.com blocks direct browser requests)
@@ -54,12 +54,10 @@ function classifyLeague(id) {
   return 'softcore';
 }
 
-// Hardcoded fallback in case API is down and no cache exists
+// Hardcoded fallback in case API is down and no cache exists.
+// Only permanent leagues here — challenge league names change every ~3 months
+// and the API will sort the current one to the top when it's live.
 const FALLBACK_LEAGUES = [
-  { value: 'Keepers', label: 'Keepers', kind: 'softcore' },
-  { value: 'Hardcore Keepers', label: 'HC Keepers', kind: 'hardcore' },
-  { value: 'Phrecia 2.0', label: 'Phrecia 2.0', kind: 'event' },
-  { value: 'Hardcore Phrecia 2.0', label: 'HC Phrecia 2.0', kind: 'hc-event' },
   { value: 'Standard', label: 'Standard', kind: 'softcore' },
   { value: 'Hardcore', label: 'Hardcore', kind: 'hardcore' },
 ];

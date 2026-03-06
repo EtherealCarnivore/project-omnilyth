@@ -13,9 +13,11 @@ import { Link } from 'react-router-dom';
 import modules from '../modules/registry';
 import YouTubeCard from '../components/YouTubeCard';
 import PatchNotesWidget from '../components/PatchNotesWidget';
+import LeagueCountdown from '../components/LeagueCountdown';
 import LevelingModeEntryCard from '../components/LevelingModeEntryCard';
 import { usePinned } from '../contexts/PinnedContext';
 import { useLevelingMode } from '../contexts/LevelingModeContext';
+import LEAGUE_CONFIG from '../config/leagueConfig';
 
 const CATEGORY_COLORS = {
   'Crafting': 'from-sky-500/20 to-sky-500/5 border-sky-500/20',
@@ -262,6 +264,9 @@ export default function HomePage() {
         />
       </div>
 
+      {/* League Countdown (dashboard variant) */}
+      {!search && LEAGUE_CONFIG.showCountdown && <LeagueCountdown variant="dashboard" />}
+
       {/* Leveling Mode Entry Card - Only show when not in mode and not searching */}
       {!search && !isLevelingMode && <LevelingModeEntryCard />}
 
@@ -343,6 +348,11 @@ export default function HomePage() {
               <a href="https://github.com/Siveran/siveran.github.io" className="underline hover:text-zinc-300 transition-colors">Source Code</a>
               {' '}&bull;{' '}CC0 2026
             </p>
+            <div className="mt-3 pt-3 border-t border-zinc-800">
+              <Link to="/privacy" className="text-amber-400 hover:text-amber-300 transition-colors">
+                Privacy & Open Source Credits
+              </Link>
+            </div>
           </footer>
         )}
       </div>
