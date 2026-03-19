@@ -1,5 +1,5 @@
-const RELEASE_URL = 'https://github.com/EtherealCarnivore/omnilyth-watcher/releases/latest';
-const REPO_URL = 'https://github.com/EtherealCarnivore/omnilyth-watcher';
+const RELEASE_URL = '/downloads/omnilyth-watcher-0.1.0-setup.exe';
+const REPO_URL = null; // private repo
 
 const FEATURES = [
   {
@@ -64,15 +64,6 @@ export default function WatcherPage() {
           >
             <DownloadIcon />
             Download latest release
-          </a>
-          <a
-            href={REPO_URL}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-zinc-800/60 border border-zinc-700/50 text-zinc-300 font-medium text-sm hover:bg-zinc-800 hover:text-zinc-100 transition-colors"
-          >
-            <GithubIcon />
-            View source on GitHub
           </a>
         </div>
 
