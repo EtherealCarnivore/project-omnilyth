@@ -228,6 +228,16 @@ const modules = [
     component: lazy(() => import('../pages/AtlasDiffPage')),
   },
   {
+    id: 'watcher',
+    title: 'Omnilyth Watcher',
+    description: 'Desktop app for real-time PoE trade notifications via live WebSocket',
+    category: 'Tools',
+    subcategory: 'Desktop',
+    route: '/tools/watcher',
+    icon: 'watcher',
+    component: lazy(() => import('../pages/WatcherPage')),
+  },
+  {
     id: 'regex-library',
     title: 'Regex Library',
     description: 'View and manage your saved regex patterns from all tools',
