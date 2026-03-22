@@ -213,7 +213,9 @@ function InlineToggle({ label, enabled, include, onToggle, onModeChange }) {
 
 /* ── Trade URL builder ── */
 function buildMapTradeUrl(league, settings) {
-  const mapFilters = {};
+  const mapFilters = {
+    map_tier: { min: 16 },
+  };
   const miscFilters = {};
 
   if (settings.quantity && Number(settings.quantity) > 0) {
@@ -234,13 +236,11 @@ function buildMapTradeUrl(league, settings) {
   }
 
   const filters = {
-    type_filters: { filters: { category: { option: 'map' } } },
+    type_filters: { disabled: false, filters: { category: { option: 'map' } } },
+    map_filters: { disabled: false, filters: mapFilters },
   };
-  if (Object.keys(mapFilters).length > 0) {
-    filters.map_filters = { filters: mapFilters };
-  }
   if (Object.keys(miscFilters).length > 0) {
-    filters.misc_filters = { filters: miscFilters };
+    filters.misc_filters = { disabled: false, filters: miscFilters };
   }
 
   const body = {
