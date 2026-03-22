@@ -269,3 +269,143 @@ export function generateMapModRegex(settings, regex) {
 
   return optimize(result);
 }
+
+/* ── Regex Import (reverse-parse a generated regex back into settings) ── */
+
+export function parseMapRegex(input, regexData) {
+  const settings = {
+    badIds: [], goodIds: [], allGoodMods: false,
+    quantity: '', optimizeQuant: false,
+    packsize: '', optimizePacksize: false,
+    itemRarity: '', mapDropChance: '',
+    quality: { regular: '', currency: '', divination: '', rarity: '', packSize: '', scarab: '' },
+    optimizeQuality: false, anyQuality: false,
+    rarity: { normal: false, magic: false, rare: false, include: true },
+    corrupted: { enabled: false, include: true },
+    unidentified: { enabled: false, include: true },
+  };
+
+  if (!input || !input.trim()) return settings;
+
+  const terms = tokenizeRegex(input.trim());
+
+  const numericPrefixes = [
+    { prefix: 'm q.*', quantKey: 'quantity', optKey: 'optimizeQuant' },
+    { prefix: 'iz.*', quantKey: 'packsize', optKey: 'optimizePacksize' },
+    { prefix: 'm rar.*', quantKey: 'itemRarity', optKey: null },
+    { prefix: 're maps.*', quantKey: 'mapDropChance', optKey: null },
+  ];
+
+  for (const term of terms) {
+    const isQuoted = term.startsWith('"');
+    const content = isQuoted ? term.slice(1, -1) : term;
+
+    // Unquoted: corrupted / unidentified / bare include mods (allGoodMods mode)
+    if (!isQuoted) {
+      if (content === 'pte') { settings.corrupted = { enabled: true, include: true }; continue; }
+      if (content === '!pte') { settings.corrupted = { enabled: true, include: false }; continue; }
+      if (content === 'tified') { settings.unidentified = { enabled: true, include: true }; continue; }
+      if (content === '!tified') { settings.unidentified = { enabled: true, include: false }; continue; }
+      const matches = matchTokens(content, regexData.tokens);
+      if (matches.length > 0) {
+        settings.allGoodMods = true;
+        for (const t of matches) if (!settings.goodIds.includes(t.id)) settings.goodIds.push(t.id);
+      }
+      continue;
+    }
+
+    // Quoted terms
+    const isExclude = content.startsWith('!');
+    const body = isExclude ? content.slice(1) : content;
+
+    // Numeric filters (quantity, packsize, item rarity, map drop)
+    let numMatch = false;
+    for (const { prefix, quantKey, optKey } of numericPrefixes) {
+      if (body.startsWith(prefix)) {
+        const numPart = body.slice(prefix.length).replace(/%$/, '');
+        const r = reverseNumber(numPart);
+        if (r) {
+          settings[quantKey] = String(r.value);
+          if (optKey) settings[optKey] = r.optimized;
+        }
+        numMatch = true;
+        break;
+      }
+    }
+    if (numMatch) continue;
+
+    // Rarity: "y: n", "y: (n|m)", "!y: r", etc.
+    if (/^!?y:\s/.test(content)) {
+      const excl = content.startsWith('!');
+      const inner = content.replace(/^!?y:\s*/, '').replace(/[()]/g, '');
+      const parts = inner.split('|').map(s => s.trim());
+      settings.rarity = {
+        normal: parts.includes('n'), magic: parts.includes('m'),
+        rare: parts.includes('r'), include: !excl,
+      };
+      continue;
+    }
+
+    // Mod patterns (split by | and match against tokens)
+    const patterns = body.split('|');
+    for (const p of patterns) {
+      const trimmed = p.trim();
+      if (!trimmed) continue;
+      const matches = matchTokens(trimmed, regexData.tokens);
+      for (const t of matches) {
+        const list = isExclude ? settings.badIds : settings.goodIds;
+        if (!list.includes(t.id)) list.push(t.id);
+      }
+    }
+  }
+
+  return settings;
+}
+
+function tokenizeRegex(input) {
+  const terms = [];
+  let i = 0;
+  while (i < input.length) {
+    while (i < input.length && input[i] === ' ') i++;
+    if (i >= input.length) break;
+    if (input[i] === '"') {
+      const end = input.indexOf('"', i + 1);
+      if (end === -1) { terms.push(input.slice(i) + '"'); break; }
+      terms.push(input.slice(i, end + 1));
+      i = end + 1;
+    } else {
+      let end = i;
+      while (end < input.length && input[end] !== ' ' && input[end] !== '"') end++;
+      terms.push(input.slice(i, end));
+      i = end;
+    }
+  }
+  return terms;
+}
+
+function matchTokens(pattern, tokens) {
+  // Exact match on token regex field first
+  const exact = tokens.filter(t => t.regex === pattern);
+  if (exact.length > 0) return exact;
+  // Regex match on rawText (handles optimized patterns)
+  try {
+    const re = new RegExp(pattern, 'i');
+    return tokens.filter(t => re.test(t.rawText));
+  } catch {
+    const lower = pattern.toLowerCase();
+    return tokens.filter(t => t.rawText.toLowerCase().includes(lower));
+  }
+}
+
+function reverseNumber(pattern) {
+  function opt(s) {
+    return s.replaceAll('[8-9]', '[89]').replaceAll('[9-9]', '9');
+  }
+  for (let n = 1; n <= 500; n++) {
+    if (opt(generateNumberRegex(String(n), false)) === pattern) return { value: n, optimized: false };
+  }
+  for (let n = 1; n <= 500; n++) {
+    if (opt(generateNumberRegex(String(n), true)) === pattern) return { value: n, optimized: true };
+  }
+  return null;
+}

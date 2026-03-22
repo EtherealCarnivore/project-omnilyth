@@ -1,8 +1,9 @@
 import { useState, useMemo, useCallback, useRef, useEffect } from 'react';
 import { regexMapModifiersRegular } from '../data/mapModsRegular';
 import { regexMapModifierT17 } from '../data/mapModsT17';
-import { generateMapModRegex } from '../calculators/mapModRegex';
+import { generateMapModRegex, parseMapRegex } from '../calculators/mapModRegex';
 import SaveRegexButton from './SaveRegexButton';
+import { useLeague } from '../contexts/LeagueContext';
 
 const DEFAULT_SETTINGS = {
   badIds: [],
@@ -210,6 +211,51 @@ function InlineToggle({ label, enabled, include, onToggle, onModeChange }) {
   );
 }
 
+/* ── Trade URL builder ── */
+function buildMapTradeUrl(league, settings) {
+  const mapFilters = {};
+  const miscFilters = {};
+
+  if (settings.quantity && Number(settings.quantity) > 0) {
+    mapFilters.map_iiq = { min: Number(settings.quantity) };
+  }
+  if (settings.packsize && Number(settings.packsize) > 0) {
+    mapFilters.map_packsize = { min: Number(settings.packsize) };
+  }
+  if (settings.itemRarity && Number(settings.itemRarity) > 0) {
+    mapFilters.map_iir = { min: Number(settings.itemRarity) };
+  }
+
+  if (settings.corrupted.enabled) {
+    miscFilters.corrupted = { option: settings.corrupted.include ? 'true' : 'false' };
+  }
+  if (settings.unidentified.enabled) {
+    miscFilters.identified = { option: settings.unidentified.include ? 'false' : 'true' };
+  }
+
+  const filters = {
+    type_filters: { filters: { category: { option: 'map' } } },
+  };
+  if (Object.keys(mapFilters).length > 0) {
+    filters.map_filters = { filters: mapFilters };
+  }
+  if (Object.keys(miscFilters).length > 0) {
+    filters.misc_filters = { filters: miscFilters };
+  }
+
+  const body = {
+    query: {
+      status: { option: 'securable' },
+      filters,
+    },
+    sort: { price: 'asc' },
+  };
+
+  const encoded = encodeURIComponent(JSON.stringify(body));
+  const leagueSlug = encodeURIComponent(league);
+  return `https://www.pathofexile.com/trade/search/${leagueSlug}?q=${encoded}`;
+}
+
 /* ════════════════════════════════════════════ */
 /*               MAIN COMPONENT                */
 /* ════════════════════════════════════════════ */
@@ -220,7 +266,10 @@ export default function MapModCalculator() {
   const [badSearch, setBadSearch] = useState('');
   const [goodSearch, setGoodSearch] = useState('');
   const [copied, setCopied] = useState(false);
+  const [showImport, setShowImport] = useState(false);
+  const [importText, setImportText] = useState('');
   const resultRef = useRef(null);
+  const { league } = useLeague();
 
   // Build the 16.5+-only dataset: just the T17-exclusive tokens
   const regexT17Only = useMemo(() => {
@@ -241,6 +290,7 @@ export default function MapModCalculator() {
 
   const result = useMemo(() => generateMapModRegex(settings, regex), [settings, regex]);
   const charCount = result.length;
+  const tradeUrl = useMemo(() => buildMapTradeUrl(league, settings), [league, settings]);
 
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(result).then(() => {
@@ -248,6 +298,29 @@ export default function MapModCalculator() {
       setTimeout(() => setCopied(false), 1500);
     });
   }, [result]);
+
+  const handleImport = useCallback(() => {
+    if (!importText.trim()) return;
+    const parsed = parseMapRegex(importText, regex);
+    setSettings(parsed);
+    setShowImport(false);
+    setImportText('');
+  }, [importText, regex]);
+
+  const importPreview = useMemo(() => {
+    if (!showImport || !importText.trim()) return null;
+    const parsed = parseMapRegex(importText, regex);
+    const parts = [];
+    if (parsed.badIds.length) parts.push(`${parsed.badIds.length} excluded`);
+    if (parsed.goodIds.length) parts.push(`${parsed.goodIds.length} included`);
+    if (parsed.quantity) parts.push(`qty \u2265${parsed.quantity}`);
+    if (parsed.packsize) parts.push(`pack \u2265${parsed.packsize}`);
+    if (parsed.itemRarity) parts.push(`rarity \u2265${parsed.itemRarity}`);
+    if (parsed.mapDropChance) parts.push(`drop \u2265${parsed.mapDropChance}`);
+    if (parsed.corrupted.enabled) parts.push(parsed.corrupted.include ? 'corrupted' : '!corrupted');
+    if (parsed.unidentified.enabled) parts.push(parsed.unidentified.include ? 'unid' : '!unid');
+    return parts.length > 0 ? parts.join(', ') : 'No patterns recognized';
+  }, [showImport, importText, regex]);
 
   const update = useCallback((fn) => {
     setSettings((prev) => {
@@ -323,6 +396,20 @@ export default function MapModCalculator() {
               {charCount}<span className="text-zinc-400/60">/250</span>
             </span>
             <button
+              onClick={() => setShowImport(!showImport)}
+              className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all duration-200 inline-flex items-center gap-1.5 ${
+                showImport
+                  ? 'bg-teal-500/20 text-teal-300 border border-teal-400/30'
+                  : 'bg-zinc-900/80 text-zinc-400 hover:text-zinc-100 border border-dashed border-white/10 hover:border-white/20'
+              }`}
+              title="Import an existing regex to auto-select mods"
+            >
+              Import
+              <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
+              </svg>
+            </button>
+            <button
               onClick={handleCopy}
               className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all duration-200 ${
                 copied
@@ -340,8 +427,53 @@ export default function MapModCalculator() {
                 variant="compact"
               />
             )}
+            <a
+              href={tradeUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-3 py-1.5 text-xs font-medium rounded-lg bg-zinc-900/80 text-zinc-400 hover:text-teal-300 border border-white/5 hover:border-teal-400/30 transition-all duration-200 inline-flex items-center gap-1.5"
+              title="Search for maps on pathofexile.com/trade"
+            >
+              Search Trade
+              <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+              </svg>
+            </a>
           </div>
         </div>
+        {/* Import section */}
+        {showImport && (
+          <div className="mb-3 rounded-lg bg-zinc-950/40 border border-dashed border-white/10 p-3 space-y-2">
+            <textarea
+              value={importText}
+              onChange={(e) => setImportText(e.target.value)}
+              placeholder={'Paste a map mod regex, e.g.:\n"!s rec|o al" "m q.*\\d..%"'}
+              className="w-full bg-black/30 border border-white/5 rounded-lg text-sm py-2 px-3 text-zinc-100 placeholder:text-zinc-400/40 outline-none focus:border-teal-400/30 transition-colors font-mono resize-none"
+              rows={2}
+              autoFocus
+            />
+            {importPreview && (
+              <p className="text-xs text-zinc-400">
+                <span className="text-teal-400/80">Preview:</span> {importPreview}
+              </p>
+            )}
+            <div className="flex items-center gap-2">
+              <button
+                onClick={handleImport}
+                disabled={!importText.trim()}
+                className="px-3 py-1.5 text-xs font-medium rounded-lg bg-teal-500/20 text-teal-300 border border-teal-400/30 hover:bg-teal-500/30 transition-all duration-200 disabled:opacity-40 disabled:cursor-not-allowed"
+              >
+                Apply
+              </button>
+              <button
+                onClick={() => { setShowImport(false); setImportText(''); }}
+                className="px-3 py-1.5 text-xs font-medium rounded-lg bg-zinc-900/80 text-zinc-400 hover:text-zinc-100 border border-white/5 transition-all duration-200"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        )}
         {/* Regex display */}
         <div className="bg-black/30 rounded-lg p-3 font-mono text-sm text-zinc-100 break-all min-h-[2.5rem] select-all leading-relaxed">
           {result || <span className="text-zinc-400/50 italic font-sans">Select mods or configure filters below...</span>}

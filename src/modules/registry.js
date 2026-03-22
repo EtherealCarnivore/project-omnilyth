@@ -103,6 +103,16 @@ const modules = [
     component: lazy(() => import('../pages/ItemRegexPage')),
   },
   {
+    id: 'dust-calculator',
+    title: 'Dust Calculator',
+    description: 'Find the best uniques to disenchant for Thaumaturgic Dust',
+    category: 'Atlas',
+    subcategory: 'Kingsmarch',
+    route: '/atlas/dust',
+    icon: 'dust',
+    component: lazy(() => import('../pages/DustPage')),
+  },
+  {
     id: 'cluster-jewel',
     title: 'Cluster Jewel Calc',
     description: 'Find compatible notables for Large Cluster Jewels',
