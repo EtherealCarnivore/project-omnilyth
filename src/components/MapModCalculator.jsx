@@ -251,7 +251,7 @@ const MOD_TRADE_IDS = {
 };
 
 /* ── Trade URL builder ── */
-function buildMapTradeUrl(league, settings) {
+function buildMapTradeUrl(league, settings, { noInfluence = false, noValdo = false } = {}) {
   const mapFilters = {
     map_tier: { min: 16, max: null },
   };
@@ -272,6 +272,11 @@ function buildMapTradeUrl(league, settings) {
   }
   if (settings.unidentified.enabled) {
     miscFilters.identified = { option: settings.unidentified.include ? 'false' : 'true' };
+  }
+
+  // Exclude Valdo's Maps (foil variants)
+  if (noValdo) {
+    miscFilters.foil_variation = { option: 'none' };
   }
 
   const filters = {
@@ -311,6 +316,19 @@ function buildMapTradeUrl(league, settings) {
     }
   }
 
+  // Exclude influenced maps (Elder/Shaper)
+  if (noInfluence) {
+    stats.push({
+      type: 'not',
+      filters: [
+        { id: 'pseudo.pseudo_has_shaper_influence', disabled: true },
+        { id: 'pseudo.pseudo_has_elder_influence', disabled: true },
+        { id: 'implicit.stat_1792283443', disabled: false },
+      ],
+      disabled: false,
+    });
+  }
+
   const body = {
     query: {
       status: { option: 'securable' },
@@ -337,6 +355,8 @@ export default function MapModCalculator() {
   const [copied, setCopied] = useState(false);
   const [showImport, setShowImport] = useState(false);
   const [importText, setImportText] = useState('');
+  const [noInfluence, setNoInfluence] = useState(true);
+  const [noValdo, setNoValdo] = useState(true);
   const resultRef = useRef(null);
   const { league } = useLeague();
 
@@ -359,7 +379,7 @@ export default function MapModCalculator() {
 
   const result = useMemo(() => generateMapModRegex(settings, regex), [settings, regex]);
   const charCount = result.length;
-  const tradeUrl = useMemo(() => buildMapTradeUrl(league, settings), [league, settings]);
+  const tradeUrl = useMemo(() => buildMapTradeUrl(league, settings, { noInfluence, noValdo }), [league, settings, noInfluence, noValdo]);
 
   const handleCopy = useCallback(() => {
     navigator.clipboard.writeText(result).then(() => {
@@ -509,6 +529,27 @@ export default function MapModCalculator() {
               </svg>
             </a>
           </div>
+        </div>
+        {/* Trade filter toggles */}
+        <div className="flex flex-wrap items-center gap-x-4 gap-y-1 mb-2">
+          <label className="flex items-center gap-1.5 text-[11px] text-zinc-400 cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={noInfluence}
+              onChange={(e) => setNoInfluence(e.target.checked)}
+              className="accent-teal-400 w-3 h-3"
+            />
+            Exclude Influenced
+          </label>
+          <label className="flex items-center gap-1.5 text-[11px] text-zinc-400 cursor-pointer select-none">
+            <input
+              type="checkbox"
+              checked={noValdo}
+              onChange={(e) => setNoValdo(e.target.checked)}
+              className="accent-teal-400 w-3 h-3"
+            />
+            Exclude Valdo Maps
+          </label>
         </div>
         {/* Import section */}
         {showImport && (
