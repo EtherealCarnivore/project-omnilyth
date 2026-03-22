@@ -211,21 +211,60 @@ function InlineToggle({ label, enabled, include, onToggle, onModeChange }) {
   );
 }
 
+/* ── Map mod → trade stat ID mapping (from Awakened PoE Trade) ── */
+const MOD_TRADE_IDS = {
+  164309504:"explicit.stat_4181072906",200974414:"explicit.stat_816367946",
+  229682870:"explicit.stat_1366534040",493223943:"explicit.stat_3796523155",
+  525934570:"explicit.stat_349586058",550943268:"explicit.stat_2306522833",
+  638612957:"explicit.stat_1588049749",667938191:"explicit.stat_1217583941",
+  694566327:"explicit.stat_95249895",755773474:"explicit.stat_2553656203",
+  793356205:"explicit.stat_3577222856",894187505:"explicit.stat_3376488707",
+  931213255:"explicit.stat_1813544255",1006692915:"explicit.stat_1840747977",
+  1197254574:"explicit.stat_558910024",1245770343:"explicit.stat_3134632618",
+  1261702218:"explicit.stat_2326202293",1275003885:"explicit.stat_365540634",
+  1303025587:"explicit.stat_322206271",1320742524:"explicit.stat_3916182167",
+  1409464152:"explicit.stat_3516340048",1424932226:"explicit.stat_1309819744",
+  1434328288:"explicit.stat_1708461270",1449891900:"explicit.stat_4154059009",
+  1471007742:"explicit.stat_645841425",1481746664:"explicit.stat_799271621",
+  1515846394:"explicit.stat_133340941",1546387363:"explicit.stat_3416853625",
+  1652154666:"explicit.stat_2138205941",1687576035:"explicit.stat_3350803563",
+  1691639998:"explicit.stat_1959158336",1734526203:"explicit.stat_3464419871",
+  1741763812:"explicit.stat_3246076198",1809097991:"explicit.stat_1026390635",
+  1815471633:"explicit.stat_808491979",1822260921:"explicit.stat_144665660",
+  1855646823:"explicit.stat_3793155082",1909893191:"explicit.stat_2549889921",
+  1936863142:"explicit.stat_2312028586",1965894066:"explicit.stat_45546355",
+  2023345436:"explicit.stat_25085466",2042799595:"explicit.stat_3561450806",
+  2043204851:"explicit.stat_124877078",
+  [-2103899765]:"explicit.stat_337935900",[-2060936381]:"explicit.stat_2588474575",
+  [-1952553467]:"explicit.stat_1541224187",[-1942271057]:"explicit.stat_1890519597",
+  [-1926268187]:"explicit.stat_1000591322",[-1781581610]:"explicit.stat_2961018200",
+  [-1772227908]:"explicit.stat_2457517302",[-1705341052]:"explicit.stat_4103440490",
+  [-1678942184]:"explicit.stat_1948962470",[-1621229119]:"explicit.stat_1140978125",
+  [-1462808973]:"explicit.stat_2753083623",[-1403235912]:"explicit.stat_272758639",
+  [-1175378302]:"explicit.stat_2651141461",[-1121411477]:"explicit.stat_3448216135",
+  [-1121327683]:"explicit.stat_1497673356",[-926892006]:"explicit.stat_2887760183",
+  [-818452956]:"explicit.stat_1910157106",[-696963131]:"explicit.stat_2764017512",
+  [-529767307]:"explicit.stat_1106651798",[-500015770]:"explicit.stat_3183973644",
+  [-208379648]:"explicit.stat_95249895",[-199953078]:"explicit.stat_3873704640",
+  [-120302365]:"explicit.stat_4198346809",[-50320413]:"explicit.stat_839186746",
+  [-36534794]:"explicit.stat_4252630904",
+};
+
 /* ── Trade URL builder ── */
 function buildMapTradeUrl(league, settings) {
   const mapFilters = {
-    map_tier: { min: 16 },
+    map_tier: { min: 16, max: null },
   };
   const miscFilters = {};
 
   if (settings.quantity && Number(settings.quantity) > 0) {
-    mapFilters.map_iiq = { min: Number(settings.quantity) };
+    mapFilters.map_iiq = { min: Number(settings.quantity), max: null };
   }
   if (settings.packsize && Number(settings.packsize) > 0) {
-    mapFilters.map_packsize = { min: Number(settings.packsize) };
+    mapFilters.map_packsize = { min: Number(settings.packsize), max: null };
   }
   if (settings.itemRarity && Number(settings.itemRarity) > 0) {
-    mapFilters.map_iir = { min: Number(settings.itemRarity) };
+    mapFilters.map_iir = { min: Number(settings.itemRarity), max: null };
   }
 
   if (settings.corrupted.enabled) {
@@ -236,16 +275,46 @@ function buildMapTradeUrl(league, settings) {
   }
 
   const filters = {
-    type_filters: { disabled: false, filters: { category: { option: 'map' } } },
+    type_filters: { disabled: false, filters: { rarity: { option: 'nonunique' }, category: { option: 'map' } } },
     map_filters: { disabled: false, filters: mapFilters },
   };
   if (Object.keys(miscFilters).length > 0) {
     filters.misc_filters = { disabled: false, filters: miscFilters };
   }
 
+  // Build stat filters for excluded mods
+  const stats = [];
+  if (settings.badIds.length > 0) {
+    const notFilters = [];
+    for (const id of settings.badIds) {
+      const tradeId = MOD_TRADE_IDS[id];
+      if (tradeId) {
+        notFilters.push({ id: tradeId, disabled: false });
+      }
+    }
+    if (notFilters.length > 0) {
+      stats.push({ type: 'not', filters: notFilters, disabled: false });
+    }
+  }
+
+  // Include mods as "and" filters
+  if (settings.goodIds.length > 0) {
+    const andFilters = [];
+    for (const id of settings.goodIds) {
+      const tradeId = MOD_TRADE_IDS[id];
+      if (tradeId) {
+        andFilters.push({ id: tradeId, disabled: false });
+      }
+    }
+    if (andFilters.length > 0) {
+      stats.push({ type: 'and', filters: andFilters, disabled: false });
+    }
+  }
+
   const body = {
     query: {
       status: { option: 'securable' },
+      stats: stats.length > 0 ? stats : [{ type: 'and', filters: [], disabled: false }],
       filters,
     },
     sort: { price: 'asc' },
