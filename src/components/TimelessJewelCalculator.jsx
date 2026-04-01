@@ -33,7 +33,7 @@ export default function TimelessJewelCalculator() {
 
   // Reverse search state
   const [mode, setMode] = useState('seed'); // 'seed' | 'search'
-  const [selectedStats, setSelectedStats] = useState(new Map()); // statId → weight (1-5)
+  const [selectedStats, setSelectedStats] = useState({}); // { [statId]: weight (1-5) }
   const [minMatches, setMinMatches] = useState(1);
   const [statQuery, setStatQuery] = useState('');
   const [searching, setSearching] = useState(false);
@@ -222,9 +222,9 @@ export default function TimelessJewelCalculator() {
   // Toggle a stat for reverse search (default weight 3)
   const handleToggleStat = useCallback((statId) => {
     setSelectedStats(prev => {
-      const next = new Map(prev);
-      if (next.has(statId)) next.delete(statId);
-      else next.set(statId, 3);
+      const next = { ...prev };
+      if (statId in next) delete next[statId];
+      else next[statId] = 3;
       return next;
     });
     setSearchResults(null);
@@ -233,16 +233,16 @@ export default function TimelessJewelCalculator() {
   // Change weight for a stat
   const handleStatWeight = useCallback((statId, weight) => {
     setSelectedStats(prev => {
-      const next = new Map(prev);
-      if (next.has(statId)) next.set(statId, weight);
-      return next;
+      if (!(statId in prev)) return prev;
+      return { ...prev, [statId]: weight };
     });
     setSearchResults(null);
   }, []);
 
   // Start reverse search via Web Worker
   const handleSearch = useCallback(() => {
-    if (!timelessData || !selectedSocket || !socketData || selectedStats.size === 0) return;
+    const statIds = Object.keys(selectedStats);
+    if (!timelessData || !selectedSocket || !socketData || statIds.length === 0) return;
     if (!rawDataRef.current) return;
 
     // Kill previous worker
@@ -283,17 +283,13 @@ export default function TimelessJewelCalculator() {
       type: n.type,
     }));
 
-    // Send weights as { statId: weight } object
-    const statWeights = {};
-    for (const [statId, weight] of selectedStats) statWeights[statId] = weight;
-
     worker.postMessage({
       type: 'search',
       jewelType: { id: jewelType.id, minSeed: jewelType.minSeed, maxSeed: jewelType.maxSeed, seedStep: jewelType.seedStep || 0 },
       conqueror,
       nodes,
-      desiredStatIds: [...selectedStats.keys()],
-      statWeights,
+      desiredStatIds: statIds.map(Number),
+      statWeights: selectedStats,
       minMatches,
       altSkills: rawDataRef.current.altSkills,
       altAdditions: rawDataRef.current.altAdditions,
@@ -330,7 +326,7 @@ export default function TimelessJewelCalculator() {
 
   // Reset search state on jewel type change
   useEffect(() => {
-    setSelectedStats(new Map());
+    setSelectedStats({});
     setSearchResults(null);
     setStatQuery('');
     setMinMatches(1);
@@ -359,6 +355,10 @@ export default function TimelessJewelCalculator() {
     if (!selectedSocket || !socketData) return new Set();
     return new Set(socketData[selectedSocket].nodesInRadius.map(n => n.nodeId));
   }, [selectedSocket, socketData]);
+
+  // Derived stat helpers
+  const statEntries = Object.entries(selectedStats); // [[statId, weight], ...]
+  const statCount = statEntries.length;
 
   // Group results by type
   const groupedResults = results ? groupResults(results) : null;
@@ -537,15 +537,16 @@ export default function TimelessJewelCalculator() {
           <div>
             <label className="block text-xs font-medium text-zinc-400 mb-2">
               Desired Stats
-              {selectedStats.size > 0 && (
-                <span className="ml-2 text-teal-400">{selectedStats.size} selected</span>
+              {statCount > 0 && (
+                <span className="ml-2 text-teal-400">{statCount} selected</span>
               )}
             </label>
 
             {/* Selected stats with weights */}
-            {selectedStats.size > 0 && (
+            {statCount > 0 && (
               <div className="space-y-1.5 mb-3">
-                {[...selectedStats.entries()].map(([statId, weight]) => {
+                {statEntries.map(([statIdStr, weight]) => {
+                  const statId = Number(statIdStr);
                   const stat = availableStats.find(s => s.statId === statId);
                   return (
                     <div key={statId} className="flex items-center gap-2 rounded-lg bg-teal-500/10 border border-teal-400/20 px-2.5 py-1.5">
@@ -581,11 +582,11 @@ export default function TimelessJewelCalculator() {
                     onChange={(e) => { setMinMatches(Number(e.target.value)); setSearchResults(null); }}
                     className="px-1.5 py-0.5 text-xs rounded bg-zinc-800/80 border border-white/10 text-zinc-200"
                   >
-                    {[...Array(selectedStats.size)].map((_, i) => (
+                    {[...Array(statCount)].map((_, i) => (
                       <option key={i + 1} value={i + 1}>{i + 1}</option>
                     ))}
                   </select>
-                  <span className="text-xs text-zinc-500">of {selectedStats.size} stats</span>
+                  <span className="text-xs text-zinc-500">of {statCount} stats</span>
                 </div>
               </div>
             )}
@@ -602,7 +603,7 @@ export default function TimelessJewelCalculator() {
             {/* Stat list */}
             <div className="max-h-48 overflow-y-auto rounded-lg border border-white/5 bg-zinc-900/50 divide-y divide-white/5">
               {filteredStats.map(stat => {
-                const isSelected = selectedStats.has(stat.statId);
+                const isSelected = (stat.statId in selectedStats);
                 return (
                   <button
                     key={stat.statId}
@@ -628,9 +629,9 @@ export default function TimelessJewelCalculator() {
           {!searching ? (
             <button
               onClick={handleSearch}
-              disabled={selectedStats.size === 0 || !selectedSocket}
+              disabled={statCount === 0 || !selectedSocket}
               className={`w-full py-2.5 rounded-lg text-sm font-semibold transition-colors ${
-                selectedStats.size > 0 && selectedSocket
+                statCount > 0 && selectedSocket
                   ? 'bg-teal-500/20 text-teal-300 border border-teal-400/30 hover:bg-teal-500/30'
                   : 'bg-zinc-800/50 text-zinc-600 border border-white/5 cursor-not-allowed'
               }`}
@@ -1054,7 +1055,7 @@ function SearchResults({ results, translations, selectedStats, onPickSeed, jewel
                   >
                     <span className="text-sm font-mono text-zinc-100 font-medium flex-shrink-0">{r.seed}</span>
                     <span className="text-xs px-1.5 py-0.5 rounded bg-teal-500/20 text-teal-300 flex-shrink-0">
-                      {r.score}/{selectedStats.size}
+                      {r.score}/{Object.keys(selectedStats).length}
                     </span>
                     {r.weightedScore > 0 && (
                       <span className="text-[10px] text-amber-400/70 flex-shrink-0" title="Weighted score">
@@ -1103,7 +1104,7 @@ function SearchResults({ results, translations, selectedStats, onPickSeed, jewel
               {isExpanded && (
                 <div className="px-4 pb-3 pt-0">
                   <div className="rounded-lg bg-zinc-900/50 border border-white/5 divide-y divide-white/5">
-                    {[...selectedStats].map(statId => {
+                    {Object.keys(selectedStats).map(sk => { const statId = Number(sk);
                       const statMatches = r.matches.filter(m => m.statId === statId);
                       const label = translateStat(statId, statMatches[0]?.value || 0, translations);
                       return (
