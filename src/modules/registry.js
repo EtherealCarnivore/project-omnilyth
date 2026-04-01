@@ -130,6 +130,7 @@ const modules = [
     subcategory: 'Timeless Jewels',
     route: '/build/timeless-jewel',
     icon: 'timeless',
+    fullWidth: true,
     component: lazy(() => import('../pages/TimelessJewelPage')),
   },
   {
