@@ -1,14 +1,14 @@
 /*
- * TimelessTreeView.jsx — Lightweight SVG passive tree for timeless jewel socket selection.
+ * TimelessTreeView.jsx — SVG passive tree for timeless jewel socket/node selection.
  *
- * Renders simplified nodes (circles) with zoom/pan. No sprite sheets.
- * Click a jewel socket to select it → shows radius and affected nodes.
- * Click affected nodes to pin/unpin them.
+ * Uses GGG sprite sheets for nodes in the jewel radius,
+ * simple circles for distant background nodes (performance).
  */
 
 import { useMemo, useCallback, useState, memo } from 'react';
 import useZoomPan from '../hooks/useZoomPan';
 import { PASSIVE_TYPE, getPassiveSkillType } from '../calculators/timelessJewel';
+import { FRAME_NAMES, NODE_SIZES } from '../data/passive/passiveTreeConstants';
 
 const JEWEL_RADIUS = 1800;
 
@@ -20,8 +20,26 @@ const ZOOM_CONFIG = {
   fitPadding: 40,
 };
 
-// Node visual sizes (world-space radius)
-const NODE_R = {
+// Map our PASSIVE_TYPE to the frame name keys used by passiveTreeConstants
+const TYPE_TO_FRAME_KEY = {
+  [PASSIVE_TYPE.SMALL_ATTRIBUTE]: 'regular',
+  [PASSIVE_TYPE.SMALL_NORMAL]: 'regular',
+  [PASSIVE_TYPE.NOTABLE]: 'notable',
+  [PASSIVE_TYPE.KEYSTONE]: 'keystone',
+  [PASSIVE_TYPE.JEWEL_SOCKET]: 'jewelSocket',
+};
+
+// World-space diameter per type (for sprite rendering)
+const SPRITE_SIZE = {
+  [PASSIVE_TYPE.SMALL_ATTRIBUTE]: NODE_SIZES.regular * 2,
+  [PASSIVE_TYPE.SMALL_NORMAL]: NODE_SIZES.regular * 2,
+  [PASSIVE_TYPE.NOTABLE]: NODE_SIZES.notable * 2,
+  [PASSIVE_TYPE.KEYSTONE]: NODE_SIZES.keystone * 2,
+  [PASSIVE_TYPE.JEWEL_SOCKET]: NODE_SIZES.jewelSocket * 2,
+};
+
+// Simple circle radii (for background nodes without sprites)
+const CIRCLE_R = {
   [PASSIVE_TYPE.SMALL_ATTRIBUTE]: 30,
   [PASSIVE_TYPE.SMALL_NORMAL]: 30,
   [PASSIVE_TYPE.NOTABLE]: 55,
@@ -29,7 +47,6 @@ const NODE_R = {
   [PASSIVE_TYPE.JEWEL_SOCKET]: 55,
 };
 
-// Node colors (default)
 const NODE_COLORS = {
   [PASSIVE_TYPE.SMALL_ATTRIBUTE]: '#52525b',
   [PASSIVE_TYPE.SMALL_NORMAL]: '#52525b',
@@ -38,15 +55,7 @@ const NODE_COLORS = {
   [PASSIVE_TYPE.JEWEL_SOCKET]: '#fbbf24',
 };
 
-// Colors when in jewel radius
-const AFFECTED_COLORS = {
-  [PASSIVE_TYPE.SMALL_ATTRIBUTE]: '#5eead4',
-  [PASSIVE_TYPE.SMALL_NORMAL]: '#5eead4',
-  [PASSIVE_TYPE.NOTABLE]: '#2dd4bf',
-  [PASSIVE_TYPE.KEYSTONE]: '#f59e0b',
-};
-
-const PINNED_COLOR = '#f472b6'; // pink for pinned nodes
+const PINNED_COLOR = '#f472b6';
 
 export default function TimelessTreeView({
   treeData, selectedSocket, onSelectSocket, results, className,
@@ -54,7 +63,6 @@ export default function TimelessTreeView({
 }) {
   const [hoveredNode, setHoveredNode] = useState(null);
 
-  // Pre-process: collect renderable nodes + positions + connections
   const { renderNodes, connections, bounds, socketSet } = useMemo(() => {
     if (!treeData) return { renderNodes: [], connections: [], bounds: null, socketSet: new Set() };
 
@@ -78,7 +86,7 @@ export default function TimelessTreeView({
       if (type === PASSIVE_TYPE.NONE) continue;
       if (node.isJewelSocket && !isBasicSocket) continue;
 
-      rn.push({ nodeId, x: pos.x, y: pos.y, type, name: node.name });
+      rn.push({ nodeId, x: pos.x, y: pos.y, type, name: node.name, icon: node.icon });
       if (isBasicSocket) ss.add(nodeId);
 
       if (node.out) {
@@ -121,7 +129,6 @@ export default function TimelessTreeView({
     }
   }, [socketSet, affectedNodeIds, onSelectSocket, onToggleNode]);
 
-  // Viewport culling
   const { visibleNodes, visibleConns } = useMemo(() => {
     if (!bounds) return { visibleNodes: renderNodes, visibleConns: connections };
     const el = containerRef.current;
@@ -144,7 +151,8 @@ export default function TimelessTreeView({
     };
   }, [renderNodes, connections, transform, bounds, containerRef]);
 
-  // Tooltip text
+  const spriteMap = treeData?.spriteMap || null;
+
   const tooltipNode = hoveredNode ? renderNodes.find(n => n.nodeId === hoveredNode) : null;
 
   if (!treeData || !bounds) return null;
@@ -162,14 +170,12 @@ export default function TimelessTreeView({
         </button>
       </div>
 
-      {/* Hint */}
       {!selectedSocket && (
         <div className="absolute bottom-2 left-2 z-10 px-2 py-1 rounded bg-zinc-900/90 border border-white/10 text-xs text-zinc-500">
           Click a yellow jewel socket to select it
         </div>
       )}
 
-      {/* Tooltip */}
       {tooltipNode && (
         <div className="absolute top-2 left-2 z-10 px-2 py-1 rounded bg-zinc-900/95 border border-white/10 text-xs text-zinc-300 pointer-events-none max-w-[200px]">
           <div className="font-medium">{tooltipNode.name}</div>
@@ -182,7 +188,6 @@ export default function TimelessTreeView({
         </div>
       )}
 
-      {/* SVG Canvas */}
       <svg
         ref={containerRef}
         className="w-full h-full cursor-grab active:cursor-grabbing"
@@ -190,14 +195,14 @@ export default function TimelessTreeView({
         {...handlers}
       >
         <g transform={`translate(${transform.x},${transform.y}) scale(${transform.scale})`}>
-          {/* Connections layer */}
+          {/* Connections */}
           <g opacity={0.15}>
             {visibleConns.map((c, i) => (
               <line key={i} x1={c.x1} y1={c.y1} x2={c.x2} y2={c.y2} stroke="#71717a" strokeWidth={12} />
             ))}
           </g>
 
-          {/* Radius circle for selected socket */}
+          {/* Radius circle */}
           {socketPos && (
             <circle
               cx={socketPos.x} cy={socketPos.y} r={JEWEL_RADIUS}
@@ -208,30 +213,38 @@ export default function TimelessTreeView({
             />
           )}
 
-          {/* Nodes layer */}
-          {visibleNodes.map((n) => (
-            <TreeNode
-              key={n.nodeId}
-              node={n}
-              isSocket={socketSet.has(n.nodeId)}
-              isSelectedSocket={n.nodeId === selectedSocket}
-              isAffected={affectedNodeIds.has(n.nodeId)}
-              isPinned={pinnedNodes?.has(n.nodeId) || false}
-              hasResults={results !== null}
-              onClick={handleNodeClick}
-              onHover={setHoveredNode}
-            />
-          ))}
+          {/* Nodes */}
+          {visibleNodes.map((n) => {
+            const isAffected = affectedNodeIds.has(n.nodeId);
+            const isSocket = socketSet.has(n.nodeId);
+            // Use sprites for sockets, affected nodes, and pinned nodes
+            const useSprite = spriteMap && (isSocket || isAffected || pinnedNodes?.has(n.nodeId));
+
+            return (
+              <TreeNode
+                key={n.nodeId}
+                node={n}
+                isSocket={isSocket}
+                isSelectedSocket={n.nodeId === selectedSocket}
+                isAffected={isAffected}
+                isPinned={pinnedNodes?.has(n.nodeId) || false}
+                hasResults={results !== null}
+                onClick={handleNodeClick}
+                onHover={setHoveredNode}
+                spriteMap={useSprite ? spriteMap : null}
+              />
+            );
+          })}
 
           {/* Labels for pinned nodes */}
           {visibleNodes.filter(n => pinnedNodes?.has(n.nodeId)).map(n => (
             <text
               key={`lbl-${n.nodeId}`}
               x={n.x}
-              y={n.y - (NODE_R[n.type] || 30) - 18}
+              y={n.y - (CIRCLE_R[n.type] || 30) - 22}
               textAnchor="middle"
               fill={PINNED_COLOR}
-              fontSize={36}
+              fontSize={34}
               fontWeight="600"
               style={{ pointerEvents: 'none' }}
             >
@@ -244,51 +257,97 @@ export default function TimelessTreeView({
   );
 }
 
-// ─── Individual tree node (memoized) ────────────────────────────────────────
+// ─── Sprite image helper ────────────────────────────────────────────────────
 
-const TreeNode = memo(function TreeNode({ node, isSocket, isSelectedSocket, isAffected, isPinned, hasResults, onClick, onHover }) {
-  const { nodeId, x, y, type } = node;
-  const r = NODE_R[type] || 30;
+function SpriteImg({ sprite, worldSize }) {
+  if (!sprite) return null;
+  const scale = worldSize / Math.max(sprite.w, sprite.h);
+  const dw = sprite.w * scale;
+  const dh = sprite.h * scale;
+  return (
+    <foreignObject x={-dw / 2} y={-dh / 2} width={dw} height={dh} className="pointer-events-none">
+      <div style={{
+        width: dw,
+        height: dh,
+        borderRadius: '50%',
+        overflow: 'hidden',
+        backgroundImage: `url(${sprite.sheetUrl})`,
+        backgroundPosition: `-${sprite.x * scale}px -${sprite.y * scale}px`,
+        backgroundSize: `${sprite.sheetW * scale}px ${sprite.sheetH * scale}px`,
+        backgroundRepeat: 'no-repeat',
+      }} />
+    </foreignObject>
+  );
+}
+
+// ─── Individual tree node ───────────────────────────────────────────────────
+
+const TreeNode = memo(function TreeNode({ node, isSocket, isSelectedSocket, isAffected, isPinned, hasResults, onClick, onHover, spriteMap }) {
+  const { nodeId, x, y, type, icon } = node;
   const isClickable = isSocket || (hasResults && isAffected);
 
-  let fill;
-  if (isPinned) {
-    fill = PINNED_COLOR;
-  } else if (isSelectedSocket) {
-    fill = '#f59e0b';
-  } else if (isSocket) {
-    fill = '#fbbf24';
-  } else if (hasResults && isAffected) {
-    fill = AFFECTED_COLORS[type] || '#5eead4';
-  } else if (hasResults && !isAffected) {
-    fill = '#27272a';
-  } else {
-    fill = NODE_COLORS[type] || '#52525b';
+  // Determine visual state for frame lookup
+  let frameState = 'idle';
+  if (isPinned || isSelectedSocket) frameState = 'allocated';
+  else if (isAffected) frameState = 'path';
+
+  const frameKey = TYPE_TO_FRAME_KEY[type];
+
+  if (spriteMap && frameKey) {
+    // ─── Sprite rendering ───
+    const worldSize = SPRITE_SIZE[type] || 102;
+    const frameName = FRAME_NAMES[frameKey]?.[frameState];
+    const frameSprite = frameName ? spriteMap.frames[frameName] : null;
+    const iconSprite = icon ? (spriteMap.inactive[icon] || spriteMap.active[icon]) : null;
+
+    const opacity = hasResults && !isAffected && !isSocket ? 0.2 : 1;
+
+    return (
+      <g
+        transform={`translate(${x},${y})`}
+        onClick={isClickable ? () => onClick(nodeId) : undefined}
+        onMouseEnter={isClickable ? () => onHover(nodeId) : undefined}
+        onMouseLeave={isClickable ? () => onHover(null) : undefined}
+        style={isClickable ? { cursor: 'pointer' } : undefined}
+        opacity={opacity}
+      >
+        {/* Frame */}
+        <SpriteImg sprite={frameSprite} worldSize={worldSize} />
+        {/* Icon */}
+        <SpriteImg sprite={iconSprite} worldSize={worldSize * 0.65} />
+
+        {/* Pinned ring overlay */}
+        {isPinned && (
+          <circle cx={0} cy={0} r={worldSize / 2 + 12} fill="none" stroke={PINNED_COLOR} strokeWidth={6} opacity={0.7} />
+        )}
+        {/* Selected socket ring */}
+        {isSelectedSocket && (
+          <circle cx={0} cy={0} r={worldSize / 2 + 16} fill="none" stroke="#fbbf24" strokeWidth={5} opacity={0.5} />
+        )}
+
+        {/* Hit area */}
+        {isClickable && (
+          <circle cx={0} cy={0} r={worldSize / 2 + 30} fill="transparent" />
+        )}
+      </g>
+    );
   }
 
-  const opacity = hasResults && !isAffected && !isSocket ? 0.3 : 1;
-  const strokeWidth = isPinned ? 10 : (isSelectedSocket ? 12 : (isSocket ? 6 : 0));
-  const stroke = isPinned ? '#be185d' : (isSelectedSocket ? '#f59e0b' : (isSocket ? '#92400e' : 'none'));
+  // ─── Simple circle fallback (background nodes) ───
+  const r = CIRCLE_R[type] || 30;
+  const fill = isSocket ? '#fbbf24' : (NODE_COLORS[type] || '#52525b');
+  const opacity = hasResults && !isAffected && !isSocket ? 0.2 : 1;
 
   return (
     <g
-      onClick={isClickable ? () => onClick(nodeId) : undefined}
-      onMouseEnter={isClickable ? () => onHover(nodeId) : undefined}
-      onMouseLeave={isClickable ? () => onHover(null) : undefined}
-      style={isClickable ? { cursor: 'pointer' } : undefined}
+      onClick={isSocket ? () => onClick(nodeId) : undefined}
+      onMouseEnter={isSocket ? () => onHover(nodeId) : undefined}
+      onMouseLeave={isSocket ? () => onHover(null) : undefined}
+      style={isSocket ? { cursor: 'pointer' } : undefined}
       opacity={opacity}
     >
-      <circle cx={x} cy={y} r={r} fill={fill} stroke={stroke} strokeWidth={strokeWidth} />
-      {isSelectedSocket && (
-        <circle cx={x} cy={y} r={r + 20} fill="none" stroke="#fbbf24" strokeWidth={4} opacity={0.4} />
-      )}
-      {isPinned && (
-        <circle cx={x} cy={y} r={r + 16} fill="none" stroke={PINNED_COLOR} strokeWidth={4} opacity={0.5} />
-      )}
-      {/* Larger hit area for clickable nodes */}
-      {isClickable && (
-        <circle cx={x} cy={y} r={r + 40} fill="transparent" />
-      )}
+      <circle cx={x} cy={y} r={r} fill={fill} stroke={isSocket ? '#92400e' : 'none'} strokeWidth={isSocket ? 6 : 0} />
+      {isSocket && <circle cx={x} cy={y} r={r + 40} fill="transparent" />}
     </g>
   );
 });
