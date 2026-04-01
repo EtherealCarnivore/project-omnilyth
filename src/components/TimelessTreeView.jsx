@@ -59,7 +59,7 @@ const PINNED_COLOR = '#f472b6';
 
 export default function TimelessTreeView({
   treeData, selectedSocket, onSelectSocket, results, className,
-  pinnedNodes, onToggleNode,
+  inRadiusNodeIds, pinnedNodes, onToggleNode,
 }) {
   const [hoveredNode, setHoveredNode] = useState(null);
 
@@ -121,13 +121,20 @@ export default function TimelessTreeView({
     return new Set(results.map(r => r.nodeId));
   }, [results]);
 
+  // A node is clickable if it's a socket, or if it's in the jewel radius (even without results)
+  const clickableNodeIds = useMemo(() => {
+    const s = new Set(inRadiusNodeIds || []);
+    for (const id of affectedNodeIds) s.add(id);
+    return s;
+  }, [inRadiusNodeIds, affectedNodeIds]);
+
   const handleNodeClick = useCallback((nodeId) => {
     if (socketSet.has(nodeId)) {
       onSelectSocket(nodeId);
-    } else if (affectedNodeIds.has(nodeId) && onToggleNode) {
+    } else if (clickableNodeIds.has(nodeId) && onToggleNode) {
       onToggleNode(nodeId);
     }
-  }, [socketSet, affectedNodeIds, onSelectSocket, onToggleNode]);
+  }, [socketSet, clickableNodeIds, onSelectSocket, onToggleNode]);
 
   const { visibleNodes, visibleConns } = useMemo(() => {
     if (!bounds) return { visibleNodes: renderNodes, visibleConns: connections };
@@ -216,9 +223,10 @@ export default function TimelessTreeView({
           {/* Nodes */}
           {visibleNodes.map((n) => {
             const isAffected = affectedNodeIds.has(n.nodeId);
+            const isInRadius = clickableNodeIds.has(n.nodeId);
             const isSocket = socketSet.has(n.nodeId);
-            // Use sprites for sockets, affected nodes, and pinned nodes
-            const useSprite = spriteMap && (isSocket || isAffected || pinnedNodes?.has(n.nodeId));
+            // Use sprites for sockets, in-radius nodes, and pinned nodes
+            const useSprite = spriteMap && (isSocket || isInRadius || pinnedNodes?.has(n.nodeId));
 
             return (
               <TreeNode
@@ -227,6 +235,7 @@ export default function TimelessTreeView({
                 isSocket={isSocket}
                 isSelectedSocket={n.nodeId === selectedSocket}
                 isAffected={isAffected}
+                isInRadius={isInRadius}
                 isPinned={pinnedNodes?.has(n.nodeId) || false}
                 hasResults={results !== null}
                 onClick={handleNodeClick}
@@ -282,14 +291,14 @@ function SpriteImg({ sprite, worldSize }) {
 
 // ─── Individual tree node ───────────────────────────────────────────────────
 
-const TreeNode = memo(function TreeNode({ node, isSocket, isSelectedSocket, isAffected, isPinned, hasResults, onClick, onHover, spriteMap }) {
+const TreeNode = memo(function TreeNode({ node, isSocket, isSelectedSocket, isAffected, isInRadius, isPinned, hasResults, onClick, onHover, spriteMap }) {
   const { nodeId, x, y, type, icon } = node;
-  const isClickable = isSocket || (hasResults && isAffected);
+  const isClickable = isSocket || isInRadius;
 
   // Determine visual state for frame lookup
   let frameState = 'idle';
   if (isPinned || isSelectedSocket) frameState = 'allocated';
-  else if (isAffected) frameState = 'path';
+  else if (isAffected || isInRadius) frameState = 'path';
 
   const frameKey = TYPE_TO_FRAME_KEY[type];
 
@@ -300,7 +309,7 @@ const TreeNode = memo(function TreeNode({ node, isSocket, isSelectedSocket, isAf
     const frameSprite = frameName ? spriteMap.frames[frameName] : null;
     const iconSprite = icon ? (spriteMap.inactive[icon] || spriteMap.active[icon]) : null;
 
-    const opacity = hasResults && !isAffected && !isSocket ? 0.2 : 1;
+    const opacity = !isSocket && !isInRadius && !isPinned && hasResults ? 0.2 : 1;
 
     return (
       <g
@@ -336,7 +345,7 @@ const TreeNode = memo(function TreeNode({ node, isSocket, isSelectedSocket, isAf
   // ─── Simple circle fallback (background nodes) ───
   const r = CIRCLE_R[type] || 30;
   const fill = isSocket ? '#fbbf24' : (NODE_COLORS[type] || '#52525b');
-  const opacity = hasResults && !isAffected && !isSocket ? 0.2 : 1;
+  const opacity = !isSocket && !isInRadius && !isPinned && hasResults ? 0.2 : 1;
 
   return (
     <g

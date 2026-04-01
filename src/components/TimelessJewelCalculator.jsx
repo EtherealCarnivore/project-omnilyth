@@ -224,7 +224,7 @@ export default function TimelessJewelCalculator() {
     setSelectedStats(prev => {
       const next = new Map(prev);
       if (next.has(statId)) next.delete(statId);
-      else next.add(statId, 3);
+      else next.set(statId, 3);
       return next;
     });
     setSearchResults(null);
@@ -354,6 +354,12 @@ export default function TimelessJewelCalculator() {
     );
   }
 
+  // Set of node IDs in the selected socket's radius (for tree clickability)
+  const inRadiusNodeIds = useMemo(() => {
+    if (!selectedSocket || !socketData) return new Set();
+    return new Set(socketData[selectedSocket].nodesInRadius.map(n => n.nodeId));
+  }, [selectedSocket, socketData]);
+
   // Group results by type
   const groupedResults = results ? groupResults(results) : null;
 
@@ -369,6 +375,7 @@ export default function TimelessJewelCalculator() {
           updateUrl(jewelType.id, seed, id, conqueror.name);
         }}
         results={results}
+        inRadiusNodeIds={inRadiusNodeIds}
         pinnedNodes={enabledNodes}
         onToggleNode={handleNodeClick}
         className="h-[50vh] lg:h-auto lg:flex-1 min-h-[300px]"
