@@ -1,5 +1,4 @@
 import { useState, useMemo, useCallback, useEffect, useRef } from 'react';
-import { useSearchParams } from 'react-router-dom';
 import { useLeague } from '../contexts/LeagueContext';
 import usePassiveTreeData from '../hooks/usePassiveTreeData';
 import {
@@ -18,7 +17,6 @@ import TimelessTreeView from './TimelessTreeView';
 
 export default function TimelessJewelCalculator() {
   const { league } = useLeague();
-  const [searchParams, setSearchParams] = useSearchParams();
   const { data: treeData, loading: treeLoading } = usePassiveTreeData('3.28');
 
   const [timelessData, setTimelessData] = useState(null);
@@ -90,55 +88,19 @@ export default function TimelessJewelCalculator() {
       .sort((a, b) => a.regionName.localeCompare(b.regionName));
   }, [socketData]);
 
-  // Restore state from URL on data load
-  useEffect(() => {
-    if (!socketData || !timelessData) return;
-    const t = searchParams.get('type');
-    const s = searchParams.get('seed');
-    const sk = searchParams.get('socket');
-    const c = searchParams.get('conqueror');
-
-    if (t !== null) {
-      const idx = JEWEL_TYPES.findIndex(j => j.id === Number(t));
-      if (idx >= 0) setJewelTypeIdx(idx);
-    }
-    if (c) {
-      const jt = t !== null ? JEWEL_TYPES.find(j => j.id === Number(t)) : jewelType;
-      if (jt) {
-        const ci = jt.conquerors.findIndex(cq => cq.name === c);
-        if (ci >= 0) setConquerorIdx(ci);
-      }
-    }
-    if (s) setSeed(s);
-    if (sk && socketData[sk]) setSelectedSocket(sk);
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [socketData, timelessData]);
-
-  // Sync state to URL
-  const updateUrl = useCallback((type, seedVal, socket, conq) => {
-    const params = {};
-    if (type !== undefined) params.type = type;
-    if (seedVal) params.seed = seedVal;
-    if (socket) params.socket = socket;
-    if (conq) params.conqueror = conq;
-    setSearchParams(params, { replace: true });
-  }, [setSearchParams]);
-
   // Handle jewel type change
   const handleJewelTypeChange = useCallback((idx) => {
     setJewelTypeIdx(idx);
     setConquerorIdx(0);
     setSeed('');
     setResults(null);
-    updateUrl(JEWEL_TYPES[idx].id, '', selectedSocket, JEWEL_TYPES[idx].conquerors[0].name);
-  }, [selectedSocket, updateUrl]);
+  }, []);
 
   // Handle conqueror change
   const handleConquerorChange = useCallback((idx) => {
     setConquerorIdx(idx);
     setResults(null);
-    updateUrl(jewelType.id, seed, selectedSocket, jewelType.conquerors[idx].name);
-  }, [jewelType, seed, selectedSocket, updateUrl]);
+  }, []);
 
   // Handle seed change
   const handleSeedChange = useCallback((e) => {
@@ -149,11 +111,9 @@ export default function TimelessJewelCalculator() {
 
   // Handle socket change
   const handleSocketChange = useCallback((e) => {
-    const val = e.target.value;
-    setSelectedSocket(val);
+    setSelectedSocket(e.target.value);
     setResults(null);
-    updateUrl(jewelType.id, seed, val, conqueror.name);
-  }, [jewelType, seed, conqueror, updateUrl]);
+  }, []);
 
   // Calculate
   const handleCalculate = useCallback(() => {
@@ -166,8 +126,7 @@ export default function TimelessJewelCalculator() {
     const nodesInRadius = socketData[selectedSocket].nodesInRadius;
     const calc = calculateSeed(seedNum, jewelType, conqueror, nodesInRadius, timelessData.lookups);
     setResults(calc);
-    updateUrl(jewelType.id, seed, selectedSocket, conqueror.name);
-  }, [timelessData, selectedSocket, seed, socketData, jewelType, conqueror, updateUrl]);
+  }, [timelessData, selectedSocket, seed, socketData, jewelType, conqueror]);
 
   // Toggle handlers — turning a category OFF clears its manual overrides
   const handleToggleNotables = useCallback((val) => {
@@ -290,11 +249,11 @@ export default function TimelessJewelCalculator() {
       nodes,
       desiredStatIds: statIds.map(Number),
       statWeights: selectedStats,
-      minMatches,
+      minMatches: effectiveMinMatches,
       altSkills: rawDataRef.current.altSkills,
       altAdditions: rawDataRef.current.altAdditions,
     });
-  }, [timelessData, selectedSocket, socketData, selectedStats, minMatches, jewelType, conqueror]);
+  }, [timelessData, selectedSocket, socketData, selectedStats, effectiveMinMatches, jewelType, conqueror]);
 
   // Cancel search
   const handleCancelSearch = useCallback(() => {
@@ -311,13 +270,11 @@ export default function TimelessJewelCalculator() {
     setMode('seed');
     setSeed(String(seedValue));
     setResults(null);
-    // Auto-calculate
     if (!timelessData || !selectedSocket || !socketData) return;
     const nodesInRadius = socketData[selectedSocket].nodesInRadius;
     const calc = calculateSeed(seedValue, jewelType, conqueror, nodesInRadius, timelessData.lookups);
     setResults(calc);
-    updateUrl(jewelType.id, String(seedValue), selectedSocket, conqueror.name);
-  }, [timelessData, selectedSocket, socketData, jewelType, conqueror, updateUrl]);
+  }, [timelessData, selectedSocket, socketData, jewelType, conqueror]);
 
   // Cleanup worker on unmount
   useEffect(() => {
@@ -357,8 +314,11 @@ export default function TimelessJewelCalculator() {
   }, [selectedSocket, socketData]);
 
   // Derived stat helpers
-  const statEntries = Object.entries(selectedStats); // [[statId, weight], ...]
+  const statEntries = Object.entries(selectedStats);
   const statCount = statEntries.length;
+
+  // Clamp minMatches to not exceed stat count
+  const effectiveMinMatches = Math.max(1, Math.min(minMatches, statCount || 1));
 
   // Group results by type
   const groupedResults = results ? groupResults(results) : null;
@@ -372,7 +332,6 @@ export default function TimelessJewelCalculator() {
         onSelectSocket={(id) => {
           setSelectedSocket(id);
           setResults(null);
-          updateUrl(jewelType.id, seed, id, conqueror.name);
         }}
         results={results}
         inRadiusNodeIds={inRadiusNodeIds}
