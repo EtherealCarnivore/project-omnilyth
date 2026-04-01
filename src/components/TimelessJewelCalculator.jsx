@@ -14,6 +14,7 @@ import {
   buildTradeUrl,
   getAvailableStats,
 } from '../calculators/timelessJewel';
+import TimelessTreeView from './TimelessTreeView';
 
 export default function TimelessJewelCalculator() {
   const { league } = useLeague();
@@ -335,7 +336,23 @@ export default function TimelessJewelCalculator() {
   const groupedResults = results ? groupResults(results) : null;
 
   return (
-    <div className="space-y-6">
+    <div className="flex flex-col lg:flex-row gap-4 h-full">
+      {/* ═══ Tree View (left/top) ═══ */}
+      <TimelessTreeView
+        treeData={treeData}
+        selectedSocket={selectedSocket}
+        onSelectSocket={(id) => {
+          setSelectedSocket(id);
+          setResults(null);
+          updateUrl(jewelType.id, seed, id, conqueror.name);
+        }}
+        results={results}
+        className="h-[50vh] lg:h-auto lg:flex-1 min-h-[300px]"
+      />
+
+      {/* ═══ Controls Panel (right/bottom) ═══ */}
+      <div className="lg:w-[420px] lg:flex-shrink-0 lg:overflow-y-auto space-y-5 glass-card rounded-2xl p-5">
+
       {/* Header + Mode Toggle */}
       <div className="flex items-start justify-between gap-4">
         <div>
@@ -406,7 +423,7 @@ export default function TimelessJewelCalculator() {
         </div>
       </div>
 
-      {/* Socket Selector (shared by both modes) */}
+      {/* Socket indicator + dropdown fallback */}
       <div>
         <label className="block text-xs font-medium text-zinc-400 mb-2">Jewel Socket</label>
         <select
@@ -414,7 +431,7 @@ export default function TimelessJewelCalculator() {
           onChange={handleSocketChange}
           className="w-full px-3 py-2 rounded-lg bg-zinc-800/80 border border-white/10 text-sm text-zinc-100 outline-none focus:ring-1 focus:ring-amber-400/40"
         >
-          <option value="">Select a socket...</option>
+          <option value="">Click a socket on the tree...</option>
           {socketList.map(s => (
             <option key={s.id} value={s.id}>
               {s.regionName} ({s.notableCount}N{s.keystoneCount > 0 ? ` ${s.keystoneCount}K` : ''})
@@ -593,6 +610,8 @@ export default function TimelessJewelCalculator() {
           )}
         </>
       )}
+
+      </div>{/* end controls panel */}
     </div>
   );
 }
