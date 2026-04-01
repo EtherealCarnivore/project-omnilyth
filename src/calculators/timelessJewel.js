@@ -555,6 +555,41 @@ export function translateStat(statId, value, translations) {
   return e.translation.replace('{0}', scaled);
 }
 
+// ─── Available Stats for Reverse Search ─────────────────────────────────────
+
+/**
+ * Collect all unique stats that a jewel type can produce.
+ * Returns array of { statId, name } sorted alphabetically by name.
+ */
+export function getAvailableStats(jewelTypeId, lookups, translations) {
+  const seen = new Set();
+  const stats = [];
+
+  const collect = (entry) => {
+    for (const statId of entry.StatsKeys) {
+      if (seen.has(statId)) continue;
+      seen.add(statId);
+      const name = translateStat(statId, 1, translations);
+      stats.push({ statId, name });
+    }
+  };
+
+  // Replacement skills for this jewel version
+  for (const skills of Object.values(lookups.skillsByTypeVersion)) {
+    const list = skills[jewelTypeId];
+    if (list) list.forEach(collect);
+  }
+
+  // Augmentation additions for this jewel version
+  for (const adds of Object.values(lookups.additionsByTypeVersion)) {
+    const list = adds[jewelTypeId];
+    if (list) list.forEach(collect);
+  }
+
+  stats.sort((a, b) => a.name.localeCompare(b.name));
+  return stats;
+}
+
 // ─── Trade URL Generation ───────────────────────────────────────────────────
 
 const TRADE_STAT_NAMES = {

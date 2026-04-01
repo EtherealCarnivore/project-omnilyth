@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback, useEffect } from 'react';
+import { useState, useMemo, useCallback, useEffect, useRef } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import { useLeague } from '../contexts/LeagueContext';
 import usePassiveTreeData from '../hooks/usePassiveTreeData';
@@ -12,6 +12,7 @@ import {
   calculateSeed,
   translateStat,
   buildTradeUrl,
+  getAvailableStats,
 } from '../calculators/timelessJewel';
 
 export default function TimelessJewelCalculator() {
@@ -29,6 +30,16 @@ export default function TimelessJewelCalculator() {
   const [showSmall, setShowSmall] = useState(true);
   const [enabledNodes, setEnabledNodes] = useState(new Set()); // manually re-enabled node IDs
 
+  // Reverse search state
+  const [mode, setMode] = useState('seed'); // 'seed' | 'search'
+  const [selectedStats, setSelectedStats] = useState(new Set());
+  const [statQuery, setStatQuery] = useState('');
+  const [searching, setSearching] = useState(false);
+  const [searchProgress, setSearchProgress] = useState(null);
+  const [searchResults, setSearchResults] = useState(null);
+  const workerRef = useRef(null);
+  const rawDataRef = useRef(null); // raw JSON for passing to worker
+
   const jewelType = JEWEL_TYPES[jewelTypeIdx];
   const conqueror = jewelType.conquerors[conquerorIdx] || jewelType.conquerors[0];
 
@@ -41,6 +52,7 @@ export default function TimelessJewelCalculator() {
       import('../data/timeless/translations.json'),
     ]).then(([skills, additions, translations]) => {
       if (cancelled) return;
+      rawDataRef.current = { altSkills: skills.default, altAdditions: additions.default };
       setTimelessData({
         lookups: initTimelessData(skills.default, additions.default),
         translations: translations.default,
@@ -192,6 +204,115 @@ export default function TimelessJewelCalculator() {
     });
   }, []);
 
+  // Available stats for the selected jewel type (for reverse search)
+  const availableStats = useMemo(() => {
+    if (!timelessData) return [];
+    return getAvailableStats(jewelType.id, timelessData.lookups, timelessData.translations);
+  }, [timelessData, jewelType.id]);
+
+  // Filtered stat list for search dropdown
+  const filteredStats = useMemo(() => {
+    if (!statQuery) return availableStats;
+    const q = statQuery.toLowerCase();
+    return availableStats.filter(s => s.name.toLowerCase().includes(q));
+  }, [availableStats, statQuery]);
+
+  // Toggle a stat for reverse search
+  const handleToggleStat = useCallback((statId) => {
+    setSelectedStats(prev => {
+      const next = new Set(prev);
+      if (next.has(statId)) next.delete(statId);
+      else next.add(statId);
+      return next;
+    });
+    setSearchResults(null);
+  }, []);
+
+  // Start reverse search via Web Worker
+  const handleSearch = useCallback(() => {
+    if (!timelessData || !selectedSocket || !socketData || selectedStats.size === 0) return;
+    if (!rawDataRef.current) return;
+
+    // Kill previous worker
+    if (workerRef.current) workerRef.current.terminate();
+
+    setSearching(true);
+    setSearchProgress(null);
+    setSearchResults(null);
+
+    const worker = new Worker(
+      new URL('../workers/timelessSearch.js', import.meta.url),
+      { type: 'module' }
+    );
+    workerRef.current = worker;
+
+    worker.onmessage = (e) => {
+      const msg = e.data;
+      if (msg.type === 'progress') {
+        setSearchProgress({ processed: msg.processed, total: msg.totalSeeds });
+      } else if (msg.type === 'done') {
+        setSearchResults(msg.results);
+        setSearching(false);
+        setSearchProgress(null);
+        worker.terminate();
+        workerRef.current = null;
+      }
+    };
+
+    // Serialize nodes for the worker (strip the full node object, send only what's needed)
+    const nodes = socketData[selectedSocket].nodesInRadius.map(n => ({
+      nodeId: n.nodeId,
+      name: n.node.name,
+      skill: n.node.skill,
+      type: n.type,
+    }));
+
+    worker.postMessage({
+      type: 'search',
+      jewelType: { id: jewelType.id, minSeed: jewelType.minSeed, maxSeed: jewelType.maxSeed, seedStep: jewelType.seedStep || 0 },
+      conqueror,
+      nodes,
+      desiredStatIds: [...selectedStats],
+      altSkills: rawDataRef.current.altSkills,
+      altAdditions: rawDataRef.current.altAdditions,
+    });
+  }, [timelessData, selectedSocket, socketData, selectedStats, jewelType, conqueror]);
+
+  // Cancel search
+  const handleCancelSearch = useCallback(() => {
+    if (workerRef.current) {
+      workerRef.current.terminate();
+      workerRef.current = null;
+    }
+    setSearching(false);
+    setSearchProgress(null);
+  }, []);
+
+  // Click a search result → switch to seed mode with that seed
+  const handlePickSeed = useCallback((seedValue) => {
+    setMode('seed');
+    setSeed(String(seedValue));
+    setResults(null);
+    // Auto-calculate
+    if (!timelessData || !selectedSocket || !socketData) return;
+    const nodesInRadius = socketData[selectedSocket].nodesInRadius;
+    const calc = calculateSeed(seedValue, jewelType, conqueror, nodesInRadius, timelessData.lookups);
+    setResults(calc);
+    updateUrl(jewelType.id, String(seedValue), selectedSocket, conqueror.name);
+  }, [timelessData, selectedSocket, socketData, jewelType, conqueror, updateUrl]);
+
+  // Cleanup worker on unmount
+  useEffect(() => {
+    return () => { if (workerRef.current) workerRef.current.terminate(); };
+  }, []);
+
+  // Reset search state on jewel type change
+  useEffect(() => {
+    setSelectedStats(new Set());
+    setSearchResults(null);
+    setStatQuery('');
+  }, [jewelTypeIdx]);
+
   // Validate seed
   const seedNum = Number(seed);
   const seedValid = seed !== '' && !isNaN(seedNum) &&
@@ -215,12 +336,30 @@ export default function TimelessJewelCalculator() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div>
-        <h2 className="text-xl font-bold text-zinc-100">Timeless Jewel Calculator</h2>
-        <p className="text-sm text-zinc-400 mt-1">
-          Calculate how a timeless jewel seed transforms passives in radius.
-        </p>
+      {/* Header + Mode Toggle */}
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <h2 className="text-xl font-bold text-zinc-100">Timeless Jewel Calculator</h2>
+          <p className="text-sm text-zinc-400 mt-1">
+            {mode === 'seed'
+              ? 'Enter a seed to see how it transforms passives in radius.'
+              : 'Pick desired stats and find the best seeds.'}
+          </p>
+        </div>
+        <div className="flex rounded-lg border border-white/10 overflow-hidden flex-shrink-0">
+          <button
+            onClick={() => { setMode('seed'); setSearchResults(null); handleCancelSearch(); }}
+            className={`px-3 py-1.5 text-xs font-medium transition-colors ${
+              mode === 'seed' ? 'bg-amber-500/20 text-amber-300' : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300'
+            }`}
+          >Seed Lookup</button>
+          <button
+            onClick={() => { setMode('search'); setResults(null); }}
+            className={`px-3 py-1.5 text-xs font-medium transition-colors ${
+              mode === 'search' ? 'bg-teal-500/20 text-teal-300' : 'bg-zinc-800/50 text-zinc-500 hover:text-zinc-300'
+            }`}
+          >Stat Search</button>
+        </div>
       </div>
 
       {/* Jewel Type Selector */}
@@ -267,81 +406,192 @@ export default function TimelessJewelCalculator() {
         </div>
       </div>
 
-      {/* Seed + Socket Row */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        {/* Seed Input */}
-        <div>
-          <label className="block text-xs font-medium text-zinc-400 mb-2">
-            Seed
-            <span className="text-zinc-600 ml-1">
-              ({jewelType.minSeed.toLocaleString()}&ndash;{jewelType.maxSeed.toLocaleString()}
-              {jewelType.seedStep && `, multiples of ${jewelType.seedStep}`})
-            </span>
-          </label>
-          <input
-            type="number"
-            value={seed}
-            onChange={handleSeedChange}
-            onKeyDown={(e) => e.key === 'Enter' && canCalculate && handleCalculate()}
-            min={jewelType.minSeed}
-            max={jewelType.maxSeed}
-            step={jewelType.seedStep || 1}
-            placeholder={`e.g. ${jewelType.minSeed + 100}`}
-            className={`w-full px-3 py-2 rounded-lg bg-zinc-800/80 border text-sm text-zinc-100 placeholder:text-zinc-600 outline-none focus:ring-1 ${
-              seed && !seedValid
-                ? 'border-red-400/50 focus:ring-red-400/40'
-                : 'border-white/10 focus:ring-amber-400/40'
-            }`}
-          />
-        </div>
-
-        {/* Socket Selector */}
-        <div>
-          <label className="block text-xs font-medium text-zinc-400 mb-2">Jewel Socket</label>
-          <select
-            value={selectedSocket}
-            onChange={handleSocketChange}
-            className="w-full px-3 py-2 rounded-lg bg-zinc-800/80 border border-white/10 text-sm text-zinc-100 outline-none focus:ring-1 focus:ring-amber-400/40"
-          >
-            <option value="">Select a socket...</option>
-            {socketList.map(s => (
-              <option key={s.id} value={s.id}>
-                {s.regionName} ({s.notableCount}N{s.keystoneCount > 0 ? ` ${s.keystoneCount}K` : ''})
-              </option>
-            ))}
-          </select>
-        </div>
+      {/* Socket Selector (shared by both modes) */}
+      <div>
+        <label className="block text-xs font-medium text-zinc-400 mb-2">Jewel Socket</label>
+        <select
+          value={selectedSocket}
+          onChange={handleSocketChange}
+          className="w-full px-3 py-2 rounded-lg bg-zinc-800/80 border border-white/10 text-sm text-zinc-100 outline-none focus:ring-1 focus:ring-amber-400/40"
+        >
+          <option value="">Select a socket...</option>
+          {socketList.map(s => (
+            <option key={s.id} value={s.id}>
+              {s.regionName} ({s.notableCount}N{s.keystoneCount > 0 ? ` ${s.keystoneCount}K` : ''})
+            </option>
+          ))}
+        </select>
       </div>
 
-      {/* Calculate Button */}
-      <button
-        onClick={handleCalculate}
-        disabled={!canCalculate}
-        className={`w-full py-2.5 rounded-lg text-sm font-semibold transition-colors ${
-          canCalculate
-            ? 'bg-amber-500/20 text-amber-300 border border-amber-400/30 hover:bg-amber-500/30'
-            : 'bg-zinc-800/50 text-zinc-600 border border-white/5 cursor-not-allowed'
-        }`}
-      >
-        Calculate Seed Effects
-      </button>
+      {/* ═══ Seed Lookup Mode ═══ */}
+      {mode === 'seed' && (
+        <>
+          <div>
+            <label className="block text-xs font-medium text-zinc-400 mb-2">
+              Seed
+              <span className="text-zinc-600 ml-1">
+                ({jewelType.minSeed.toLocaleString()}&ndash;{jewelType.maxSeed.toLocaleString()}
+                {jewelType.seedStep && `, multiples of ${jewelType.seedStep}`})
+              </span>
+            </label>
+            <input
+              type="number"
+              value={seed}
+              onChange={handleSeedChange}
+              onKeyDown={(e) => e.key === 'Enter' && canCalculate && handleCalculate()}
+              min={jewelType.minSeed}
+              max={jewelType.maxSeed}
+              step={jewelType.seedStep || 1}
+              placeholder={`e.g. ${jewelType.minSeed + 100}`}
+              className={`w-full px-3 py-2 rounded-lg bg-zinc-800/80 border text-sm text-zinc-100 placeholder:text-zinc-600 outline-none focus:ring-1 ${
+                seed && !seedValid
+                  ? 'border-red-400/50 focus:ring-red-400/40'
+                  : 'border-white/10 focus:ring-amber-400/40'
+              }`}
+            />
+          </div>
 
-      {/* Results */}
-      {groupedResults && (
-        <ResultsDisplay
-          groups={groupedResults}
-          translations={timelessData.translations}
-          jewelType={jewelType}
-          seed={seedNum}
-          conqueror={conqueror}
-          league={league}
-          showNotables={showNotables}
-          showSmall={showSmall}
-          enabledNodes={enabledNodes}
-          onToggleNotables={handleToggleNotables}
-          onToggleSmall={handleToggleSmall}
-          onNodeClick={handleNodeClick}
-        />
+          <button
+            onClick={handleCalculate}
+            disabled={!canCalculate}
+            className={`w-full py-2.5 rounded-lg text-sm font-semibold transition-colors ${
+              canCalculate
+                ? 'bg-amber-500/20 text-amber-300 border border-amber-400/30 hover:bg-amber-500/30'
+                : 'bg-zinc-800/50 text-zinc-600 border border-white/5 cursor-not-allowed'
+            }`}
+          >
+            Calculate Seed Effects
+          </button>
+
+          {groupedResults && (
+            <ResultsDisplay
+              groups={groupedResults}
+              translations={timelessData.translations}
+              jewelType={jewelType}
+              seed={seedNum}
+              conqueror={conqueror}
+              league={league}
+              showNotables={showNotables}
+              showSmall={showSmall}
+              enabledNodes={enabledNodes}
+              onToggleNotables={handleToggleNotables}
+              onToggleSmall={handleToggleSmall}
+              onNodeClick={handleNodeClick}
+            />
+          )}
+        </>
+      )}
+
+      {/* ═══ Stat Search Mode ═══ */}
+      {mode === 'search' && (
+        <>
+          {/* Stat selector */}
+          <div>
+            <label className="block text-xs font-medium text-zinc-400 mb-2">
+              Desired Stats
+              {selectedStats.size > 0 && (
+                <span className="ml-2 text-teal-400">{selectedStats.size} selected</span>
+              )}
+            </label>
+
+            {/* Selected stat chips */}
+            {selectedStats.size > 0 && (
+              <div className="flex flex-wrap gap-1.5 mb-2">
+                {[...selectedStats].map(statId => {
+                  const stat = availableStats.find(s => s.statId === statId);
+                  return (
+                    <button
+                      key={statId}
+                      onClick={() => handleToggleStat(statId)}
+                      className="px-2 py-0.5 text-xs rounded bg-teal-500/15 border border-teal-400/30 text-teal-300 hover:bg-red-500/15 hover:border-red-400/30 hover:text-red-300 transition-colors"
+                    >
+                      {stat?.name || `Stat ${statId}`} &times;
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+
+            {/* Search input */}
+            <input
+              type="text"
+              value={statQuery}
+              onChange={(e) => setStatQuery(e.target.value)}
+              placeholder="Filter stats..."
+              className="w-full px-3 py-2 rounded-lg bg-zinc-800/80 border border-white/10 text-sm text-zinc-100 placeholder:text-zinc-600 outline-none focus:ring-1 focus:ring-teal-400/40 mb-2"
+            />
+
+            {/* Stat list */}
+            <div className="max-h-48 overflow-y-auto rounded-lg border border-white/5 bg-zinc-900/50 divide-y divide-white/5">
+              {filteredStats.map(stat => {
+                const isSelected = selectedStats.has(stat.statId);
+                return (
+                  <button
+                    key={stat.statId}
+                    onClick={() => handleToggleStat(stat.statId)}
+                    className={`w-full text-left px-3 py-1.5 text-xs transition-colors ${
+                      isSelected
+                        ? 'bg-teal-500/10 text-teal-300'
+                        : 'text-zinc-400 hover:bg-zinc-800/80 hover:text-zinc-200'
+                    }`}
+                  >
+                    {isSelected && <span className="mr-1.5">&#10003;</span>}
+                    {stat.name}
+                  </button>
+                );
+              })}
+              {filteredStats.length === 0 && (
+                <div className="px-3 py-3 text-xs text-zinc-600 text-center">No matching stats</div>
+              )}
+            </div>
+          </div>
+
+          {/* Search button / progress */}
+          {!searching ? (
+            <button
+              onClick={handleSearch}
+              disabled={selectedStats.size === 0 || !selectedSocket}
+              className={`w-full py-2.5 rounded-lg text-sm font-semibold transition-colors ${
+                selectedStats.size > 0 && selectedSocket
+                  ? 'bg-teal-500/20 text-teal-300 border border-teal-400/30 hover:bg-teal-500/30'
+                  : 'bg-zinc-800/50 text-zinc-600 border border-white/5 cursor-not-allowed'
+              }`}
+            >
+              Search {((jewelType.maxSeed - jewelType.minSeed) / (jewelType.seedStep || 1) + 1).toLocaleString()} Seeds
+            </button>
+          ) : (
+            <div className="space-y-2">
+              <div className="flex items-center justify-between text-xs text-zinc-400">
+                <span>Searching seeds...</span>
+                <button onClick={handleCancelSearch} className="text-red-400 hover:text-red-300">Cancel</button>
+              </div>
+              <div className="w-full h-2 rounded-full bg-zinc-800 overflow-hidden">
+                <div
+                  className="h-full bg-teal-500/60 rounded-full transition-all duration-150"
+                  style={{ width: searchProgress ? `${(searchProgress.processed / searchProgress.total * 100)}%` : '0%' }}
+                />
+              </div>
+              {searchProgress && (
+                <div className="text-xs text-zinc-600 text-center">
+                  {searchProgress.processed.toLocaleString()} / {searchProgress.total.toLocaleString()}
+                </div>
+              )}
+            </div>
+          )}
+
+          {/* Search results */}
+          {searchResults && (
+            <SearchResults
+              results={searchResults}
+              translations={timelessData.translations}
+              selectedStats={selectedStats}
+              onPickSeed={handlePickSeed}
+              jewelType={jewelType}
+              league={league}
+              conqueror={conqueror}
+            />
+          )}
+        </>
       )}
     </div>
   );
@@ -674,5 +924,97 @@ function ResultRow({ item, translations, clickable, active, onClick }) {
         </div>
       )}
     </Wrapper>
+  );
+}
+
+// ─── Search Results ─────────────────────────────────────────────────────────
+
+function SearchResults({ results, translations, selectedStats, onPickSeed, jewelType, league, conqueror }) {
+  const [expanded, setExpanded] = useState(null);
+
+  if (results.length === 0) {
+    return (
+      <div className="rounded-xl border border-white/5 bg-zinc-800/30 px-4 py-6 text-center text-sm text-zinc-500">
+        No seeds found matching the selected stats for this socket.
+      </div>
+    );
+  }
+
+  return (
+    <div className="space-y-2">
+      <div className="flex items-center justify-between text-sm">
+        <span className="text-zinc-400">{results.length} seeds found</span>
+        <span className="text-xs text-zinc-600">Ranked by matching stats</span>
+      </div>
+
+      <div className="rounded-xl border border-teal-400/20 bg-teal-500/5 overflow-hidden divide-y divide-white/5">
+        {results.slice(0, 50).map((r) => {
+          const isExpanded = expanded === r.seed;
+          const tradeUrl = buildTradeUrl(league, jewelType, r.seed, conqueror.name);
+
+          return (
+            <div key={r.seed}>
+              {/* Seed row */}
+              <div className="flex items-center gap-3 px-4 py-2.5">
+                <button
+                  onClick={() => setExpanded(isExpanded ? null : r.seed)}
+                  className="flex-1 text-left flex items-center gap-3 min-w-0"
+                >
+                  <span className="text-sm font-mono text-zinc-100 font-medium w-16 flex-shrink-0">{r.seed}</span>
+                  <span className="text-xs px-1.5 py-0.5 rounded bg-teal-500/20 text-teal-300 flex-shrink-0">
+                    {r.score}/{selectedStats.size}
+                  </span>
+                  <span className="text-xs text-zinc-500 truncate">
+                    {r.matches.slice(0, 3).map(m =>
+                      translateStat(m.statId, m.value, translations)
+                    ).join(' · ')}
+                    {r.matches.length > 3 && ` +${r.matches.length - 3}`}
+                  </span>
+                </button>
+
+                <div className="flex items-center gap-1.5 flex-shrink-0">
+                  {tradeUrl && (
+                    <a
+                      href={tradeUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="px-2 py-0.5 text-xs rounded bg-amber-500/15 text-amber-300 border border-amber-400/30 hover:bg-amber-500/25 transition-colors"
+                      onClick={(e) => e.stopPropagation()}
+                    >
+                      Trade
+                    </a>
+                  )}
+                  <button
+                    onClick={() => onPickSeed(r.seed)}
+                    className="px-2 py-0.5 text-xs rounded bg-zinc-700/50 text-zinc-300 border border-white/10 hover:bg-zinc-600/50 transition-colors"
+                  >
+                    View
+                  </button>
+                </div>
+              </div>
+
+              {/* Expanded matches */}
+              {isExpanded && (
+                <div className="px-4 pb-3 pt-0">
+                  <div className="rounded-lg bg-zinc-900/50 border border-white/5 divide-y divide-white/5">
+                    {r.matches.map((m, i) => (
+                      <div key={i} className="px-3 py-1.5 flex items-center gap-2 text-xs">
+                        <span className="text-zinc-500 w-28 flex-shrink-0 truncate">{m.nodeName}</span>
+                        <span className="text-teal-300/80">
+                          {translateStat(m.statId, m.value, translations)}
+                        </span>
+                        {m.skillName && (
+                          <span className="text-zinc-600 ml-auto flex-shrink-0">({m.skillName})</span>
+                        )}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
   );
 }
