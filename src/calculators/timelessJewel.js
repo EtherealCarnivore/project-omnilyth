@@ -555,6 +555,16 @@ export function translateStat(statId, value, translations) {
   return e.translation.replace('{0}', scaled);
 }
 
+// ─── Stat Label (for picker, no rolled value) ──────────────────────────────
+
+function getStatLabel(statId, translations) {
+  const entries = translations[String(statId)];
+  if (!entries || entries.length === 0) return `Stat ${statId}`;
+  // Use the positive/"from" variant, replace {0} with #
+  const entry = entries.find(e => e.from !== undefined && e.from >= 0) || entries[0];
+  return entry.translation.replace('{0}', '#');
+}
+
 // ─── Available Stats for Reverse Search ─────────────────────────────────────
 
 /**
@@ -569,7 +579,7 @@ export function getAvailableStats(jewelTypeId, lookups, translations) {
     for (const statId of entry.StatsKeys) {
       if (seen.has(statId)) continue;
       seen.add(statId);
-      const name = translateStat(statId, 1, translations);
+      const name = getStatLabel(statId, translations);
       stats.push({ statId, name });
     }
   };
