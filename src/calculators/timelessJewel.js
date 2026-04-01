@@ -602,22 +602,13 @@ export function getAvailableStats(jewelTypeId, lookups, translations) {
 
 // ─── Trade URL Generation ───────────────────────────────────────────────────
 
-const TRADE_STAT_NAMES = {
-  vaal:     'explicit.pseudo_timeless_jewel_xibaqua',
-  karui:    'explicit.pseudo_timeless_jewel_kaom',
-  maraketh: 'explicit.pseudo_timeless_jewel_deshret',
-  templar:  'explicit.pseudo_timeless_jewel_dominus',
-  eternal:  'explicit.pseudo_timeless_jewel_cadiro',
-  kalguur:  'explicit.pseudo_timeless_jewel_vorana',
-};
-
-export function buildTradeUrl(league, jewelType, seed, conqueror) {
-  const statName = TRADE_STAT_NAMES[jewelType.tag];
-  if (!statName) return null;
+export function buildTradeUrl(league, jewelType, seed, conquerorName) {
+  // Each conqueror has its own pseudo stat ID on the trade site
+  const statName = `explicit.pseudo_timeless_jewel_${conquerorName.toLowerCase()}`;
 
   const query = {
     query: {
-      status: { option: 'securable' },
+      status: { option: 'online' },
       stats: [{
         type: 'and',
         filters: [{
@@ -625,12 +616,10 @@ export function buildTradeUrl(league, jewelType, seed, conqueror) {
           value: { min: seed, max: seed },
           disabled: false,
         }],
-        disabled: false,
       }],
       filters: {
         type_filters: {
           filters: { category: { option: 'jewel.timeless' } },
-          disabled: false,
         },
       },
     },
