@@ -25,10 +25,12 @@ self.onmessage = function (e) {
 
 // ─── Core search loop ───────────────────────────────────────────────────────
 
-function runSearch({ jewelType, conqueror, nodes, desiredStatIds, altSkills, altAdditions }) {
+function runSearch({ jewelType, conqueror, nodes, desiredStatIds, statWeights, minMatches, altSkills, altAdditions }) {
   const lookups = initTimelessData(altSkills, altAdditions);
   const version = TREE_VERSIONS[jewelType.id];
   const desiredSet = new Set(desiredStatIds);
+  const weights = statWeights || {};
+  const minRequired = minMatches || 1;
 
   const seedStep = jewelType.seedStep || 1;
   const seedMin = jewelType.minSeed;
@@ -38,11 +40,11 @@ function runSearch({ jewelType, conqueror, nodes, desiredStatIds, altSkills, alt
   const rng = new TinyMT32();
   const results = [];
   let processed = 0;
-  const PROGRESS_INTERVAL = Math.max(1, Math.floor(totalSeeds / 200)); // ~200 progress updates
+  const PROGRESS_INTERVAL = Math.max(1, Math.floor(totalSeeds / 200));
 
   for (let seed = seedMin; seed <= seedMax; seed += seedStep) {
     const adjustedSeed = jewelType.seedStep ? Math.floor(seed / jewelType.seedStep) : seed;
-    const matches = []; // { nodeId, nodeName, statId, value }
+    const matches = [];
 
     for (const n of nodes) {
       const nodeType = n.type;
@@ -61,9 +63,18 @@ function runSearch({ jewelType, conqueror, nodes, desiredStatIds, altSkills, alt
     }
 
     if (matches.length > 0) {
-      // Count unique desired stats found
       const uniqueStats = new Set(matches.map(m => m.statId));
-      results.push({ seed, score: uniqueStats.size, totalValue: sumValues(matches), matches });
+      // Filter: must meet minimum unique stat threshold
+      if (uniqueStats.size >= minRequired) {
+        // Weighted score: sum of (weight × value) for best match per stat
+        let weightedScore = 0;
+        for (const statId of uniqueStats) {
+          const w = weights[statId] || 1;
+          const bestValue = Math.max(...matches.filter(m => m.statId === statId).map(m => m.value));
+          weightedScore += w * bestValue;
+        }
+        results.push({ seed, score: uniqueStats.size, weightedScore, matches });
+      }
     }
 
     processed++;
@@ -72,8 +83,8 @@ function runSearch({ jewelType, conqueror, nodes, desiredStatIds, altSkills, alt
     }
   }
 
-  // Sort: most unique desired stats first, then by total rolled value
-  results.sort((a, b) => b.score - a.score || b.totalValue - a.totalValue);
+  // Sort: most unique stats first, then by weighted score
+  results.sort((a, b) => b.score - a.score || b.weightedScore - a.weightedScore);
 
   self.postMessage({ type: 'done', results: results.slice(0, 200) });
 }
