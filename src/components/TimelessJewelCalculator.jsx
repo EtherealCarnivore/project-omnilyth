@@ -347,6 +347,8 @@ export default function TimelessJewelCalculator() {
           updateUrl(jewelType.id, seed, id, conqueror.name);
         }}
         results={results}
+        pinnedNodes={enabledNodes}
+        onToggleNode={handleNodeClick}
         className="h-[50vh] lg:h-auto lg:flex-1 min-h-[300px]"
       />
 
