@@ -613,6 +613,7 @@ export default function TimelessJewelCalculator() {
               jewelType={jewelType}
               league={league}
               conqueror={conqueror}
+              treeData={treeData}
             />
           )}
         </>
@@ -955,8 +956,9 @@ function ResultRow({ item, translations, clickable, active, onClick }) {
 
 // ─── Search Results ─────────────────────────────────────────────────────────
 
-function SearchResults({ results, translations, selectedStats, onPickSeed, jewelType, league, conqueror }) {
+function SearchResults({ results, translations, selectedStats, onPickSeed, jewelType, league, conqueror, treeData }) {
   const [expanded, setExpanded] = useState(null);
+  const spriteMap = treeData?.spriteMap || null;
 
   if (results.length === 0) {
     return (
@@ -978,62 +980,94 @@ function SearchResults({ results, translations, selectedStats, onPickSeed, jewel
           const isExpanded = expanded === r.seed;
           const tradeUrl = buildTradeUrl(league, jewelType, r.seed, conqueror.name);
 
+          // Deduplicate: one entry per unique stat ID (best value)
+          const byStatId = new Map();
+          for (const m of r.matches) {
+            const existing = byStatId.get(m.statId);
+            if (!existing || m.value > existing.value) byStatId.set(m.statId, m);
+          }
+          const uniqueMatches = [...byStatId.values()];
+
           return (
             <div key={r.seed}>
-              {/* Seed row */}
-              <div className="flex items-center gap-3 px-4 py-2.5">
-                <button
-                  onClick={() => setExpanded(isExpanded ? null : r.seed)}
-                  className="flex-1 text-left flex items-center gap-3 min-w-0"
-                >
-                  <span className="text-sm font-mono text-zinc-100 font-medium w-16 flex-shrink-0">{r.seed}</span>
-                  <span className="text-xs px-1.5 py-0.5 rounded bg-teal-500/20 text-teal-300 flex-shrink-0">
-                    {r.score}/{selectedStats.size}
-                  </span>
-                  <span className="text-xs text-zinc-500 truncate">
-                    {r.matches.slice(0, 3).map(m =>
-                      translateStat(m.statId, m.value, translations)
-                    ).join(' · ')}
-                    {r.matches.length > 3 && ` +${r.matches.length - 3}`}
-                  </span>
-                </button>
-
-                <div className="flex items-center gap-1.5 flex-shrink-0">
-                  {tradeUrl && (
-                    <a
-                      href={tradeUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="px-2 py-0.5 text-xs rounded bg-amber-500/15 text-amber-300 border border-amber-400/30 hover:bg-amber-500/25 transition-colors"
-                      onClick={(e) => e.stopPropagation()}
-                    >
-                      Trade
-                    </a>
-                  )}
+              {/* Seed row — shows one line per unique desired stat */}
+              <div className="px-4 py-2.5">
+                <div className="flex items-center gap-3">
                   <button
-                    onClick={() => onPickSeed(r.seed)}
-                    className="px-2 py-0.5 text-xs rounded bg-zinc-700/50 text-zinc-300 border border-white/10 hover:bg-zinc-600/50 transition-colors"
+                    onClick={() => setExpanded(isExpanded ? null : r.seed)}
+                    className="flex items-center gap-2 min-w-0"
                   >
-                    View
+                    <span className="text-sm font-mono text-zinc-100 font-medium flex-shrink-0">{r.seed}</span>
+                    <span className="text-xs px-1.5 py-0.5 rounded bg-teal-500/20 text-teal-300 flex-shrink-0">
+                      {r.score}/{selectedStats.size}
+                    </span>
+                    <svg className={`w-3.5 h-3.5 text-zinc-600 transition-transform flex-shrink-0 ${isExpanded ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+                    </svg>
                   </button>
+
+                  <div className="flex items-center gap-1.5 ml-auto flex-shrink-0">
+                    {tradeUrl && (
+                      <a
+                        href={tradeUrl}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="px-2 py-0.5 text-xs rounded bg-amber-500/15 text-amber-300 border border-amber-400/30 hover:bg-amber-500/25 transition-colors"
+                        onClick={(e) => e.stopPropagation()}
+                      >
+                        Trade
+                      </a>
+                    )}
+                    <button
+                      onClick={() => onPickSeed(r.seed)}
+                      className="px-2 py-0.5 text-xs rounded bg-zinc-700/50 text-zinc-300 border border-white/10 hover:bg-zinc-600/50 transition-colors"
+                    >
+                      View
+                    </button>
+                  </div>
+                </div>
+
+                {/* Stat summary — one line per unique desired stat */}
+                <div className="mt-1.5 space-y-0.5">
+                  {uniqueMatches.map((m) => (
+                    <div key={m.statId} className="flex items-center gap-2 text-xs">
+                      <NodeIcon nodeId={m.nodeId} treeData={treeData} spriteMap={spriteMap} />
+                      <span className="text-zinc-500 truncate max-w-[100px]">{m.nodeName}</span>
+                      <span className="text-teal-300/90">{translateStat(m.statId, m.value, translations)}</span>
+                    </div>
+                  ))}
                 </div>
               </div>
 
-              {/* Expanded matches */}
+              {/* Expanded: all matches grouped by stat */}
               {isExpanded && (
                 <div className="px-4 pb-3 pt-0">
                   <div className="rounded-lg bg-zinc-900/50 border border-white/5 divide-y divide-white/5">
-                    {r.matches.map((m, i) => (
-                      <div key={i} className="px-3 py-1.5 flex items-center gap-2 text-xs">
-                        <span className="text-zinc-500 w-28 flex-shrink-0 truncate">{m.nodeName}</span>
-                        <span className="text-teal-300/80">
-                          {translateStat(m.statId, m.value, translations)}
-                        </span>
-                        {m.skillName && (
-                          <span className="text-zinc-600 ml-auto flex-shrink-0">({m.skillName})</span>
-                        )}
-                      </div>
-                    ))}
+                    {[...selectedStats].map(statId => {
+                      const statMatches = r.matches.filter(m => m.statId === statId);
+                      const label = translateStat(statId, statMatches[0]?.value || 0, translations);
+                      return (
+                        <div key={statId} className="px-3 py-2">
+                          <div className={`text-xs font-medium mb-1 ${statMatches.length > 0 ? 'text-teal-300' : 'text-zinc-600 line-through'}`}>
+                            {statMatches.length > 0 ? label : translateStat(statId, 1, translations).replace('1', '#')}
+                          </div>
+                          {statMatches.length > 0 ? (
+                            <div className="space-y-0.5 pl-2">
+                              {statMatches.map((m, i) => (
+                                <div key={i} className="flex items-center gap-2 text-xs">
+                                  <NodeIcon nodeId={m.nodeId} treeData={treeData} spriteMap={spriteMap} />
+                                  <span className="text-zinc-400">{m.nodeName}</span>
+                                  <span className="text-teal-300/70">{m.value}</span>
+                                  {m.skillName && <span className="text-zinc-600 ml-auto">({m.skillName})</span>}
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <div className="text-xs text-zinc-700 pl-2">Not found on any node</div>
+                          )}
+                        </div>
+                      );
+                    })}
                   </div>
                 </div>
               )}
@@ -1042,5 +1076,34 @@ function SearchResults({ results, translations, selectedStats, onPickSeed, jewel
         })}
       </div>
     </div>
+  );
+}
+
+// ─── Inline node icon for search results ────────────────────────────────────
+
+function NodeIcon({ nodeId, treeData, spriteMap }) {
+  if (!treeData || !spriteMap || !nodeId) return null;
+
+  const node = treeData.nodes[nodeId];
+  if (!node?.icon) return null;
+
+  const sprite = spriteMap.inactive[node.icon] || spriteMap.active[node.icon];
+  if (!sprite) return null;
+
+  const size = 18;
+  const scale = size / Math.max(sprite.w, sprite.h);
+
+  return (
+    <span
+      className="inline-block flex-shrink-0 rounded-full overflow-hidden"
+      style={{
+        width: size,
+        height: size,
+        backgroundImage: `url(${sprite.sheetUrl})`,
+        backgroundPosition: `-${sprite.x * scale}px -${sprite.y * scale}px`,
+        backgroundSize: `${sprite.sheetW * scale}px ${sprite.sheetH * scale}px`,
+        backgroundRepeat: 'no-repeat',
+      }}
+    />
   );
 }
