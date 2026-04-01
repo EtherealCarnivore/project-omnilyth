@@ -125,12 +125,11 @@ const modules = [
   {
     id: 'timeless-jewel',
     title: 'Timeless Jewel Calc',
-    description: 'Interactive skill tree for timeless jewel seed searching',
+    description: 'Calculate timeless jewel seed effects on passive tree nodes',
     category: 'Jewels',
     subcategory: 'Timeless Jewels',
     route: '/build/timeless-jewel',
     icon: 'timeless',
-    fullWidth: true,
     component: lazy(() => import('../pages/TimelessJewelPage')),
   },
   {
