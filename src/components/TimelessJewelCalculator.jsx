@@ -260,8 +260,12 @@ export default function TimelessJewelCalculator() {
       }
     };
 
-    // Serialize nodes for the worker (strip the full node object, send only what's needed)
-    const nodes = socketData[selectedSocket].nodesInRadius.map(n => ({
+    // Serialize nodes for the worker — if nodes are pinned, only search those
+    const allNodes = socketData[selectedSocket].nodesInRadius;
+    const sourceNodes = enabledNodes.size > 0
+      ? allNodes.filter(n => enabledNodes.has(n.nodeId))
+      : allNodes;
+    const nodes = sourceNodes.map(n => ({
       nodeId: n.nodeId,
       name: n.node.name,
       skill: n.node.skill,
@@ -577,6 +581,7 @@ export default function TimelessJewelCalculator() {
               }`}
             >
               Search {((jewelType.maxSeed - jewelType.minSeed) / (jewelType.seedStep || 1) + 1).toLocaleString()} Seeds
+              {enabledNodes.size > 0 && <span className="ml-1 text-pink-300/70">({enabledNodes.size} pinned nodes)</span>}
             </button>
           ) : (
             <div className="space-y-2">
