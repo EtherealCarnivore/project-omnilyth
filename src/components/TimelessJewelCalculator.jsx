@@ -43,6 +43,11 @@ export default function TimelessJewelCalculator() {
   const jewelType = JEWEL_TYPES[jewelTypeIdx];
   const conqueror = jewelType.conquerors[conquerorIdx] || jewelType.conquerors[0];
 
+  // Derived stat helpers (must be before handleSearch which uses effectiveMinMatches)
+  const statEntries = Object.entries(selectedStats);
+  const statCount = statEntries.length;
+  const effectiveMinMatches = Math.max(1, Math.min(minMatches, statCount || 1));
+
   // Lazy-load timeless jewel data
   useEffect(() => {
     let cancelled = false;
@@ -312,13 +317,6 @@ export default function TimelessJewelCalculator() {
     if (!selectedSocket || !socketData) return new Set();
     return new Set(socketData[selectedSocket].nodesInRadius.map(n => n.nodeId));
   }, [selectedSocket, socketData]);
-
-  // Derived stat helpers
-  const statEntries = Object.entries(selectedStats);
-  const statCount = statEntries.length;
-
-  // Clamp minMatches to not exceed stat count
-  const effectiveMinMatches = Math.max(1, Math.min(minMatches, statCount || 1));
 
   // Group results by type
   const groupedResults = results ? groupResults(results) : null;
