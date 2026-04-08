@@ -303,10 +303,9 @@ export default function HomePage() {
         </div>
       )}
 
-      {/* Category hub cards (default) or search results */}
+      {/* Search results or all tools by category */}
       {search ? (
         <>
-          {/* Search Results */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
             {filtered.map(mod => (
               <ModuleCard
@@ -324,14 +323,58 @@ export default function HomePage() {
         </>
       ) : (
         <>
-          <div className="flex items-center gap-2 px-1 -mb-4">
-            <h2 className="text-xs font-semibold text-zinc-500 uppercase tracking-widest">Categories</h2>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
-            {CATEGORY_HUBS.map(hub => (
-              <CategoryHubCard key={hub.name} hub={hub} />
-            ))}
-          </div>
+          {/* All tools grouped by category — visible immediately */}
+          {CATEGORY_HUBS.map(hub => {
+            const categoryModules = modules.filter(m => m.category === hub.name);
+            return (
+              <div key={hub.name} className="space-y-3">
+                <div className="flex items-center gap-2 px-1">
+                  <div className={`text-zinc-400 ${hub.hoverAccent?.replace('group-hover:', '') || ''}`}>
+                    {hub.icon}
+                  </div>
+                  <h2 className="text-xs font-semibold text-zinc-500 uppercase tracking-widest">{hub.name}</h2>
+                  <span className="text-[10px] text-zinc-600">{categoryModules.length} tools</span>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {categoryModules.map(mod => (
+                    <ModuleCard
+                      key={mod.id}
+                      mod={mod}
+                      pinned={isPinned(mod.id)}
+                      onTogglePin={() => togglePin(mod.id)}
+                    />
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+
+          {/* Remaining categories not in CATEGORY_HUBS */}
+          {(() => {
+            const hubNames = new Set(CATEGORY_HUBS.map(h => h.name));
+            const otherCategories = [...new Set(modules.filter(m => !hubNames.has(m.category)).map(m => m.category))];
+            return otherCategories.map(cat => {
+              const catModules = modules.filter(m => m.category === cat);
+              return (
+                <div key={cat} className="space-y-3">
+                  <div className="flex items-center gap-2 px-1">
+                    <h2 className="text-xs font-semibold text-zinc-500 uppercase tracking-widest">{cat}</h2>
+                    <span className="text-[10px] text-zinc-600">{catModules.length} tools</span>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {catModules.map(mod => (
+                      <ModuleCard
+                        key={mod.id}
+                        mod={mod}
+                        pinned={isPinned(mod.id)}
+                        onTogglePin={() => togglePin(mod.id)}
+                      />
+                    ))}
+                  </div>
+                </div>
+              );
+            });
+          })()}
         </>
       )}
 
