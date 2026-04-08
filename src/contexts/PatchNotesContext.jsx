@@ -5,36 +5,25 @@
 
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 
-const STORAGE_KEY_CACHE = 'omnilyth_patch_notes_cache_v5'; // v5 to force refresh for wiki migration
+const STORAGE_KEY_CACHE = 'omnilyth_patch_notes_cache_v5';
 const STORAGE_KEY_READ_IDS = 'omnilyth_patch_notes_read_ids_v5';
 const STORAGE_KEY_LAST_FETCH = 'omnilyth_patch_notes_last_fetch_v5';
 const STORAGE_KEY_LAST_CHECK = 'omnilyth_patch_notes_last_check_v5';
-const CACHE_TTL = 5 * 60 * 1000; // 5 minutes
-const POLL_INTERVAL = 30 * 1000; // Poll every 30 seconds when active
+const CACHE_TTL = 5 * 60 * 1000;
+const POLL_INTERVAL = 30 * 1000;
 
-// Use serverless proxy to fetch from PoE Wiki
-// GitHub Pages = static hosting (no functions), so use Netlify proxy
-// Netlify = has functions, use relative path
-// Dev = use production proxy (unless running Netlify Dev on 8888)
-const getProxyUrl = () => {
-  // Development mode - use production proxy for simplicity
-  if (import.meta.env.DEV) {
-    return 'https://super-duper-secret-hoho.netlify.app/.netlify/functions/patch-notes-proxy';
-  }
-
-  // Production: Check if we're on Netlify or GitHub Pages
-  const hostname = window.location.hostname;
-
-  // If on Netlify, use relative path (same-origin, faster)
+// Patch notes proxy — only available on Netlify (server-side wiki parsing).
+// On GitHub Pages, falls back to mock data.
+function getPatchNotesProxyUrl() {
+  const hostname = typeof window !== 'undefined' ? window.location.hostname : '';
   if (hostname.includes('netlify.app') || hostname === 'omnilyth.app' || hostname === 'www.omnilyth.app') {
     return '/.netlify/functions/patch-notes-proxy';
   }
+  // No proxy available on GH Pages — will use mock/cached data
+  return null;
+}
 
-  // If on GitHub Pages, use Netlify proxy (cross-origin)
-  return 'https://super-duper-secret-hoho.netlify.app/.netlify/functions/patch-notes-proxy';
-};
-
-const PROXY_URL = getProxyUrl();
+const PROXY_URL = getPatchNotesProxyUrl();
 
 // Mock data for when PoE Wiki API is unavailable
 const MOCK_PATCHES = [
@@ -121,7 +110,9 @@ export const PatchNotesProvider = ({ children }) => {
       // Cache read failed, continue to fetch
     }
 
-    // Fetch from wiki proxy
+    // Fetch from wiki proxy (only available on Netlify)
+    if (!PROXY_URL) return; // No proxy — keep using mock/cached data
+
     setLoading(true);
     setError(null);
 

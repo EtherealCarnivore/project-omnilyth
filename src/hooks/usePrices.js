@@ -11,23 +11,11 @@
  * sockets. Here I need a proxy service just to do ONE fetch. Clown world.
  */
 import { useState, useEffect, useCallback } from 'react';
+import { ninjaUrl } from '../utils/proxyUrl';
 
 // Every currency we care about. Adding a new one? Just append the slug here.
 // If only React state management were this straightforward.
 const CURRENCY_IDS = ['chromatic-orb', 'jewellers-orb', 'tainted-chromatic-orb', 'orb-of-fusing', 'tainted-orb-of-fusing', 'vaal-orb', 'divine-orb'];
-
-// In dev, Vite proxies /api/poe-ninja/* -> https://poe.ninja/*
-// In production, use our secure serverless function proxy
-const isDev = import.meta.env.DEV;
-
-function ninjaUrl(path) {
-  if (isDev) return `/api/poe-ninja${path}`;
-
-  // Use serverless function proxy (works with Netlify, Vercel, or Cloudflare Workers)
-  // The function validates the path and proxies to poe.ninja securely
-  const proxyUrl = import.meta.env.VITE_PROXY_URL || '/.netlify/functions/poe-ninja-proxy';
-  return `${proxyUrl}?path=${encodeURIComponent(path)}`;
-}
 
 /**
  * Fetches live currency prices from poe.ninja for a given league.

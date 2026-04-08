@@ -1,14 +1,7 @@
 import { useState, useMemo, useEffect, useCallback } from 'react';
 import { useLeague } from '../contexts/LeagueContext';
 import { dustData } from '../data/dustValues';
-
-const isDev = import.meta.env.DEV;
-
-function ninjaUrl(path) {
-  if (isDev) return `/api/poe-ninja${path}`;
-  const proxyUrl = import.meta.env.VITE_PROXY_URL || '/.netlify/functions/poe-ninja-proxy';
-  return `${proxyUrl}?path=${encodeURIComponent(path)}`;
-}
+import { ninjaUrl } from '../utils/proxyUrl';
 
 const UNIQUE_TYPES = [
   { value: 'all', label: 'All' },
