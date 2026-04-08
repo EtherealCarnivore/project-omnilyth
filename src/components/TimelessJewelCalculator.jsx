@@ -11,7 +11,11 @@ import {
   calculateSeed,
   translateStat,
   buildTradeUrl,
+  buildBatchTradeUrls,
   getAvailableStats,
+  MILITANT_FAITH_DEVOTION_MODS,
+  DEVOTION_STAT_ID,
+  calculateTotalDevotion,
 } from '../calculators/timelessJewel';
 import TimelessTreeView from './TimelessTreeView';
 
@@ -28,6 +32,7 @@ export default function TimelessJewelCalculator() {
   const [showNotables, setShowNotables] = useState(true);
   const [showSmall, setShowSmall] = useState(true);
   const [enabledNodes, setEnabledNodes] = useState(new Set()); // manually re-enabled node IDs
+  const [selectedDevotionMods, setSelectedDevotionMods] = useState([]); // Militant Faith "per 10 Devotion" mod IDs
 
   // Reverse search state
   const [mode, setMode] = useState('seed'); // 'seed' | 'search'
@@ -46,7 +51,10 @@ export default function TimelessJewelCalculator() {
   // Derived stat helpers (must be before handleSearch which uses effectiveMinMatches)
   const statEntries = Object.entries(selectedStats);
   const statCount = statEntries.length;
-  const effectiveMinMatches = Math.max(1, Math.min(minMatches, statCount || 1));
+  // When nodes are pinned, require ALL pinned nodes to match (override manual minMatches)
+  const effectiveMinMatches = enabledNodes.size > 0
+    ? enabledNodes.size
+    : Math.max(1, Math.min(minMatches, statCount || 1));
 
   // Lazy-load timeless jewel data
   useEffect(() => {
@@ -93,12 +101,20 @@ export default function TimelessJewelCalculator() {
       .sort((a, b) => a.regionName.localeCompare(b.regionName));
   }, [socketData]);
 
+  // Toggle a Militant Faith "per 10 Devotion" mod
+  const handleToggleDevotionMod = useCallback((modId) => {
+    setSelectedDevotionMods(prev =>
+      prev.includes(modId) ? prev.filter(id => id !== modId) : [...prev, modId]
+    );
+  }, []);
+
   // Handle jewel type change
   const handleJewelTypeChange = useCallback((idx) => {
     setJewelTypeIdx(idx);
     setConquerorIdx(0);
     setSeed('');
     setResults(null);
+    setSelectedDevotionMods([]);
   }, []);
 
   // Handle conqueror change
@@ -302,6 +318,16 @@ export default function TimelessJewelCalculator() {
 
   const canCalculate = seedValid && selectedSocket && timelessData;
 
+  // Set of node IDs in the selected socket's radius (for tree clickability)
+  // Must be before early return — hooks can't be after conditional returns
+  const inRadiusNodeIds = useMemo(() => {
+    if (!selectedSocket || !socketData) return new Set();
+    return new Set(socketData[selectedSocket].nodesInRadius.map(n => n.nodeId));
+  }, [selectedSocket, socketData]);
+
+  // Group results by type
+  const groupedResults = results ? groupResults(results) : null;
+
   // Loading state
   if (treeLoading || !timelessData) {
     return (
@@ -311,15 +337,6 @@ export default function TimelessJewelCalculator() {
       </div>
     );
   }
-
-  // Set of node IDs in the selected socket's radius (for tree clickability)
-  const inRadiusNodeIds = useMemo(() => {
-    if (!selectedSocket || !socketData) return new Set();
-    return new Set(socketData[selectedSocket].nodesInRadius.map(n => n.nodeId));
-  }, [selectedSocket, socketData]);
-
-  // Group results by type
-  const groupedResults = results ? groupResults(results) : null;
 
   return (
     <div className="flex flex-col lg:flex-row gap-4 h-full">
@@ -411,6 +428,37 @@ export default function TimelessJewelCalculator() {
         </div>
       </div>
 
+      {/* Militant Faith: "per 10 Devotion" modifier selector */}
+      {jewelType.id === 4 && (
+        <div>
+          <label className="block text-xs font-medium text-zinc-400 mb-2">
+            Devotion Modifier
+            {selectedDevotionMods.length > 0 && (
+              <span className="ml-2 text-purple-400">{selectedDevotionMods.length} selected</span>
+            )}
+          </label>
+          <div className="space-y-1.5">
+            {MILITANT_FAITH_DEVOTION_MODS.map(mod => {
+              const isSelected = selectedDevotionMods.includes(mod.id);
+              return (
+                <button
+                  key={mod.id}
+                  onClick={() => handleToggleDevotionMod(mod.id)}
+                  className={`w-full text-left px-3 py-2 text-xs rounded-lg border transition-colors ${
+                    isSelected
+                      ? 'bg-purple-500/15 border-purple-400/40 text-purple-300'
+                      : 'bg-zinc-800/50 border-white/5 text-zinc-400 hover:bg-zinc-700/50 hover:text-zinc-300'
+                  }`}
+                >
+                  {isSelected && <span className="mr-1.5">&#10003;</span>}
+                  {mod.label}
+                </button>
+              );
+            })}
+          </div>
+        </div>
+      )}
+
       {/* Socket indicator + dropdown fallback */}
       <div>
         <label className="block text-xs font-medium text-zinc-400 mb-2">Jewel Socket</label>
@@ -482,6 +530,8 @@ export default function TimelessJewelCalculator() {
               onToggleNotables={handleToggleNotables}
               onToggleSmall={handleToggleSmall}
               onNodeClick={handleNodeClick}
+              results={results}
+              selectedDevotionMods={selectedDevotionMods}
             />
           )}
         </>
@@ -533,17 +583,24 @@ export default function TimelessJewelCalculator() {
 
                 {/* Min matches control */}
                 <div className="flex items-center gap-2 pt-1">
-                  <span className="text-xs text-zinc-500">Require at least</span>
-                  <select
-                    value={minMatches}
-                    onChange={(e) => { setMinMatches(Number(e.target.value)); setSearchResults(null); }}
-                    className="px-1.5 py-0.5 text-xs rounded bg-zinc-800/80 border border-white/10 text-zinc-200"
-                  >
-                    {[...Array(statCount)].map((_, i) => (
-                      <option key={i + 1} value={i + 1}>{i + 1}</option>
-                    ))}
-                  </select>
-                  <span className="text-xs text-zinc-500">of {statCount} stats</span>
+                  {enabledNodes.size > 0 ? (
+                    <span className="text-xs text-pink-300/80">
+                      Requiring all {enabledNodes.size} pinned nodes to match
+                    </span>
+                  ) : (
+                    <>
+                      <span className="text-xs text-zinc-500">Require at least</span>
+                      <input
+                        type="number"
+                        value={minMatches}
+                        onChange={(e) => { setMinMatches(Math.max(1, Number(e.target.value) || 1)); setSearchResults(null); }}
+                        min={1}
+                        max={20}
+                        className="w-12 px-1.5 py-0.5 text-xs text-center rounded bg-zinc-800/80 border border-white/10 text-zinc-200"
+                      />
+                      <span className="text-xs text-zinc-500">nodes matching</span>
+                    </>
+                  )}
                 </div>
               </div>
             )}
@@ -627,6 +684,7 @@ export default function TimelessJewelCalculator() {
               league={league}
               conqueror={conqueror}
               treeData={treeData}
+              selectedDevotionMods={selectedDevotionMods}
             />
           )}
         </>
@@ -671,9 +729,17 @@ function groupResults(results) {
 function ResultsDisplay({
   groups, translations, jewelType, seed, conqueror, league,
   showNotables, showSmall, enabledNodes, onToggleNotables, onToggleSmall, onNodeClick,
+  results, selectedDevotionMods = [],
 }) {
   const total = groups.keystones.length + groups.notables.length + groups.small.length;
-  const tradeUrl = buildTradeUrl(league, jewelType, seed, conqueror.name);
+  const tradeUrl = buildTradeUrl(league, jewelType, seed, conqueror.name, selectedDevotionMods);
+
+  // Calculate total Devotion for Militant Faith
+  const isMilitantFaith = jewelType.id === 4;
+  const totalDevotion = isMilitantFaith && results ? calculateTotalDevotion(results) : 0;
+  const activeMods = isMilitantFaith
+    ? MILITANT_FAITH_DEVOTION_MODS.filter(m => selectedDevotionMods.includes(m.id))
+    : [];
 
   // A node is "active" if its category toggle is ON, or it was manually enabled
   const isNodeActive = (item) => {
@@ -726,6 +792,25 @@ function ResultsDisplay({
           />
         </div>
       </div>
+
+      {/* Militant Faith: Total Devotion + effective mod values */}
+      {isMilitantFaith && totalDevotion > 0 && (
+        <div className="rounded-xl border border-purple-400/20 bg-purple-500/5 px-4 py-3">
+          <div className="flex items-center justify-between mb-1">
+            <span className="text-sm font-medium text-purple-300">Total Devotion</span>
+            <span className="text-lg font-bold text-purple-200">{totalDevotion}</span>
+          </div>
+          {activeMods.length > 0 && (
+            <div className="space-y-1 mt-2">
+              {activeMods.map(mod => (
+                <div key={mod.id} className="text-xs text-purple-300/80">
+                  {mod.label.replace('#', String(Math.floor(totalDevotion / 10)))}
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      )}
 
       {/* Keystones */}
       {groups.keystones.length > 0 && (
@@ -969,9 +1054,16 @@ function ResultRow({ item, translations, clickable, active, onClick }) {
 
 // ─── Search Results ─────────────────────────────────────────────────────────
 
-function SearchResults({ results, translations, selectedStats, onPickSeed, jewelType, league, conqueror, treeData }) {
+function SearchResults({ results, translations, selectedStats, onPickSeed, jewelType, league, conqueror, treeData, selectedDevotionMods = [] }) {
   const [expanded, setExpanded] = useState(null);
   const spriteMap = treeData?.spriteMap || null;
+
+  // Build batch trade URLs (chunks of up to 45 seeds)
+  const allSeeds = results.map(r => r.seed);
+  const batchUrls = useMemo(
+    () => buildBatchTradeUrls(league, jewelType, allSeeds, conqueror.name, selectedDevotionMods),
+    [league, jewelType, allSeeds.join(','), conqueror.name, selectedDevotionMods]
+  );
 
   if (results.length === 0) {
     return (
@@ -988,18 +1080,31 @@ function SearchResults({ results, translations, selectedStats, onPickSeed, jewel
         <span className="text-xs text-zinc-600">Ranked by matching stats</span>
       </div>
 
+      {/* Batch trade buttons */}
+      <div className="flex flex-wrap gap-1.5">
+        {batchUrls.map((batch, i) => (
+          <a
+            key={i}
+            href={batch.url}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-3 py-1.5 text-xs font-medium rounded-lg bg-amber-500/15 text-amber-300 border border-amber-400/30 hover:bg-amber-500/25 transition-colors"
+          >
+            Trade #{batch.startIdx}&ndash;{batch.endIdx}
+          </a>
+        ))}
+      </div>
+
       <div className="rounded-xl border border-teal-400/20 bg-teal-500/5 overflow-hidden divide-y divide-white/5">
         {results.slice(0, 50).map((r) => {
           const isExpanded = expanded === r.seed;
-          const tradeUrl = buildTradeUrl(league, jewelType, r.seed, conqueror.name);
 
-          // Deduplicate: one entry per unique stat ID (best value)
-          const byStatId = new Map();
+          // One entry per node (a node may have multiple stat hits, show first)
+          const byNode = new Map();
           for (const m of r.matches) {
-            const existing = byStatId.get(m.statId);
-            if (!existing || m.value > existing.value) byStatId.set(m.statId, m);
+            if (!byNode.has(m.nodeId)) byNode.set(m.nodeId, m);
           }
-          const uniqueMatches = [...byStatId.values()];
+          const nodeMatches = [...byNode.values()];
 
           return (
             <div key={r.seed}>
@@ -1012,7 +1117,7 @@ function SearchResults({ results, translations, selectedStats, onPickSeed, jewel
                   >
                     <span className="text-sm font-mono text-zinc-100 font-medium flex-shrink-0">{r.seed}</span>
                     <span className="text-xs px-1.5 py-0.5 rounded bg-teal-500/20 text-teal-300 flex-shrink-0">
-                      {r.score}/{Object.keys(selectedStats).length}
+                      {r.score} nodes
                     </span>
                     {r.weightedScore > 0 && (
                       <span className="text-[10px] text-amber-400/70 flex-shrink-0" title="Weighted score">
@@ -1025,17 +1130,6 @@ function SearchResults({ results, translations, selectedStats, onPickSeed, jewel
                   </button>
 
                   <div className="flex items-center gap-1.5 ml-auto flex-shrink-0">
-                    {tradeUrl && (
-                      <a
-                        href={tradeUrl}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="px-2 py-0.5 text-xs rounded bg-amber-500/15 text-amber-300 border border-amber-400/30 hover:bg-amber-500/25 transition-colors"
-                        onClick={(e) => e.stopPropagation()}
-                      >
-                        Trade
-                      </a>
-                    )}
                     <button
                       onClick={() => onPickSeed(r.seed)}
                       className="px-2 py-0.5 text-xs rounded bg-zinc-700/50 text-zinc-300 border border-white/10 hover:bg-zinc-600/50 transition-colors"
@@ -1045,10 +1139,10 @@ function SearchResults({ results, translations, selectedStats, onPickSeed, jewel
                   </div>
                 </div>
 
-                {/* Stat summary — one line per unique desired stat */}
+                {/* Stat summary — one line per matching node */}
                 <div className="mt-1.5 space-y-0.5">
-                  {uniqueMatches.map((m) => (
-                    <div key={m.statId} className="flex items-center gap-2 text-xs">
+                  {nodeMatches.map((m) => (
+                    <div key={m.nodeId} className="flex items-center gap-2 text-xs">
                       <NodeIcon nodeId={m.nodeId} treeData={treeData} spriteMap={spriteMap} />
                       <span className="text-zinc-500 truncate max-w-[100px]">{m.nodeName}</span>
                       <span className="text-teal-300/90">{translateStat(m.statId, m.value, translations)}</span>
