@@ -9,31 +9,12 @@
  * more auth to get a heartbeat than GGG needs for their entire league list.
  */
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { poeUrl } from '../utils/proxyUrl';
 
 const CACHE_KEY = 'poe_leagues_cache_v3';
-const CACHE_TTL = 24 * 60 * 60 * 1000; // 24h TTL. My market data cache expires in 50μs. This one? A whole day. Living slow.
+const CACHE_TTL = 24 * 60 * 60 * 1000; // 24h TTL
 
-// Use serverless proxy to avoid CORS issues (pathofexile.com blocks direct browser requests)
-const getProxyUrl = () => {
-  // Development mode - use production proxy for simplicity
-  // (To test with local functions, run `netlify dev` instead of `npm run dev`)
-  if (import.meta.env.DEV) {
-    return 'https://super-duper-secret-hoho.netlify.app/.netlify/functions/poe-proxy?endpoint=/api/leagues?type=main&limit=50';
-  }
-
-  // Production: Check if we're on Netlify or GitHub Pages
-  const hostname = window.location.hostname;
-
-  // If on Netlify, use relative path (same-origin)
-  if (hostname.includes('netlify.app') || hostname === 'omnilyth.app' || hostname === 'www.omnilyth.app') {
-    return '/.netlify/functions/poe-proxy?endpoint=/api/leagues?type=main&limit=50';
-  }
-
-  // If on GitHub Pages, use Netlify proxy (cross-origin)
-  return 'https://super-duper-secret-hoho.netlify.app/.netlify/functions/poe-proxy?endpoint=/api/leagues?type=main&limit=50';
-};
-
-const API_URL = getProxyUrl();
+const API_URL = poeUrl('/api/leagues?type=main&limit=50');
 
 // PoE2 leagues use version-style names (e.g. "Phrecia 2.0", "Dawn 3.0")
 const POE2_PATTERN = /\d+\.\d+/;
