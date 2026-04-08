@@ -290,7 +290,18 @@ export default function Sidebar({ open, onClose }) {
         </nav>
 
         {/* Footer */}
-        <div className="border-t border-white/5 px-4 py-3">
+        <div className="border-t border-white/5 px-4 py-3 space-y-1">
+          <NavLink
+            to="/privacy"
+            onClick={onClose}
+            className={({ isActive }) =>
+              `block text-center text-[10px] transition-colors ${
+                isActive ? 'text-sky-400' : 'text-zinc-500 hover:text-zinc-300'
+              }`
+            }
+          >
+            About, Privacy & Legal
+          </NavLink>
           <div className="text-center">
             <span className="text-[10px] text-zinc-500">EtherealCarnivore</span>
           </div>

@@ -1,341 +1,365 @@
 /**
- * PrivacyPage
- * Privacy notice — informational only, no accept/decline needed.
+ * PrivacyPage — Privacy, Legal, Open Source Credits & Disclaimer
+ * One page that covers everything: what this project is, what it isn't,
+ * what data it touches, and who built the things it's built on.
  */
 
 export default function PrivacyPage() {
   return (
-    <div className="max-w-3xl mx-auto space-y-8">
+    <div className="max-w-3xl mx-auto space-y-10 pb-12">
       {/* Header */}
       <div className="space-y-3">
-        <h1 className="text-3xl font-bold text-zinc-100">Privacy Notice</h1>
-        <p className="text-sm text-zinc-500">
-          Last Updated: March 6, 2026
-        </p>
+        <h1 className="text-3xl font-bold text-zinc-100">About, Privacy & Legal</h1>
+        <p className="text-sm text-zinc-500">Last Updated: April 8, 2026</p>
       </div>
 
-      {/* TL;DR */}
-      <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4">
-        <h2 className="text-lg font-semibold text-green-400 mb-2">The Short Version</h2>
-        <p className="text-sm text-green-300">
-          We don't collect any information about you. No analytics, no tracking, no accounts,
-          no ads. The only data stored is in your own browser (localStorage) to remember your
-          preferences — and you can verify that yourself at any time.
+      {/* ═══ What Is Omnilyth ═══ */}
+      <Section title="What Is Omnilyth?">
+        <p>
+          Omnilyth is a <strong>fan-made toolkit for Path of Exile</strong> players.
+          It provides crafting calculators, regex generators, atlas tools, a timeless
+          jewel seed calculator, and leveling utilities — all running entirely in your
+          browser.
         </p>
-      </div>
+        <Callout color="amber">
+          <strong>Omnilyth is not affiliated with, endorsed by, or connected to
+          Grinding Gear Games (GGG) in any way.</strong> Path of Exile and all related
+          content, names, and imagery are trademarks and copyrights of Grinding Gear
+          Games.
+        </Callout>
+      </Section>
 
-      {/* Main Content */}
-      <div className="space-y-6 text-zinc-300">
-        {/* No Data Collection */}
-        <section>
-          <h2 className="text-xl font-semibold text-zinc-200 mb-3">No Data Collection</h2>
-          <p className="text-sm leading-relaxed">
-            Omnilyth does not collect, transmit, or store any personal information. There are
-            no user accounts, no registration, no analytics services, and no server-side
-            databases recording your activity. We have no way to identify who you are or what
-            you do on this site.
-          </p>
-        </section>
+      {/* ═══ Not Open Source ═══ */}
+      <Section title="Is Omnilyth Open Source?">
+        <p>
+          <strong>No.</strong> Omnilyth's original source code is licensed under the{' '}
+          <strong>MIT License</strong> and is publicly viewable on GitHub, but the
+          project as a whole is not an open-source community project. It is a personal
+          project maintained by{' '}
+          <ExtLink href="https://github.com/EtherealCarnivore">EtherealCarnivore</ExtLink>.
+        </p>
+        <p>
+          However, Omnilyth <strong>is built on top of open-source work</strong> from
+          the PoE community. Every third-party library, algorithm, and data source used
+          is credited below with its respective license. If you believe attribution is
+          missing for something, please{' '}
+          <ExtLink href="https://github.com/EtherealCarnivore/project-omnilyth/issues">
+            open an issue
+          </ExtLink>.
+        </p>
+      </Section>
 
-        {/* Local Browser Storage */}
-        <section>
-          <h2 className="text-xl font-semibold text-zinc-200 mb-3">Local Browser Storage</h2>
-          <p className="text-sm leading-relaxed mb-3">
-            To make the tools useful between visits, Omnilyth saves your preferences and choices
-            using your browser's <strong>localStorage</strong>. This data never leaves your
-            device — it is not sent to any server.
+      {/* ═══ Privacy ═══ */}
+      <div className="border-t border-white/5 pt-8 space-y-6">
+        <h2 className="text-2xl font-bold text-zinc-100">Privacy</h2>
+
+        <Callout color="green">
+          <strong>The short version:</strong> We don't collect any information about you.
+          No analytics, no tracking, no accounts, no ads. The only data stored is in your
+          own browser (localStorage) — and you can verify that yourself at any time.
+        </Callout>
+
+        <Section title="No Data Collection" level={3}>
+          <p>
+            Omnilyth does not collect, transmit, or store any personal information.
+            There are no user accounts, no registration, no analytics services, and
+            no server-side databases recording your activity. We have no way to
+            identify who you are or what you do on this site.
           </p>
-          <p className="text-sm leading-relaxed mb-3">
-            Examples of what may be stored locally:
+        </Section>
+
+        <Section title="Local Browser Storage" level={3}>
+          <p>
+            To make the tools useful between visits, Omnilyth saves preferences using
+            your browser's <strong>localStorage</strong>. This data never leaves your
+            device.
           </p>
-          <ul className="list-disc list-inside text-sm space-y-1 ml-4">
+          <ul className="list-disc list-inside space-y-1 ml-4">
             <li>Saved regex patterns (Regex Library)</li>
             <li>League selection preference</li>
             <li>Pinned/favorite calculators</li>
             <li>Leveling progress and act tracking</li>
             <li>Patch notes read/unread status</li>
-            <li>Layout preferences</li>
+            <li>Layout and display preferences</li>
           </ul>
-          <div className="bg-zinc-900/60 border border-white/[0.06] rounded-lg p-4 mt-4">
-            <p className="text-sm text-zinc-400">
-              <strong className="text-zinc-300">You can verify this yourself:</strong> Open your
-              browser's Developer Tools (F12), go to the <em>Application</em> tab, and
-              click <em>Local Storage</em>. Everything stored by Omnilyth is visible there as
-              plain key-value pairs. You can inspect, edit, or delete any of it at any time.
+          <div className="bg-zinc-900/60 border border-white/[0.06] rounded-lg p-4 mt-3">
+            <p className="text-zinc-400">
+              <strong className="text-zinc-300">Verify it yourself:</strong> Open DevTools
+              (F12) &rarr; Application tab &rarr; Local Storage. Everything is plain-text
+              key-value pairs. You can inspect, edit, or delete any of it.
             </p>
           </div>
-        </section>
+        </Section>
 
-        {/* No Cookies for Tracking */}
-        <section>
-          <h2 className="text-xl font-semibold text-zinc-200 mb-3">Cookies</h2>
-          <p className="text-sm leading-relaxed">
-            Omnilyth may use cookies or localStorage interchangeably for saving state such as
-            your preferences. These are <strong>not</strong> tracking cookies — they exist solely
-            to remember your choices (e.g., which regex patterns you saved, which league you
-            selected). No third-party cookies are set. No advertising or analytics cookies exist
-            on this site.
+        <Section title="No Cookies, No Ads, No Tracking" level={3}>
+          <p>
+            Omnilyth does not set tracking cookies, does not serve ads, and does not
+            use any analytics services. No third-party cookies, no ad networks, no
+            tracking pixels, no affiliate links.
           </p>
-        </section>
+        </Section>
 
-        {/* No Ads */}
-        <section>
-          <h2 className="text-xl font-semibold text-zinc-200 mb-3">No Advertisements</h2>
-          <p className="text-sm leading-relaxed">
-            Omnilyth does not serve ads and has no plans to do so. There are no ad networks,
-            tracking pixels, affiliate links, or sponsored content.
-          </p>
-        </section>
-
-        {/* Third-Party API Requests */}
-        <section>
-          <h2 className="text-xl font-semibold text-zinc-200 mb-3">External Requests</h2>
-          <p className="text-sm leading-relaxed mb-3">
-            Some tools fetch publicly available data from external services to function:
-          </p>
-          <ul className="list-disc list-inside text-sm space-y-1 ml-4">
-            <li>
-              <strong>poe.ninja</strong> — Public item price data (no user information sent)
-            </li>
-            <li>
-              <strong>web.poecdn.com</strong> — Gem and item icons (standard CDN image requests)
-            </li>
+        <Section title="External API Requests" level={3}>
+          <p>Some tools fetch publicly available data from external services:</p>
+          <ul className="list-disc list-inside space-y-1 ml-4">
+            <li><strong>poe.ninja</strong> — Public item price data (no user info sent)</li>
+            <li><strong>web.poecdn.com</strong> — Official GGG CDN for gem/item icons</li>
+            <li><strong>poewiki.net</strong> — Patch notes via MediaWiki API</li>
+            <li><strong>pathofexile.com</strong> — Trade search links (opened in your browser)</li>
           </ul>
-          <p className="text-sm leading-relaxed mt-3">
-            These requests are made directly from your browser or through our serverless proxy
-            to avoid CORS restrictions. No personal data is included in these requests.
+          <p className="mt-2">
+            These requests are made from your browser or through a serverless proxy to
+            avoid CORS restrictions. No personal data is included.
           </p>
-        </section>
+        </Section>
+      </div>
 
-        {/* No Accept/Decline */}
-        <section>
-          <h2 className="text-xl font-semibold text-zinc-200 mb-3">Why No Accept / Decline?</h2>
-          <p className="text-sm leading-relaxed">
-            Since we don't collect any information, there is nothing to consent to. Cookie
-            consent banners exist to let you opt in or out of data collection — but we don't
-            collect data, so there's no action to take. This page exists purely for transparency.
-          </p>
-        </section>
+      {/* ═══ Open Source Credits ═══ */}
+      <div className="border-t border-white/5 pt-8 space-y-6">
+        <h2 className="text-2xl font-bold text-zinc-100">Open Source Credits & Licenses</h2>
+        <p className="text-sm text-zinc-400">
+          Omnilyth is built on the work of the PoE community. The following projects,
+          tools, and data sources are used with credit to their original authors.
+        </p>
 
-        {/* Your Control */}
-        <section>
-          <h2 className="text-xl font-semibold text-zinc-200 mb-3">You're in Control</h2>
-          <ul className="text-sm space-y-1 list-disc list-inside ml-4">
-            <li>View everything stored: Browser DevTools → Application → Local Storage</li>
-            <li>Delete everything: Clear your browser data or remove individual keys</li>
-            <li>Use without any storage: Private/incognito mode works fine</li>
-          </ul>
-        </section>
+        {/* GPL-3.0 */}
+        <LicenseSection
+          badge="GPL-3.0"
+          badgeColor="violet"
+          title="GNU General Public License v3.0"
+          note={<>
+            GPL-3.0 requires that derivative works using this code are also publicly
+            available. Omnilyth's source code is on{' '}
+            <ExtLink href="https://github.com/EtherealCarnivore/project-omnilyth">GitHub</ExtLink>.
+          </>}
+        >
+          <CreditRow
+            name="Timeless Jewel Calculator"
+            author="vilsol"
+            description="TinyMT32 PRNG algorithm and timeless jewel seed calculation engine, ported from Go to JavaScript. Powers the Timeless Jewel Calculator's seed lookup and reverse search."
+            href="https://github.com/vilsol/timeless-jewels"
+          />
+        </LicenseSection>
 
-        {/* Contact */}
+        {/* CC BY-NC-SA 3.0 */}
+        <LicenseSection
+          badge="CC BY-NC-SA 3.0"
+          badgeColor="blue"
+          title="Creative Commons Attribution-NonCommercial-ShareAlike"
+        >
+          <CreditRow
+            name="Path of Exile Wiki"
+            author="poewiki.net"
+            description="Gem availability data, quest reward tables, skill gem metadata, and game mechanics reference."
+            href="https://www.poewiki.net"
+          />
+        </LicenseSection>
+
+        {/* CC0 */}
+        <LicenseSection badge="CC0" badgeColor="green" title="Public Domain">
+          <CreditRow
+            name="Chromatic Calculator"
+            author="Siveran"
+            description="Original chromatic orb probability calculations that formed the foundation for Omnilyth's crafting tools."
+            href="https://github.com/Siveran/siveran.github.io"
+          />
+        </LicenseSection>
+
+        {/* MIT */}
+        <LicenseSection badge="MIT" badgeColor="zinc" title="MIT License">
+          <CreditRow
+            name="React"
+            description="UI framework."
+            href="https://react.dev"
+          />
+          <CreditRow
+            name="Vite"
+            description="Build tool and dev server."
+            href="https://vite.dev"
+          />
+          <CreditRow
+            name="Tailwind CSS"
+            description="Utility-first CSS framework."
+            href="https://tailwindcss.com"
+          />
+          <CreditRow
+            name="Pako"
+            description="zlib compression for atlas tree URL sharing."
+            href="https://github.com/nodeca/pako"
+          />
+        </LicenseSection>
+
+        {/* Apache 2.0 */}
+        <LicenseSection badge="Apache 2.0" badgeColor="orange" title="Apache License 2.0">
+          <CreditRow
+            name="Fuse.js"
+            description="Fuzzy search library for gem browser quick search."
+            href="https://www.fusejs.io"
+          />
+        </LicenseSection>
+
+        {/* Community / Public API */}
         <section>
-          <h2 className="text-xl font-semibold text-zinc-200 mb-3">Questions?</h2>
-          <p className="text-sm">
-            If you have questions about how Omnilyth handles data, feel free to open an issue
-            on{' '}
-            <a
-              href="https://github.com/EtherealCarnivore/project-omnilyth/issues"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-amber-400 hover:text-amber-300"
-            >
-              GitHub
-            </a>
-            {' '}or use the in-app feedback button.
-          </p>
+          <h3 className="text-lg font-semibold text-zinc-200 mb-3">Community Data & Public APIs</h3>
+          <div className="bg-zinc-900/60 border border-white/[0.06] rounded-lg divide-y divide-white/[0.04]">
+            <CreditRow
+              name="exile-leveling"
+              author="HeartofPhos"
+              description="Structured leveling zone and quest progression data."
+              href="https://github.com/HeartofPhos/exile-leveling"
+            />
+            <CreditRow
+              name="poe-leveling.com"
+              description="Leveling guide reference and community tips."
+              href="https://www.poe-leveling.com"
+            />
+            <CreditRow
+              name="poe.ninja"
+              description="Public economy data API for real-time item and currency pricing."
+              href="https://poe.ninja"
+            />
+            <CreditRow
+              name="GGG Atlas Tree Export"
+              description="Official atlas passive tree data published by Grinding Gear Games."
+              href="https://github.com/grindinggear/atlastree-export"
+            />
+            <CreditRow
+              name="GGG Passive Skill Tree"
+              description="Official passive skill tree data and node sprites from Grinding Gear Games."
+            />
+            <CreditRow
+              name="Leveling Playbook Strategies"
+              description="Speedrunning strategies credited to their respective authors (TytyKiller, BigDaddy Gaming) on each playbook's page."
+            />
+          </div>
         </section>
       </div>
 
-      {/* Open Source Credits & Licenses */}
-      <div className="space-y-6 text-zinc-300">
-        <div className="border-t border-white/5 pt-8">
-          <h2 className="text-2xl font-bold text-zinc-100 mb-2">Open Source Credits & Licenses</h2>
-          <p className="text-sm text-zinc-400 mb-6">
-            Omnilyth is built on the work of the PoE community. The following projects,
-            tools, and data sources are used with credit to their original authors.
+      {/* ═══ Disclaimer ═══ */}
+      <div className="border-t border-white/5 pt-8 space-y-6">
+        <h2 className="text-2xl font-bold text-zinc-100">Disclaimer</h2>
+        <div className="text-sm text-zinc-300 space-y-3">
+          <p>
+            Omnilyth is provided <strong>"as is"</strong> without warranty of any kind.
+            Calculator results are based on known game mechanics and community-sourced
+            data — they may not perfectly reflect in-game outcomes, especially after
+            patches.
+          </p>
+          <p>
+            We are not responsible for any in-game decisions made based on calculator
+            results, including but not limited to currency spent on crafting, items
+            purchased via trade, or build choices.
+          </p>
+          <p>
+            All game data, item names, skill names, icons, and related imagery are the
+            property of <strong>Grinding Gear Games</strong>. Their use here falls under
+            fair use for the purpose of building community tools.
+          </p>
+          <p>
+            If you are a rights holder and believe something is incorrectly attributed
+            or should be removed, please{' '}
+            <ExtLink href="https://github.com/EtherealCarnivore/project-omnilyth/issues">
+              contact us via GitHub
+            </ExtLink>.
           </p>
         </div>
-
-        {/* GPL-3.0 Licensed Code */}
-        <section>
-          <h3 className="text-lg font-semibold text-zinc-200 mb-3 flex items-center gap-2">
-            <span className="px-2 py-0.5 text-xs font-mono bg-violet-500/15 text-violet-300 border border-violet-500/30 rounded">GPL-3.0</span>
-            GNU General Public License v3.0
-          </h3>
-          <div className="bg-zinc-900/60 border border-white/[0.06] rounded-lg divide-y divide-white/[0.04]">
-            <div className="p-4">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <strong className="text-zinc-200">Timeless Jewel Calculator</strong>
-                  <span className="text-zinc-500"> by </span>
-                  <span className="text-teal-300">vilsol</span>
-                  <p className="text-xs text-zinc-500 mt-1">
-                    Interactive skill tree tool for timeless jewel seed searching.
-                    Embedded via iframe with full attribution on the tool page.
-                  </p>
-                </div>
-                <a
-                  href="https://github.com/vilsol/timeless-jewels"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs text-amber-400 hover:text-amber-300 whitespace-nowrap flex-shrink-0"
-                >
-                  Source →
-                </a>
-              </div>
-            </div>
-          </div>
-          <p className="text-xs text-zinc-500 mt-2">
-            GPL-3.0 requires that derivative works are also open source.
-            Omnilyth's source code is publicly available on{' '}
-            <a
-              href="https://github.com/EtherealCarnivore/project-omnilyth"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="text-amber-400 hover:text-amber-300"
-            >
-              GitHub
-            </a>.
-          </p>
-        </section>
-
-        {/* CC BY-NC-SA 3.0 Licensed Data */}
-        <section>
-          <h3 className="text-lg font-semibold text-zinc-200 mb-3 flex items-center gap-2">
-            <span className="px-2 py-0.5 text-xs font-mono bg-blue-500/15 text-blue-300 border border-blue-500/30 rounded">CC BY-NC-SA 3.0</span>
-            Creative Commons Attribution-NonCommercial-ShareAlike
-          </h3>
-          <div className="bg-zinc-900/60 border border-white/[0.06] rounded-lg divide-y divide-white/[0.04]">
-            <div className="p-4">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <strong className="text-zinc-200">Path of Exile Wiki</strong>
-                  <span className="text-zinc-500"> (poewiki.net)</span>
-                  <p className="text-xs text-zinc-500 mt-1">
-                    Gem availability data, quest reward tables, and game mechanics reference.
-                  </p>
-                </div>
-                <a
-                  href="https://www.poewiki.net"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs text-amber-400 hover:text-amber-300 whitespace-nowrap flex-shrink-0"
-                >
-                  Visit →
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* CC0 / Public Domain */}
-        <section>
-          <h3 className="text-lg font-semibold text-zinc-200 mb-3 flex items-center gap-2">
-            <span className="px-2 py-0.5 text-xs font-mono bg-green-500/15 text-green-300 border border-green-500/30 rounded">CC0</span>
-            Public Domain
-          </h3>
-          <div className="bg-zinc-900/60 border border-white/[0.06] rounded-lg divide-y divide-white/[0.04]">
-            <div className="p-4">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <strong className="text-zinc-200">Chromatic Calculator</strong>
-                  <span className="text-zinc-500"> by </span>
-                  <span className="text-teal-300">Siveran</span>
-                  <p className="text-xs text-zinc-500 mt-1">
-                    Original chromatic orb probability calculations that formed the
-                    foundation for Omnilyth's crafting tools.
-                  </p>
-                </div>
-                <a
-                  href="https://github.com/Siveran/siveran.github.io"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs text-amber-400 hover:text-amber-300 whitespace-nowrap flex-shrink-0"
-                >
-                  Source →
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Community Data & Content */}
-        <section>
-          <h3 className="text-lg font-semibold text-zinc-200 mb-3">Community Data & Content</h3>
-          <div className="bg-zinc-900/60 border border-white/[0.06] rounded-lg divide-y divide-white/[0.04]">
-            <div className="p-4">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <strong className="text-zinc-200">exile-leveling</strong>
-                  <span className="text-zinc-500"> by </span>
-                  <span className="text-teal-300">HeartofPhos</span>
-                  <p className="text-xs text-zinc-500 mt-1">
-                    Structured leveling zone and quest progression data.
-                  </p>
-                </div>
-                <a
-                  href="https://github.com/HeartofPhos/exile-leveling"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs text-amber-400 hover:text-amber-300 whitespace-nowrap flex-shrink-0"
-                >
-                  Source →
-                </a>
-              </div>
-            </div>
-            <div className="p-4">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <strong className="text-zinc-200">poe-leveling.com</strong>
-                  <p className="text-xs text-zinc-500 mt-1">
-                    Leveling guide reference and community tips.
-                  </p>
-                </div>
-                <a
-                  href="https://www.poe-leveling.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs text-amber-400 hover:text-amber-300 whitespace-nowrap flex-shrink-0"
-                >
-                  Visit →
-                </a>
-              </div>
-            </div>
-            <div className="p-4">
-              <div>
-                <strong className="text-zinc-200">Leveling Playbook Strategies</strong>
-                <p className="text-xs text-zinc-500 mt-1">
-                  Speedrunning strategies and build playbooks credited to their respective
-                  authors (TytyKiller, BigDaddy Gaming) on each playbook's page.
-                </p>
-              </div>
-            </div>
-            <div className="p-4">
-              <div className="flex items-start justify-between gap-4">
-                <div>
-                  <strong className="text-zinc-200">poe.ninja</strong>
-                  <p className="text-xs text-zinc-500 mt-1">
-                    Public economy data API used for real-time item pricing.
-                  </p>
-                </div>
-                <a
-                  href="https://poe.ninja"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="text-xs text-amber-400 hover:text-amber-300 whitespace-nowrap flex-shrink-0"
-                >
-                  Visit →
-                </a>
-              </div>
-            </div>
-          </div>
-        </section>
       </div>
 
       {/* Footer */}
-      <p className="text-xs text-zinc-600 text-center pt-4">
-        Omnilyth is a fan-made tool. We are not affiliated with Grinding Gear Games.
+      <p className="text-xs text-zinc-600 text-center pt-4 border-t border-white/5">
+        Omnilyth is a fan-made tool. Not affiliated with Grinding Gear Games.
       </p>
+    </div>
+  );
+}
+
+// ─── Reusable sub-components ─────────────────────────────────────────────────
+
+function Section({ title, level = 2, children }) {
+  const Tag = level === 2 ? 'h2' : 'h3';
+  const size = level === 2 ? 'text-xl' : 'text-lg';
+  return (
+    <section>
+      <Tag className={`${size} font-semibold text-zinc-200 mb-3`}>{title}</Tag>
+      <div className="text-sm leading-relaxed text-zinc-300 space-y-3">{children}</div>
+    </section>
+  );
+}
+
+function Callout({ color, children }) {
+  const colors = {
+    green: 'bg-green-500/10 border-green-500/30 text-green-300',
+    amber: 'bg-amber-500/10 border-amber-500/30 text-amber-300',
+  };
+  return (
+    <div className={`border rounded-lg p-4 text-sm ${colors[color]}`}>{children}</div>
+  );
+}
+
+function ExtLink({ href, children }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      className="text-amber-400 hover:text-amber-300"
+    >
+      {children}
+    </a>
+  );
+}
+
+function LicenseSection({ badge, badgeColor, title, note, children }) {
+  const badgeColors = {
+    violet: 'bg-violet-500/15 text-violet-300 border-violet-500/30',
+    blue: 'bg-blue-500/15 text-blue-300 border-blue-500/30',
+    green: 'bg-green-500/15 text-green-300 border-green-500/30',
+    zinc: 'bg-zinc-700/40 text-zinc-300 border-zinc-500/30',
+    orange: 'bg-orange-500/15 text-orange-300 border-orange-500/30',
+  };
+  return (
+    <section>
+      <h3 className="text-lg font-semibold text-zinc-200 mb-3 flex items-center gap-2">
+        <span className={`px-2 py-0.5 text-xs font-mono border rounded ${badgeColors[badgeColor]}`}>
+          {badge}
+        </span>
+        {title}
+      </h3>
+      <div className="bg-zinc-900/60 border border-white/[0.06] rounded-lg divide-y divide-white/[0.04]">
+        {children}
+      </div>
+      {note && <p className="text-xs text-zinc-500 mt-2">{note}</p>}
+    </section>
+  );
+}
+
+function CreditRow({ name, author, description, href }) {
+  return (
+    <div className="p-4">
+      <div className="flex items-start justify-between gap-4">
+        <div>
+          <strong className="text-zinc-200">{name}</strong>
+          {author && (
+            <>
+              <span className="text-zinc-500"> by </span>
+              <span className="text-teal-300">{author}</span>
+            </>
+          )}
+          {description && (
+            <p className="text-xs text-zinc-500 mt-1">{description}</p>
+          )}
+        </div>
+        {href && (
+          <a
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-amber-400 hover:text-amber-300 whitespace-nowrap flex-shrink-0"
+          >
+            Source &rarr;
+          </a>
+        )}
+      </div>
     </div>
   );
 }
