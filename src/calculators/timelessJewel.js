@@ -87,6 +87,56 @@ export const JEWEL_TYPES = [
   },
 ];
 
+// Militant Faith "per 10 Devotion" explicit modifiers (jewel-level, not node-level).
+// These are independent of the seed — they're a separate explicit mod on the jewel item.
+// tradeStatId values sourced from the PoE trade API (/api/trade/data/stats).
+export const MILITANT_FAITH_DEVOTION_MODS = [
+  { id: 'aura',            label: '#% increased effect of Non-Curse Auras per 10 Devotion',                tradeStatId: 'explicit.stat_2585926696' },
+  { id: 'mana_cost',       label: '#% reduced Mana Cost of Skills per 10 Devotion',                       tradeStatId: 'explicit.stat_3293275880' },
+  { id: 'ele_dmg',         label: '#% increased Elemental Damage per 10 Devotion',                        tradeStatId: 'explicit.stat_3103189267' },
+  { id: 'area_dmg',        label: '#% increased Area Damage per 10 Devotion',                             tradeStatId: 'explicit.stat_1724614884' },
+  { id: 'ele_res',         label: '+#% to all Elemental Resistances per 10 Devotion',                     tradeStatId: 'explicit.stat_1910205563' },
+  { id: 'ailment_dur',     label: '#% reduced Elemental Ailment Duration on you per 10 Devotion',         tradeStatId: 'explicit.stat_730530528' },
+  { id: 'channel_dmg',     label: 'Channelling Skills deal #% increased Damage per 10 Devotion',          tradeStatId: 'explicit.stat_970844066' },
+  { id: 'totem_dmg',       label: '#% increased Totem Damage per 10 Devotion',                            tradeStatId: 'explicit.stat_2566390555' },
+  { id: 'brand_dmg',       label: '#% increased Brand Damage per 10 Devotion',                            tradeStatId: 'explicit.stat_2697019412' },
+  { id: 'curse_dur',       label: '#% increased Duration of Curses on you per 10 Devotion',               tradeStatId: 'explicit.stat_4235333770' },
+  { id: 'mana_regen',      label: 'Regenerate # Mana per Second per 10 Devotion',                         tradeStatId: 'explicit.stat_2042813020' },
+  { id: 'shield_def',      label: '#% increased Defences from Equipped Shield per 10 Devotion',           tradeStatId: 'explicit.stat_2803981661' },
+  { id: 'minion_speed',    label: '#% increased Minion Attack and Cast Speed per 10 Devotion',            tradeStatId: 'explicit.stat_3808469650' },
+  { id: 'minion_acc',      label: 'Minions have +# to Accuracy Rating per 10 Devotion',                  tradeStatId: 'explicit.stat_2830135449' },
+  { id: 'ailment_effect',  label: '#% increased Effect of non-Damaging Ailments on Enemies per 10 Devotion', tradeStatId: 'explicit.stat_1810368194' },
+];
+
+export const DEVOTION_STAT_ID = 9739;
+
+/**
+ * Calculate total Devotion from a seed's calculated results.
+ * Devotion comes from replaced small-attribute nodes (+10) and augmentation additions (+5).
+ */
+export function calculateTotalDevotion(results) {
+  let total = 0;
+  for (const { result } of results) {
+    // Replaced skill stats
+    if (result.replaced && result.skill) {
+      for (let i = 0; i < result.skill.StatsKeys.length; i++) {
+        if (result.skill.StatsKeys[i] === DEVOTION_STAT_ID) {
+          total += result.statRolls[i] ?? 0;
+        }
+      }
+    }
+    // Augmentation additions
+    for (const add of result.additions) {
+      for (let i = 0; i < add.addition.StatsKeys.length; i++) {
+        if (add.addition.StatsKeys[i] === DEVOTION_STAT_ID) {
+          total += add.statRolls[i] ?? 0;
+        }
+      }
+    }
+  }
+  return total;
+}
+
 // AlternateTreeVersion config per jewel type index
 export const TREE_VERSIONS = {
   1: { smallAttrReplaced: true,  smallNormalReplaced: true,  minAdd: 0, maxAdd: 0, notableSpawnWeight: 100 },
@@ -602,30 +652,88 @@ export function getAvailableStats(jewelTypeId, lookups, translations) {
 
 // ─── Trade URL Generation ───────────────────────────────────────────────────
 
-export function buildTradeUrl(league, jewelType, seed, conquerorName) {
-  // Each conqueror has its own pseudo stat ID on the trade site
-  const statName = `explicit.pseudo_timeless_jewel_${conquerorName.toLowerCase()}`;
+const MAX_SEEDS_PER_GROUP = 45; // PoE trade API limit per stat group
 
-  const query = {
+function buildTradeQuery(jewelType, conquerorName, seeds, devotionModIds = []) {
+  const statId = `explicit.pseudo_timeless_jewel_${conquerorName.toLowerCase()}`;
+
+  const statGroups = [];
+
+  if (seeds.length === 1) {
+    // Single seed: list all conquerors, only selected one enabled
+    statGroups.push({
+      type: 'count',
+      value: { min: 1 },
+      filters: jewelType.conquerors.map(cq => ({
+        id: `explicit.pseudo_timeless_jewel_${cq.name.toLowerCase()}`,
+        value: { min: seeds[0], max: seeds[0] },
+        disabled: cq.name !== conquerorName,
+      })),
+      disabled: false,
+    });
+  } else {
+    // Multiple seeds: one filter per seed for the selected conqueror, min 1 = match ANY
+    const filters = seeds.slice(0, MAX_SEEDS_PER_GROUP).map(s => ({
+      id: statId,
+      value: { min: s, max: s },
+    }));
+    statGroups.push({
+      type: 'count',
+      value: { min: 1 },
+      filters,
+      disabled: false,
+    });
+  }
+
+  // Add devotion mod filters for Militant Faith
+  if (devotionModIds.length > 0) {
+    const devotionFilters = MILITANT_FAITH_DEVOTION_MODS.map(mod => ({
+      id: mod.tradeStatId,
+      value: {},
+      disabled: !devotionModIds.includes(mod.id),
+    }));
+    statGroups.push({
+      type: 'count',
+      value: { min: devotionModIds.length },
+      filters: devotionFilters,
+      disabled: false,
+    });
+  }
+
+  return {
     query: {
-      status: { option: 'online' },
-      stats: [{
-        type: 'and',
-        filters: [{
-          id: statName,
-          value: { min: seed, max: seed },
-          disabled: false,
-        }],
-      }],
-      filters: {
-        type_filters: {
-          filters: { category: { option: 'jewel.timeless' } },
-        },
-      },
+      status: { option: 'securable' },
+      stats: statGroups,
     },
     sort: { price: 'asc' },
   };
+}
 
+function tradeQueryToUrl(league, query) {
+  const tradeLeague = league === 'Standard' ? 'Mirage' : league;
   const encoded = encodeURIComponent(JSON.stringify(query));
-  return `https://www.pathofexile.com/trade/search/${encodeURIComponent(league)}?q=${encoded}`;
+  return `https://www.pathofexile.com/trade/search/${encodeURIComponent(tradeLeague)}?q=${encoded}`;
+}
+
+export function buildTradeUrl(league, jewelType, seed, conquerorName, devotionModIds = []) {
+  return tradeQueryToUrl(league, buildTradeQuery(jewelType, conquerorName, [seed], devotionModIds));
+}
+
+/**
+ * Build batch trade URLs for multiple seeds. Splits into chunks of MAX_SEEDS_PER_GROUP.
+ * Returns array of { url, seeds, startIdx, endIdx }.
+ */
+export function buildBatchTradeUrls(league, jewelType, seeds, conquerorName, devotionModIds = []) {
+  const urls = [];
+  for (let i = 0; i < seeds.length; i += MAX_SEEDS_PER_GROUP) {
+    const chunk = seeds.slice(i, i + MAX_SEEDS_PER_GROUP);
+    const query = buildTradeQuery(jewelType, conquerorName, chunk, devotionModIds);
+    urls.push({
+      url: tradeQueryToUrl(league, query),
+      seeds: chunk,
+      startIdx: i + 1,
+      endIdx: i + chunk.length,
+    });
+  }
+  return urls;
 }

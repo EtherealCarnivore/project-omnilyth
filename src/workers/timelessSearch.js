@@ -63,17 +63,13 @@ function runSearch({ jewelType, conqueror, nodes, desiredStatIds, statWeights, m
     }
 
     if (matches.length > 0) {
-      const uniqueStats = new Set(matches.map(m => m.statId));
-      // Filter: must meet minimum unique stat threshold
-      if (uniqueStats.size >= minRequired) {
-        // Weighted score: sum of (weight × value) for best match per stat
+      // Count distinct nodes that got at least one desired stat
+      const nodesHit = new Set(matches.map(m => m.nodeId)).size;
+      if (nodesHit >= minRequired) {
+        const uniqueStats = new Set(matches.map(m => m.statId));
         let weightedScore = 0;
-        for (const statId of uniqueStats) {
-          const w = weights[statId] || 1;
-          const bestValue = Math.max(...matches.filter(m => m.statId === statId).map(m => m.value));
-          weightedScore += w * bestValue;
-        }
-        results.push({ seed, score: uniqueStats.size, weightedScore, matches });
+        for (const m of matches) weightedScore += (weights[m.statId] || 1) * m.value;
+        results.push({ seed, score: nodesHit, uniqueCount: uniqueStats.size, weightedScore, matches });
       }
     }
 
@@ -83,7 +79,7 @@ function runSearch({ jewelType, conqueror, nodes, desiredStatIds, statWeights, m
     }
   }
 
-  // Sort: most unique stats first, then by weighted score
+  // Sort: most total hits first, then weighted score
   results.sort((a, b) => b.score - a.score || b.weightedScore - a.weightedScore);
 
   self.postMessage({ type: 'done', results: results.slice(0, 200) });
