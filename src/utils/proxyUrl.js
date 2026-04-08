@@ -19,7 +19,7 @@ function getProxyBase() {
   }
 
   // GitHub Pages or anywhere else: use Cloudflare Worker
-  return 'https://omnilyth-proxy.etherealcarnivore.workers.dev';
+  return 'https://omnilyth-proxy.k-genov.workers.dev';
 }
 
 const PROXY_BASE = getProxyBase();
