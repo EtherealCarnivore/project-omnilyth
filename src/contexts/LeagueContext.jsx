@@ -58,6 +58,7 @@ function classifyLeague(id) {
 // Only permanent leagues here — challenge league names change every ~3 months
 // and the API will sort the current one to the top when it's live.
 const FALLBACK_LEAGUES = [
+  { value: 'Mirage', label: 'Mirage', kind: 'softcore', isCurrent: true },
   { value: 'Standard', label: 'Standard', kind: 'softcore' },
   { value: 'Hardcore', label: 'Hardcore', kind: 'hardcore' },
 ];
