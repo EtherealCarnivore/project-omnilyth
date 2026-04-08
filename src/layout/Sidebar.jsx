@@ -104,11 +104,11 @@ export default function Sidebar({ open, onClose }) {
     });
   }
 
-  // Categories with hub routes are collapsed by default.
-  // The chevron lets power users expand inline for direct tool access.
+  // All categories expanded by default for discoverability.
+  // Users can collapse them manually via the chevron.
   function isCategoryCollapsed(category) {
     if (category in collapsed) return collapsed[category];
-    return !!CATEGORY_ROUTES[category];
+    return false;
   }
 
   return (
