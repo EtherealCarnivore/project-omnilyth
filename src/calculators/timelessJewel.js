@@ -710,9 +710,8 @@ function buildTradeQuery(jewelType, conquerorName, seeds, devotionModIds = []) {
 }
 
 function tradeQueryToUrl(league, query) {
-  const tradeLeague = league === 'Standard' ? 'Mirage' : league;
   const encoded = encodeURIComponent(JSON.stringify(query));
-  return `https://www.pathofexile.com/trade/search/${encodeURIComponent(tradeLeague)}?q=${encoded}`;
+  return `https://www.pathofexile.com/trade/search/${encodeURIComponent(league)}?q=${encoded}`;
 }
 
 export function buildTradeUrl(league, jewelType, seed, conquerorName, devotionModIds = []) {
