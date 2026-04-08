@@ -250,6 +250,15 @@ export default function HomePage() {
         </div>
       </a>
 
+      {/* Info bar */}
+      <div className="flex items-center justify-center gap-3 text-xs text-zinc-500">
+        <span>Fan-made PoE toolkit — not affiliated with GGG</span>
+        <span className="text-zinc-700">&bull;</span>
+        <Link to="/privacy" className="text-amber-400/70 hover:text-amber-300 transition-colors">
+          About, Privacy & Legal
+        </Link>
+      </div>
+
       {/* Search */}
       <div className="relative max-w-md mx-auto">
         <svg className="absolute left-4 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
