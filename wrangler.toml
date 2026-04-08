@@ -1,6 +1,7 @@
 name = "omnilyth-proxy"
 main = "workers/poe-ninja-proxy.js"
 compatibility_date = "2024-01-01"
+account_id = "de762c1447c2671cda02a6d5412acf1c"
 
 # Free plan: 100K requests/day, 10ms CPU per request
 # More than enough for a personal PoE toolkit
