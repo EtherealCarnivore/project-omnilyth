@@ -1144,8 +1144,14 @@ function SearchResults({ results, translations, selectedStats, onPickSeed, jewel
                   {nodeMatches.map((m) => (
                     <div key={m.nodeId} className="flex items-center gap-2 text-xs">
                       <NodeIcon nodeId={m.nodeId} treeData={treeData} spriteMap={spriteMap} />
-                      <span className="text-zinc-500 truncate max-w-[100px]">{m.nodeName}</span>
-                      <span className="text-teal-300/90">{translateStat(m.statId, m.value, translations)}</span>
+                      <span className="text-zinc-500 truncate max-w-[80px]">{m.nodeName}</span>
+                      {m.skillName && (
+                        <>
+                          <span className="text-zinc-600">&rarr;</span>
+                          <span className="text-zinc-200 font-medium truncate max-w-[120px]">{m.skillName}</span>
+                        </>
+                      )}
+                      <span className="text-teal-300/90 ml-auto flex-shrink-0">{translateStat(m.statId, m.value, translations)}</span>
                     </div>
                   ))}
                 </div>
