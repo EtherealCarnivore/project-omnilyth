@@ -85,6 +85,9 @@ const NINJA_ALLOWED = [
   '/poe1/api/economy/exchange/current/details',
   '/poe1/api/economy/exchange/current/overview',
   '/poe1/api/economy/stash/current/item/overview',
+  '/poe2/api/economy/exchange/current/details',
+  '/poe2/api/economy/exchange/current/overview',
+  '/poe2/api/economy/stash/current/item/overview',
 ];
 const POE_ALLOWED = ['/api/leagues', '/api/trade'];
 const WIKI_ALLOWED = ['/w/api.php'];
