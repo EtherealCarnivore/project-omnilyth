@@ -31,7 +31,6 @@ try { localStorage.removeItem('omnilyth_design_variant'); } catch {}
 
 export default function App() {
   return (
-    // basename: GitHub Pages needs /omnilyth-core-public/, Netlify needs /
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       {/* Provider inception: league → prices → pinned. The nesting never ends. */}
       {/* In Java I'd have @Autowired and a DI container. Here I have JSX turducken. */}

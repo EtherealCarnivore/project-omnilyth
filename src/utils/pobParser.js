@@ -10,6 +10,7 @@
  * To decode: base64 → inflate → XML → parse gems
  */
 import pako from 'pako';
+import { pobUrl } from './proxyUrl.js';
 
 /**
  * Decode a PoB build code string into parsed XML data.
@@ -253,7 +254,7 @@ export function detectPoBInput(input) {
 
 /**
  * Fetch the raw PoB build code from a supported URL.
- * In production: uses Netlify Functions proxy.
+ * In production: uses the Cloudflare Worker proxy.
  * In dev: uses Vite dev server proxy to fetch directly.
  * Returns { code, error }.
  */
@@ -265,8 +266,7 @@ export async function fetchPoBCodeFromUrl(source, id) {
       return await fetchPoBCodeDev(source, id);
     }
 
-    // Production: use Netlify function
-    const response = await fetch(`/.netlify/functions/pob-proxy?source=${source}&id=${encodeURIComponent(id)}`);
+    const response = await fetch(pobUrl(source, id));
     const data = await response.json();
 
     if (!response.ok || data.error) {

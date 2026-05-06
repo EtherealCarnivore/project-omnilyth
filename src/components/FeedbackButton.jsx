@@ -8,6 +8,7 @@
 
 import { useState } from 'react';
 import { createPortal } from 'react-dom';
+import { feedbackUrl } from '../utils/proxyUrl';
 
 const FEEDBACK_TYPES = [
   { value: 'bug', label: 'Bug Report', emoji: '🐛', description: 'Something isn\'t working' },
@@ -63,12 +64,7 @@ export default function FeedbackButton() {
       const url = window.location.href;
       const userAgent = navigator.userAgent;
 
-      // Submit to serverless function
-      const endpoint = import.meta.env.DEV
-        ? 'http://localhost:8888/.netlify/functions/github-feedback'
-        : '/.netlify/functions/github-feedback';
-
-      const response = await fetch(endpoint, {
+      const response = await fetch(feedbackUrl(), {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({

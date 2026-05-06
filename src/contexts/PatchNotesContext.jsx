@@ -1,9 +1,10 @@
 /**
  * Patch Notes Context
- * Fetches PoE patch notes from PoE Wiki (poewiki.net) via serverless proxy
+ * Fetches PoE patch notes from PoE Wiki (poewiki.net) via the Cloudflare Worker.
  */
 
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
+import { patchNotesUrl } from '../utils/proxyUrl';
 
 const STORAGE_KEY_CACHE = 'omnilyth_patch_notes_cache_v5';
 const STORAGE_KEY_READ_IDS = 'omnilyth_patch_notes_read_ids_v5';
@@ -12,18 +13,7 @@ const STORAGE_KEY_LAST_CHECK = 'omnilyth_patch_notes_last_check_v5';
 const CACHE_TTL = 5 * 60 * 1000;
 const POLL_INTERVAL = 30 * 1000;
 
-// Patch notes proxy — only available on Netlify (server-side wiki parsing).
-// On GitHub Pages, falls back to mock data.
-function getPatchNotesProxyUrl() {
-  const hostname = typeof window !== 'undefined' ? window.location.hostname : '';
-  if (hostname.includes('netlify.app') || hostname === 'omnilyth.app' || hostname === 'www.omnilyth.app') {
-    return '/.netlify/functions/patch-notes-proxy';
-  }
-  // No proxy available on GH Pages — will use mock/cached data
-  return null;
-}
-
-const PROXY_URL = getPatchNotesProxyUrl();
+const PROXY_URL = patchNotesUrl();
 
 // Mock data for when PoE Wiki API is unavailable
 const MOCK_PATCHES = [
@@ -109,9 +99,6 @@ export const PatchNotesProvider = ({ children }) => {
     } catch {
       // Cache read failed, continue to fetch
     }
-
-    // Fetch from wiki proxy (only available on Netlify)
-    if (!PROXY_URL) return; // No proxy — keep using mock/cached data
 
     setLoading(true);
     setError(null);
