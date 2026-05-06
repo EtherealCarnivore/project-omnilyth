@@ -17,6 +17,7 @@ import { useLeague } from '../contexts/LeagueContext';
 import { usePatchNotes } from '../contexts/PatchNotesContext';
 import { useRegexLibrary } from '../hooks/useRegexLibrary';
 import FeedbackButton from '../components/FeedbackButton';
+import GameSwitcher from '../components/GameSwitcher';
 
 const KIND_STYLES = {
   softcore:      { dot: 'bg-emerald-400',  text: 'text-emerald-300' },
@@ -336,8 +337,9 @@ export default function Topbar({ onMenuClick }) {
 
   return (
     <header className="relative z-50 h-14 border-b border-white/5 bg-zinc-950/80 backdrop-blur-md flex items-center justify-between px-4 shrink-0">
-      {/* Left: hamburger + title */}
+      {/* Left: game switcher + hamburger + title */}
       <div className="flex items-center gap-3 min-w-0">
+        <GameSwitcher />
         <button
           onClick={onMenuClick}
           className="lg:hidden p-1.5 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.04] transition-colors"
@@ -346,7 +348,8 @@ export default function Topbar({ onMenuClick }) {
             <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
-        <h2 className="text-sm font-semibold text-zinc-200 tracking-tight truncate">{title}</h2>
+        {/* Page title hidden below sm: to make room for the switcher at 360px width */}
+        <h2 className="hidden sm:block text-sm font-semibold text-zinc-200 tracking-tight truncate">{title}</h2>
       </div>
 
       {/* Center: league selector */}

@@ -13,6 +13,7 @@ import Sidebar from './Sidebar';
 import LevelingSidebar from './LevelingSidebar';
 import Topbar from './Topbar';
 import LevelingModeBanner from '../components/LevelingModeBanner';
+import CrossGameBanner from '../components/CrossGameBanner';
 import { useLevelingMode } from '../contexts/LevelingModeContext';
 import modules from '../modules/registry';
 
@@ -40,6 +41,9 @@ export default function AppShell() {
 
         <main className={`flex-1 ${isFullWidth ? 'overflow-hidden' : 'overflow-y-auto'}`}>
           <div className={isFullWidth ? 'h-full px-4 sm:px-6 py-6 sm:py-8' : 'max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8'}>
+            {/* Cross-game banner: shown when the active game doesn't match the */}
+            {/* current tool's `games` array. No-op (returns null) otherwise. */}
+            <CrossGameBanner />
             {/* Suspense boundary for lazy-loaded modules. The spinner is pure CSS — */}
             {/* because importing a spinner library to show while other things load felt too ironic */}
             <Suspense

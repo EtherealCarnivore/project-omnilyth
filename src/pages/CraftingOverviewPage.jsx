@@ -1,5 +1,6 @@
-import modules from '../modules/registry';
+import { modulesForGame } from '../modules/registry';
 import CategoryOverviewCard from '../components/CategoryOverviewCard';
+import { useGame } from '../contexts/GameContext';
 
 const ACCENT = 'from-sky-500/20 to-sky-500/5 border-sky-500/20';
 
@@ -30,7 +31,8 @@ const ICONS = {
 const SUBCATEGORY_ORDER = ['Coloring', 'Linking', 'Socketing', 'Items'];
 
 export default function CraftingOverviewPage() {
-  const craftingMods = modules.filter(m => m.category === 'Crafting');
+  const { game } = useGame();
+  const craftingMods = modulesForGame(game).filter(m => m.category === 'Crafting');
   const grouped = {};
   for (const mod of craftingMods) {
     if (!grouped[mod.subcategory]) grouped[mod.subcategory] = [];
