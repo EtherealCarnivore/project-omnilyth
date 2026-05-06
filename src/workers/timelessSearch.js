@@ -5,6 +5,23 @@
  * reports progress and matching results back to the main thread.
  *
  * Imports the calculation engine directly (Vite handles module workers).
+ *
+ * LINK: this is the brute-force counterpart to src/calculators/timelessJewel.js.
+ * Both files import the same TinyMT32 + TREE_VERSIONS + PASSIVE_TYPE so the
+ * RNG state evolution stays bit-identical with the deterministic forward
+ * calculation. If the calc engine drifts, the search results lie silently —
+ * they'll match the worker's understanding of PoE, not the in-game one.
+ *
+ * CONTRACT: message protocol with src/components/TimelessJewelCalculator.jsx:
+ *   IN  → { type: 'search', jewelType, conqueror, nodes, desiredStatIds,
+ *           statWeights, minMatches, altSkills, altAdditions }
+ *   IN  → { type: 'abort' }
+ *   OUT → { type: 'progress', processed, totalSeeds, seed }
+ *   OUT → { type: 'done', results: [{seed, score, uniqueCount,
+ *                                    weightedScore, matches}] }
+ * Worker errors are NOT propagated to the UI — if anything throws inside
+ * runSearch, the user just sees no progress events. Wrap in try/catch
+ * before adding new code paths.
  */
 
 import {
@@ -40,6 +57,9 @@ function runSearch({ jewelType, conqueror, nodes, desiredStatIds, statWeights, m
   const rng = new TinyMT32();
   const results = [];
   let processed = 0;
+  // PERF: post a progress message ~200 times per search regardless of seed
+  // count. Posting per-seed would saturate the structured-clone channel and
+  // jank the main thread; 200 is dense enough to feel smooth in the UI.
   const PROGRESS_INTERVAL = Math.max(1, Math.floor(totalSeeds / 200));
 
   for (let seed = seedMin; seed <= seedMax; seed += seedStep) {
@@ -80,6 +100,10 @@ function runSearch({ jewelType, conqueror, nodes, desiredStatIds, statWeights, m
   }
 
   // Sort: most total hits first, then weighted score
+  // CONTRACT: UI assumes results are pre-sorted desc by score (primary) and
+  // weightedScore (tiebreak). Top-200 cap is also baked in here, not in the
+  // UI — changing the slice without telling TimelessJewelCalculator.jsx
+  // would silently change the user-visible result count.
   results.sort((a, b) => b.score - a.score || b.weightedScore - a.weightedScore);
 
   self.postMessage({ type: 'done', results: results.slice(0, 200) });

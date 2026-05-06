@@ -2,6 +2,19 @@
  * Secure Storage Wrapper
  * Encrypts data before storing in localStorage
  * Uses Web Crypto API for encryption
+ *
+ * CONTRACT: stored payload format is fixed:
+ *   base64( salt[16] || iv[12] || ciphertext )
+ * Every consumer that reads from localStorage with this module's keys
+ * MUST decode through decryptData(). Bypassing it (e.g. JSON.parse on the
+ * raw string) yields garbage. Conversely, mixing this with non-encrypted
+ * keys in the same key-namespace silently fails to decrypt — keep
+ * encrypted and unencrypted localStorage keys in disjoint prefixes.
+ *
+ * CONTRACT: PBKDF2 with 100,000 iterations + AES-256-GCM. Reducing
+ * iterations is a security regression even if it speeds up app boot.
+ * The Web Crypto API is required (no polyfill); browsers without it
+ * will throw on first use — there is intentionally no fallback path.
  */
 
 // Generate a key from a password (derived key)

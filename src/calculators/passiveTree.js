@@ -127,6 +127,12 @@ export function isAscendancyAllocatable(nodeId, node, selectedAscendancyId) {
 /**
  * Build an adjacency list from node connections.
  * Connections are bidirectional: if A→B exists, B→A is also valid for pathing.
+ *
+ * QUIRK: GGG's source data provides BOTH `node.out` and `node.in` for each
+ * node — we union both directions because there's no guarantee the two
+ * arrays are perfect inverses across the export. Trusting only `out` (or
+ * only `in`) leaves orphan-direction edges and breaks BFS reachability
+ * for some keystones near class starts.
  */
 export function buildAdjacencyList(nodes) {
   const adj = {};

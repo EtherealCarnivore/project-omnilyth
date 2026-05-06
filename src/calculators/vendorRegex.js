@@ -3,6 +3,15 @@
  *
  * Generates regex patterns for finding vendor items during leveling.
  * Handles sockets, links, stats, and item bases within PoE's 250-char limit.
+ *
+ * QUIRK: vendor stash search uses a different syntax than the player stash.
+ * Vendor inventory tooltips include socket-color characters ("RGB"), link
+ * dashes ("R-G-B"), and base-item names — so a vendor regex composes those
+ * three layers, AND-ing them with spaces (not pipes). Compare gemRegex.js,
+ * scarabRegex.js: those produce pipe-separated alternation lists.
+ *
+ * LINK: see also src/calculators/{gemRegex,scarabRegex,mapModRegex}.js — same
+ * 250-char ceiling, different output shape per search context.
  */
 
 /**
@@ -62,6 +71,10 @@ export function generateSocketPatternRegex(sockets, minLinks = 0) {
 /**
  * Generate link regex
  * e.g., 3 links -> "[-]{2}" (2 dashes = 3 linked sockets)
+ *
+ * QUIRK: PoE renders linked sockets with `-` between them in tooltips, so
+ * "R-G-B" means a 3-link. Therefore N-link = (N-1) consecutive dashes. The
+ * 1- and 2-link cases short-circuit out because they don't render dashes.
  */
 export function generateLinkRegex(linkCount) {
   if (linkCount < 3) return null;
@@ -203,6 +216,11 @@ export function generateVendorRegex(config) {
 /**
  * Chunk long regex patterns into 250-char segments
  * (for when you need multiple searches)
+ *
+ * Greedy bin-pack on space boundaries. Splits by ` ` (which is also the
+ * AND-operator in PoE vendor search), so each chunk remains a syntactically
+ * complete query. Don't change the split delimiter without checking that
+ * generated chunks still parse correctly in-game.
  */
 export function chunkRegex(pattern, maxLength = 250) {
   if (pattern.length <= maxLength) {

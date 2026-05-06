@@ -57,6 +57,16 @@ export function validateNumber(value, options = {}) {
  * Validate regex pattern complexity to prevent ReDoS
  * @param {string} pattern - Regex pattern to validate
  * @returns {boolean} True if pattern is safe
+ *
+ * Defends against ReDoS (regex denial of service): an attacker-controlled
+ * pattern with catastrophic backtracking can hang the V8 engine for
+ * seconds-to-minutes on a single innocuous-looking input string. We never
+ * exec these patterns ourselves — they go to PoE's stash search — but the
+ * Regex Library lets users save and re-share patterns, so we screen them
+ * before they hit any future RegExp constructor.
+ *
+ * The three blocked shapes below are the classic ReDoS triggers; if you
+ * add a new check, document the attack it prevents, not just the syntax.
  */
 export function validateRegexComplexity(pattern) {
   if (typeof pattern !== 'string') return false;

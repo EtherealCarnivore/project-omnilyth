@@ -4,6 +4,16 @@
  * Ported from Vilsol/timeless-jewels Go source (GPL-3.0).
  * Algorithm: TinyMT32 PRNG seeded with (PassiveSkillGraphID, jewel_seed)
  * determines how each passive in radius is transformed.
+ *
+ * LINK: this file ships the *deterministic* version of the algorithm; the
+ * forward-search worker at src/workers/timelessSearch.js runs the same math
+ * over a seed range. PASSIVE_TYPE, JEWEL_TYPES, and TREE_VERSIONS are
+ * imported by the worker — keep their shapes in lockstep. A change here
+ * that doesn't propagate to the worker yields silently-wrong search results.
+ *
+ * EXTERNAL: the upstream Go source last synced for the values in JEWEL_TYPES
+ * + TREE_VERSIONS + the TinyMT32 constants. PoE patches that add a new
+ * Conqueror or jewel type require a re-port; there's no schema validation.
  */
 
 import { calculateNodePosition } from './passiveTree';
@@ -67,6 +77,11 @@ export const JEWEL_TYPES = [
     ],
   },
   {
+    // QUIRK: Elegant Hubris is the only jewel type with seedStep > 1. Its
+    // seeds advance in increments of 20 (so seed 2020, 2040, … not 2001,
+    // 2002). calculateSeed() divides incoming seed by seedStep before
+    // feeding the RNG; the worker uses the same step for iteration and
+    // gets a 20× speedup over brute-forcing 2000..160000 one-by-one.
     id: 5, name: 'Elegant Hubris', tag: 'eternal',
     minSeed: 2000, maxSeed: 160000, seedStep: 20,
     conquerors: [
@@ -137,7 +152,19 @@ export function calculateTotalDevotion(results) {
   return total;
 }
 
-// AlternateTreeVersion config per jewel type index
+// AlternateTreeVersion config per jewel type index.
+//
+// QUIRK: each jewel type behaves differently — Glorious Vanity (1) and
+// Elegant Hubris (5) REPLACE small passives entirely; Lethal Pride (2) and
+// Brutal Restraint (3) only AUGMENT (add lines, no replacement). Militant
+// Faith (4) is hybrid: replaces small attribute nodes, augments small normal.
+// Heroic Tragedy (6) augments only.
+//
+// notableSpawnWeight: probability the notable gets replaced (0..100).
+// 100 = always replaced (Vanity/Hubris/Tragedy notables fully transmute).
+// 0 = never replaced (Pride/Restraint never change notables, only add lines).
+// 20 = Militant Faith's 20% notable replacement rate — the partial rate is
+// what makes Faith jewels variance-y for the player.
 export const TREE_VERSIONS = {
   1: { smallAttrReplaced: true,  smallNormalReplaced: true,  minAdd: 0, maxAdd: 0, notableSpawnWeight: 100 },
   2: { smallAttrReplaced: false, smallNormalReplaced: false, minAdd: 1, maxAdd: 1, notableSpawnWeight: 0 },
@@ -149,6 +176,19 @@ export const TREE_VERSIONS = {
 
 // ─── TinyMT32 PRNG ─────────────────────────────────────────────────────────
 // Ported from timeless_jewel_calculator/timeless-jewels/random/main.go
+//
+// QUIRK: TinyMT32 is a Tiny Mersenne Twister variant. PoE uses a specific
+// 4-phase initialisation sequence (see initialize() below): seed-injection
+// → 5 alpha rounds → 4 bravo rounds → 8 warmup generations. The phase
+// counts and the alpha/bravo constants are NOT general TinyMT — they're
+// what GGG's binary actually does. Changing any of (INIT_CONST, ALPHA,
+// BRAVO, the round counts) makes our seed→outcome predictions diverge
+// from in-game results.
+//
+// CONTRACT: u32() / Math.imul() carefully reproduce Go's uint32 arithmetic
+// semantics. JS bitwise ops are signed-32-bit by default, hence the >>> 0
+// dance and the explicit u32 wrapper. Don't replace with `>>>` or `*` —
+// the integer overflow behaviour matters and is easy to get subtly wrong.
 
 const INIT_CONST = new Uint32Array([0x40336050, 0xCFA3723C, 0x3CAC5F6F, 0x3793FDFF]);
 const TINYMT_SH0 = 1;
@@ -445,7 +485,11 @@ function replacePassiveSkill(rng, node, nodeType, jewelTypeId, version, conquero
 
   rng.reset(node.skill, adjustedSeed);
 
-  // Dummy roll for notables (maintains RNG sequence parity)
+  // QUIRK: dummy roll for notables. isPassiveSkillReplaced() already burned
+  // one rng.generate(0, 100) deciding whether to replace; we have to burn
+  // an equivalent here so the SUBSEQUENT skill/stat rolls land on the same
+  // RNG state as Go's reference implementation. Removing this puts every
+  // notable result one roll out of phase with what the game produces. (☕)
   if (nodeType === PASSIVE_TYPE.NOTABLE) {
     rng.generate(0, 100);
   }
@@ -489,7 +533,7 @@ function replacePassiveSkill(rng, node, nodeType, jewelTypeId, version, conquero
 function augmentPassiveSkill(rng, node, nodeType, jewelTypeId, version, lookups, adjustedSeed) {
   rng.reset(node.skill, adjustedSeed);
 
-  // Dummy roll for notables (maintains RNG sequence parity)
+  // Same dummy-roll dance as in replacePassiveSkill — see comment there.
   if (nodeType === PASSIVE_TYPE.NOTABLE) {
     rng.generate(0, 100);
   }

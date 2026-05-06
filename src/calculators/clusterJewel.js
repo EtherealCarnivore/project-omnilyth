@@ -2,6 +2,18 @@
  * Cluster Jewel Calculator — Pure functions
  * Determines compatible "middle" notables for Large Cluster Jewels
  * and generates PoE Trade search URLs.
+ *
+ * LINK / CONTRACT: every function in this file consumes `megaStruct` from
+ * src/data/clusterJewelData.json. The expected shape is:
+ *   {
+ *     Notables: { Large: { [name]: { Mod, Stat, Enchantments[] } } },
+ *     Enchantments: ...,
+ *     TradeStats: { Explicit, Enchant }
+ *   }
+ * There is NO schema validator — if the JSON shape drifts (e.g. a future
+ * GGG patch adds Medium/Small notable data with a different layout), every
+ * call here will silently return `undefined` or partial data with no error.
+ * Refresh source: scripts/leveling-data/* pipelines via data-curator agent.
  */
 
 /* ── Data initialization ── */
@@ -61,6 +73,13 @@ function isEnchantsValid(allowed, enchs) {
 /**
  * Check if a candidate notable can be paired with the already-selected notables.
  * Filters out: same mod group, no shared enchantments.
+ *
+ * QUIRK: a Large Cluster Jewel rolls 1, 2, or 3 notables in a fixed enchant
+ * pool; two notables can co-exist on a jewel ONLY IF (a) they're not in the
+ * same mod group (PoE never rolls two from the same group on one item), AND
+ * (b) they share at least one enchantment that allows both to roll. Both
+ * filters are necessary — dropping either one yields jewel combos that
+ * physically cannot drop in-game.
  */
 export function isNotableSelectable(candidateName, selectedNames, sortOrderMap) {
   if (!selectedNames.length) return true;
@@ -87,6 +106,10 @@ function isSuffix(notable) {
   return notable.Mod.CorrectGroup.includes('Suffix');
 }
 
+// QUIRK: PoE assigns each notable a stable internal _rid (row-id). On a
+// 3-notable cluster the middle notable is constrained to fall *between*
+// the two outer notables in row-id order. This is a property of how GGG
+// generates the jewel; without this filter we'd offer impossible combos.
 function isBetween(val1, val3, between) {
   return val1 < val3
     ? val1 < between && val3 > between
@@ -198,7 +221,11 @@ export function buildTradeUrl(league, desired, middleNotables, enchant, clusterD
   const andBody = { type: 'and', filters: [], disabled: false };
   const countBody = { type: 'count', value: { min: 1 }, filters: [], disabled: false };
 
-  // 8 passives
+  // QUIRK: hard-coded 8-passive filter is intentional. 8 is the standard
+  // useful passive count for Large Clusters; 9-passive variants exist but
+  // change the available notable pool, and 10+ are useless. If you ever
+  // need to support different passive counts, this filter must move into
+  // the `desired` config from the page.
   andBody.filters.push({
     id: tradeStats.Enchant['Adds # Passive Skills'].id,
     value: { min: 8, max: 8 },

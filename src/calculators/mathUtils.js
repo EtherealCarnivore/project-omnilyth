@@ -31,6 +31,16 @@ export function multinomialProb(N, dr, dg, db, pr, pg, pb) {
 /**
  * Recursive multinomial used by the original Vorici calculator.
  * Uses `pos` parameter to avoid double-counting multisets of free sockets.
+ *
+ * QUIRK: `pos` is a "monotonic stage" counter (1 = R, 2 = G, 3 = B). The
+ * recursion only descends into stages ≥ pos, so each unique multiset
+ * {R,G,B} of free sockets is counted exactly once instead of `n!` times.
+ * Mathematically equivalent to the iterative form in multinomialProb()
+ * above, but expressed recursively to mirror the original Vorici source.
+ * Don't "simplify" by removing pos — the result becomes wrong without it.
+ *
+ * LINK: src/calculators/voriciCalc.js — sole caller. If voriciCalc moves
+ * to a non-recursive form, this can be deleted.
  */
 export function multinomialRecursive(colorChances, desiredR, desiredG, desiredB, free, pos = 1) {
   if (free > 0) {

@@ -232,6 +232,11 @@ export default function TimelessJewelCalculator() {
     setSearchProgress(null);
     setSearchResults(null);
 
+    // CONTRACT: see src/workers/timelessSearch.js for the full message
+    // protocol. Worker-side errors do NOT propagate here — if the worker
+    // throws, the user sees the search "stuck" with no progress events
+    // and no done event. If you add error-event handling, also wire up
+    // worker.onerror, and pair it with a UI fallback in the search panel.
     const worker = new Worker(
       new URL('../workers/timelessSearch.js', import.meta.url),
       { type: 'module' }

@@ -4,6 +4,19 @@
  * In dev: Vite dev-server proxy handles ninja calls; everything else hits the
  * deployed Cloudflare Worker (which allows localhost origins).
  * In production: Cloudflare Worker. Override with VITE_PROXY_URL at build time.
+ *
+ * LINK / CONTRACT: ninjaUrl() callers (e.g. src/hooks/usePrices.js) MUST
+ * pass paths starting with `/poe1/api/...`. The Cloudflare Worker at
+ * workers/poe-ninja-proxy.js maintains an explicit allowlist of permitted
+ * path prefixes; anything outside it returns 403. The `/poe1/` prefix is
+ * also what distinguishes PoE 1 traffic from PoE 2 (which uses `/poe2/`)
+ * once dual-game lands. Do not strip or alter the prefix here without
+ * updating the Worker's NINJA_ALLOWED list in lockstep.
+ *
+ * CONTRACT: VITE_PROXY_URL is captured at *build* time (Vite inlines
+ * `import.meta.env.*`). Changing it at runtime does nothing — you must
+ * rebuild. Default 'https://api.omnilyth.app' must match the deployed
+ * Cloudflare Worker hostname or every fetch silently fails CORS.
  */
 
 const isDev = import.meta.env.DEV;

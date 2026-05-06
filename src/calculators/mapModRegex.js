@@ -1,3 +1,18 @@
+/**
+ * Build a regex that matches a number ≥ `number` against a 1-3-digit field.
+ *
+ * QUIRK: this is a hand-rolled per-magnitude bin-pack — the cascading
+ * `if (quant >= 200) / >= 150 / > 100` branches each emit a regex shape
+ * tuned for that magnitude band, producing far shorter output than a
+ * generic "≥N" regex. The 250-char stash search cap (LINK to the four
+ * other regex calculators in this directory) is what forces the manual
+ * tuning. Don't unify the branches "for cleanliness" — the compactness
+ * is the point.
+ *
+ * QUIRK: `optimize` rounds DOWN to the nearest 10. Useful when the user
+ * wants "≥85% but I'll accept 80% to shorten the regex." It's not
+ * "round-to-nearest" — always floor.
+ */
 export function generateNumberRegex(number, optimize) {
   const numbers = number.match(/\d/g);
   if (numbers === null) {
@@ -159,6 +174,10 @@ function addQuantifier(prefix, string) {
   return `"${prefix}${string}%"`;
 }
 
+// QUIRK: `y: n` / `y: m` / `y: r` is PoE's stash-search rarity sigil
+// (n=Normal, m=Magic, r=Rare). The `!` prefix negates. If all three are
+// included we emit nothing (matches everything by default); if all three
+// are excluded we emit the explicit "!y: (n|m|r)" form.
 function addRarityRegex(normal, magic, rare, include) {
   if (normal && magic && rare) {
     return include ? "" : `"!y: (n|m|r)"`;
@@ -252,6 +271,16 @@ function optimize(string) {
     .replaceAll("[9-9]", "9");
 }
 
+/**
+ * Compose the final map mod regex.
+ *
+ * CONTRACT: filter ORDER in the template string matters for parseMapRegex().
+ * The reverse-parser at the bottom of this file relies on tokenising
+ * top-down with quoted-term boundaries; if you reorder these segments,
+ * the parser will still work for a clean round trip, BUT existing user-saved
+ * regexes (in the regex library) won't lossless-decode anymore. Treat this
+ * order as part of the public contract, same as a wire format. (☕)
+ */
 export function generateMapModRegex(settings, regex) {
   const exclusions = generateBadMods(settings, regex);
   const inclusions = generateGoodMods(settings, regex);
@@ -272,6 +301,16 @@ export function generateMapModRegex(settings, regex) {
 
 /* ── Regex Import (reverse-parse a generated regex back into settings) ── */
 
+/**
+ * CONTRACT: this is the inverse of generateMapModRegex(). For any settings
+ * S, parseMapRegex(generateMapModRegex(S)) should reproduce S exactly (or
+ * as close as the optimization passes allow — `optimize()` collapses
+ * `[8-9]` → `[89]` etc. and `reverseNumber()` brute-forces 1..500 to
+ * recover the original).
+ *
+ * If you add a new field to settings, you MUST update both ends or the
+ * regex library will silently lose data on the next save/load cycle.
+ */
 export function parseMapRegex(input, regexData) {
   const settings = {
     badIds: [], goodIds: [], allGoodMods: false,

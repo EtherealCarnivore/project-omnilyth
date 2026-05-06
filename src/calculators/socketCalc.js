@@ -4,6 +4,11 @@
  * Formula: Average Jeweller's = BASE / (1 + quality/100)
  * Quality gives a linear 1% improvement per 1%.
  * Quality is NOT consumed when using Jeweller's Orbs.
+ *
+ * QUIRK: this DIVIDES by (1 + q/100). Compare fusingCalc.js, where chance
+ * MULTIPLIES by (1 + q/100). Both are "quality helps" but the formula shape
+ * differs because Jeweller's report cost-per-socket while fusing reports
+ * chance-per-attempt — same physics, two different conventions.
  */
 
 // Base average Jeweller's Orbs needed at 0% quality (index = target sockets)
@@ -12,7 +17,9 @@ const BASE_AVG = [0, 0, 1, 3, 10, 60, 300];
 // Crafting bench costs in Jeweller's Orbs (corrupted: same + equal Vaal Orbs)
 const BENCH_COST = [0, 1, 1, 3, 10, 70, 350];
 
-// Minimum item level required for each socket count
+// QUIRK: PoE hard-caps socket counts by item level — items below these ilvls
+// physically cannot have that many sockets. Trying to craft past the cap is
+// impossible (the bench recipe is greyed out in-game). 6S requires ilvl 50.
 const MIN_ILVL = [0, 1, 1, 2, 25, 35, 50];
 
 const MILESTONES_BY_TARGET = {
