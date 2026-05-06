@@ -21,7 +21,7 @@ jobs:
       - run: npm ci
       - run: npm run build
         env:
-          VITE_BASE_PATH: /omnilyth-core-public/
+          VITE_BASE_PATH: /
       - name: Deploy to omnilyth-core-public
         uses: peaceiris/actions-gh-pages@v4
         with:
@@ -29,3 +29,4 @@ jobs:
           external_repository: EtherealCarnivore/omnilyth-core-public
           publish_branch: gh-pages
           publish_dir: ./dist
+          cname: omnilyth.app
