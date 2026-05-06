@@ -20,14 +20,10 @@ Sister knowledge base lives at `C:/Users/Admin/Desktop/Git/PathOfBuilding/.claud
 
 ## Quick reference (hand-curated)
 
-*(empty — Oracle adds entries as they prove worth pre-computing)*
-
-Suggested seeds the user may want filled when relevant:
-
-- `quick_reference/socket_link_limits.md` — per-base socket/link maxima (already partly in `src/data/vendorLevelingStats.js`).
-- `quick_reference/chromatic_recipes.md` — Vorici bench costs vs raw chromatic EV.
-- `quick_reference/regex_idioms.md` — common regex shapes used across Omnilyth's calculators.
-- `quick_reference/current_league.md` — current league name, start date, mechanic-defining mods.
+- [Socket and link limits](quick_reference/socket_link_limits.md) — per-base socket/link maxima; rings/amulets/belts/quivers have 0 sockets.
+- [Chromatic recipes](quick_reference/chromatic_recipes.md) — Vorici bench costs, raw chromatic odds, Tainted, Omen of Blanching.
+- [Regex idioms](quick_reference/regex_idioms.md) — 250-char limit, alternation, character classes; per-tool patterns used across Omnilyth.
+- [Current league](quick_reference/current_league.md) — Mirage; rerun `/league-refresh` on each new league launch.
 
 ---
 
@@ -39,7 +35,9 @@ Suggested seeds the user may want filled when relevant:
 
 ## Mechanics deep-dives
 
-*(empty — Oracle writes these as topics demand depth)*
+- [Damage conversion](mechanics/conversion.md) — order phys→lightning→cold→fire→chaos; "as extra" vs conversion; 100% per-source cap.
+- [Spell suppression](mechanics/suppression.md) — 50% halving, 100% cap, source slots, EHP impact (2× vs spells at full cap).
+- [Ailments](mechanics/ailments.md) — poison/bleed/ignite/shock/chill/freeze; hit-vs-DoT, threshold mechanics, stacking rules.
 
 ---
 

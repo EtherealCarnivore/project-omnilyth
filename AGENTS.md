@@ -10,11 +10,21 @@ Pair with [`CLAUDE.md`](./CLAUDE.md) (project context) and [`.claude/agents/`](.
 
 | User says... | Use agent |
 |--------------|-----------|
+| "what should we build next / what are players asking for / scout the community / what does <competitor> have" | **feature-explorer** |
+| "where should this live / how do we organize / IA audit / one page or two / user journey" | **ui-architect** |
+| "review the visual / fix the layout / on-brand / make this look right" | **ui-designer** |
+| "make this feel responsive / loading state / empty state / motion / hover feedback / polish the interaction" | **interaction-designer** |
+| "is this accessible / WCAG / keyboard nav / screen reader / contrast" | **accessibility-auditor** |
+| "what build should I play / league-start picks / meta read / tier list / boss-killer vs mapper" | **build-strategist** |
+| "what's worth farming / currency strategy / week-1 economy / is X about to crash" | **economy-analyst** |
+| "QA this / smoke test / manual test plan / validate the output / browser check / regression playbook" | **qa-tester** |
+| "find dead code / what can we delete / find drift / over-engineered / unused exports / make this simpler" | **code-archaeologist** |
+| "draft release notes / what's new / update the changelog / version bump / patch notes" | **release-manager** |
+| "security audit / check for XSS / dep audit / is this safe / CSP review / proxy review" | **security-auditor** |
 | "implement / port / write the calculator" | **calculator-engineer** |
 | "is the math right / validate the math / PoE-correct" | **poe-expert** |
 | "explain the mechanic / how does X work in PoE" | **poe-expert** |
 | "look it up / fetch from wiki / what's the current tier / find the data on…" | **poe-wiki-oracle** |
-| "review / audit the UI / make this look right" | **ui-designer** |
 | "is this ready to ship / ship-check / gate this" | **feature-reviewer** |
 | "update / refresh / scrape data / new league data" | **data-curator** |
 | "audit performance / bundle / why is this slow" | **performance-auditor** |
@@ -30,21 +40,42 @@ Pair with [`CLAUDE.md`](./CLAUDE.md) (project context) and [`.claude/agents/`](.
 | Writes files? | No | Yes — caches answers under `.claude/knowledge/` |
 | Use when | "How does poison scale?" | "What's the current poison-on-hit chance from Caustic Cloud?" |
 
+**The four-agent UI/UX team — pick by altitude:**
+
+| | ui-architect | ui-designer | interaction-designer | accessibility-auditor |
+|---|---|---|---|---|
+| Altitude | Strategy | Visual | Motion + states | A11y |
+| Owns | IA, taxonomy, page-vs-panel, journeys | Tokens, hierarchy, spacing, typography | Loading/empty/error/stale, animation, feedback | WCAG, keyboard, screen reader, contrast |
+| Output shape | Brief (no code) | Tailwind diff | State matrix + transition classes | A11y report with file:line + diff |
+| Use when | "Where does this live?" | "Polish the visuals" | "Make it feel responsive" | "Audit a11y" |
+
+**`feature-explorer` is upstream of the entire UI/UX team** — it surfaces *demand evidence* (with citations) for what to build; the four-agent team takes that evidence and turns it into a shipped feature.
+
 ---
 
-## The roster (7 specialists + built-ins)
+## The roster (17 specialists + built-ins)
 
 ### Project agents (under `.claude/agents/`)
 
 | Agent | Role | Model | Writes code? | Color |
 |-------|------|-------|--------------|-------|
+| **feature-explorer** | Outside-in market intel — Reddit, ninja, GGG forums, competitor tools. Produces ranked feature backlog under `.claude/feature-radar/`. | inherit | Yes (radar files only) | magenta |
+| **ui-architect** | Strategic UI/UX — IA, taxonomy, page-vs-panel, navigation, user journeys. Outputs a brief, not a diff. | inherit | No (briefs only) | indigo |
+| **ui-designer** | Visual designer — tokens, hierarchy, spacing, typography, component reuse, dev-ready Tailwind diffs | inherit | Yes (CSS only) | cyan |
+| **interaction-designer** | Motion + state coverage — loading/empty/error/stale, animations, feedback, choreography | inherit | Yes (CSS + small JSX) | pink |
+| **accessibility-auditor** | WCAG 2.2 AA — keyboard, focus, screen reader, contrast, target size, reduced motion | inherit | Yes (a11y fixes) | emerald |
 | **poe-expert** | Game mechanics, math validation, build/atlas/crafting strategy | inherit | No (advisory) | orange |
 | **poe-wiki-oracle** | Research librarian — looks up PoE data in local files, KB, wiki, poedb. Caches answers under `.claude/knowledge/`. | inherit | Yes (KB only) | yellow |
 | **calculator-engineer** | Implements PoE math in JS; owns the calc → page → registry pattern | inherit | Yes | purple |
-| **ui-designer** | Design-token enforcement, UX heuristic audits, dev-ready Tailwind fixes | inherit | Yes (CSS only) | cyan |
 | **feature-reviewer** | Lean ship/revise/reject gate for new features | haiku | No (review only) | amber |
 | **data-curator** | Maintains `src/data/` files and `scripts/leveling-data/` pipelines | inherit | Yes (data + scripts) | green |
 | **performance-auditor** | Bundle-size & render-cost auditor; identifies lazy-import / useMemo / Web Worker fixes | inherit | Yes (perf fixes) | red |
+| **build-strategist** | League-start picks, archetype trade-offs, meta reads, ladder-aware build advice | inherit | No (advisory) | sky |
+| **economy-analyst** | Currency strategy, profit/hour, league-phase economy reads, currency divergence | inherit | No (advisory) | lime |
+| **qa-tester** | Manual test playbooks, calculator validation, smoke checklists (no test framework) | inherit | Yes (docs/qa/ files only) | slate |
+| **code-archaeologist** | Dead code, duplicated patterns, sibling drift, schema drift, over-abstraction | inherit | Yes (cleanup edits) | stone |
+| **release-manager** | CHANGELOG.md, "What's New" posts, version bumps, player-facing release voice | inherit | Yes (changelog + package.json) | violet |
+| **security-auditor** | XSS, localStorage crypto, CSP, Worker proxy abuse vectors, dep vulns, Web Crypto | inherit | Yes (security fixes) | rose |
 
 ### Built-in agents (always available, no config needed)
 
@@ -74,22 +105,49 @@ Each agent has tools restricted in its frontmatter. You don't need to specify to
 
 ## Pipelines — common multi-agent flows
 
+### Discovering what to build next (cold start)
+
+```
+1. feature-explorer      → sweeps Reddit / ninja / competitor tools / GGG forums
+                           → writes ranked candidates to .claude/feature-radar/
+2. (user)                → picks 1–3 candidates worth pursuing
+3. ui-architect          → for each pick, decides IA: page or panel? where? user journey?
+4. (resume "new calculator" pipeline below for each green-lit candidate)
+```
+
 ### Adding a new calculator (full flow)
 
 ```
 0. /calc-new <name>      → scaffolds the 4 files + registry entry (skill, not agent)
-1. poe-expert            → "How does mechanic X work? What's the formula? Edge cases?"
-2. poe-wiki-oracle       → "Pull the current values, tier ranges, edge-case tables I'll need."
+1. ui-architect          → confirms IA placement: category, route, sidebar, journey, reuse plan
+2. poe-expert            → "How does mechanic X work? What's the formula? Edge cases?"
+3. poe-wiki-oracle       → "Pull the current values, tier ranges, edge-case tables I'll need."
                            (Caches the lookup so future calc work doesn't refetch.)
-3. calculator-engineer   → fills in the calculator body with the actual math
-4. poe-expert            → validates outputs against real PoE values for 3-5 test cases
-5. ui-designer           → reviews the page against design tokens
-6. performance-auditor   → confirms the new tool didn't add eager data imports / oversized chunks
-7. feature-reviewer      → final SHIP/REVISE/REJECT gate
-8. (user)                → merges
+4. calculator-engineer   → fills in the calculator body with the actual math
+5. poe-expert            → validates outputs against real PoE values for 3-5 test cases
+6. ui-designer           → reviews the page visually against design tokens
+7. interaction-designer  → designs loading/empty/error/stale states + motion + feedback
+8. accessibility-auditor → WCAG 2.2 AA pass: keyboard, focus, screen reader, contrast
+9. performance-auditor   → confirms the new tool didn't add eager data imports / oversized chunks
+10. feature-reviewer     → final SHIP/REVISE/REJECT gate
+11. (user)               → merges
 ```
 
-The user runs the orchestration. You as the assistant shouldn't auto-fire all 5 — call them as warranted.
+The user runs the orchestration. You as the assistant shouldn't auto-fire all 10 — call them as warranted.
+
+### Full UI/UX pass on a single route
+
+When the user says "make this page actually great" on an existing route:
+
+```
+1. ui-architect          → audit IA: is this in the right place? right shape? journey clean?
+2. ui-designer           → visual pass: tokens, hierarchy, component reuse, Tailwind diffs
+3. interaction-designer  → state matrix: loading/empty/error/stale + motion budget + feedback gaps
+4. accessibility-auditor → WCAG 2.2 AA report with severity-ranked findings + diffs
+5. (user)                → merges fixes; re-run feature-reviewer if the changes are non-trivial
+```
+
+Steps 2, 3, 4 can run **in parallel** — they audit the same artifact from different lenses. Step 1 should land first because it can change the artifact's shape entirely (e.g., "this should be a panel inside another page").
 
 ### Refreshing data for a new league
 
@@ -127,9 +185,15 @@ When tasks are **independent**, fire agents in parallel by sending one message w
 
 ✅ **Parallel:** "audit the design (`ui-designer`) AND validate the math (`poe-expert`)" — separate domains, no shared state.
 
-❌ **Sequential:** "fix the bug then review it" — the second depends on the first.
+✅ **Parallel:** UI/UX deep pass on a single route — `ui-designer` + `interaction-designer` + `accessibility-auditor` all audit the same artifact through different lenses. Run after `ui-architect` if the IA might change.
 
 ✅ **Parallel:** when reviewing 3 different new pages with `feature-reviewer`, spawn 3 agents at once.
+
+✅ **Parallel:** `feature-explorer` against multiple scopes — fire 3 explorers in parallel for "crafting tools landscape", "leveling tools landscape", "atlas tools landscape" if you want a broad sweep fast.
+
+❌ **Sequential:** "fix the bug then review it" — the second depends on the first.
+
+❌ **Sequential:** `ui-architect` before `ui-designer` — architecture decisions can rewrite the visual scope.
 
 ---
 
@@ -148,8 +212,14 @@ The agent overhead is real (full context init, separate tool budget). Use them w
 | Skill | Trigger | What it does |
 |-------|---------|--------------|
 | **`/calc-new <kebab-name>`** | `/calc-new fusing-redux` | Scaffolds the canonical 4-file calculator pattern (calc + component + page + registry entry). Asks for category/subcategory/route/icon/description if not supplied, generates empty signatures, hands off to `poe-expert` → `calculator-engineer` for the math. |
+| **`/explore-features [scope?]`** | `/explore-features crafting tools` | Runs a `feature-explorer` sweep against PoE community + competitor tools; writes ranked candidates to `.claude/feature-radar/`. |
+| **`/plan-feature <idea>`** | `/plan-feature live-currency-divergence-detector` | Full pre-build pipeline: feature-explorer (validate demand) → ui-architect (IA brief) → poe-expert + poe-wiki-oracle (math + canonical values, parallel) → optional `/calc-new` scaffold. Stops before implementation. |
+| **`/audit-all [scope?]`** | `/audit-all` or `/audit-all leveling` | Parallel fan-out: performance-auditor + accessibility-auditor + code-archaeologist + security-auditor; aggregated cross-cutting health summary. |
+| **`/league-refresh <league>`** | `/league-refresh Necropolis` | Sequential league-launch pipeline: oracle (cache patch summary) → data-curator (refresh data) → parallel(build-strategist meta + economy-analyst baseline) → release-manager (player-facing post). |
+| **`/ship [feature \| current]`** | `/ship cluster-jewel-enchant-filter` | Final-mile: feature-reviewer (gate) → qa-tester (smoke playbook) → release-manager (changelog + version bump). Stops before commit/tag. |
+| **`/ui-pass <route\|component>`** | `/ui-pass /crafting/fusing` | UI/UX deep pass: ui-architect (sequential) → parallel(ui-designer + interaction-designer + accessibility-auditor); aggregated prioritized fix list. |
 
-Skills load only when the user types `/<skill-name>`. They're for repetitive scaffolding the user invokes on demand — distinct from agents (which are spawned via the `Agent` tool for delegated reasoning).
+Skills load only when the user types `/<skill-name>`. They're for repetitive scaffolding and orchestration the user invokes on demand — distinct from agents (which are spawned via the `Agent` tool for delegated reasoning).
 
 ---
 
@@ -202,4 +272,4 @@ Default to `inherit` and override only when there's a clear reason. With Opus 4.
 
 ---
 
-**Last updated:** 2026-05-06
+**Last updated:** 2026-05-06 — Phase 2 expansion: added `build-strategist`, `economy-analyst`, `qa-tester`, `code-archaeologist`, `release-manager`, `security-auditor` (17 specialists total) and 6 orchestration skills (`/explore-features`, `/plan-feature`, `/audit-all`, `/league-refresh`, `/ship`, `/ui-pass`). Knowledge base seeded with 4 quick-reference + 3 mechanics deep-dives. Phase 1 (2026-05-06): `feature-explorer`, `ui-architect`, `interaction-designer`, `accessibility-auditor`.
