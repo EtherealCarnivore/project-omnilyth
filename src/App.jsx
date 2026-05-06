@@ -7,6 +7,7 @@
  * My order router has fewer nested layers than this component tree.
  */
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import PreLaunchGate from './components/PreLaunchGate';
 import { GameProvider } from './contexts/GameContext';
 import { LeagueProvider } from './contexts/LeagueContext';
 import { PricesProvider } from './contexts/PricesContext';
@@ -38,7 +39,11 @@ try { localStorage.removeItem('omnilyth_design_variant'); } catch {}
 
 export default function App() {
   return (
-    <BrowserRouter basename={import.meta.env.BASE_URL}>
+    // PreLaunchGate is OUTSIDE BrowserRouter on purpose — when the gate
+    // is up, we don't even mount the router or providers. Zero app code
+    // runs for gated visitors; only unlocked visitors pay the mount cost.
+    <PreLaunchGate>
+      <BrowserRouter basename={import.meta.env.BASE_URL}>
       {/* Provider inception: game → league → prices → pinned. The nesting never ends. */}
       {/* In Java I'd have @Autowired and a DI container. Here I have JSX turducken. */}
       {/* My matching engine has lower latency than this render tree. */}
@@ -84,6 +89,7 @@ export default function App() {
         </PricesProvider>
       </LeagueProvider>
       </GameProvider>
-    </BrowserRouter>
+      </BrowserRouter>
+    </PreLaunchGate>
   );
 }
