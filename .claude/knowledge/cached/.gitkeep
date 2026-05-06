@@ -1,0 +1,9 @@
+# Cached oracle answers go here.
+# One markdown file per topic, kebab-case filename, prefixed by category:
+#   unique-mageblood.md
+#   mechanic-cluster-jewels.md
+#   gem-divergent-arc.md
+#   mod-life-rings.md
+#   regex-vendor-3l.md
+# Every file opens with the frontmatter spec from the poe-wiki-oracle agent.
+# Add a one-line pointer to ../INDEX.md whenever you add a new file here.

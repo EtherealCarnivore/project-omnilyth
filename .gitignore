@@ -4,3 +4,4 @@ ignore_this/
 .DS_Store
 html_dump/
 ref_images/
+.claude/settings.local.json

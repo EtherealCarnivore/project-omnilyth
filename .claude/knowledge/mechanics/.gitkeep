@@ -1,0 +1,5 @@
+# Deep-dive mechanic breakdowns go here.
+# Use this directory for topics that warrant longer treatment than `cached/`
+# (e.g. damage conversion order, suppression math, ailment scaling rules).
+# Same frontmatter format as cached/.
+# Add a one-line pointer to ../INDEX.md.

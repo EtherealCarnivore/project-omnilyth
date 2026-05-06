@@ -1,0 +1,8 @@
+# Hand-curated quick-reference tables go here.
+# Use this directory for tables that the Oracle (or the user) wants pre-computed:
+#   socket_link_limits.md
+#   chromatic_recipes.md
+#   regex_idioms.md
+#   current_league.md
+# These are usually shorter than mechanics/ deep-dives and structured as tables.
+# Add a one-line pointer to ../INDEX.md.
