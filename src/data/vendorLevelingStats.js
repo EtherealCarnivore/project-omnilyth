@@ -6,10 +6,20 @@
  * and secondary stats (life, resistances, etc.).
  */
 
-// Socket limits by item type
-// Body Armour and 2H weapons can have 6 sockets
-// Most other gear can have up to 4 sockets
-// Rings/Amulets/Belts/Quivers cannot have sockets
+// Socket limits by item type.
+//
+// QUIRK: these are PoE's hard physics — no item of the listed type can ever
+// exceed maxSockets, regardless of currency or crafting bench. Body Armour,
+// 2H weapons, Bows and Staves are the only 6-socket bases. Most armour and
+// 1H weapons cap at 4. Shield is 3 (which is also exactly its maxLinks
+// — there's no shield that can have more sockets than links). Rings,
+// Amulets, Belts, and Quivers physically cannot have sockets.
+//
+// LINK: src/pages/VendorLevelingPage.jsx (and its calculator inputs) treat
+// this map as authoritative — there is no in-app cross-check against the
+// actual PoE data files. If GGG ever adds a new item type or changes a
+// socket cap, the page silently allows impossible configurations until
+// someone fixes this map.
 export const socketLimits = {
   "Boots": { maxSockets: 4, maxLinks: 4 },
   "Gloves": { maxSockets: 4, maxLinks: 4 },

@@ -4,6 +4,16 @@ import { multinomialRecursive, calcChromaticBonus } from './mathUtils.js';
 /**
  * Vorici craft recipes: { red, green, blue, cost, description }
  * cost is in chromatic orbs per attempt.
+ *
+ * QUIRK: Vorici locks N sockets to a color at fixed cost, then the *remaining*
+ * sockets roll normally via stat-weighted Chromatic. So a "1R" recipe means
+ * "guarantee 1 red, roll the rest" — total cost = recipe cost × E[attempts to
+ * land the unlocked colors via getColorChances()]. Useful when off-color is
+ * rare enough that the flat lock-in beats grinding chromes.
+ *
+ * QUIRK: 'isDropRate' and 'isChromatic' are sentinel rows, not real Vorici
+ * recipes — they let the comparison table show "what if I just used drop-rate
+ * sockets" and "what if I just spam chromes" alongside the actual benches.
  */
 const RECIPES = [
   { red: 0, green: 0, blue: 0, cost: 1, description: 'Drop Rate', isDropRate: true },
@@ -76,6 +86,12 @@ export function calculateVorici(sockets, str, dex, int, desiredR, desiredG, desi
     let chance = multinomialRecursive(colorChances, unvorR, unvorG, unvorB, free);
 
     if (recipe.isChromatic) {
+      // QUIRK: a Chromatic Orb re-rolls colors but is *guaranteed* to produce
+      // a different result than the current sockets. Without this correction
+      // we'd treat each chrome as i.i.d. — but PoE excludes the current state
+      // from the outcome space, slightly improving the success rate.
+      // calcChromaticBonus returns P(roll == current state); dividing by
+      // (1 - that) renormalises over the actually-possible outcomes.
       const collisionBonus = calcChromaticBonus(colorChances, desiredR, desiredG, desiredB, sockets);
       chance /= (1 - collisionBonus);
     }

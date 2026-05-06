@@ -1,11 +1,23 @@
 import { getColorChances } from './colorChances.js';
 import { multinomialProb } from './mathUtils.js';
 
-const BENCH_COST = [0, 1, 1, 3, 10, 70, 350]; // index = socket count
+// QUIRK: bench-craft cost in chromes-equivalent for "set this socket to colour
+// X" by socket index. PoE's bench scales superlinearly past 4 sockets — note
+// the jump from 10 (4S) to 70 (5S) to 350 (6S). Off-by-one matters: index is
+// SOCKET COUNT, not array position; index 0 is unused.
+const BENCH_COST = [0, 1, 1, 3, 10, 70, 350];
 
 /**
  * Jeweller's Method: compare chroming at various base socket counts
  * then jewellering up to target, locking in desired colors cheaply.
+ *
+ * Strategy is a 2-phase hybrid:
+ *   1. Chrome at some `base` socket count (1..target), trying to land
+ *      `(br, bg, bb)` of your desired colors.
+ *   2. Use Jeweller's Orbs to add the remaining sockets, with bench-craft
+ *      to lock in colors as you go. Hardest colors (lowest p) get assigned
+ *      to the cheapest socket positions to minimise cost — see addedProbs.sort().
+ *
  * Returns array of { base, label, chromeCost, jewellerCost, totalCost, isBest }
  */
 export function calculateJeweller(sockets, str, dex, int, desiredR, desiredG, desiredB) {
@@ -46,6 +58,10 @@ export function calculateJeweller(sockets, str, dex, int, desiredR, desiredG, de
           for (let i = 0; i < addedProbs.length; i++) {
             const socketIdx = base + 1 + i;
             const p = addedProbs[i];
+            // Per-socket cost = E[chromes spent before bench locks the color].
+            // The (1-p) * BENCH_COST[socketIdx-1] term accounts for the case
+            // where the natural roll missed and we bench down-and-up — bench
+            // first removes a socket (cost of lower index), then we re-add.
             jewellerCost += (BENCH_COST[socketIdx] + (1 - p) * BENCH_COST[socketIdx - 1]) / p;
           }
 

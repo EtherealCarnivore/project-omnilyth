@@ -13,6 +13,13 @@
 
 // Base chance at 0% quality per target link count (index = link count)
 // 6-link: 1/1500, 5-link: 1/150, 4-link: ~1/5, 3-link: ~1/3, 2-link: ~1/1
+//
+// QUIRK: 1/1500 is the well-known community estimate for 6L odds; GGG has
+// never published the actual number. If they ever release exact rates and
+// this table is wrong, every downstream calc (avgFusings, std dev, p75,
+// strategy comparison) is wrong too. Single source of truth for the file.
+// QUIRK: 5L is exactly 10× as likely as 6L (1/150 vs 1/1500). That ratio
+// also drives the "5L consolation prize" math further down.
 const BASE_CHANCE_BY_LINKS = [0, 0, 1, 1/3, 1/5, 1/150, 1/1500];
 
 // Milestones scaled per target link count
@@ -45,6 +52,10 @@ export function calculateFusing(quality, sockets = 6) {
     const baseP = BASE_CHANCE_BY_LINKS[target];
     const p = Math.min(1, baseP * (1 + q / 100));
     const avgFusings = 1 / p;
+    // Geometric distribution std dev = sqrt((1-p)/p²). For 6L, that's
+    // ~1499 fusings — i.e. one std dev is roughly the same magnitude as
+    // the mean. This is exactly why the UI reports a 75th-percentile cost
+    // further down rather than the mean — the variance is brutal. (☕)
     const stdDev = Math.sqrt((1 - p) / (p * p));
     const milestones = MILESTONES_BY_LINKS[target];
     const cumulativeTable = milestones.map(n => ({

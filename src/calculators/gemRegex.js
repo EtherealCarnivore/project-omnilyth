@@ -1,6 +1,9 @@
 import { allGems } from '../data/gemData';
 
-// PoE's stash search has a 250-char limit.
+// QUIRK: PoE's in-game stash search has a hard 250-character cap per query.
+// Patterns over this are silently rejected — no error toast, just no matches.
+// Mirrored in scarabRegex.js, vendorRegex.js, mapModRegex.js. If GGG ever
+// raises the cap, all four constants need updating in lockstep.
 const MAX_LEN = 250;
 
 /**
@@ -25,6 +28,8 @@ export function generateGemRegexes(selectedNames, { useStrictAwakened = true } =
   let current = [];
 
   for (const token of tokens) {
+    // Greedy bin-pack: keep stuffing tokens into `current` until the next
+    // would push the joined chunk past 250 chars, then flush and start fresh.
     // Format: "tok1|tok2|...|tokN" — quotes (2) + joins (|) between tokens
     const wouldBe = current.length === 0
       ? 2 + token.length

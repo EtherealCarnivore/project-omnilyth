@@ -8,10 +8,21 @@
  */
 import { createContext, useContext, useState, useCallback } from 'react';
 
+// LINK: stored values are module IDs from src/modules/registry.js. Renaming
+// a module's `id` field strands every existing user's pin to that tool —
+// we don't validate against the registry on load, so orphaned IDs sit in
+// localStorage forever. If you must rename a registry id, ship a one-shot
+// migration that rewrites this key.
 const PINS_KEY = 'omnilyth_pinned_modules';
 
 // Wrap everything in try/catch because localStorage can throw in incognito mode.
 // Remember when storage just worked? Pepperidge Farm remembers.
+//
+// QUIRK: returning [] on failure means an incognito user sees their pins
+// "save" successfully (state updates) but they vanish on refresh. There's
+// no UX signal for this. If you ever add a "could not save" toast, it
+// belongs in savePins() — by the time loadPins runs we're already past
+// the point where the user can react.
 function loadPins() {
   try {
     const raw = localStorage.getItem(PINS_KEY);

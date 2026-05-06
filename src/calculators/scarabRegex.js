@@ -2,6 +2,8 @@ import { scarabs } from '../data/scarabData';
 
 // PoE's stash search has a 250-char limit because apparently GGG's regex engine
 // runs on a potato. We must chunk our output to fit.
+// LINK: same constant + bin-pack pattern lives in src/calculators/{gemRegex,
+// vendorRegex,mapModRegex}.js — keep them in sync if GGG ever bumps the cap.
 const MAX_LEN = 250;
 
 /**

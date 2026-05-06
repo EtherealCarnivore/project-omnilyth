@@ -1,6 +1,9 @@
 import { getColorChances } from './colorChances.js';
 import { multinomialProb } from './mathUtils.js';
 
+// QUIRK: PoE Omen of Blanching always rolls 1, 2, or 3 white sockets at exactly
+// these probabilities. The 50/25/25 split is GGG-fixed; not user-configurable
+// and not affected by item type or sockets count (other than capping wRoll).
 const WHITE_PROBS = { 1: 0.50, 2: 0.25, 3: 0.25 };
 
 /**
@@ -12,6 +15,9 @@ export function calculateBlanching(sockets, str, dex, int, desiredR, desiredG, d
   const chances = getColorChances(str, dex, int);
   let totalProb = 0;
 
+  // Sum P(coloring | wRoll) * P(wRoll) over every white-count outcome that's
+  // physically possible: enough sockets to fit the whites, and enough remaining
+  // colored sockets to satisfy desiredR+desiredG+desiredB.
   for (let wRoll = 1; wRoll <= 3; wRoll++) {
     if (wRoll > sockets) continue;
     if (wRoll < desiredW) continue;
