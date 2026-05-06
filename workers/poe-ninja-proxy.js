@@ -54,8 +54,16 @@ function getOrigin(request) {
   return request.headers.get('origin') || request.headers.get('referer') || '';
 }
 
+// Dev / LAN allowance regex — matches localhost, loopback, and RFC 1918
+// private IPs on any port. Browsers send the real Origin header; non-browser
+// clients (curl, scripts) don't, and getOrigin() returns '' for missing →
+// rejected. Spoofing Origin from another browser is blocked by the response's
+// same-origin policy. Strictly additive to the prod allowlist above.
+const DEV_ORIGIN_RE = /^http:\/\/(localhost|127\.0\.0\.1|10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|172\.(1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3}):\d+/;
+
 function isOriginAllowed(origin) {
-  return ALLOWED_ORIGINS.some(a => origin.startsWith(a)) || origin.startsWith('http://localhost:');
+  if (ALLOWED_ORIGINS.some(a => origin.startsWith(a))) return true;
+  return DEV_ORIGIN_RE.test(origin);
 }
 
 function corsHeaders(origin, methods = 'GET') {
