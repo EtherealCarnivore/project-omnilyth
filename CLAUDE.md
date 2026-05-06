@@ -384,6 +384,21 @@ git push origin master
 
 ---
 
+## 6.5. Timeless Jewel Calculator — temporarily disabled (GPL-3.0 compliance)
+
+The Timeless Jewel Calculator and its supporting code (calculator, page, component, web worker, data files) are **still in the repo** under `src/calculators/timelessJewel.js`, `src/pages/TimelessJewelPage.jsx`, `src/components/TimelessJewelCalculator.jsx`, `src/components/TimelessTreeView.jsx`, `src/workers/timelessSearch.js`, and `src/data/timeless/`. **They are NOT shipped to `dist/`** because the registry entry is commented out — Vite's tree-shaker drops anything not reachable from a live `lazy()` import in the registry.
+
+**Why disabled:** the calculator's TinyMT32 PRNG + seed-search logic is ported from [vilsol/timeless-jewels](https://github.com/vilsol/timeless-jewels) (GPL-3.0). Porting GPL'd code is creating a derivative work, and GPL-3.0 requires the combined work be GPL-3.0 with corresponding source available to anyone who receives the binary. The Omnilyth source repo is currently private — distributing the bundle without source is non-compliant. The user is figuring out the long-term direction (flip source public, replace with permissive port, or remove permanently).
+
+**To re-enable** when the licensing decision is made:
+1. Uncomment the entry in `src/modules/registry.js` (search for `timeless-jewel — TEMPORARILY UNWIRED`).
+2. Verify Vite emits the chunk: `npm run build` and check `dist/assets/` for a TimelessJewel chunk.
+3. Update the privacy page note to remove the "currently disabled" framing.
+
+**Do not** silently re-enable without addressing the underlying licensing question — the next AI session that helps with this needs to know it's a deliberate compliance hold, not a forgotten feature.
+
+---
+
 ## 7. Known issues & limitations
 
 - **Bundle size:** `src/data/itemMods.js` is 2.9 MB; `clusterJewelData.json` is 239 KB. Code-split by route is in place but the data files still load on first visit to their pages.

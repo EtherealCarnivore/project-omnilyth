@@ -173,6 +173,10 @@ Pushes to `master` trigger GitHub Actions → builds → deploys to `omnilyth-co
 
 **See `SECURITY_FIXES_SUMMARY.md` for complete details.**
 
+## ⚠️ Currently Disabled
+
+- **Timeless Jewel Calculator** — code is still in the repo (`src/calculators/timelessJewel.js`, `src/pages/TimelessJewelPage.jsx`, `src/workers/timelessSearch.js`, `src/data/timeless/`) but the registry entry is commented out, so the calculator is NOT shipped in the deployed bundle. Reason: the seed-search algorithm is ported from [vilsol/timeless-jewels](https://github.com/vilsol/timeless-jewels) (GPL-3.0), and GPL-3.0 requires source-availability for the combined work. The Omnilyth source repo is currently private — distributing the bundle without source isn't compliant. Re-enabling requires a licensing decision (flip source public, replace with permissive port, or remove permanently). See `CLAUDE.md` §6.5 for context.
+
 ## What's Left to Do
 
 ### High Priority
