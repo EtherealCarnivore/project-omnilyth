@@ -33,9 +33,8 @@ export default function PrivacyPage() {
       <Section title="Is Omnilyth Open Source?">
         <p>
           <strong>No.</strong> Omnilyth's original source code is licensed under the{' '}
-          <strong>MIT License</strong> and is publicly viewable on GitHub, but the
-          project as a whole is not an open-source community project. It is a personal
-          project maintained by{' '}
+          <strong>MIT License</strong>, but the project as a whole is not an
+          open-source community project. It is a personal project maintained by{' '}
           <ExtLink href="https://github.com/EtherealCarnivore">EtherealCarnivore</ExtLink>.
         </p>
         <p>
@@ -43,7 +42,7 @@ export default function PrivacyPage() {
           the PoE community. Every third-party library, algorithm, and data source used
           is credited below with its respective license. If you believe attribution is
           missing for something, please{' '}
-          <ExtLink href="https://github.com/EtherealCarnivore/project-omnilyth/issues">
+          <ExtLink href="https://github.com/EtherealCarnivore/omnilyth-core-public/issues">
             open an issue
           </ExtLink>.
         </p>
@@ -122,21 +121,24 @@ export default function PrivacyPage() {
           tools, and data sources are used with credit to their original authors.
         </p>
 
-        {/* GPL-3.0 */}
+        {/* GPL-3.0 — currently UNUSED in shipped bundle (calculator disabled for compliance) */}
         <LicenseSection
           badge="GPL-3.0"
           badgeColor="violet"
           title="GNU General Public License v3.0"
           note={<>
-            GPL-3.0 requires that derivative works using this code are also publicly
-            available. Omnilyth's source code is on{' '}
-            <ExtLink href="https://github.com/EtherealCarnivore/project-omnilyth">GitHub</ExtLink>.
+            <strong className="text-amber-300">Currently not shipped.</strong>{' '}
+            The Timeless Jewel Calculator is temporarily unwired from the build
+            while we resolve the GPL-3.0 source-availability requirement.
+            The credit remains here in good faith for the work this project
+            was originally built on. The calculator code is preserved in the
+            repository and will return after a licensing decision.
           </>}
         >
           <CreditRow
             name="Timeless Jewel Calculator"
             author="vilsol"
-            description="TinyMT32 PRNG algorithm and timeless jewel seed calculation engine, ported from Go to JavaScript. Powers the Timeless Jewel Calculator's seed lookup and reverse search."
+            description="TinyMT32 PRNG algorithm and timeless jewel seed calculation engine, ported from Go to JavaScript. The original work this project's seed-search drew on; the derivative calculator is currently unwired from the build pending licensing resolution."
             href="https://github.com/vilsol/timeless-jewels"
           />
         </LicenseSection>
