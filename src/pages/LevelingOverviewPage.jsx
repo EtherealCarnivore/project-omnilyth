@@ -1,5 +1,6 @@
-import modules from '../modules/registry';
+import { modulesForGame } from '../modules/registry';
 import CategoryOverviewCard from '../components/CategoryOverviewCard';
+import { useGame } from '../contexts/GameContext';
 
 const ACCENT = 'from-teal-500/20 to-teal-500/5 border-teal-500/20';
 
@@ -23,7 +24,8 @@ const ICONS = {
 const SUBCATEGORY_ORDER = ['Gems', 'Vendors'];
 
 export default function LevelingOverviewPage() {
-  const levelingMods = modules.filter(m => m.category === 'Leveling');
+  const { game } = useGame();
+  const levelingMods = modulesForGame(game).filter(m => m.category === 'Leveling');
   const grouped = {};
   for (const mod of levelingMods) {
     if (!grouped[mod.subcategory]) grouped[mod.subcategory] = [];

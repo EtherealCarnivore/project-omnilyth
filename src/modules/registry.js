@@ -8,12 +8,39 @@
  * My Java services auto-discover each other via Consul. This one is a hardcoded array.
  * But you know what? It works, it's readable, and it's never caused an outage at 2 AM.
  * Can't say the same about Spring Cloud.
+ *
+ * CONTRACT — every entry has the shape:
+ *   id           string  unique key. Used as the localStorage key in
+ *                        src/contexts/PinnedContext.jsx — RENAMING strands
+ *                        existing user pins. Treat as part of the public API.
+ *   games        string[] which games the tool is available in. Values are
+ *                        'poe1' and/or 'poe2'. Most existing tools are PoE 1-only;
+ *                        regex-library is the sole shared entry on day one.
+ *                        Filter via modulesForGame(game) below; missing field
+ *                        falls back to ['poe1'] so misses don't disappear.
+ *   title        string  human-readable name shown in sidebar + topbar.
+ *   description  string  one-line value prop, ~10 words; shown on the home
+ *                        page card and category overview pages.
+ *   category     string  top-level sidebar group. See getModuleTree() in
+ *                        src/layout/Sidebar.jsx — drives the grouping.
+ *   subcategory  string  second-level sidebar group inside a category.
+ *   route        string  React Router path. Wired automatically by App.jsx
+ *                        from this array — never declare a <Route> by hand.
+ *                        PoE 1 routes stay unprefixed (preserves existing
+ *                        bookmarks); PoE 2 routes get a /poe2/ prefix.
+ *   icon         string  icon-key consumed by ModuleIcon component.
+ *   component    LazyExoticComponent  React.lazy(() => import('../pages/...')).
+ *                                     The import target must default-export a
+ *                                     React component or the route fails at
+ *                                     render time, NOT at module load time.
+ *   external     boolean (optional) tools that link out instead of routing.
  */
 import { lazy } from 'react';
 
 const modules = [
   {
     id: 'chromatic',
+    games: ['poe1'],
     title: 'Chromatic Calculator',
     description: 'Vorici bench crafts vs raw Chromatic Orbs',
     category: 'Crafting',
@@ -24,6 +51,7 @@ const modules = [
   },
   {
     id: 'tainted',
+    games: ['poe1'],
     title: 'Tainted Chromatic',
     description: 'Tainted Chromatic Orb coloring for corrupted items',
     category: 'Crafting',
@@ -34,6 +62,7 @@ const modules = [
   },
   {
     id: 'blanching',
+    games: ['poe1'],
     title: 'Omen of Blanching',
     description: 'White socket crafting with Omen of Blanching',
     category: 'Crafting',
@@ -44,6 +73,7 @@ const modules = [
   },
   {
     id: 'jeweller',
+    games: ['poe1'],
     title: "Jeweller's Method",
     description: 'Add/remove sockets to lock in desired colors',
     category: 'Crafting',
@@ -54,6 +84,7 @@ const modules = [
   },
   {
     id: 'fusing',
+    games: ['poe1'],
     title: 'Fusing Calculator',
     description: 'Orbs of Fusing needed to fully link items',
     category: 'Crafting',
@@ -64,6 +95,7 @@ const modules = [
   },
   {
     id: 'socketing',
+    games: ['poe1'],
     title: 'Socket Calculator',
     description: "Jeweller's Orbs needed for target socket count",
     category: 'Crafting',
@@ -74,6 +106,7 @@ const modules = [
   },
   {
     id: 'map-mods',
+    games: ['poe1'],
     title: 'Map Mod Regex',
     description: 'Generate regex patterns to filter map mods',
     category: 'Atlas',
@@ -84,6 +117,7 @@ const modules = [
   },
   {
     id: 'scarab-regex',
+    games: ['poe1'],
     title: 'Scarab Regex',
     description: 'Generate regex to search for cheap scarabs in stash',
     category: 'Atlas',
@@ -94,6 +128,7 @@ const modules = [
   },
   {
     id: 'item-regex',
+    games: ['poe1'],
     title: 'Item Mod Regex',
     description: 'Generate regex patterns to find items with specific mods',
     category: 'Crafting',
@@ -104,6 +139,7 @@ const modules = [
   },
   {
     id: 'dust-calculator',
+    games: ['poe1'],
     title: 'Dust Calculator',
     description: 'Find the best uniques to disenchant for Thaumaturgic Dust',
     category: 'Atlas',
@@ -114,6 +150,7 @@ const modules = [
   },
   {
     id: 'cluster-jewel',
+    games: ['poe1'],
     title: 'Cluster Jewel Calc',
     description: 'Find compatible notables for Large Cluster Jewels',
     category: 'Jewels',
@@ -124,6 +161,7 @@ const modules = [
   },
   {
     id: 'timeless-jewel',
+    games: ['poe1'],
     title: 'Timeless Jewel Calc',
     description: 'Calculate timeless jewel seed effects on passive tree nodes',
     category: 'Jewels',
@@ -135,6 +173,7 @@ const modules = [
   },
   {
     id: 'gem-regex',
+    games: ['poe1'],
     title: 'Gem Regex',
     description: 'Generate regex to search for skill gems in stash',
     category: 'Leveling',
@@ -145,6 +184,7 @@ const modules = [
   },
   {
     id: 'vendor-leveling',
+    games: ['poe1'],
     title: 'Vendor Leveling Regex',
     description: 'Find vendor items with movement speed, sockets, links, and leveling stats',
     category: 'Leveling',
@@ -155,6 +195,7 @@ const modules = [
   },
   {
     id: 'leveling-mode',
+    games: ['poe1'],
     title: 'Leveling Mode',
     description: 'Complete leveling guide with quest tracking, zone tips, and gem progression',
     category: 'Leveling',
@@ -166,6 +207,7 @@ const modules = [
   },
   {
     id: 'leveling-planner',
+    games: ['poe1'],
     title: 'Gem Planner',
     description: 'Plan your leveling gems before league start - track what to get and when',
     category: 'Leveling',
@@ -176,6 +218,7 @@ const modules = [
   },
   {
     id: 'gem-lookup',
+    games: ['poe1'],
     title: 'Gem Lookup',
     description: 'Look up where to get specific gems during the campaign',
     category: 'Leveling',
@@ -186,6 +229,7 @@ const modules = [
   },
   {
     id: 'leveling-gems',
+    games: ['poe1'],
     title: 'Gem Browser',
     description: 'Browse all gems with advanced filtering by class, act, and availability',
     category: 'Leveling',
@@ -196,6 +240,7 @@ const modules = [
   },
   {
     id: 'playbook',
+    games: ['poe1'],
     title: 'Leveling Playbook',
     description: 'Step-by-step speedrunner strategies with checklists, decisions, and power spikes',
     category: 'Leveling',
@@ -206,6 +251,7 @@ const modules = [
   },
   {
     id: 'atlas-tree',
+    games: ['poe1'],
     title: 'Atlas Tree Planner',
     description: 'Plan your atlas passive tree and compare with in-game allocation',
     category: 'Atlas',
@@ -217,6 +263,7 @@ const modules = [
   },
   {
     id: 'passive-tree',
+    games: ['poe1'],
     title: 'Passive Tree Planner',
     description: 'Plan your character passive skill tree with class and ascendancy selection',
     category: 'Build Planning',
@@ -228,6 +275,7 @@ const modules = [
   },
   {
     id: 'atlas-diff',
+    games: ['poe1'],
     title: 'Atlas Tree Diff',
     description: 'Compare two atlas trees and see exactly which nodes differ',
     category: 'Atlas',
@@ -239,6 +287,7 @@ const modules = [
   },
   {
     id: 'watcher',
+    games: ['poe1'],
     title: 'Omnilyth Watcher',
     description: 'Desktop app for real-time PoE trade notifications via live WebSocket',
     category: 'Tools',
@@ -249,6 +298,7 @@ const modules = [
   },
   {
     id: 'regex-library',
+    games: ['poe1', 'poe2'],
     title: 'Regex Library',
     description: 'View and manage your saved regex patterns from all tools',
     category: 'Regex Library',
@@ -261,14 +311,25 @@ const modules = [
 
 export default modules;
 
+// Filter to a single game's tools. A missing `games` field defaults to ['poe1']
+// so any registry entry that misses the migration silently falls back to PoE 1
+// rather than disappearing from both games' sidebars. Default arg is also 'poe1'
+// so call sites that haven't migrated yet keep their pre-dual-game behavior.
+export function modulesForGame(game = 'poe1') {
+  return modules.filter(mod => (mod.games || ['poe1']).includes(game));
+}
+
 // Builds a nested category → subcategory → modules tree for the sidebar.
 // In SQL this would be GROUP BY category, subcategory. In Java it would be
 // Collectors.groupingBy(). In JS it's a manual loop that checks for undefined twice.
 // I've written order aggregation logic that groups millions of trades per second.
 // This groups 11 modules and I still had to debug it. Frontend is humbling.
-export function getModuleTree() {
+//
+// Game-aware (2026-05-06): pass the active game to filter the tree. With no
+// arg, defaults to 'poe1' so call sites that haven't migrated yet still work.
+export function getModuleTree(game = 'poe1') {
   const tree = {};
-  for (const mod of modules) {
+  for (const mod of modulesForGame(game)) {
     if (!tree[mod.category]) tree[mod.category] = {};
     if (!tree[mod.category][mod.subcategory]) tree[mod.category][mod.subcategory] = [];
     tree[mod.category][mod.subcategory].push(mod);

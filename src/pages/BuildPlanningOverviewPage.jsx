@@ -1,5 +1,6 @@
-import modules from '../modules/registry';
+import { modulesForGame } from '../modules/registry';
 import CategoryOverviewCard from '../components/CategoryOverviewCard';
+import { useGame } from '../contexts/GameContext';
 
 const ACCENT = 'from-violet-500/20 to-violet-500/5 border-violet-500/20';
 
@@ -19,7 +20,8 @@ const ICONS = {
 const SUBCATEGORY_ORDER = ['Cluster Jewels', 'Timeless Jewels'];
 
 export default function BuildPlanningOverviewPage() {
-  const buildMods = modules.filter(m => m.category === 'Jewels');
+  const { game } = useGame();
+  const buildMods = modulesForGame(game).filter(m => m.category === 'Jewels');
   const grouped = {};
   for (const mod of buildMods) {
     if (!grouped[mod.subcategory]) grouped[mod.subcategory] = [];

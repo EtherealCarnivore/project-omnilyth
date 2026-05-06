@@ -10,13 +10,15 @@
  */
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
-import modules from '../modules/registry';
+import { modulesForGame } from '../modules/registry';
 import YouTubeCard from '../components/YouTubeCard';
 import PatchNotesWidget from '../components/PatchNotesWidget';
 import LeagueCountdown from '../components/LeagueCountdown';
 import LevelingModeEntryCard from '../components/LevelingModeEntryCard';
+import Poe2DiscoveryRibbon from '../components/Poe2DiscoveryRibbon';
 import { usePinned } from '../contexts/PinnedContext';
 import { useLevelingMode } from '../contexts/LevelingModeContext';
+import { useGame } from '../contexts/GameContext';
 import LEAGUE_CONFIG from '../config/leagueConfig';
 
 const CATEGORY_COLORS = {
@@ -173,9 +175,8 @@ function ModuleCard({ mod, pinned, onTogglePin }) {
 }
 
 function CategoryHubCard({ hub }) {
-  const toolCount = modules.filter(m =>
-    m.category === hub.name
-  ).length;
+  const { game } = useGame();
+  const toolCount = modulesForGame(game).filter(m => m.category === hub.name).length;
 
   return (
     <Link
@@ -215,24 +216,33 @@ export default function HomePage() {
   const [showCredits, setShowCredits] = useState(false);
   const { pinnedIds, togglePin, isPinned } = usePinned();
   const { isActive: isLevelingMode } = useLevelingMode();
+  const { game } = useGame();
 
+  const inGameModules = useMemo(() => modulesForGame(game), [game]);
+
+  // Pins from the other game silently drop out — they're still in the
+  // localStorage list (so a return-to-PoE-1 visitor sees their PoE 1 pins),
+  // but they don't render here while the user is in the other game.
   const pinnedModules = useMemo(
-    () => pinnedIds.map(id => modules.find(m => m.id === id)).filter(Boolean),
-    [pinnedIds]
+    () => pinnedIds.map(id => inGameModules.find(m => m.id === id)).filter(Boolean),
+    [pinnedIds, inGameModules]
   );
 
   const filtered = useMemo(() => {
     if (!search) return [];
     const q = search.toLowerCase();
-    return modules.filter(m =>
+    return inGameModules.filter(m =>
       m.title.toLowerCase().includes(q) ||
       m.description.toLowerCase().includes(q) ||
       m.category.toLowerCase().includes(q)
     );
-  }, [search]);
+  }, [search, inGameModules]);
 
   return (
     <div className="space-y-8">
+      {/* PoE 2 discovery ribbon — shown to first-time visitors only, dismissible */}
+      <Poe2DiscoveryRibbon />
+
       {/* Banner — negative margins to crop the image. CSS crimes in broad daylight. */}
       <a
         href="https://github.com/EtherealCarnivore"
@@ -325,7 +335,7 @@ export default function HomePage() {
         <>
           {/* All tools grouped by category — visible immediately */}
           {CATEGORY_HUBS.map(hub => {
-            const categoryModules = modules.filter(m => m.category === hub.name);
+            const categoryModules = inGameModules.filter(m => m.category === hub.name);
             return (
               <div key={hub.name} className="space-y-3">
                 <div className="flex items-center gap-2 px-1">
@@ -352,9 +362,9 @@ export default function HomePage() {
           {/* Remaining categories not in CATEGORY_HUBS */}
           {(() => {
             const hubNames = new Set(CATEGORY_HUBS.map(h => h.name));
-            const otherCategories = [...new Set(modules.filter(m => !hubNames.has(m.category)).map(m => m.category))];
+            const otherCategories = [...new Set(inGameModules.filter(m => !hubNames.has(m.category)).map(m => m.category))];
             return otherCategories.map(cat => {
-              const catModules = modules.filter(m => m.category === cat);
+              const catModules = inGameModules.filter(m => m.category === cat);
               return (
                 <div key={cat} className="space-y-3">
                   <div className="flex items-center gap-2 px-1">

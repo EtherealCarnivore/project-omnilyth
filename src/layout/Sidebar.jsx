@@ -4,10 +4,10 @@
  */
 import { useState, useMemo } from 'react';
 import { NavLink } from 'react-router-dom';
-import { getModuleTree } from '../modules/registry';
-import modules from '../modules/registry';
+import { getModuleTree, modulesForGame } from '../modules/registry';
 import { usePinned } from '../contexts/PinnedContext';
 import { useLevelingMode } from '../contexts/LevelingModeContext';
+import { useGame } from '../contexts/GameContext';
 
 const CATEGORY_ROUTES = {
   'Crafting': '/crafting',
@@ -82,16 +82,22 @@ export default function Sidebar({ open, onClose }) {
   const [collapsed, setCollapsed] = useState({});
   const { pinnedIds, togglePin, isPinned } = usePinned();
   const { isActive: isLevelingMode, enterLevelingMode } = useLevelingMode();
-  const tree = useMemo(() => getModuleTree(), []);
+  const { game } = useGame();
 
+  const tree = useMemo(() => getModuleTree(game), [game]);
+  const inGameModules = useMemo(() => modulesForGame(game), [game]);
+
+  // Pins are dropped if the pinned tool isn't available in the current game.
+  // PinnedContext stores raw IDs that can be from either game; here we only
+  // surface ones that exist in the current game's tool set.
   const pinnedModules = useMemo(
-    () => pinnedIds.map(id => modules.find(m => m.id === id)).filter(Boolean),
-    [pinnedIds]
+    () => pinnedIds.map(id => inGameModules.find(m => m.id === id)).filter(Boolean),
+    [pinnedIds, inGameModules]
   );
 
   // Case-insensitive search because JavaScript doesn't believe in enums or proper search indices
   const filtered = search
-    ? modules.filter(m =>
+    ? inGameModules.filter(m =>
         m.title.toLowerCase().includes(search.toLowerCase()) ||
         m.subcategory.toLowerCase().includes(search.toLowerCase())
       )
