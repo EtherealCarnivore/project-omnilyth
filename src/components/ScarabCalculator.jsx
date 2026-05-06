@@ -13,14 +13,7 @@ import { useLeague } from '../contexts/LeagueContext';
 import { scarabs, scarabList } from '../data/scarabData';
 import { generateScarabRegexes } from '../calculators/scarabRegex';
 import SaveRegexButton from './SaveRegexButton';
-
-const isDev = import.meta.env.DEV;
-
-function ninjaUrl(path) {
-  if (isDev) return `/api/poe-ninja${path}`;
-  const proxyUrl = import.meta.env.VITE_PROXY_URL || '/.netlify/functions/poe-ninja-proxy';
-  return `${proxyUrl}?path=${encodeURIComponent(path)}`;
-}
+import { ninjaUrl } from '../utils/proxyUrl';
 
 function RegexOutputBox({ regex, index, total }) {
   const [copied, setCopied] = useState(false);
