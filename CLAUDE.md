@@ -6,13 +6,53 @@
 
 ## 0. What is Omnilyth?
 
-A **Path of Exile 1** companion toolkit — crafting calculators, regex generators, atlas/leveling planners, build-planning utilities, and a desktop trade watcher.
+A **Path of Exile** companion toolkit — crafting calculators, regex generators, atlas/leveling planners, build-planning utilities, and a desktop trade watcher. **Supports both Path of Exile 1 and Path of Exile 2** (dual-game in a single deployment; see §0.5 below).
 
 - **Stack:** React 19 + Vite 7 + Tailwind CSS 4, Context API for state, Fuse.js for search, no Redux / no component library / no TypeScript.
 - **Deploy:** GitHub Pages (primary public site) + Cloudflare Worker for poe.ninja proxy. *(Netlify functions still in-tree as fallback but no longer the active path.)*
 - **Live URLs:**
   - GitHub Pages: https://etherealcarnivore.github.io/omnilyth-core-public/
   - CF Worker proxy: https://k-genov.workers.dev/
+
+---
+
+## 0.5. PoE 1 vs PoE 2
+
+Omnilyth ships as a single SPA that serves **both** Path of Exile 1 and Path of Exile 2. The two games share branding but diverge mechanically; many tools have analogs in only one game.
+
+**Architecture summary:**
+- `GameContext` (outermost provider) owns `{ game: 'poe1' | 'poe2', setGame }`. localStorage key: `omnilyth_game_v1`. Default: `'poe1'`.
+- Every entry in `src/modules/registry.js` carries a `games: ['poe1' | 'poe2']` array. `regex-library` is the only entry with `['poe1', 'poe2']` on day one — saved patterns are user-owned text.
+- URL strategy is **asymmetric**: PoE 1 keeps unprefixed routes (`/atlas/tree`, `/crafting/fusing`) to preserve every existing inbound link; PoE 2 routes get a `/poe2/` prefix (`/poe2/`, `/poe2/leveling/playbook`).
+- Topbar shows a two-tab game switcher (PoE 1 orange, PoE 2 cyan) on the far-left as the persistent indicator.
+- Cross-game bookmark behavior: if a PoE 2-active user lands on a PoE 1-only tool, the tool renders WITH a sticky amber switch-back banner — no 404, no forced redirect.
+- Cloudflare Worker proxy `NINJA_ALLOWED` allowlist covers both games (`/poe1/api/economy/...` + `/poe2/api/economy/...`).
+
+**Per-game data:**
+- PoE 1 data: `src/data/`. Sources: `poedb.tw/us/`, `poewiki.net`, official patch notes.
+- PoE 2 data: `src/data/poe2/` (post-Phase 3). Sources: **`poe2db.tw/us/`** (canonical, HTML scrape), `marcoaaguiar/poe2-tree` (community tree data, risky long-term), PoB-PoE2 fork (Lua data for cross-validation), official PoE 2 patch announcements.
+- **Critical:** GGG does NOT publish PoE 2 data the way they publish PoE 1's. No `grindinggear/skilltree-export-poe2` exists.
+
+**Tool inventory:**
+- **PoE 1-only** (no PoE 2 analog): chromatic, tainted, blanching, jeweller, fusing, socketing, scarab-regex, dust-calculator, cluster-jewel, timeless-jewel, map-mods, vendor-leveling, all PoE 1 leveling tools, atlas-tree (PoE 1), atlas-diff, passive-tree (PoE 1).
+- **Cross-game** (one entry, both games' patterns): `regex-library` (saved patterns are user-owned text).
+- **PoE 2 forks planned** (separate registry entries): Item Mod Regex (PoE 2), Gem Browser/Regex (PoE 2), Leveling Playbook (PoE 2), Waystone Mod Regex (PoE 2), Atlas Tree Planner (PoE 2 post-0.5).
+- **Don't build for PoE 2:** anything PoB-PoE2, Maxroll PoE 2, awakened-poe-trade, Craft of Exile already does well in their core lane.
+
+**Phase status (2026-05-06):**
+- Phase 1 (scaffold) — IN PROGRESS. Worker allowlist updated; KB seeded; feature radar seeded; agent prompts game-aware. Architecture (GameContext, registry filter, switcher UI) pending.
+- Phase 2 (announcement-driven update) — **2026-05-07 20:00 GMT** — wait for GGG 0.5 announcement.
+- Phase 3 (0.5 launch import) — **2026-05-29 1 PM PDT** — first real PoE 2 tools.
+- Phase 4 (community-tool follow) — June 12+.
+
+**Always ask which game** when an agent / contributor takes on a new task. Default-assume PoE 1 only when the entire surrounding context is unambiguously PoE 1.
+
+**See also:**
+- `.claude/knowledge/poe2/0.4-baseline.md` — current PoE 2 mechanics (pre-0.5).
+- `.claude/knowledge/poe2/community-tool-landscape.md` — competitor inventory.
+- `.claude/knowledge/poe2/data-source-map.md` — per-tool data plan.
+- `.claude/feature-radar/poe2/INDEX.md` — PoE 2 feature backlog.
+- `C:/Users/Admin/.claude/plans/ok-so-you-can-radiant-aurora.md` — full plan (referenced for the migration decisions).
 
 ---
 
@@ -384,4 +424,4 @@ git push origin master
 
 ---
 
-**Last updated:** 2026-05-06 — Phase 2 expansion: added `build-strategist`, `economy-analyst`, `qa-tester`, `code-archaeologist`, `release-manager`, `security-auditor` (17 specialists total) plus 6 orchestration skills (`/explore-features`, `/plan-feature`, `/audit-all`, `/league-refresh`, `/ship`, `/ui-pass`). KB seeded with 4 quick-reference + 3 mechanics deep-dives. Phase 1 (same date): `feature-explorer`, `ui-architect`, `interaction-designer`, `accessibility-auditor`; `ui-designer` trimmed to the visual lane.
+**Last updated:** 2026-05-06 — **Dual-game framing added.** Omnilyth now scopes to both PoE 1 and PoE 2 (Phase 1 of dual-game expansion in progress; targeting May 7 8 PM GMT for shell completion ahead of PoE 2 0.5 announcement). Worker allowlist updated, PoE 2 KB + feature radar seeded, agent prompts game-aware. Phase 2 expansion (same date): added `build-strategist`, `economy-analyst`, `qa-tester`, `code-archaeologist`, `release-manager`, `security-auditor` (17 specialists total) plus 6 orchestration skills. KB seeded with 4 quick-reference + 3 mechanics deep-dives. Phase 1 of agent expansion (same date): `feature-explorer`, `ui-architect`, `interaction-designer`, `accessibility-auditor`; `ui-designer` trimmed to the visual lane.

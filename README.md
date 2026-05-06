@@ -1,6 +1,6 @@
 # Project Omnilyth
 
-A Path of Exile toolkit — crafting calculators, regex generators, atlas tree planner, leveling tools, and more.
+A Path of Exile toolkit — crafting calculators, regex generators, atlas tree planner, leveling tools, and more. **Supports both PoE 1 and PoE 2** (dual-game shell, in-progress for PoE 2 0.5 launch on 2026-05-29).
 
 **Live**: [omnilyth-beta.netlify.app](https://omnilyth-beta.netlify.app/) | [GitHub Pages](https://etherealcarnivore.github.io/omnilyth-core-public/)
 
@@ -189,6 +189,10 @@ Pushes to `master` trigger GitHub Actions → builds → deploys to `omnilyth-co
 - [ ] **Passive Planner** — skill tree passive planning tool
 - [ ] **Stash Valuation** — estimate stash tab value using poe.ninja prices
 - [ ] **Seed Finder** — timeless jewel seed optimization
+- [ ] **PoE 2 dual-game shell** — GameContext + registry filter + topbar switcher + PoE 2 stub home (Phase 1 in progress; target 2026-05-07)
+- [ ] **PoE 2 Item Mod Regex** — fork of `item-regex` with poe2db.tw mod data (Phase 3, ships post-0.5 launch on 2026-05-29)
+- [ ] **PoE 2 Gem Browser** — fork of `leveling-gems` with PoE 2 gem system (uncut/skill/spirit/support/meta gems)
+- [ ] **PoE 2 Atlas Tree Planner** — Phase 4, ships once 0.5 atlas tree expansion (~40+ nodes) lands and community data extraction stabilizes
 
 ### Long Term
 - [ ] **TypeScript Migration** — add type safety progressively
@@ -231,4 +235,4 @@ Omnilyth is a fan-made tool and is not affiliated with Grinding Gear Games. Path
 This tool is provided for informational purposes only. We are not responsible for any game decisions made based on calculator results.
 
 ---
-**Last Updated:** 2026-02-24
+**Last Updated:** 2026-05-06 — Dual-game framing added; PoE 2 support roadmap planned for 0.5 launch.

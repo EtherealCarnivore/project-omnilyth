@@ -4,6 +4,8 @@
 
 Pair with [`CLAUDE.md`](./CLAUDE.md) (project context) and [`.claude/agents/`](./.claude/agents/) (agent definitions).
 
+**Dual-game note (2026-05-06):** Omnilyth is now a PoE 1 + PoE 2 toolkit. The 4 most game-sensitive agents (`poe-expert`, `poe-wiki-oracle`, `data-curator`, `calculator-engineer`) carry game-scope sections in their prompts. **Always specify which game** a task targets. Default-assume PoE 1 only when context is unambiguously PoE 1. See `CLAUDE.md` §0.5 for the dual-game architecture summary.
+
 ---
 
 ## TL;DR — pick by trigger phrase
@@ -272,4 +274,4 @@ Default to `inherit` and override only when there's a clear reason. With Opus 4.
 
 ---
 
-**Last updated:** 2026-05-06 — Phase 2 expansion: added `build-strategist`, `economy-analyst`, `qa-tester`, `code-archaeologist`, `release-manager`, `security-auditor` (17 specialists total) and 6 orchestration skills (`/explore-features`, `/plan-feature`, `/audit-all`, `/league-refresh`, `/ship`, `/ui-pass`). Knowledge base seeded with 4 quick-reference + 3 mechanics deep-dives. Phase 1 (2026-05-06): `feature-explorer`, `ui-architect`, `interaction-designer`, `accessibility-auditor`.
+**Last updated:** 2026-05-06 — **Dual-game framing.** 4 game-sensitive agents carry explicit PoE 1 / PoE 2 scope sections; PoE 2 KB seeded at `.claude/knowledge/poe2/`; PoE 2 feature radar seeded at `.claude/feature-radar/poe2/`. Phase 2 expansion (same date): added `build-strategist`, `economy-analyst`, `qa-tester`, `code-archaeologist`, `release-manager`, `security-auditor` (17 specialists total) and 6 orchestration skills. Knowledge base seeded with 4 quick-reference + 3 mechanics deep-dives. Phase 1 (2026-05-06): `feature-explorer`, `ui-architect`, `interaction-designer`, `accessibility-auditor`.
