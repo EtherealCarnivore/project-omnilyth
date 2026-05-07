@@ -4,4 +4,10 @@ ignore_this/
 .DS_Store
 html_dump/
 ref_images/
-.claude/settings.local.json
+
+# Claude Code tooling — content lives in the private claude-pob-personal repo.
+# .claude/ is a junction; CLAUDE.md and AGENTS.md are hardlinks.
+# See claude-pob-personal/README.md for restore instructions on a fresh machine.
+.claude/
+CLAUDE.md
+AGENTS.md
