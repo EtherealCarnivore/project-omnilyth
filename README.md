@@ -108,7 +108,7 @@ Atlas tree data from [GGG's official export](https://github.com/grindinggear/atl
 
 ## Gem Progression System
 
-Comprehensive gem browser and tracking tool. See `GEM_PROGRESSION_README.md` for complete documentation.
+Comprehensive gem browser and tracking tool.
 
 ### Features
 - **335 Unique Gems** — complete database with icons from web.poecdn.com
@@ -173,16 +173,7 @@ Pushes to `master` trigger GitHub Actions → builds → deploys to `omnilyth-co
 - Number/string validation with range checking
 - Rate limiting for authentication attempts
 
-### Beta Gate
-- Multi-password support with SHA-512 hashing
-- 30-day session expiry
-- Rate limiting (5 attempts per minute)
-
-**See `SECURITY_FIXES_SUMMARY.md` for complete details.**
-
-## ⚠️ Currently Disabled
-
-- **Timeless Jewel Calculator** — code is still in the repo (`src/calculators/timelessJewel.js`, `src/pages/TimelessJewelPage.jsx`, `src/workers/timelessSearch.js`, `src/data/timeless/`) but the registry entry is commented out, so the calculator is NOT shipped in the deployed bundle. Reason: the seed-search algorithm is ported from [vilsol/timeless-jewels](https://github.com/vilsol/timeless-jewels) (GPL-3.0), and GPL-3.0 requires source-availability for the combined work. The Omnilyth source repo is currently private — distributing the bundle without source isn't compliant. Re-enabling requires a licensing decision (flip source public, replace with permissive port, or remove permanently). See `CLAUDE.md` §6.5 for context.
+To report a security vulnerability privately, see [SECURITY.md](SECURITY.md).
 
 ## What's Left to Do
 
