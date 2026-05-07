@@ -139,9 +139,8 @@ export default function PrivacyPage() {
             upstream, the entire Omnilyth source is licensed under GPL-3.0 or later — see the
             project{' '}
             <ExtLink href="https://github.com/EtherealCarnivore/project-omnilyth/blob/master/LICENSE">LICENSE</ExtLink>.
-            The calculator itself is currently disabled in the registry pending a
-            re-enable commit; the source files remain on disk and are tagged as the
-            GPL-3.0 derivative subset.
+            The corresponding source for the calculator is available in the public
+            repository; this satisfies GPL-3.0's source-availability obligation.
           </>}
         >
           <CreditRow

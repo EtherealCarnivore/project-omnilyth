@@ -31,10 +31,10 @@ This product bundles assets and data derived from third parties:
              src/components/TimelessJewelCalculator.jsx,
              src/components/TimelessTreeView.jsx,
              src/pages/TimelessJewelPage.jsx
-    Currently disabled in src/modules/registry.js. The five files above
-    remain on disk and are tagged with their GPL-3.0 derivation; the
-    overall project is licensed GPL-3.0 to remain compatible with this
-    upstream when re-enabled.
+    The whole project is licensed GPL-3.0 to remain compatible with
+    this upstream. The corresponding source is available at the
+    project repository, satisfying GPL-3.0's source-availability
+    obligation.
 
   - Path of Exile game data, sprite icons, atlas tree, passive tree
     Copyright Grinding Gear Games — used under GGG fan content policy

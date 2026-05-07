@@ -159,28 +159,26 @@ const modules = [
     icon: 'cluster',
     component: lazy(() => import('../pages/ClusterJewelPage')),
   },
-  // ─── Timeless Jewel Calc — TEMPORARILY UNWIRED for GPL compliance ───────
-  // The calculator/page/worker source files remain on disk under
-  // src/{calculators,components,pages,workers,data}/timeless* for a future
-  // decision. Their chunks are NOT shipped to dist/ while this entry is
-  // commented out — Vite's tree-shaker drops anything not reachable from a
-  // live import in this registry. To re-enable: uncomment, then either flip
-  // the source repo public (GPL-3.0 source-availability), replace the
-  // ported algorithm with a permissively-licensed equivalent, or relicense
-  // Omnilyth as GPL-3.0. See the privacy page's GPL-3.0 section + commit
-  // message for context.
-  // {
-  //   id: 'timeless-jewel',
-  //   games: ['poe1'],
-  //   title: 'Timeless Jewel Calc',
-  //   description: 'Calculate timeless jewel seed effects on passive tree nodes',
-  //   category: 'Jewels',
-  //   subcategory: 'Timeless Jewels',
-  //   route: '/build/timeless-jewel',
-  //   icon: 'timeless',
-  //   fullWidth: true,
-  //   component: lazy(() => import('../pages/TimelessJewelPage')),
-  // },
+  // Timeless Jewel Calc — re-enabled 2026-05-07 after the source repo flipped
+  // public + project license set to GPL-3.0. The calc/page/worker files port
+  // vilsol/timeless-jewels (GPL-3.0); GPL-3.0 source-availability is now
+  // satisfied by the public source repo, so distributing the chunk is
+  // compliant. Affected files: src/calculators/timelessJewel.js,
+  // src/workers/timelessSearch.js, src/components/TimelessJewelCalculator.jsx,
+  // src/components/TimelessTreeView.jsx, src/pages/TimelessJewelPage.jsx,
+  // and the JSON data under src/data/timeless/.
+  {
+    id: 'timeless-jewel',
+    games: ['poe1'],
+    title: 'Timeless Jewel Calc',
+    description: 'Calculate timeless jewel seed effects on passive tree nodes',
+    category: 'Jewels',
+    subcategory: 'Timeless Jewels',
+    route: '/build/timeless-jewel',
+    icon: 'timeless',
+    fullWidth: true,
+    component: lazy(() => import('../pages/TimelessJewelPage')),
+  },
   {
     id: 'gem-regex',
     games: ['poe1'],
