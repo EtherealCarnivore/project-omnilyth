@@ -29,20 +29,25 @@ export default function PrivacyPage() {
         </Callout>
       </Section>
 
-      {/* ═══ Not Open Source ═══ */}
+      {/* ═══ Open Source ═══ */}
       <Section title="Is Omnilyth Open Source?">
         <p>
-          <strong>No.</strong> Omnilyth's original source code is licensed under the{' '}
-          <strong>MIT License</strong>, but the project as a whole is not an
-          open-source community project. It is a personal project maintained by{' '}
-          <ExtLink href="https://github.com/EtherealCarnivore">EtherealCarnivore</ExtLink>.
+          <strong>Yes.</strong> Omnilyth's original source code is licensed under the{' '}
+          <strong>GNU General Public License v3.0 or later</strong> — full text in the{' '}
+          <ExtLink href="https://github.com/EtherealCarnivore/project-omnilyth/blob/master/LICENSE">LICENSE</ExtLink>{' '}
+          file. The Cloudflare Worker proxy under <code>workers/</code> is licensed
+          separately under <strong>MIT</strong> so other PoE community tools may fork
+          the proxy logic. It remains a personal project maintained by{' '}
+          <ExtLink href="https://github.com/EtherealCarnivore">EtherealCarnivore</ExtLink>{' '}
+          — being open source doesn't mean every PR is accepted, but you are free to
+          read, fork, and adapt the code under the GPL-3.0 terms.
         </p>
         <p>
-          However, Omnilyth <strong>is built on top of open-source work</strong> from
-          the PoE community. Every third-party library, algorithm, and data source used
-          is credited below with its respective license. If you believe attribution is
+          Omnilyth is <strong>built on top of open-source work</strong> from the PoE
+          community. Every third-party library, algorithm, and data source used is
+          credited below with its respective license. If you believe attribution is
           missing for something, please{' '}
-          <ExtLink href="https://github.com/EtherealCarnivore/omnilyth-core-public/issues">
+          <ExtLink href="https://github.com/EtherealCarnivore/project-omnilyth/issues">
             open an issue
           </ExtLink>.
         </p>
@@ -121,25 +126,29 @@ export default function PrivacyPage() {
           tools, and data sources are used with credit to their original authors.
         </p>
 
-        {/* GPL-3.0 — currently UNUSED in shipped bundle (calculator disabled for compliance) */}
+        {/* GPL-3.0 — drives the project license; calculator is currently disabled */}
         <LicenseSection
           badge="GPL-3.0"
           badgeColor="violet"
           title="GNU General Public License v3.0"
           note={<>
-            <strong className="text-amber-300">Currently not shipped.</strong>{' '}
-            The Timeless Jewel Calculator is temporarily unwired from the build
-            while we resolve the GPL-3.0 source-availability requirement.
-            The credit remains here in good faith for the work this project
-            was originally built on. The calculator code is preserved in the
-            repository and will return after a licensing decision.
+            The Timeless Jewel Calculator's TinyMT32 PRNG and seed-search algorithm
+            are ported from{' '}
+            <ExtLink href="https://github.com/Vilsol/timeless-jewels">vilsol/timeless-jewels</ExtLink>,
+            licensed under GPL-3.0. Because the calculator is a derivative work of that
+            upstream, the entire Omnilyth source is licensed under GPL-3.0 or later — see the
+            project{' '}
+            <ExtLink href="https://github.com/EtherealCarnivore/project-omnilyth/blob/master/LICENSE">LICENSE</ExtLink>.
+            The calculator itself is currently disabled in the registry pending a
+            re-enable commit; the source files remain on disk and are tagged as the
+            GPL-3.0 derivative subset.
           </>}
         >
           <CreditRow
             name="Timeless Jewel Calculator"
             author="vilsol"
-            description="TinyMT32 PRNG algorithm and timeless jewel seed calculation engine, ported from Go to JavaScript. The original work this project's seed-search drew on; the derivative calculator is currently unwired from the build pending licensing resolution."
-            href="https://github.com/vilsol/timeless-jewels"
+            description="TinyMT32 PRNG algorithm and timeless jewel seed calculation engine, ported from Go to JavaScript."
+            href="https://github.com/Vilsol/timeless-jewels"
           />
         </LicenseSection>
 
@@ -235,6 +244,15 @@ export default function PrivacyPage() {
             />
           </div>
         </section>
+
+        <p className="text-xs text-zinc-500">
+          For the complete list of third-party dependencies, embedded data
+          attributions, and full license texts, see{' '}
+          <ExtLink href="https://github.com/EtherealCarnivore/project-omnilyth/blob/master/THIRD_PARTY_LICENSES.md">
+            THIRD_PARTY_LICENSES.md
+          </ExtLink>{' '}
+          in the source repository.
+        </p>
       </div>
 
       {/* ═══ Disclaimer ═══ */}
@@ -256,6 +274,17 @@ export default function PrivacyPage() {
             All game data, item names, skill names, icons, and related imagery are the
             property of <strong>Grinding Gear Games</strong>. Their use here falls under
             fair use for the purpose of building community tools.
+          </p>
+          <p>
+            <strong>Note on the GPL-3.0 license scope:</strong> the project's GPL-3.0
+            license covers Omnilyth's original source code only — the React app, the
+            calculators, the regex generators, and surrounding tooling. It does not
+            cover Path of Exile's sprite icons, atlas tree layout, passive tree layout,
+            item mod text, or any other content owned by Grinding Gear Games. Those
+            remain GGG's intellectual property and are used here under their fan content
+            policy. If you fork or redistribute Omnilyth, the GPL-3.0 obligation applies
+            only to the original source code; you remain independently responsible for
+            compliance with GGG's policy regarding any embedded GGG assets.
           </p>
           <p>
             If you are a rights holder and believe something is incorrectly attributed

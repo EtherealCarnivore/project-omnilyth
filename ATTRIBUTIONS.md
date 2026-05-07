@@ -1,5 +1,7 @@
 # Attributions & Credits
 
+> **Note:** Since 2026-05-07, the **formal license register** for this project lives in [`THIRD_PARTY_LICENSES.md`](THIRD_PARTY_LICENSES.md) at the repo root. That file is the authoritative reference for dependency licenses, embedded data attributions, and the full upstream-project list. This file is preserved as a human-readable narrative of who and what the project is built on; for license-compliance questions, prefer `THIRD_PARTY_LICENSES.md`.
+
 Project Omnilyth is built with data and inspiration from various Path of Exile community resources. We are deeply grateful to these projects and their maintainers.
 
 ---

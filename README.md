@@ -4,6 +4,13 @@ A Path of Exile toolkit — crafting calculators, regex generators, atlas tree p
 
 **Live**: [omnilyth-beta.netlify.app](https://omnilyth-beta.netlify.app/) | [GitHub Pages](https://etherealcarnivore.github.io/omnilyth-core-public/)
 
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![License: MIT (workers)](https://img.shields.io/badge/workers/-MIT-green.svg)](workers/LICENSE)
+
+Omnilyth's source code is licensed under the **GNU General Public License v3.0 or later** ([LICENSE](LICENSE)). The Cloudflare Worker proxy under `workers/` is licensed separately under **MIT** ([workers/LICENSE](workers/LICENSE)) so other Path of Exile community tools may freely fork the proxy logic. The license covers Omnilyth's original source code only — Path of Exile, the game's assets, item names, skill names, mod text, sprite icons, and related content remain the property of [Grinding Gear Games](https://www.grindinggear.com/) and are used here under their fan content policy. Omnilyth is not affiliated with, endorsed by, or connected to Grinding Gear Games.
+
+For third-party dependency licenses and embedded data attributions, see [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md). Contributions are accepted under the Developer Certificate of Origin — see [.github/CONTRIBUTING.md](.github/CONTRIBUTING.md).
+
 ## Stack
 
 - **Frontend**: React 19 + Vite 7 + Tailwind CSS 4
@@ -222,13 +229,13 @@ This project uses data from various Path of Exile community resources.
 
 ### License
 
-This project is licensed under the MIT License - see [LICENSE](LICENSE) file for details.
+This project is licensed under **GPL-3.0-or-later** — see [LICENSE](LICENSE) for details. The Cloudflare Worker proxy under `workers/` is carved out under **MIT** ([workers/LICENSE](workers/LICENSE)).
 
-**Note:** The MIT License applies to original code only. Third-party data (PoE Wiki, exile-leveling, GGG atlas export, etc.) remains under its original license terms.
+**Scope:** the GPL-3.0 license applies to Omnilyth's original source code. Third-party data (PoE Wiki under CC BY-NC-SA 3.0, HeartofPhos/exile-leveling, Siveran's CC0 chromatic calc, GGG atlas/passive tree exports, vilsol/timeless-jewels under GPL-3.0, etc.) remains under its original license terms. The full register lives in [THIRD_PARTY_LICENSES.md](THIRD_PARTY_LICENSES.md). Path of Exile assets remain GGG's IP and are used under their fan content policy.
 
 ### Privacy
 
-No tracking, no ads, no data collection. See [PRIVACY.md](PRIVACY.md) or visit `/privacy` on the live site.
+No tracking, no ads, no data collection. Visit `/privacy` on the live site for the full policy.
 
 ---
 

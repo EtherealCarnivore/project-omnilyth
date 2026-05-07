@@ -79,3 +79,27 @@ bash scripts/setup-hooks.sh
 This strict validation ensures clean contribution history and proper attribution on GitHub.
 
 For questions or issues, open a GitHub issue.
+
+---
+
+## Developer Certificate of Origin (DCO)
+
+Contributions to Project Omnilyth are accepted under the **Developer Certificate of Origin v1.1** ([developercertificate.org](https://developercertificate.org/)).
+
+Every commit must carry a `Signed-off-by:` trailer that matches the commit author:
+
+```
+Signed-off-by: Your Name <your.email@example.com>
+```
+
+You can add the trailer automatically with `git commit -s`. The trailer attests that you have the right to submit your contribution under the project's license — **GPL-3.0-or-later** for the main project, **MIT** for `workers/`.
+
+Pull requests without a `Signed-off-by:` trailer on every commit will be flagged and cannot merge until the missing sign-offs are added (typically via `git rebase --signoff` and a force-push of the PR branch).
+
+There is no separate paperwork — sign-off **is** the contribution agreement.
+
+### Why DCO and not a CLA?
+
+A CLA (Contributor License Agreement) would require each contributor to sign a separate document granting copyright assignment or a broad license-back. That's heavier weight and only pays off when a project wants the freedom to relicense in the future. DCO is the lightweight equivalent that keeps each contributor's copyright with them while still attesting they have the right to contribute their work.
+
+A practical consequence: relicensing this project away from GPL-3.0 in the future would require permission from every contributor whose work is still in the codebase. We accept that trade-off.

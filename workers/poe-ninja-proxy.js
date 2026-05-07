@@ -1,3 +1,11 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2024-2026 EtherealCarnivore
+//
+// This Cloudflare Worker is licensed under MIT (see workers/LICENSE),
+// independently from the GPL-3.0 license that covers the rest of the
+// Omnilyth repository. Community Path of Exile tools may fork the proxy
+// logic under MIT terms.
+
 /**
  * Cloudflare Worker — Unified API Proxy + GitHub Feedback
  *
