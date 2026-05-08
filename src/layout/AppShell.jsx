@@ -14,6 +14,7 @@ import LevelingSidebar from './LevelingSidebar';
 import Topbar from './Topbar';
 import LevelingModeBanner from '../components/LevelingModeBanner';
 import CrossGameBanner from '../components/CrossGameBanner';
+import RouteHead from '../components/RouteHead';
 import { useLevelingMode } from '../contexts/LevelingModeContext';
 import modules from '../modules/registry';
 
@@ -31,6 +32,7 @@ export default function AppShell() {
 
   return (
     <div className="flex h-screen overflow-hidden">
+      <RouteHead />
       <SidebarComponent open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div className="flex-1 flex flex-col min-w-0">
