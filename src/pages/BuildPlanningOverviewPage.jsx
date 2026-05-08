@@ -32,9 +32,18 @@ export default function BuildPlanningOverviewPage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-bold text-zinc-100">Jewels</h1>
-        <p className="text-sm text-zinc-500 mt-1">Cluster jewel and timeless jewel calculators</p>
+      <div className="space-y-4">
+        <div>
+          <h1 className="text-2xl font-bold text-zinc-100">Jewels</h1>
+          <p className="text-sm text-zinc-500 mt-1">Cluster jewel and timeless jewel calculators</p>
+        </div>
+        <p className="text-sm text-zinc-400 leading-relaxed max-w-3xl">
+          Build planning splits into two questions Omnilyth answers separately: which
+          Large Cluster Jewel notables actually fit your archetype, and what the rest of
+          your passive tree should look like. The cluster calculator filters notables by
+          base type and effect; the passive tree planner is a full class- and ascendancy-
+          aware tree builder with code import and export.
+        </p>
       </div>
 
       <div className="flex flex-wrap gap-2">

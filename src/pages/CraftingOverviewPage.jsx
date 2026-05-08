@@ -43,9 +43,18 @@ export default function CraftingOverviewPage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-bold text-zinc-100">Crafting</h1>
-        <p className="text-sm text-zinc-500 mt-1">Socket coloring, linking, and item crafting calculators</p>
+      <div className="space-y-4">
+        <div>
+          <h1 className="text-2xl font-bold text-zinc-100">Crafting</h1>
+          <p className="text-sm text-zinc-500 mt-1">Socket coloring, linking, and item crafting calculators</p>
+        </div>
+        <p className="text-sm text-zinc-400 leading-relaxed max-w-3xl">
+          Crafting in Path of Exile is a chain of probability problems: how many Chromatic
+          Orbs to get the colours you need, how many Orbs of Fusing to land a 6-link, how
+          many Jeweller's Orbs for the right socket count. The calculators below run that
+          math for you, with live league prices and bench-craft comparisons. Pick a tool,
+          paste your item, get an answer.
+        </p>
       </div>
 
       {/* Quick-access links */}

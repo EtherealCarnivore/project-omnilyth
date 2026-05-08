@@ -16,6 +16,7 @@ import PatchNotesWidget from '../components/PatchNotesWidget';
 import LeagueCountdown from '../components/LeagueCountdown';
 import LevelingModeEntryCard from '../components/LevelingModeEntryCard';
 import Poe2DiscoveryRibbon from '../components/Poe2DiscoveryRibbon';
+import HomeIntro from '../components/HomeIntro';
 import { usePinned } from '../contexts/PinnedContext';
 import { useLevelingMode } from '../contexts/LevelingModeContext';
 import { useGame } from '../contexts/GameContext';
@@ -268,6 +269,10 @@ export default function HomePage() {
           About, Privacy & Legal
         </Link>
       </div>
+
+      {/* SEO-meaningful intro — H1 + lead + collapsible details. Pre-rendered */}
+      {/* by react-snap (commit 6 of the SEO pass). */}
+      <HomeIntro />
 
       {/* Search */}
       <div className="relative max-w-md mx-auto">

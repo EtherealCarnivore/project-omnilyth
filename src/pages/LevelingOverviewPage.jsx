@@ -36,9 +36,18 @@ export default function LevelingOverviewPage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-bold text-zinc-100">Leveling</h1>
-        <p className="text-sm text-zinc-500 mt-1">Gem search and leveling tools</p>
+      <div className="space-y-4">
+        <div>
+          <h1 className="text-2xl font-bold text-zinc-100">Leveling</h1>
+          <p className="text-sm text-zinc-500 mt-1">Gem search and leveling tools</p>
+        </div>
+        <p className="text-sm text-zinc-400 leading-relaxed max-w-3xl">
+          League-start leveling has more decisions per minute than the rest of the league
+          combined: which gem to take from each quest, which vendor recipe is worth your
+          time, when to start mapping, when to respec. The Leveling tools wrap each of
+          those questions: a step-by-step playbook, a gem browser and planner, a vendor
+          regex generator, and a campaign tracker.
+        </p>
       </div>
 
       <div className="flex flex-wrap gap-2">

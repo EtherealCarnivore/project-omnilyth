@@ -33,9 +33,18 @@ export default function AtlasOverviewPage() {
 
   return (
     <div className="space-y-8">
-      <div>
-        <h1 className="text-2xl font-bold text-zinc-100">Atlas</h1>
-        <p className="text-sm text-zinc-500 mt-1">Map mod filtering, scarab regex, and atlas tree planner</p>
+      <div className="space-y-4">
+        <div>
+          <h1 className="text-2xl font-bold text-zinc-100">Atlas</h1>
+          <p className="text-sm text-zinc-500 mt-1">Map mod filtering, scarab regex, and atlas tree planner</p>
+        </div>
+        <p className="text-sm text-zinc-400 leading-relaxed max-w-3xl">
+          Mapping efficiency lives or dies on three things: skipping the mods that brick
+          your build, picking up the scarabs and currency you actually need, and a passive
+          tree that matches your strategy. The Atlas tools cover all three — a regex
+          generator for map mods, a stash-search builder for scarabs, and a full atlas
+          tree planner with import, export, and diffing.
+        </p>
       </div>
 
       <div className="flex flex-wrap gap-2">
