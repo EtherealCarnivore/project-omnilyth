@@ -225,6 +225,16 @@ export const ROUTE_META = {
     description: 'What we know about Path of Exile 2 patch 0.5 "Return of the Ancients": Runes of Aldur league mechanic, 300+ atlas nodes, two new ascendancies, Runic Ward, Kalguuran skill gems.',
     kind: 'doc',
   },
+  '/poe2/crafting/item-regex': {
+    title: 'PoE 2 Item Mod Regex — Stash Search Patterns',
+    description: 'Generate stash-search regex over the Path of Exile 2 item mod pool. Pick mods, get patterns under PoE’s 250-character limit, with auto-split into multiple chunks.',
+    kind: 'tool',
+  },
+  '/poe2/atlas/waystone-regex': {
+    title: 'PoE 2 Waystone Mod Regex — Filter Waystone Mods',
+    description: "PoE 2's equivalent of Map Mod Regex. Pick the waystone mods you want, get a stash-search pattern under PoE's 250-character limit.",
+    kind: 'tool',
+  },
 };
 
 /** Compute breadcrumb labels for a pathname. */

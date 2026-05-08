@@ -69,6 +69,23 @@ export default function Poe2HomePage() {
         </div>
       </section>
 
+      {/* Available now */}
+      <section>
+        <h2 className="text-xs font-semibold text-zinc-500 uppercase tracking-widest mb-3">Available now</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <AvailableCard
+            to="/poe2/crafting/item-regex"
+            title="Item Mod Regex"
+            desc="Generate stash-search regex over the PoE 2 item mod pool. v1 covers ~10–18 common affixes per item type; refresh against full pool post-launch."
+          />
+          <AvailableCard
+            to="/poe2/atlas/waystone-regex"
+            title="Waystone Mod Regex"
+            desc="Pick the waystone mods to filter for, get a stash-search pattern under PoE's 250-character limit. v1 against 0.4 pool; refresh after 2026-05-21 patch notes."
+          />
+        </div>
+      </section>
+
       {/* First wave — launch week */}
       <section>
         <div className="flex items-end justify-between mb-3">
@@ -81,11 +98,6 @@ export default function Poe2HomePage() {
             desc="Plan and share allocations across 300+ nodes plus the three new Atlas Master sub-trees."
             tag="Flagship"
             tagAccent="amber"
-          />
-          <ComingSoonCard
-            title="Item Mod Regex"
-            desc="Generate stash-search regex over the PoE 2 item mod pool — including 0.5's new uniques and Liquid/Potent Emotions affixes."
-            tag="Day 1"
           />
           <ComingSoonCard
             title="Currency Divergence Tracker"
@@ -103,16 +115,11 @@ export default function Poe2HomePage() {
       {/* Following waves */}
       <section>
         <h2 className="text-xs font-semibold text-zinc-500 uppercase tracking-widest mb-3">Following waves</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
           <ComingSoonCard
             title="Leveling Playbook"
             desc="Per-act interactive guide with quest rewards, gem swaps, and boss notes. v1 default: one of the new Spirit Walker / Martial Artist ascendancies."
             tag="Post-launch"
-          />
-          <ComingSoonCard
-            title="Waystone Mod Regex"
-            desc="PoE 2's equivalent of Map Mod Regex, scoped to the waystone mod pool. Refresh after the 2026-05-21 patch notes confirm what's actually changing."
-            tag="Pending patch notes"
           />
           <ComingSoonCard
             title="Build Importer"
@@ -143,6 +150,26 @@ export default function Poe2HomePage() {
         Have a PoE 2 tool you want? <Link to="/privacy" className="text-cyan-400/80 hover:text-cyan-300">Send a suggestion</Link>.
       </p>
     </div>
+  );
+}
+
+function AvailableCard({ to, title, desc }) {
+  return (
+    <Link
+      to={to}
+      className="group rounded-xl border border-cyan-500/20 bg-cyan-500/[0.04] p-5 hover:border-cyan-400/40 hover:bg-cyan-500/[0.08] motion-safe:transition-colors"
+    >
+      <div className="flex items-start justify-between gap-2 mb-2">
+        <h3 className="text-sm font-semibold text-zinc-100 group-hover:text-cyan-200 motion-safe:transition-colors">{title}</h3>
+        <span className="shrink-0 text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded border bg-cyan-500/15 border-cyan-500/30 text-cyan-300">
+          Available
+        </span>
+      </div>
+      <p className="text-xs text-zinc-400 leading-relaxed">{desc}</p>
+      <span className="inline-flex items-center gap-1 mt-3 text-xs text-cyan-300/80 group-hover:text-cyan-200 motion-safe:transition-colors">
+        Open <span aria-hidden="true">→</span>
+      </span>
+    </Link>
   );
 }
 

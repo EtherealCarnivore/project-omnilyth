@@ -1,0 +1,155 @@
+{
+  "_meta": {
+    "version": "v2-handcurated",
+    "lastUpdated": "2026-05-08",
+    "patch": "0.4",
+    "sourceNote": "Hand-curated from in-game observation + GGG patch notes. Game data is GGG IP under the fan-content policy. Each entry models ONE waystone affix slot — PoE 2 waystone affixes can roll multiple mod lines simultaneously, so `lines` is an array.",
+    "dataShape": {
+      "lines": "string[] — one or more mod text lines that roll together as a single affix slot. # is a number placeholder. Use the exact in-game text minus rolled values.",
+      "regex": "string | null — optional hand-curated unique-substring fragment (preferred for known combos). null = let the algorithmic fragment finder pick automatically.",
+      "affix": "'PREFIX' | 'SUFFIX'"
+    },
+    "knownGaps": [
+      "v2 starter set is conservative — single-line entries dominate. Many real PoE 2 waystone affixes are 2-4 line combos that need verification before encoding.",
+      "Tier values + numeric ranges per affix not yet captured — required for tier-filtering UI and minimum-value regex.",
+      "0.5 Runes of Aldur will likely shift this pool — refresh after the 2026-05-21 patch notes drop.",
+      "Corrupted-only mods not yet split out as a separate band."
+    ]
+  },
+  "affixes": [
+    {
+      "lines": ["increased Quantity of Items found in this Area"],
+      "regex": null,
+      "affix": "PREFIX"
+    },
+    {
+      "lines": ["increased Rarity of Items found in this Area"],
+      "regex": null,
+      "affix": "PREFIX"
+    },
+    {
+      "lines": ["increased Pack Size"],
+      "regex": null,
+      "affix": "PREFIX"
+    },
+    {
+      "lines": ["increased Magic Monsters"],
+      "regex": null,
+      "affix": "PREFIX"
+    },
+    {
+      "lines": ["increased Rare Monsters"],
+      "regex": null,
+      "affix": "PREFIX"
+    },
+    {
+      "lines": ["increased number of Magic Monster Packs"],
+      "regex": null,
+      "affix": "PREFIX"
+    },
+    {
+      "lines": ["Area contains additional Magic Monsters"],
+      "regex": null,
+      "affix": "PREFIX"
+    },
+    {
+      "lines": ["Players have #% reduced maximum Cold Resistance"],
+      "regex": null,
+      "affix": "SUFFIX"
+    },
+    {
+      "lines": ["Players have #% reduced maximum Fire Resistance"],
+      "regex": null,
+      "affix": "SUFFIX"
+    },
+    {
+      "lines": ["Players have #% reduced maximum Lightning Resistance"],
+      "regex": null,
+      "affix": "SUFFIX"
+    },
+    {
+      "lines": ["Players have #% reduced maximum Chaos Resistance"],
+      "regex": null,
+      "affix": "SUFFIX"
+    },
+    {
+      "lines": ["Monsters deal extra Damage as Cold"],
+      "regex": null,
+      "affix": "SUFFIX"
+    },
+    {
+      "lines": ["Monsters deal extra Damage as Fire"],
+      "regex": null,
+      "affix": "SUFFIX"
+    },
+    {
+      "lines": ["Monsters deal extra Damage as Lightning"],
+      "regex": null,
+      "affix": "SUFFIX"
+    },
+    {
+      "lines": ["Monsters have increased Critical Hit Chance"],
+      "regex": null,
+      "affix": "SUFFIX"
+    },
+    {
+      "lines": ["Monsters have increased Critical Damage Bonus"],
+      "regex": null,
+      "affix": "SUFFIX"
+    },
+    {
+      "lines": [
+        "Monsters have increased Attack Speed",
+        "Monsters have increased Cast Speed",
+        "Monsters have increased Movement Speed"
+      ],
+      "regex": null,
+      "affix": "SUFFIX"
+    },
+    {
+      "lines": ["Monsters have increased Stun Threshold"],
+      "regex": null,
+      "affix": "SUFFIX"
+    },
+    {
+      "lines": ["Players cannot Regenerate Mana, Life or Energy Shield"],
+      "regex": null,
+      "affix": "SUFFIX"
+    },
+    {
+      "lines": ["Players have less Recovery Rate of Life and Energy Shield"],
+      "regex": null,
+      "affix": "SUFFIX"
+    },
+    {
+      "lines": ["Players have less Cooldown Recovery Rate"],
+      "regex": null,
+      "affix": "SUFFIX"
+    },
+    {
+      "lines": ["Players have less Action Speed"],
+      "regex": null,
+      "affix": "SUFFIX"
+    },
+    {
+      "lines": ["Monsters Penetrate Elemental Resistances"],
+      "regex": null,
+      "affix": "SUFFIX"
+    },
+    {
+      "lines": ["Monsters fire additional Projectiles"],
+      "regex": null,
+      "affix": "SUFFIX"
+    },
+    {
+      "lines": ["Monsters reflect Physical Damage"],
+      "regex": null,
+      "affix": "SUFFIX"
+    },
+    {
+      "lines": ["Monsters reflect Elemental Damage"],
+      "regex": null,
+      "affix": "SUFFIX"
+    }
+  ]
+}
