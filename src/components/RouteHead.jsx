@@ -35,6 +35,16 @@ export default function RouteHead() {
       <meta name="twitter:title" content={meta.ogTitle || meta.title} />
       <meta name="twitter:description" content={meta.ogDescription || meta.description} />
       <meta name="twitter:image" content={meta.ogImage} />
+
+      {/* JSON-LD structured data */}
+      {meta.jsonLd?.map((block, i) => (
+        <script
+          key={i}
+          type="application/ld+json"
+          // eslint-disable-next-line react/no-danger
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(block) }}
+        />
+      ))}
     </>
   );
 }
