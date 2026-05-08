@@ -1,11 +1,19 @@
 /*
  * PreLaunchGate.jsx — Soft-deterrent holding-page wrapper for the public
- * deploy. Wraps the entire app (mounted just inside <BrowserRouter>) and
- * renders <PreLaunchPage /> instead of children when:
+ * deploy. Mounted INSIDE <BrowserRouter> (so useLocation() is available
+ * for path-aware bypass). Renders <PreLaunchPage /> instead of children
+ * when ALL of:
  *
  *   1. NOT in Vite dev mode (`import.meta.env.DEV`)
  *   AND 2. Hostname is NOT localhost / *.local / RFC 1918 LAN
  *   AND 3. The unlock token isn't present in localStorage
+ *   AND 4. The current pathname is NOT in the public-route allowlist
+ *
+ * (4) lets the SEO surface — homepage, category overviews, privacy,
+ * /poe2/runes-of-aldur, every registry tool route — pass through to
+ * crawlers and direct-link visitors without the unlock token. Routes
+ * outside the allowlist (today, just `/poe2` and any unknown path)
+ * still see the gate.
  *
  * Two ways to flip the unlock token on:
  *   - Konami code (↑↑↓↓←→←→BA) on document keydown
@@ -15,14 +23,37 @@
  *
  * This is NOT real security. The mechanism ships in client JS. Anyone who
  * reads the bundle can bypass. Goal: deter random tinkerers, not lock out
- * adversaries. See the plan file for context.
+ * adversaries.
  */
 import { useState, useCallback } from 'react';
+import { useLocation } from 'react-router-dom';
 import PreLaunchPage from './PreLaunchPage';
 import { useKonamiCode } from '../hooks/useKonamiCode';
+import modules from '../modules/registry';
 
 const UNLOCK_KEY = 'omnilyth_dev_unlock_v1';
 const PEEK_VALUE = 'mirage';
+
+// Public-route allowlist. Tool routes come from the registry — adding a
+// tool there auto-allowlists it; no maintenance here.
+const TOOL_ROUTES = new Set(
+  modules.filter((mod) => !mod.external).map((mod) => mod.route)
+);
+
+const PUBLIC_NON_TOOL_PATHS = new Set([
+  '/',                       // GameAwareIndex → HomePage in PoE 1 mode
+  '/crafting',               // CraftingOverviewPage
+  '/atlas',                  // AtlasOverviewPage
+  '/build',                  // BuildPlanningOverviewPage
+  '/leveling',               // LevelingOverviewPage
+  '/privacy',                // PrivacyPage
+  '/poe2',                   // Poe2HomePage (noindex, but reachable for nav)
+  '/poe2/runes-of-aldur',    // RunesOfAldurPage (indexable; SEO bait)
+]);
+
+function isPublicRoute(pathname) {
+  return PUBLIC_NON_TOOL_PATHS.has(pathname) || TOOL_ROUTES.has(pathname);
+}
 
 // LAN / loopback / *.local hostnames bypass the gate unconditionally.
 // Mirrors the worker's DEV_ORIGIN_RE in workers/poe-ninja-proxy.js so the
@@ -98,9 +129,11 @@ export default function PreLaunchGate({ children }) {
 
   useKonamiCode(handleUnlock);
 
+  const location = useLocation();
   const isDev = import.meta.env.DEV;
   const host = typeof window !== 'undefined' ? window.location.hostname : '';
-  const shouldGate = !unlocked && (forceGate || (!isDev && !isLocalOrLAN(host)));
+  const pathIsPublic = isPublicRoute(location.pathname);
+  const shouldGate = !unlocked && !pathIsPublic && (forceGate || (!isDev && !isLocalOrLAN(host)));
 
   if (shouldGate) return <PreLaunchPage onUnlock={handleUnlock} />;
   return children;

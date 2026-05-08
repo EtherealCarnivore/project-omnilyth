@@ -40,11 +40,13 @@ try { localStorage.removeItem('omnilyth_design_variant'); } catch {}
 
 export default function App() {
   return (
-    // PreLaunchGate is OUTSIDE BrowserRouter on purpose — when the gate
-    // is up, we don't even mount the router or providers. Zero app code
-    // runs for gated visitors; only unlocked visitors pay the mount cost.
-    <PreLaunchGate>
-      <BrowserRouter basename={import.meta.env.BASE_URL}>
+    // PreLaunchGate moved INSIDE BrowserRouter (was outside) so it can use
+    // useLocation() for path-aware gating. SEO crawlers hitting indexable
+    // routes need to skip the gate; they would otherwise be served the
+    // "between leagues" holding page instead of the actual content.
+    // Cost: BrowserRouter mounts even for gated visitors (small).
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
+      <PreLaunchGate>
       {/* Provider inception: game → league → prices → pinned. The nesting never ends. */}
       {/* In Java I'd have @Autowired and a DI container. Here I have JSX turducken. */}
       {/* My matching engine has lower latency than this render tree. */}
@@ -91,7 +93,7 @@ export default function App() {
         </PricesProvider>
       </LeagueProvider>
       </GameProvider>
-      </BrowserRouter>
-    </PreLaunchGate>
+      </PreLaunchGate>
+    </BrowserRouter>
   );
 }
