@@ -321,18 +321,29 @@ function buildJsonLd(meta, pathname) {
 }
 
 /**
- * Resolve the meta object for a pathname. Falls back to DEFAULT_META.
+ * Resolve the meta object for a pathname. Falls back to DEFAULT_META plus
+ * an automatic noindex flag for any unknown route — that catches the 404
+ * surface (NotFoundPage at <Route path="*"> in App.jsx) without us having
+ * to enumerate every possible junk URL.
+ *
  * Always returns an object with title, description, canonical, ogImage,
  * noindex, and jsonLd[].
  */
 export function resolveMeta(pathname) {
   const route = ROUTE_META[pathname];
-  const merged = { ...DEFAULT_META, ...route };
+  const isKnown = Boolean(route);
+  const merged = {
+    ...DEFAULT_META,
+    ...route,
+    noindex: isKnown ? Boolean(route.noindex) : true,
+    title: isKnown ? route.title || DEFAULT_META.title : 'Page Not Found — Omnilyth',
+    description: isKnown ? route.description || DEFAULT_META.description : 'That route is not a tool. Try the homepage or one of the category overviews.',
+  };
   return {
     ...merged,
     canonical: SITE.url + pathname,
     ogImage: SITE.url + (merged.ogImage || SITE.defaultOgImage),
-    jsonLd: buildJsonLd(merged, pathname),
+    jsonLd: isKnown ? buildJsonLd(merged, pathname) : [],
   };
 }
 

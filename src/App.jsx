@@ -28,6 +28,7 @@ import BuildPlanningOverviewPage from './pages/BuildPlanningOverviewPage';
 import LevelingOverviewPage from './pages/LevelingOverviewPage';
 import PrivacyPage from './pages/PrivacyPage';
 import RunesOfAldurPage from './pages/RunesOfAldurPage';
+import NotFoundPage from './pages/NotFoundPage';
 // LINK: src/modules/registry.js drives BOTH the route table below (one
 // <Route> per non-external entry) AND the sidebar grouping in src/layout/
 // Sidebar.jsx (via getModuleTree). Adding/removing a tool is a one-file
@@ -80,8 +81,9 @@ export default function App() {
               {modules.filter(mod => !mod.external).map(mod => (
                 <Route key={mod.id} path={mod.route} element={<mod.component />} />
               ))}
-              {/* Catch-all: lost souls get sent home. No 404 page because we're optimists. */}
-              <Route path="*" element={<HomePage />} />
+              {/* Catch-all → real 404 page. RouteHead sets noindex automatically */}
+              {/* for any path not in src/lib/seoMeta.js. */}
+              <Route path="*" element={<NotFoundPage />} />
             </Route>
           </Routes>
         </PatchNotesProvider>
