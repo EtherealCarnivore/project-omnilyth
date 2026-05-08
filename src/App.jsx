@@ -27,6 +27,7 @@ import AtlasOverviewPage from './pages/AtlasOverviewPage';
 import BuildPlanningOverviewPage from './pages/BuildPlanningOverviewPage';
 import LevelingOverviewPage from './pages/LevelingOverviewPage';
 import PrivacyPage from './pages/PrivacyPage';
+import RunesOfAldurPage from './pages/RunesOfAldurPage';
 // LINK: src/modules/registry.js drives BOTH the route table below (one
 // <Route> per non-external entry) AND the sidebar grouping in src/layout/
 // Sidebar.jsx (via getModuleTree). Adding/removing a tool is a one-file
@@ -66,6 +67,7 @@ export default function App() {
               <Route index element={<GameAwareIndex />} />
               {/* PoE 2 landing — first PoE 2 surface; tools land in waves starting 2026-05-29 */}
               <Route path="/poe2" element={<Poe2HomePage />} />
+              <Route path="/poe2/runes-of-aldur" element={<RunesOfAldurPage />} />
               {/* Category overview pages */}
               <Route path="/crafting" element={<CraftingOverviewPage />} />
               <Route path="/atlas" element={<AtlasOverviewPage />} />

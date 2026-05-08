@@ -36,7 +36,15 @@ export default function Poe2HomePage() {
 
       {/* What's changing in 0.5 */}
       <section>
-        <h2 className="text-xs font-semibold text-zinc-500 uppercase tracking-widest mb-3">What's changing in 0.5</h2>
+        <div className="flex items-end justify-between mb-3">
+          <h2 className="text-xs font-semibold text-zinc-500 uppercase tracking-widest">What's changing in 0.5</h2>
+          <Link
+            to="/poe2/runes-of-aldur"
+            className="text-xs text-cyan-400/80 hover:text-cyan-300 motion-safe:transition-colors"
+          >
+            Read the full breakdown &rarr;
+          </Link>
+        </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <HighlightCard
             label="Atlas overhaul"
