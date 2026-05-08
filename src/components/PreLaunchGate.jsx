@@ -96,6 +96,6 @@ export default function PreLaunchGate({ children }) {
   const host = typeof window !== 'undefined' ? window.location.hostname : '';
   const shouldGate = !isDev && !isLocalOrLAN(host) && !unlocked;
 
-  if (shouldGate) return <PreLaunchPage />;
+  if (shouldGate) return <PreLaunchPage onUnlock={handleUnlock} />;
   return children;
 }

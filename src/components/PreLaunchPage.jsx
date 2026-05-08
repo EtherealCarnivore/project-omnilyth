@@ -25,7 +25,7 @@ function diffParts(future, now) {
 
 function pad(n) { return String(n).padStart(2, '0'); }
 
-function Countdown() {
+function Countdown({ onUnlock }) {
   const [now, setNow] = useState(() => new Date());
 
   useEffect(() => {
@@ -37,9 +37,13 @@ function Countdown() {
 
   if (done) {
     return (
-      <span className="text-cyan-300 font-semibold">
-        Doors open. Reload.
-      </span>
+      <button
+        type="button"
+        onClick={onUnlock}
+        className="text-cyan-300 font-semibold hover:text-cyan-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950 rounded px-2 py-0.5 transition-colors"
+      >
+        Enter →
+      </button>
     );
   }
 
@@ -50,7 +54,7 @@ function Countdown() {
   );
 }
 
-export default function PreLaunchPage() {
+export default function PreLaunchPage({ onUnlock }) {
   return (
     <div className="min-h-screen bg-zinc-950 text-zinc-100 flex items-center justify-center px-4 py-12 relative overflow-hidden">
       {/* Ambient cyan glow — far-right, blurred. Cheap atmosphere. */}
@@ -69,14 +73,14 @@ export default function PreLaunchPage() {
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 motion-safe:animate-pulse" aria-hidden="true" />
             <span className="text-[10px] uppercase tracking-[0.2em] text-cyan-300/80 font-semibold">
-              Path of Exile 2 · 0.5 Incoming
+              Path of Exile 2 · Runes of Aldur · 0.5
             </span>
           </div>
 
           {/* Headline */}
           <div className="space-y-3">
             <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-zinc-100 leading-[1.05]">
-              Between Leagues.
+              Runes of Aldur is incoming.
             </h1>
             <p className="text-zinc-400 text-base sm:text-lg leading-relaxed">
               Mirage cleared out. Wraeclast 2 is preheating.
@@ -86,8 +90,7 @@ export default function PreLaunchPage() {
           {/* Body */}
           <div className="space-y-4 text-sm sm:text-base text-zinc-300 leading-relaxed">
             <p>
-              We're plating up a PoE 2 toolkit for 0.5 launch — atlas tree planner,
-              gem browser, item mod regex, the works. Some of it's already cooking.
+              300+ atlas nodes, two new ascendancies, 100+ runes to track. We're cooking.
             </p>
             <p className="text-zinc-400">
               GGG launches 0.5 on{' '}
@@ -100,7 +103,7 @@ export default function PreLaunchPage() {
             <div className="text-xs uppercase tracking-wider text-zinc-500">
               First feast in
             </div>
-            <Countdown />
+            <Countdown onUnlock={onUnlock} />
           </div>
 
           {/* Soft pitch */}
