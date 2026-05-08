@@ -62,8 +62,13 @@ function stripParam(name) {
 export default function PreLaunchGate({ children }) {
   // Synchronous initial decision. Lazy useState init runs once, before any
   // render — so the first paint is already correct (gate vs app), no flash.
-  const [unlocked, setUnlocked] = useState(() => {
-    if (typeof window === 'undefined') return true; // SSR safety: default to passthrough.
+  //
+  // The state is a single object because `?lock=1` needs to set BOTH
+  // `unlocked: false` AND `forceGate: true` from the same URL parse —
+  // otherwise dev/LAN bypasses keep the gate hidden even after the token is
+  // cleared, and there'd be no way to preview the gate locally.
+  const [{ unlocked, forceGate }, setState] = useState(() => {
+    if (typeof window === 'undefined') return { unlocked: true, forceGate: false }; // SSR safety: default to passthrough.
 
     const params = new URLSearchParams(window.location.search);
 
@@ -71,30 +76,31 @@ export default function PreLaunchGate({ children }) {
     if (params.get('peek') === PEEK_VALUE) {
       writeUnlocked(true);
       stripParam('peek');
-      return true;
+      return { unlocked: true, forceGate: false };
     }
 
-    // ?lock=1 → force-lock for testing the gate. Strip param so a refresh
-    // doesn't keep re-locking.
+    // ?lock=1 → force-lock + force-show-gate for this session (overrides
+    // dev / LAN bypass so the page is actually previewable locally). Strip
+    // the param so a reload returns to the natural state for this host.
     if (params.get('lock') === '1') {
       writeUnlocked(false);
       stripParam('lock');
-      return false;
+      return { unlocked: false, forceGate: true };
     }
 
-    return readUnlocked();
+    return { unlocked: readUnlocked(), forceGate: false };
   });
 
   const handleUnlock = useCallback(() => {
     writeUnlocked(true);
-    setUnlocked(true);
+    setState((prev) => ({ ...prev, unlocked: true }));
   }, []);
 
   useKonamiCode(handleUnlock);
 
   const isDev = import.meta.env.DEV;
   const host = typeof window !== 'undefined' ? window.location.hostname : '';
-  const shouldGate = !isDev && !isLocalOrLAN(host) && !unlocked;
+  const shouldGate = !unlocked && (forceGate || (!isDev && !isLocalOrLAN(host)));
 
   if (shouldGate) return <PreLaunchPage onUnlock={handleUnlock} />;
   return children;
