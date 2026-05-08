@@ -6,6 +6,13 @@
  * Mount once inside AppShell. No props.
  *
  * Pairs with src/lib/seoMeta.js (the route → metadata table).
+ *
+ * JSON-LD is intentionally NOT rendered here. The prerender script
+ * (scripts/prerender-meta.js) injects structured data directly into each
+ * route's per-route dist/<route>/index.html shell at build time. That
+ * makes the prerender output the single source of truth for crawlers and
+ * avoids the duplication risk of rendering JSON-LD blocks twice (once
+ * prerendered, once at runtime) after hydration.
  */
 import { useLocation } from 'react-router-dom';
 import { resolveMeta, SITE } from '../lib/seoMeta';
@@ -35,16 +42,6 @@ export default function RouteHead() {
       <meta name="twitter:title" content={meta.ogTitle || meta.title} />
       <meta name="twitter:description" content={meta.ogDescription || meta.description} />
       <meta name="twitter:image" content={meta.ogImage} />
-
-      {/* JSON-LD structured data */}
-      {meta.jsonLd?.map((block, i) => (
-        <script
-          key={i}
-          type="application/ld+json"
-          // eslint-disable-next-line react/no-danger
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(block) }}
-        />
-      ))}
     </>
   );
 }
