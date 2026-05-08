@@ -133,7 +133,11 @@ export default function PreLaunchGate({ children }) {
   const isDev = import.meta.env.DEV;
   const host = typeof window !== 'undefined' ? window.location.hostname : '';
   const pathIsPublic = isPublicRoute(location.pathname);
-  const shouldGate = !unlocked && !pathIsPublic && (forceGate || (!isDev && !isLocalOrLAN(host)));
+  // forceGate (?lock=1) explicitly overrides the public-route bypass —
+  // testing the gate UX requires it to actually fire on a public path.
+  // Without forceGate, the gate respects the public-route allowlist + the
+  // standard dev/LAN bypass.
+  const shouldGate = !unlocked && (forceGate || (!pathIsPublic && !isDev && !isLocalOrLAN(host)));
 
   if (shouldGate) return <PreLaunchPage onUnlock={handleUnlock} />;
   return children;
