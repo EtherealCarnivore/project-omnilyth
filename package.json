@@ -21,7 +21,8 @@
     "leveling-data:parse": "node scripts/leveling-data/parse-exile-leveling.js",
     "leveling-data:scrape-poe": "node scripts/leveling-data/scrape-poe-leveling.js",
     "leveling-data:scrape-wiki": "node scripts/leveling-data/scrape-poe-wiki.js",
-    "leveling-data:merge": "node scripts/leveling-data/merge-data-sources.js"
+    "leveling-data:merge": "node scripts/leveling-data/merge-data-sources.js",
+    "featured-creators:refresh": "node scripts/refresh-featured-creators.js"
   },
   "dependencies": {
     "fuse.js": "^7.1.0",

@@ -318,6 +318,10 @@ export default function HomePage() {
         </div>
       )}
 
+      {/* Featured creator — game-aware; hidden during search; null when */}
+      {/* the active game's creator isn't configured */}
+      {!search && <YouTubeCard variant="dashboard" />}
+
       {/* Search results or all tools by category */}
       {search ? (
         <>
@@ -392,8 +396,6 @@ export default function HomePage() {
           })()}
         </>
       )}
-
-      <YouTubeCard />
 
       {/* Credits spoiler */}
       <div className="text-center pb-4">

@@ -8,6 +8,7 @@ import { getModuleTree, modulesForGame } from '../modules/registry';
 import { usePinned } from '../contexts/PinnedContext';
 import { useLevelingMode } from '../contexts/LevelingModeContext';
 import { useGame } from '../contexts/GameContext';
+import YouTubeCard from '../components/YouTubeCard';
 
 const CATEGORY_ROUTES = {
   'Crafting': '/crafting',
@@ -294,6 +295,9 @@ export default function Sidebar({ open, onClose }) {
             </div>
           )}
         </nav>
+
+        {/* Featured creator pill — game-aware; renders nothing when null */}
+        <YouTubeCard variant="sidebar" />
 
         {/* Footer */}
         <div className="border-t border-white/5 px-4 py-3 space-y-1">
