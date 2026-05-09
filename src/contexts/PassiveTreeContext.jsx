@@ -77,7 +77,10 @@ export function PassiveTreeProvider({ children }) {
   const [builds, setBuilds] = useState(loadBuilds);
   const [activeBuildId, setActiveBuildId] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [hoveredNode, setHoveredNode] = useState(null);
+  // hoveredNode lives in PassiveTreeRenderer as local state — keeping it
+  // off context prevents every consumer of usePassiveTree() (and every
+  // PassiveNode subscribing via context-shaped paths) from re-rendering
+  // on every mouse-enter.
 
   // Search results
   const searchResults = useMemo(() => {
@@ -281,10 +284,6 @@ export function PassiveTreeProvider({ children }) {
     searchQuery,
     setSearchQuery,
     searchResults,
-
-    // Hover
-    hoveredNode,
-    setHoveredNode,
 
     // Stats
     statSummary,

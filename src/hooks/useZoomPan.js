@@ -3,6 +3,15 @@
  *
  * Returns a ref to attach to the SVG container and the current transform.
  * Handles all pointer events so the consuming component just renders.
+ *
+ * Transform updates are rAF-throttled: high-frequency events (wheel scroll,
+ * pointer drag) compose into a single setState per animation frame instead
+ * of one setState per event. Multiple pending updaters chain in order so
+ * deltas (pan moves) accumulate correctly within a frame; non-function
+ * updates (absolute fits) replace whatever's pending without applying
+ * intermediate state. Net effect: max ~60 transform re-renders/sec
+ * regardless of input rate, eliminating the cascade through viewport
+ * culling + node-list re-filtering on every wheel tick.
  */
 
 import { useState, useRef, useCallback, useEffect } from 'react';
@@ -19,6 +28,43 @@ export default function useZoomPan(bounds, zoomConfig) {
   const lastTouchDist = useRef(null);
   const DRAG_THRESHOLD = 3; // px — below this, treat as click
 
+  // rAF transform queue. Functional updaters compose; absolute values overwrite.
+  const pendingUpdaterRef = useRef(null);
+  const rafIdRef = useRef(null);
+
+  const flushTransform = useCallback(() => {
+    rafIdRef.current = null;
+    const fn = pendingUpdaterRef.current;
+    if (!fn) return;
+    pendingUpdaterRef.current = null;
+    setTransform(fn);
+  }, []);
+
+  const scheduleTransform = useCallback((updater) => {
+    // Compose with any updater pending for this frame. Functional updaters
+    // chain (so two pan deltas in one frame accumulate); absolute values
+    // ignore prior state and overwrite.
+    const prev = pendingUpdaterRef.current;
+    pendingUpdaterRef.current = (state) => {
+      const intermediate = prev ? prev(state) : state;
+      return typeof updater === 'function' ? updater(intermediate) : updater;
+    };
+    if (rafIdRef.current === null) {
+      rafIdRef.current = requestAnimationFrame(flushTransform);
+    }
+  }, [flushTransform]);
+
+  // Cancel any pending rAF on unmount so the callback can't fire after teardown.
+  useEffect(() => {
+    return () => {
+      if (rafIdRef.current !== null) {
+        cancelAnimationFrame(rafIdRef.current);
+        rafIdRef.current = null;
+        pendingUpdaterRef.current = null;
+      }
+    };
+  }, []);
+
   // Fit the tree in the viewport
   const fitToView = useCallback(() => {
     if (!containerRef.current || !bounds) return;
@@ -32,7 +78,7 @@ export default function useZoomPan(bounds, zoomConfig) {
     const cx = bounds.minX + bounds.width / 2;
     const cy = bounds.minY + bounds.height / 2;
 
-    setTransform({
+    scheduleTransform({
       x: rect.width / 2 - cx * scale,
       y: rect.height / 2 - cy * scale,
       scale,
@@ -41,7 +87,7 @@ export default function useZoomPan(bounds, zoomConfig) {
 
   // Zoom at a specific point
   const zoomAt = useCallback((clientX, clientY, delta) => {
-    setTransform(prev => {
+    scheduleTransform(prev => {
       const newScale = Math.min(
         config.max,
         Math.max(config.min, prev.scale * (1 + delta))
@@ -60,7 +106,7 @@ export default function useZoomPan(bounds, zoomConfig) {
         scale: newScale,
       };
     });
-  }, []);
+  }, [scheduleTransform]);
 
   // Mouse wheel zoom
   const onWheel = useCallback((e) => {
@@ -94,8 +140,8 @@ export default function useZoomPan(bounds, zoomConfig) {
     }
 
     lastPointer.current = { x: e.clientX, y: e.clientY };
-    setTransform(prev => ({ ...prev, x: prev.x + dx, y: prev.y + dy }));
-  }, []);
+    scheduleTransform(prev => ({ ...prev, x: prev.x + dx, y: prev.y + dy }));
+  }, [scheduleTransform]);
 
   // Pan end
   const onPointerUp = useCallback(() => {
@@ -132,29 +178,29 @@ export default function useZoomPan(bounds, zoomConfig) {
 
   // Zoom in/out by step (for keyboard shortcuts and buttons)
   const zoomIn = useCallback(() => {
-    setTransform(prev => ({
+    scheduleTransform(prev => ({
       ...prev,
       scale: Math.min(config.max, prev.scale * (1 + config.step)),
     }));
-  }, []);
+  }, [scheduleTransform]);
 
   const zoomOut = useCallback(() => {
-    setTransform(prev => ({
+    scheduleTransform(prev => ({
       ...prev,
       scale: Math.max(config.min, prev.scale * (1 - config.step)),
     }));
-  }, []);
+  }, [scheduleTransform]);
 
   // Pan to a specific world coordinate (for "go to node")
   const panTo = useCallback((worldX, worldY) => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
-    setTransform(prev => ({
+    scheduleTransform(prev => ({
       ...prev,
       x: rect.width / 2 - worldX * prev.scale,
       y: rect.height / 2 - worldY * prev.scale,
     }));
-  }, []);
+  }, [scheduleTransform]);
 
   // Attach wheel listener with passive: false
   useEffect(() => {

@@ -28,12 +28,16 @@ export default function PassiveTreeRenderer() {
     rejectedPath,
     toggleNode,
     searchResults,
-    hoveredNode,
-    setHoveredNode,
     selectedAscendancy,
     masterySelections,
     onMasteryClick,
   } = usePassiveTree();
+
+  // Hover lives here, not on the context. Mouse-enter on a node updates a
+  // single component's state instead of fanning a new context value out to
+  // every subscriber — the context value only changes when allocation /
+  // search / build state actually changes.
+  const [hoveredNode, setHoveredNode] = useState(null);
 
   const rejectedNodes = useMemo(() => {
     if (!rejectedPath?.nodeIds) return new Set();
