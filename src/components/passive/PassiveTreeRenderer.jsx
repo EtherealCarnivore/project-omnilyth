@@ -6,7 +6,7 @@
  * Uses GGG's official sprite assets for authentic PoE appearance.
  */
 
-import { useMemo, useCallback, useState, useEffect } from 'react';
+import { useMemo, useCallback, useState, useEffect, memo } from 'react';
 import useZoomPan from '../../hooks/useZoomPan';
 import { usePassiveTree } from '../../contexts/PassiveTreeContext';
 import PassiveNode from './PassiveNode';
@@ -292,116 +292,40 @@ export default function PassiveTreeRenderer() {
 
   return (
     <div className="relative w-full h-full overflow-hidden bg-[#12131e]" ref={containerRef}>
-      {/* SVG Canvas */}
+      {/* SVG Canvas — layers split into memo'd children so unrelated state */}
+      {/* changes (hover, search, allocation) don't cause every layer's */}
+      {/* iteration to re-run. Each layer skips when ITS inputs are stable. */}
       <svg
         className="w-full h-full select-none"
         style={{ touchAction: 'none' }}
         {...handlers}
       >
-        <g transform={`translate(${transform.x},${transform.y}) scale(${transform.scale})`}>
-          {/* Layer 1: Group backgrounds */}
-          <g>
-            {groupBackgrounds.map(gb => (
-              <PassiveGroupBackground
-                key={gb.key}
-                x={gb.x}
-                y={gb.y}
-                sprite={gb.sprite}
-              />
-            ))}
-          </g>
-
-          {/* Layer 2: Class start node art */}
-          <g>
-            {startNodeArt.map(art => (
-              <foreignObject
-                key={art.key}
-                x={art.x}
-                y={art.y}
-                width={art.width}
-                height={art.height}
-                className="pointer-events-none"
-              >
-                <div
-                  style={{
-                    width: art.width,
-                    height: art.height,
-                    backgroundImage: `url(${art.sprite.sheetUrl})`,
-                    backgroundPosition: `-${art.sprite.x / ZOOM_FACTOR}px -${art.sprite.y / ZOOM_FACTOR}px`,
-                    backgroundSize: `${art.sprite.sheetW / ZOOM_FACTOR}px ${art.sprite.sheetH / ZOOM_FACTOR}px`,
-                    backgroundRepeat: 'no-repeat',
-                  }}
-                />
-              </foreignObject>
-            ))}
-          </g>
-
-          {/* Layer 3: Connections (viewport-culled) */}
-          <g>
-            {visibleConnections.map(conn => (
-              <PassiveConnection
-                key={conn.key}
-                x1={conn.x1}
-                y1={conn.y1}
-                x2={conn.x2}
-                y2={conn.y2}
-                arc={conn.arc}
-                bothAllocated={allAllocated.has(conn.fromId) && allAllocated.has(conn.toId)}
-                oneAllocated={allAllocated.has(conn.fromId) || allAllocated.has(conn.toId)}
-              />
-            ))}
-          </g>
-
-          {/* Layer 4: Nodes */}
-          <g>
-            {renderableNodes.map(({ nodeId, node, x, y, type }) => (
-              <PassiveNode
-                key={nodeId}
-                nodeId={nodeId}
-                node={node}
-                x={x}
-                y={y}
-                type={type}
-                isAllocated={allAllocated.has(nodeId)}
-                isAvailable={allAvailable.has(nodeId)}
-                isSearchMatch={searchResults.has(nodeId)}
-                isHovered={hoveredNode === nodeId}
-                isRejected={rejectedNodes.has(nodeId)}
-                spriteMap={treeData.spriteMap}
-                onClick={onNodeClick}
-                onMouseEnter={onNodeEnter}
-                onMouseLeave={onNodeLeave}
-                isSelectedAscendancy={
-                  node.ascendancyName
-                    ? node.ascendancyName === selectedAscendancy
-                    : undefined
-                }
-                isMasteryConnected={connectedMasteries.has(nodeId)}
-                isMasterySelected={masterySelections.has(nodeId)}
-              />
-            ))}
-          </g>
-
-          {/* Layer 5: Rejected path connections */}
-          {rejectedNodes.size > 1 && (
-            <g>
-              {connections
-                .filter(c => rejectedNodes.has(c.fromId) && rejectedNodes.has(c.toId))
-                .map(conn => (
-                  <line
-                    key={`rej-${conn.key}`}
-                    x1={conn.x1}
-                    y1={conn.y1}
-                    x2={conn.x2}
-                    y2={conn.y2}
-                    stroke="#ef4444"
-                    strokeWidth={5}
-                    strokeLinecap="round"
-                    opacity={0.8}
-                  />
-                ))}
-            </g>
-          )}
+        <g
+          style={{ willChange: 'transform' }}
+          transform={`translate(${transform.x},${transform.y}) scale(${transform.scale})`}
+        >
+          <GroupBackgroundsLayer groupBackgrounds={groupBackgrounds} />
+          <ClassStartArtLayer startNodeArt={startNodeArt} />
+          <ConnectionsLayer
+            visibleConnections={visibleConnections}
+            allAllocated={allAllocated}
+          />
+          <NodesLayer
+            renderableNodes={renderableNodes}
+            allAllocated={allAllocated}
+            allAvailable={allAvailable}
+            searchResults={searchResults}
+            hoveredNode={hoveredNode}
+            rejectedNodes={rejectedNodes}
+            spriteMap={treeData.spriteMap}
+            selectedAscendancy={selectedAscendancy}
+            masterySelections={masterySelections}
+            connectedMasteries={connectedMasteries}
+            onNodeClick={onNodeClick}
+            onNodeEnter={onNodeEnter}
+            onNodeLeave={onNodeLeave}
+          />
+          <RejectedPathLayer connections={connections} rejectedNodes={rejectedNodes} />
         </g>
       </svg>
 
@@ -460,3 +384,130 @@ export default function PassiveTreeRenderer() {
     </div>
   );
 }
+
+// ─── Layered children ────────────────────────────────────────────────────────
+//
+// Each layer is wrapped in React.memo with default shallow-prop comparison.
+// All array / Set / Map props the layers receive are useMemo'd in the parent,
+// so identity is stable across unrelated state changes and the memo skip kicks
+// in. Net effect: hover only re-renders <NodesLayer>; allocation changes only
+// re-render <NodesLayer> + <ConnectionsLayer>; group backgrounds and class-
+// start art skip everything except a treeData reload.
+
+const GroupBackgroundsLayer = memo(function GroupBackgroundsLayer({ groupBackgrounds }) {
+  return (
+    <g>
+      {groupBackgrounds.map((gb) => (
+        <PassiveGroupBackground key={gb.key} x={gb.x} y={gb.y} sprite={gb.sprite} />
+      ))}
+    </g>
+  );
+});
+
+const ClassStartArtLayer = memo(function ClassStartArtLayer({ startNodeArt }) {
+  return (
+    <g>
+      {startNodeArt.map((art) => (
+        <svg
+          key={art.key}
+          x={art.x}
+          y={art.y}
+          width={art.width}
+          height={art.height}
+          viewBox={`${art.sprite.x} ${art.sprite.y} ${art.sprite.w} ${art.sprite.h}`}
+          className="pointer-events-none"
+          preserveAspectRatio="xMidYMid meet"
+        >
+          <image href={art.sprite.sheetUrl} width={art.sprite.sheetW} height={art.sprite.sheetH} />
+        </svg>
+      ))}
+    </g>
+  );
+});
+
+const ConnectionsLayer = memo(function ConnectionsLayer({ visibleConnections, allAllocated }) {
+  return (
+    <g>
+      {visibleConnections.map((conn) => (
+        <PassiveConnection
+          key={conn.key}
+          x1={conn.x1}
+          y1={conn.y1}
+          x2={conn.x2}
+          y2={conn.y2}
+          arc={conn.arc}
+          bothAllocated={allAllocated.has(conn.fromId) && allAllocated.has(conn.toId)}
+          oneAllocated={allAllocated.has(conn.fromId) || allAllocated.has(conn.toId)}
+        />
+      ))}
+    </g>
+  );
+});
+
+const NodesLayer = memo(function NodesLayer({
+  renderableNodes,
+  allAllocated,
+  allAvailable,
+  searchResults,
+  hoveredNode,
+  rejectedNodes,
+  spriteMap,
+  selectedAscendancy,
+  masterySelections,
+  connectedMasteries,
+  onNodeClick,
+  onNodeEnter,
+  onNodeLeave,
+}) {
+  return (
+    <g>
+      {renderableNodes.map(({ nodeId, node, x, y, type }) => (
+        <PassiveNode
+          key={nodeId}
+          nodeId={nodeId}
+          node={node}
+          x={x}
+          y={y}
+          type={type}
+          isAllocated={allAllocated.has(nodeId)}
+          isAvailable={allAvailable.has(nodeId)}
+          isSearchMatch={searchResults.has(nodeId)}
+          isHovered={hoveredNode === nodeId}
+          isRejected={rejectedNodes.has(nodeId)}
+          spriteMap={spriteMap}
+          onClick={onNodeClick}
+          onMouseEnter={onNodeEnter}
+          onMouseLeave={onNodeLeave}
+          isSelectedAscendancy={
+            node.ascendancyName ? node.ascendancyName === selectedAscendancy : undefined
+          }
+          isMasteryConnected={connectedMasteries.has(nodeId)}
+          isMasterySelected={masterySelections.has(nodeId)}
+        />
+      ))}
+    </g>
+  );
+});
+
+const RejectedPathLayer = memo(function RejectedPathLayer({ connections, rejectedNodes }) {
+  if (rejectedNodes.size <= 1) return null;
+  return (
+    <g>
+      {connections
+        .filter((c) => rejectedNodes.has(c.fromId) && rejectedNodes.has(c.toId))
+        .map((conn) => (
+          <line
+            key={`rej-${conn.key}`}
+            x1={conn.x1}
+            y1={conn.y1}
+            x2={conn.x2}
+            y2={conn.y2}
+            stroke="#ef4444"
+            strokeWidth={5}
+            strokeLinecap="round"
+            opacity={0.8}
+          />
+        ))}
+    </g>
+  );
+});
