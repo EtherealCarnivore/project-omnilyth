@@ -6,7 +6,7 @@
  * Uses GGG's official sprite assets for authentic PoE atlas appearance.
  */
 
-import { useMemo, useCallback, useState, useEffect } from 'react';
+import { useMemo, useCallback, useState, useEffect, memo } from 'react';
 import useZoomPan from '../../hooks/useZoomPan';
 import { useAtlasTree } from '../../contexts/AtlasTreeContext';
 import AtlasNode from './AtlasNode';
@@ -27,10 +27,13 @@ export default function AtlasTreeRenderer() {
     rejectedPath,
     toggleNode,
     searchResults,
-    hoveredNode,
-    setHoveredNode,
     brightness,
   } = useAtlasTree();
+
+  // Hover lives here, not on the context. Mouse-enter on a node updates
+  // a single component's state instead of fanning a new context value out
+  // to every subscriber.
+  const [hoveredNode, setHoveredNode] = useState(null);
 
   // Set of node IDs in the rejected path (for red highlighting)
   const rejectedNodes = useMemo(() => {
@@ -221,115 +224,28 @@ export default function AtlasTreeRenderer() {
         style={{ touchAction: 'none' }}
         {...handlers}
       >
-        <g transform={`translate(${transform.x},${transform.y}) scale(${transform.scale})`}>
-          {/* Layer 0: Atlas background image */}
-          {bgProps && (
-            <image
-              href={bgProps.url}
-              x={bgProps.x}
-              y={bgProps.y}
-              width={bgProps.width}
-              height={bgProps.height}
-              preserveAspectRatio="none"
-              style={{ filter: `brightness(${brightness})` }}
-            />
-          )}
-
-          {/* Layer 1: Group backgrounds (teal/gold nebula clusters) */}
-          <g>
-            {groupBackgrounds.map(gb => (
-              <AtlasGroupBackground
-                key={gb.key}
-                x={gb.x}
-                y={gb.y}
-                sprite={gb.sprite}
-                brightness={brightness}
-              />
-            ))}
-          </g>
-
-          {/* Layer 2: Start node art */}
-          {startNodeProps && (
-            <foreignObject
-              x={startNodeProps.x}
-              y={startNodeProps.y}
-              width={startNodeProps.width}
-              height={startNodeProps.height}
-              className="pointer-events-none"
-            >
-              <div
-                style={{
-                  width: startNodeProps.width,
-                  height: startNodeProps.height,
-                  backgroundImage: `url(${startNodeProps.sprite.sheetUrl})`,
-                  backgroundPosition: `-${startNodeProps.sprite.x / ZOOM_FACTOR}px -${startNodeProps.sprite.y / ZOOM_FACTOR}px`,
-                  backgroundSize: `${startNodeProps.sprite.sheetW / ZOOM_FACTOR}px ${startNodeProps.sprite.sheetH / ZOOM_FACTOR}px`,
-                  backgroundRepeat: 'no-repeat',
-                }}
-              />
-            </foreignObject>
-          )}
-
-          {/* Layer 3: Connections */}
-          <g>
-            {connections.map(conn => (
-              <AtlasConnection
-                key={conn.key}
-                x1={conn.x1}
-                y1={conn.y1}
-                x2={conn.x2}
-                y2={conn.y2}
-                arc={conn.arc}
-                bothAllocated={allocated.has(conn.fromId) && allocated.has(conn.toId)}
-                oneAllocated={allocated.has(conn.fromId) || allocated.has(conn.toId)}
-              />
-            ))}
-          </g>
-
-          {/* Layer 4: Nodes */}
-          <g>
-            {renderableNodes.map(({ nodeId, node, x, y, type }) => (
-              <AtlasNode
-                key={nodeId}
-                nodeId={nodeId}
-                node={node}
-                x={x}
-                y={y}
-                type={type}
-                isAllocated={allocated.has(nodeId)}
-                isAvailable={available.has(nodeId)}
-                isSearchMatch={searchResults.has(nodeId)}
-                isHovered={hoveredNode === nodeId}
-                isRejected={rejectedNodes.has(nodeId)}
-                spriteMap={treeData.spriteMap}
-                brightness={brightness}
-                onClick={onNodeClick}
-                onMouseEnter={onNodeEnter}
-                onMouseLeave={onNodeLeave}
-              />
-            ))}
-          </g>
-
-          {/* Layer 5: Rejected path connections (red overlay) */}
-          {rejectedNodes.size > 1 && (
-            <g>
-              {connections
-                .filter(c => rejectedNodes.has(c.fromId) && rejectedNodes.has(c.toId))
-                .map(conn => (
-                  <line
-                    key={`rej-${conn.key}`}
-                    x1={conn.x1}
-                    y1={conn.y1}
-                    x2={conn.x2}
-                    y2={conn.y2}
-                    stroke="#ef4444"
-                    strokeWidth={5}
-                    strokeLinecap="round"
-                    opacity={0.8}
-                  />
-                ))}
-            </g>
-          )}
+        <g
+          style={{ willChange: 'transform' }}
+          transform={`translate(${transform.x},${transform.y}) scale(${transform.scale})`}
+        >
+          <BackgroundLayer bgProps={bgProps} brightness={brightness} />
+          <GroupBackgroundsLayer groupBackgrounds={groupBackgrounds} brightness={brightness} />
+          <StartNodeLayer startNodeProps={startNodeProps} />
+          <ConnectionsLayer connections={connections} allocated={allocated} />
+          <NodesLayer
+            renderableNodes={renderableNodes}
+            allocated={allocated}
+            available={available}
+            searchResults={searchResults}
+            hoveredNode={hoveredNode}
+            rejectedNodes={rejectedNodes}
+            spriteMap={treeData.spriteMap}
+            brightness={brightness}
+            onNodeClick={onNodeClick}
+            onNodeEnter={onNodeEnter}
+            onNodeLeave={onNodeLeave}
+          />
+          <RejectedPathLayer connections={connections} rejectedNodes={rejectedNodes} />
         </g>
       </svg>
 
@@ -387,3 +303,139 @@ export default function AtlasTreeRenderer() {
     </div>
   );
 }
+
+// ─── Layered children ────────────────────────────────────────────────────────
+//
+// Each layer is wrapped in React.memo with default shallow-prop comparison.
+// All array / Set / Map props are useMemo'd in the parent, so identity is
+// stable across unrelated state changes and the memo skip kicks in.
+
+const BackgroundLayer = memo(function BackgroundLayer({ bgProps, brightness }) {
+  if (!bgProps) return null;
+  return (
+    <image
+      href={bgProps.url}
+      x={bgProps.x}
+      y={bgProps.y}
+      width={bgProps.width}
+      height={bgProps.height}
+      preserveAspectRatio="none"
+      style={{ filter: `brightness(${brightness})` }}
+    />
+  );
+});
+
+const GroupBackgroundsLayer = memo(function GroupBackgroundsLayer({ groupBackgrounds, brightness }) {
+  return (
+    <g>
+      {groupBackgrounds.map((gb) => (
+        <AtlasGroupBackground
+          key={gb.key}
+          x={gb.x}
+          y={gb.y}
+          sprite={gb.sprite}
+          brightness={brightness}
+        />
+      ))}
+    </g>
+  );
+});
+
+const StartNodeLayer = memo(function StartNodeLayer({ startNodeProps }) {
+  if (!startNodeProps) return null;
+  const { sprite } = startNodeProps;
+  return (
+    <svg
+      x={startNodeProps.x}
+      y={startNodeProps.y}
+      width={startNodeProps.width}
+      height={startNodeProps.height}
+      viewBox={`${sprite.x} ${sprite.y} ${sprite.w} ${sprite.h}`}
+      className="pointer-events-none"
+      preserveAspectRatio="xMidYMid meet"
+    >
+      <image href={sprite.sheetUrl} width={sprite.sheetW} height={sprite.sheetH} />
+    </svg>
+  );
+});
+
+const ConnectionsLayer = memo(function ConnectionsLayer({ connections, allocated }) {
+  return (
+    <g>
+      {connections.map((conn) => (
+        <AtlasConnection
+          key={conn.key}
+          x1={conn.x1}
+          y1={conn.y1}
+          x2={conn.x2}
+          y2={conn.y2}
+          arc={conn.arc}
+          bothAllocated={allocated.has(conn.fromId) && allocated.has(conn.toId)}
+          oneAllocated={allocated.has(conn.fromId) || allocated.has(conn.toId)}
+        />
+      ))}
+    </g>
+  );
+});
+
+const NodesLayer = memo(function NodesLayer({
+  renderableNodes,
+  allocated,
+  available,
+  searchResults,
+  hoveredNode,
+  rejectedNodes,
+  spriteMap,
+  brightness,
+  onNodeClick,
+  onNodeEnter,
+  onNodeLeave,
+}) {
+  return (
+    <g>
+      {renderableNodes.map(({ nodeId, node, x, y, type }) => (
+        <AtlasNode
+          key={nodeId}
+          nodeId={nodeId}
+          node={node}
+          x={x}
+          y={y}
+          type={type}
+          isAllocated={allocated.has(nodeId)}
+          isAvailable={available.has(nodeId)}
+          isSearchMatch={searchResults.has(nodeId)}
+          isHovered={hoveredNode === nodeId}
+          isRejected={rejectedNodes.has(nodeId)}
+          spriteMap={spriteMap}
+          brightness={brightness}
+          onClick={onNodeClick}
+          onMouseEnter={onNodeEnter}
+          onMouseLeave={onNodeLeave}
+        />
+      ))}
+    </g>
+  );
+});
+
+const RejectedPathLayer = memo(function RejectedPathLayer({ connections, rejectedNodes }) {
+  if (rejectedNodes.size <= 1) return null;
+  return (
+    <g>
+      {connections
+        .filter((c) => rejectedNodes.has(c.fromId) && rejectedNodes.has(c.toId))
+        .map((conn) => (
+          <line
+            key={`rej-${conn.key}`}
+            x1={conn.x1}
+            y1={conn.y1}
+            x2={conn.x2}
+            y2={conn.y2}
+            stroke="#ef4444"
+            strokeWidth={5}
+            strokeLinecap="round"
+            opacity={0.8}
+          />
+        ))}
+    </g>
+  );
+});

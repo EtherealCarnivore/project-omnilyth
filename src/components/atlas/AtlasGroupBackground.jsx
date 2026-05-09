@@ -1,8 +1,9 @@
 /*
  * AtlasGroupBackground.jsx — Renders a group background sprite (teal/gold nebula cluster).
  *
- * Uses foreignObject + CSS background-position to clip from the sprite sheet,
- * same pattern as NodeIcon. Positioned at the group's center in world-space.
+ * Pure SVG via nested <svg> + viewBox (same approach as the passive tree).
+ * Crops the sheet to the sprite region; outer x/y/width/height place it in
+ * world space. opacity + brightness applied as CSS on the outer svg element.
  */
 
 import { memo } from 'react';
@@ -15,26 +16,18 @@ function AtlasGroupBackground({ x, y, sprite, brightness = 1.3 }) {
   const worldH = sprite.h / ZOOM_FACTOR;
 
   return (
-    <foreignObject
+    <svg
       x={x - worldW / 2}
       y={y - worldH / 2}
       width={worldW}
       height={worldH}
+      viewBox={`${sprite.x} ${sprite.y} ${sprite.w} ${sprite.h}`}
       className="pointer-events-none"
+      preserveAspectRatio="xMidYMid meet"
+      style={{ opacity: 0.85, filter: `brightness(${brightness})` }}
     >
-      <div
-        style={{
-          width: worldW,
-          height: worldH,
-          backgroundImage: `url(${sprite.sheetUrl})`,
-          backgroundPosition: `-${sprite.x / ZOOM_FACTOR}px -${sprite.y / ZOOM_FACTOR}px`,
-          backgroundSize: `${sprite.sheetW / ZOOM_FACTOR}px ${sprite.sheetH / ZOOM_FACTOR}px`,
-          backgroundRepeat: 'no-repeat',
-          opacity: 0.85,
-          filter: `brightness(${brightness})`,
-        }}
-      />
-    </foreignObject>
+      <image href={sprite.sheetUrl} width={sprite.sheetW} height={sprite.sheetH} />
+    </svg>
   );
 }
 

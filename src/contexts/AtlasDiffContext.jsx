@@ -26,7 +26,9 @@ export function AtlasDiffProvider({ children }) {
   const [yourNodes, setYourNodes] = useState(null);
   const [diffResult, setDiffResult] = useState(null);
   const [error, setError] = useState(null);
-  const [hoveredNode, setHoveredNode] = useState(null);
+  // hoveredNode lives in AtlasDiffRenderer as local state — keeping it off
+  // the context value prevents context-fan-out re-renders on every
+  // mouse-enter (mirrors the passive-tree change).
   const [brightness, setBrightness] = useState(1.3);
 
   // Detect input type for display badges
@@ -126,8 +128,6 @@ export function AtlasDiffProvider({ children }) {
     error,
     compare,
     clear,
-    hoveredNode,
-    setHoveredNode,
     brightness,
     setBrightness,
     addStats,

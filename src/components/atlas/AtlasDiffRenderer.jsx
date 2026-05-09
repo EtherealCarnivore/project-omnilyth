@@ -5,7 +5,7 @@
  * connections based on diff result: green (add), red (remove), gold (match), gray (idle).
  */
 
-import { useMemo, useCallback, useState, useEffect } from 'react';
+import { useMemo, useCallback, useState, useEffect, memo } from 'react';
 import useZoomPan from '../../hooks/useZoomPan';
 import { useAtlasDiff } from '../../contexts/AtlasDiffContext';
 import AtlasNode from './AtlasNode';
@@ -52,10 +52,11 @@ export default function AtlasDiffRenderer() {
   const {
     treeData,
     diffResult,
-    hoveredNode,
-    setHoveredNode,
     brightness,
   } = useAtlasDiff();
+
+  // Hover lives here, not on the context — same lift as the other renderers.
+  const [hoveredNode, setHoveredNode] = useState(null);
 
   const { containerRef, transform, handlers, zoomIn, zoomOut, fitToView } =
     useZoomPan(treeData?.bounds);
@@ -232,81 +233,24 @@ export default function AtlasDiffRenderer() {
         style={{ touchAction: 'none' }}
         {...handlers}
       >
-        <g transform={`translate(${transform.x},${transform.y}) scale(${transform.scale})`}>
-          {/* Background */}
-          {bgProps && (
-            <image
-              href={bgProps.url}
-              x={bgProps.x} y={bgProps.y}
-              width={bgProps.width} height={bgProps.height}
-              preserveAspectRatio="none"
-              style={{ filter: `brightness(${brightness})` }}
-            />
-          )}
-
-          {/* Group backgrounds */}
-          <g>
-            {groupBackgrounds.map(gb => (
-              <AtlasGroupBackground
-                key={gb.key} x={gb.x} y={gb.y}
-                sprite={gb.sprite} brightness={brightness}
-              />
-            ))}
-          </g>
-
-          {/* Start node */}
-          {startNodeProps && (
-            <foreignObject
-              x={startNodeProps.x} y={startNodeProps.y}
-              width={startNodeProps.width} height={startNodeProps.height}
-              className="pointer-events-none"
-            >
-              <div style={{
-                width: startNodeProps.width, height: startNodeProps.height,
-                backgroundImage: `url(${startNodeProps.sprite.sheetUrl})`,
-                backgroundPosition: `-${startNodeProps.sprite.x / ZOOM_FACTOR}px -${startNodeProps.sprite.y / ZOOM_FACTOR}px`,
-                backgroundSize: `${startNodeProps.sprite.sheetW / ZOOM_FACTOR}px ${startNodeProps.sprite.sheetH / ZOOM_FACTOR}px`,
-                backgroundRepeat: 'no-repeat',
-              }} />
-            </foreignObject>
-          )}
-
-          {/* Connections */}
-          <g>
-            {connections.map(conn => (
-              <DiffConnection
-                key={conn.key}
-                x1={conn.x1} y1={conn.y1}
-                x2={conn.x2} y2={conn.y2}
-                arc={conn.arc}
-                diffState={connectionDiffStates[conn.key] || 'idle'}
-              />
-            ))}
-          </g>
-
-          {/* Nodes */}
-          <g>
-            {renderableNodes.map(({ nodeId, node, x, y, type }) => (
-              <AtlasNode
-                key={nodeId}
-                nodeId={nodeId}
-                node={node}
-                x={x} y={y}
-                type={type}
-                isAllocated={allAllocated.has(nodeId)}
-                isAvailable={false}
-                isSearchMatch={false}
-                isHovered={hoveredNode === nodeId}
-                isRejected={false}
-                isDiffAdd={diffResult?.toAdd.has(nodeId) || false}
-                isDiffRemove={diffResult?.toRemove.has(nodeId) || false}
-                spriteMap={treeData.spriteMap}
-                brightness={brightness}
-                onMouseEnter={onNodeEnter}
-                onMouseLeave={onNodeLeave}
-              />
-            ))}
-          </g>
+        <g
+          style={{ willChange: 'transform' }}
+          transform={`translate(${transform.x},${transform.y}) scale(${transform.scale})`}
+        >
+          <DiffBackgroundLayer bgProps={bgProps} brightness={brightness} />
+          <DiffGroupBackgroundsLayer groupBackgrounds={groupBackgrounds} brightness={brightness} />
+          <DiffStartNodeLayer startNodeProps={startNodeProps} />
+          <DiffConnectionsLayer connections={connections} connectionDiffStates={connectionDiffStates} />
+          <DiffNodesLayer
+            renderableNodes={renderableNodes}
+            allAllocated={allAllocated}
+            diffResult={diffResult}
+            hoveredNode={hoveredNode}
+            spriteMap={treeData.spriteMap}
+            brightness={brightness}
+            onNodeEnter={onNodeEnter}
+            onNodeLeave={onNodeLeave}
+          />
         </g>
       </svg>
 
@@ -353,3 +297,109 @@ export default function AtlasDiffRenderer() {
     </div>
   );
 }
+
+// ─── Layered children ────────────────────────────────────────────────────────
+
+const DiffBackgroundLayer = memo(function DiffBackgroundLayer({ bgProps, brightness }) {
+  if (!bgProps) return null;
+  return (
+    <image
+      href={bgProps.url}
+      x={bgProps.x}
+      y={bgProps.y}
+      width={bgProps.width}
+      height={bgProps.height}
+      preserveAspectRatio="none"
+      style={{ filter: `brightness(${brightness})` }}
+    />
+  );
+});
+
+const DiffGroupBackgroundsLayer = memo(function DiffGroupBackgroundsLayer({ groupBackgrounds, brightness }) {
+  return (
+    <g>
+      {groupBackgrounds.map((gb) => (
+        <AtlasGroupBackground
+          key={gb.key}
+          x={gb.x}
+          y={gb.y}
+          sprite={gb.sprite}
+          brightness={brightness}
+        />
+      ))}
+    </g>
+  );
+});
+
+const DiffStartNodeLayer = memo(function DiffStartNodeLayer({ startNodeProps }) {
+  if (!startNodeProps) return null;
+  const { sprite } = startNodeProps;
+  return (
+    <svg
+      x={startNodeProps.x}
+      y={startNodeProps.y}
+      width={startNodeProps.width}
+      height={startNodeProps.height}
+      viewBox={`${sprite.x} ${sprite.y} ${sprite.w} ${sprite.h}`}
+      className="pointer-events-none"
+      preserveAspectRatio="xMidYMid meet"
+    >
+      <image href={sprite.sheetUrl} width={sprite.sheetW} height={sprite.sheetH} />
+    </svg>
+  );
+});
+
+const DiffConnectionsLayer = memo(function DiffConnectionsLayer({ connections, connectionDiffStates }) {
+  return (
+    <g>
+      {connections.map((conn) => (
+        <DiffConnection
+          key={conn.key}
+          x1={conn.x1}
+          y1={conn.y1}
+          x2={conn.x2}
+          y2={conn.y2}
+          arc={conn.arc}
+          diffState={connectionDiffStates[conn.key] || 'idle'}
+        />
+      ))}
+    </g>
+  );
+});
+
+const DiffNodesLayer = memo(function DiffNodesLayer({
+  renderableNodes,
+  allAllocated,
+  diffResult,
+  hoveredNode,
+  spriteMap,
+  brightness,
+  onNodeEnter,
+  onNodeLeave,
+}) {
+  return (
+    <g>
+      {renderableNodes.map(({ nodeId, node, x, y, type }) => (
+        <AtlasNode
+          key={nodeId}
+          nodeId={nodeId}
+          node={node}
+          x={x}
+          y={y}
+          type={type}
+          isAllocated={allAllocated.has(nodeId)}
+          isAvailable={false}
+          isSearchMatch={false}
+          isHovered={hoveredNode === nodeId}
+          isRejected={false}
+          isDiffAdd={diffResult?.toAdd.has(nodeId) || false}
+          isDiffRemove={diffResult?.toRemove.has(nodeId) || false}
+          spriteMap={spriteMap}
+          brightness={brightness}
+          onMouseEnter={onNodeEnter}
+          onMouseLeave={onNodeLeave}
+        />
+      ))}
+    </g>
+  );
+});

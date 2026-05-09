@@ -51,7 +51,9 @@ export function AtlasTreeProvider({ children }) {
   const [builds, setBuilds] = useState(loadBuilds);
   const [activeBuildId, setActiveBuildId] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
-  const [hoveredNode, setHoveredNode] = useState(null);
+  // hoveredNode lives in AtlasTreeRenderer as local state — keeping it
+  // off context prevents every consumer of useAtlasTree() from re-rendering
+  // on every mouse-enter (mirrors the passive-tree change).
 
   // Search results
   const searchResults = useMemo(() => {
@@ -161,10 +163,6 @@ export function AtlasTreeProvider({ children }) {
     searchQuery,
     setSearchQuery,
     searchResults,
-
-    // Hover
-    hoveredNode,
-    setHoveredNode,
 
     // Stats
     statSummary,
