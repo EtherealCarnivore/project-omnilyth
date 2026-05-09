@@ -274,17 +274,18 @@ function SpriteImg({ sprite, worldSize }) {
   const dw = sprite.w * scale;
   const dh = sprite.h * scale;
   return (
-    <svg
-      x={-dw / 2}
-      y={-dh / 2}
-      width={dw}
-      height={dh}
-      viewBox={`${sprite.x} ${sprite.y} ${sprite.w} ${sprite.h}`}
-      className="pointer-events-none"
-      preserveAspectRatio="xMidYMid meet"
-    >
-      <image href={sprite.sheetUrl} width={sprite.sheetW} height={sprite.sheetH} />
-    </svg>
+    <foreignObject x={-dw / 2} y={-dh / 2} width={dw} height={dh} className="pointer-events-none">
+      <div style={{
+        width: dw,
+        height: dh,
+        borderRadius: '50%',
+        overflow: 'hidden',
+        backgroundImage: `url(${sprite.sheetUrl})`,
+        backgroundPosition: `-${sprite.x * scale}px -${sprite.y * scale}px`,
+        backgroundSize: `${sprite.sheetW * scale}px ${sprite.sheetH * scale}px`,
+        backgroundRepeat: 'no-repeat',
+      }} />
+    </foreignObject>
   );
 }
 

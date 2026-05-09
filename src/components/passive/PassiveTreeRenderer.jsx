@@ -408,18 +408,25 @@ const ClassStartArtLayer = memo(function ClassStartArtLayer({ startNodeArt }) {
   return (
     <g>
       {startNodeArt.map((art) => (
-        <svg
+        <foreignObject
           key={art.key}
           x={art.x}
           y={art.y}
           width={art.width}
           height={art.height}
-          viewBox={`${art.sprite.x} ${art.sprite.y} ${art.sprite.w} ${art.sprite.h}`}
           className="pointer-events-none"
-          preserveAspectRatio="xMidYMid meet"
         >
-          <image href={art.sprite.sheetUrl} width={art.sprite.sheetW} height={art.sprite.sheetH} />
-        </svg>
+          <div
+            style={{
+              width: art.width,
+              height: art.height,
+              backgroundImage: `url(${art.sprite.sheetUrl})`,
+              backgroundPosition: `-${art.sprite.x / ZOOM_FACTOR}px -${art.sprite.y / ZOOM_FACTOR}px`,
+              backgroundSize: `${art.sprite.sheetW / ZOOM_FACTOR}px ${art.sprite.sheetH / ZOOM_FACTOR}px`,
+              backgroundRepeat: 'no-repeat',
+            }}
+          />
+        </foreignObject>
       ))}
     </g>
   );

@@ -13,11 +13,8 @@ import { NODE_SIZES, FRAME_NAMES, DIFF_COLORS } from '../../data/atlas/atlasTree
 const ZOOM_FACTOR = 0.3835;
 
 /**
- * Renders one sprite from a sprite sheet using a nested <svg> with viewBox.
- * Pure SVG — no <foreignObject>, no HTML-in-SVG. The viewBox crops the inner
- * SVG's coordinate system to the sprite's region (x, y, w, h) inside the
- * sheet; the outer width/height places that cropped region into world space.
- * brightness, when set, applies as a CSS filter on the outer svg element.
+ * Renders a sprite from a sprite sheet using foreignObject + CSS background clipping.
+ * All sprites are clipped to circles — frames are circular borders, icons fill inside them.
  */
 function SpriteImage({ sprite, worldSize, className, brightness }) {
   if (!sprite) return null;
@@ -27,18 +24,27 @@ function SpriteImage({ sprite, worldSize, className, brightness }) {
   const displayH = sprite.h * scale;
 
   return (
-    <svg
+    <foreignObject
       x={-displayW / 2}
       y={-displayH / 2}
       width={displayW}
       height={displayH}
-      viewBox={`${sprite.x} ${sprite.y} ${sprite.w} ${sprite.h}`}
       className={className || 'pointer-events-none'}
-      preserveAspectRatio="xMidYMid meet"
-      style={brightness ? { filter: `brightness(${brightness})` } : undefined}
     >
-      <image href={sprite.sheetUrl} width={sprite.sheetW} height={sprite.sheetH} />
-    </svg>
+      <div
+        style={{
+          width: displayW,
+          height: displayH,
+          borderRadius: '50%',
+          overflow: 'hidden',
+          backgroundImage: `url(${sprite.sheetUrl})`,
+          backgroundPosition: `-${sprite.x * scale}px -${sprite.y * scale}px`,
+          backgroundSize: `${sprite.sheetW * scale}px ${sprite.sheetH * scale}px`,
+          backgroundRepeat: 'no-repeat',
+          ...(brightness && { filter: `brightness(${brightness})` }),
+        }}
+      />
+    </foreignObject>
   );
 }
 

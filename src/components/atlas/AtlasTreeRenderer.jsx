@@ -343,19 +343,25 @@ const GroupBackgroundsLayer = memo(function GroupBackgroundsLayer({ groupBackgro
 
 const StartNodeLayer = memo(function StartNodeLayer({ startNodeProps }) {
   if (!startNodeProps) return null;
-  const { sprite } = startNodeProps;
   return (
-    <svg
+    <foreignObject
       x={startNodeProps.x}
       y={startNodeProps.y}
       width={startNodeProps.width}
       height={startNodeProps.height}
-      viewBox={`${sprite.x} ${sprite.y} ${sprite.w} ${sprite.h}`}
       className="pointer-events-none"
-      preserveAspectRatio="xMidYMid meet"
     >
-      <image href={sprite.sheetUrl} width={sprite.sheetW} height={sprite.sheetH} />
-    </svg>
+      <div
+        style={{
+          width: startNodeProps.width,
+          height: startNodeProps.height,
+          backgroundImage: `url(${startNodeProps.sprite.sheetUrl})`,
+          backgroundPosition: `-${startNodeProps.sprite.x / ZOOM_FACTOR}px -${startNodeProps.sprite.y / ZOOM_FACTOR}px`,
+          backgroundSize: `${startNodeProps.sprite.sheetW / ZOOM_FACTOR}px ${startNodeProps.sprite.sheetH / ZOOM_FACTOR}px`,
+          backgroundRepeat: 'no-repeat',
+        }}
+      />
+    </foreignObject>
   );
 });
 

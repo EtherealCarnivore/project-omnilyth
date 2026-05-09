@@ -1,11 +1,8 @@
 /*
  * PassiveGroupBackground.jsx — Renders a group background sprite.
  *
- * Pure SVG via nested <svg> + viewBox: crops the sheet to the sprite region.
- * Positioned at the group's center in world-space. ZOOM_FACTOR (0.3835) is
- * GGG's source-art-to-world-space ratio — sprite art is authored at a
- * higher resolution than the world coordinate system, so each world unit
- * ≈ 1/ZOOM_FACTOR sprite-art pixels.
+ * Uses foreignObject + CSS background-position to clip from the sprite sheet.
+ * Positioned at the group's center in world-space.
  */
 
 import { memo } from 'react';
@@ -17,17 +14,25 @@ function PassiveGroupBackground({ x, y, sprite }) {
   const worldH = sprite.h / ZOOM_FACTOR;
 
   return (
-    <svg
+    <foreignObject
       x={x - worldW / 2}
       y={y - worldH / 2}
       width={worldW}
       height={worldH}
-      viewBox={`${sprite.x} ${sprite.y} ${sprite.w} ${sprite.h}`}
       className="pointer-events-none"
-      preserveAspectRatio="xMidYMid meet"
     >
-      <image href={sprite.sheetUrl} width={sprite.sheetW} height={sprite.sheetH} />
-    </svg>
+      <div
+        style={{
+          width: worldW,
+          height: worldH,
+          backgroundImage: `url(${sprite.sheetUrl})`,
+          backgroundPosition: `-${sprite.x / ZOOM_FACTOR}px -${sprite.y / ZOOM_FACTOR}px`,
+          backgroundSize: `${sprite.sheetW / ZOOM_FACTOR}px ${sprite.sheetH / ZOOM_FACTOR}px`,
+          backgroundRepeat: 'no-repeat',
+          opacity: 1.0,
+        }}
+      />
+    </foreignObject>
   );
 }
 

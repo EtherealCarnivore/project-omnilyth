@@ -10,14 +10,7 @@ import { memo } from 'react';
 import { NODE_SIZES, FRAME_NAMES } from '../../data/passive/passiveTreeConstants';
 
 /**
- * Renders one sprite from a sprite sheet using a nested <svg> with viewBox.
- *
- * The viewBox crops the inner SVG's coordinate system to the sprite's region
- * inside the sheet (x, y, w, h); the outer width/height places that cropped
- * region into world-space at the requested size. Pure SVG — no
- * <foreignObject>, no HTML-in-SVG, no per-instance CSS background math —
- * which the browser paints noticeably faster, especially at high zoom-out
- * where 200–300 sprites are visible at once.
+ * Renders a sprite from a sprite sheet using foreignObject + CSS background clipping.
  */
 function SpriteImage({ sprite, worldSize, className }) {
   if (!sprite) return null;
@@ -27,21 +20,26 @@ function SpriteImage({ sprite, worldSize, className }) {
   const displayH = sprite.h * scale;
 
   return (
-    <svg
+    <foreignObject
       x={-displayW / 2}
       y={-displayH / 2}
       width={displayW}
       height={displayH}
-      viewBox={`${sprite.x} ${sprite.y} ${sprite.w} ${sprite.h}`}
       className={className || 'pointer-events-none'}
-      preserveAspectRatio="xMidYMid meet"
     >
-      <image
-        href={sprite.sheetUrl}
-        width={sprite.sheetW}
-        height={sprite.sheetH}
+      <div
+        style={{
+          width: displayW,
+          height: displayH,
+          borderRadius: '50%',
+          overflow: 'hidden',
+          backgroundImage: `url(${sprite.sheetUrl})`,
+          backgroundPosition: `-${sprite.x * scale}px -${sprite.y * scale}px`,
+          backgroundSize: `${sprite.sheetW * scale}px ${sprite.sheetH * scale}px`,
+          backgroundRepeat: 'no-repeat',
+        }}
       />
-    </svg>
+    </foreignObject>
   );
 }
 
