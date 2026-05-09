@@ -2,7 +2,7 @@
 
 A Path of Exile toolkit — crafting calculators, regex generators, atlas tree planner, leveling tools, and more. **Supports both PoE 1 and PoE 2** (dual-game shell, in-progress for PoE 2 0.5 launch on 2026-05-29).
 
-**Live**: [omnilyth-beta.netlify.app](https://omnilyth-beta.netlify.app/) | [GitHub Pages](https://etherealcarnivore.github.io/omnilyth-core-public/)
+**Live**: [omnilyth.app](https://omnilyth.app/)
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![License: MIT (workers)](https://img.shields.io/badge/workers/-MIT-green.svg)](workers/LICENSE)
@@ -18,8 +18,8 @@ For third-party dependency licenses and embedded data attributions, see [THIRD_P
 - **State**: Context API (league, prices, pinning, leveling, atlas tree)
 - **Search**: Fuse.js (fuzzy search for gems)
 - **Data**: poe.ninja API (prices), PoE Wiki (gem availability), GGG atlas tree export
-- **Deployment**: GitHub Actions CI/CD → Netlify (primary) / GitHub Pages (backup)
-- **API Proxy**: Serverless functions (Netlify/Vercel/Cloudflare)
+- **Deployment**: GitHub Actions CI/CD → GitHub Pages (this repo's `gh-pages` branch) → custom domain `omnilyth.app`
+- **API Proxy**: Cloudflare Worker at [`k-genov.workers.dev`](https://k-genov.workers.dev/) (poe.ninja allowlist; legacy Netlify/Vercel function shims still in-tree as fallback)
 
 ## Modules
 
@@ -144,18 +144,17 @@ npm run preview  # Preview production build (auth enabled)
 
 ## Deployment
 
-Pushes to `master` trigger GitHub Actions → builds → deploys to `omnilyth-core-public` repo (`gh-pages` branch).
+Pushes to `master` trigger GitHub Actions (`.github/workflows/deploy.yml`) → builds → deploys to this repo's own `gh-pages` branch via `peaceiris/actions-gh-pages`. The custom domain `omnilyth.app` is bound at the GitHub Pages level (CNAME file emitted into the gh-pages output by the workflow).
 
-**Primary (Netlify):** [omnilyth-beta.netlify.app](https://omnilyth-beta.netlify.app/) — includes serverless functions, feedback system
-**Backup (GitHub Pages):** [etherealcarnivore.github.io/omnilyth-core-public](https://etherealcarnivore.github.io/omnilyth-core-public/) — static only
+**Live:** [omnilyth.app](https://omnilyth.app/)
 
 ## Security
 
 ### Secure API Proxy
-- Self-hosted serverless functions replace third-party CORS proxy
-- Path validation and request sanitization
+- Self-hosted Cloudflare Worker replaces third-party CORS proxy
+- Path validation and request sanitization (allowlist-driven)
 - 5-minute edge caching for performance
-- Available for Netlify, Vercel, and Cloudflare Workers
+- Active proxy: [`k-genov.workers.dev`](https://k-genov.workers.dev/) (Cloudflare Workers); legacy Netlify/Vercel function shims still in-tree as fallback
 
 ### Security Headers
 - Content-Security-Policy (XSS prevention)
