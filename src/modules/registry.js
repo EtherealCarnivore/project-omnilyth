@@ -175,6 +175,24 @@ const modules = [
     component: lazy(() => import('../pages/Poe2AnointingPage')),
   },
   {
+    // Phase 0 preview (2026-05-18). The .build format spec went public
+    // on 2026-05-16 (pathofexile.com/developer/docs/game) — Phase 4 in
+    // CLAUDE.md §0.5 is now unblocked. This route ships a working
+    // markup-tag renderer as the page hero today; validator + diagnostics
+    // + normalized download wire up at the 0.5 launch (2026-05-29).
+    // Phase 1 flip checklist lives in memory/project_build_file_lint_preview.md.
+    id: 'build-file-lint-poe2',
+    games: ['poe2'],
+    title: 'Build File Linter',
+    description: 'Validate and preview .build files for the PoE 2 build planner',
+    category: 'Build Planning',
+    subcategory: 'Build Files',
+    route: '/poe2/build/file-lint',
+    icon: 'item',
+    wip: true,
+    component: lazy(() => import('../pages/Poe2BuildFileLintPage')),
+  },
+  {
     id: 'dust-calculator',
     games: ['poe1'],
     title: 'Dust Calculator',

@@ -259,6 +259,19 @@ export const ROUTE_META = {
     kind: 'doc',
     noindex: true,
   },
+  '/poe2/build/file-lint': {
+    // Phase 0 preview (2026-05-18). Markup renderer is live working content;
+    // validator + diagnostics + download wire up at the 0.5 launch (2026-05-29).
+    // kind: 'doc' suppresses the SoftwareApplication JSON-LD — flip to 'tool'
+    // when Phase 1 lands. Indexable from day one (NOT noindex): the markup
+    // demo is a legitimate "what is a PoE 2 .build file" answer, not a
+    // scaffold, so Google caching it is fine. Diverges from the anointing
+    // precedent for that reason. Spec source:
+    // https://www.pathofexile.com/developer/docs/game
+    title: 'PoE 2 .build File Linter — Validate Build Planner JSON',
+    description: 'Validate Path of Exile 2 .build files for the new build planner. Live markup-tag preview; full validator + download lights up at the 0.5 launch on May 29.',
+    kind: 'doc',
+  },
 };
 
 /** Compute breadcrumb labels for a pathname. */
