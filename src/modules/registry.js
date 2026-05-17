@@ -34,6 +34,10 @@
  *                                     React component or the route fails at
  *                                     render time, NOT at module load time.
  *   external     boolean (optional) tools that link out instead of routing.
+ *   wip          boolean (optional) tool is temporarily disabled — sidebar
+ *                        renders it greyed-out with a "WIP" badge and the
+ *                        component should be a friendly placeholder page so
+ *                        bookmarks don't 404. Route still wires up normally.
  */
 import { lazy } from 'react';
 
@@ -292,6 +296,9 @@ const modules = [
     component: lazy(() => import('../pages/AtlasTreePage')),
   },
   {
+    // wip: rebuild in progress — see PassiveTreeWipPage. Real implementation
+    // lives in src/pages/PassiveTreePage.jsx and src/components/passive/;
+    // swap the component back when the rework lands.
     id: 'passive-tree',
     games: ['poe1'],
     title: 'Passive Tree Planner',
@@ -301,7 +308,8 @@ const modules = [
     route: '/build/passive-tree',
     icon: 'passive-tree',
     fullWidth: true,
-    component: lazy(() => import('../pages/PassiveTreePage')),
+    wip: true,
+    component: lazy(() => import('../pages/PassiveTreeWipPage')),
   },
   {
     id: 'atlas-diff',

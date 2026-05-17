@@ -159,9 +159,16 @@ export const ROUTE_META = {
     kind: 'tool',
   },
   '/build/passive-tree': {
-    title: 'PoE Passive Tree Planner — Class & Ascendancy Builder',
-    description: 'Plan your Path of Exile character passive tree by class and ascendancy. Import/export tree codes; full notable annotations.',
-    kind: 'tool',
+    // Pre-launch WIP: page renders a friendly under-construction placeholder
+    // (PassiveTreeWipPage). noindex keeps Google from caching the placeholder
+    // as the canonical answer for "PoE passive tree planner". kind: 'doc'
+    // suppresses the SoftwareApplication JSON-LD — there is no functioning
+    // SoftwareApplication to advertise yet. Flip back to `kind: 'tool'` and
+    // remove `noindex` when the rebuilt planner ships.
+    title: 'PoE Passive Tree Planner — Under Construction | Omnilyth',
+    description: "Omnilyth's PoE passive tree planner is being rebuilt with class and ascendancy support. No ETA yet — check the changelog for progress.",
+    kind: 'doc',
+    noindex: true,
   },
 
   // ─── Leveling tools ────────────────────────────────────────────────────

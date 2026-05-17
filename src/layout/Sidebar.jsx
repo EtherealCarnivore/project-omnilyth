@@ -58,6 +58,31 @@ function SidebarLink({ mod, onClose, isPinned, onTogglePin }) {
     );
   }
 
+  if (mod.wip) {
+    return (
+      <div className="group flex items-center">
+        <NavLink
+          to={mod.route}
+          onClick={onClose}
+          title="Being rebuilt — placeholder page only"
+          className={({ isActive }) => `
+            flex-1 flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition-all duration-150
+            ${isActive
+              ? 'text-amber-400/80 bg-amber-400/5'
+              : 'text-zinc-500 hover:text-zinc-400 hover:bg-white/[0.02]'
+            }
+          `}
+        >
+          <span className="flex-1">{mod.title}</span>
+          <span className="text-[9px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-amber-500/10 border border-amber-500/20 text-amber-400/70">
+            WIP
+          </span>
+        </NavLink>
+        <PinButton isPinned={isPinned} onClick={onTogglePin} />
+      </div>
+    );
+  }
+
   return (
     <div className="group flex items-center">
       <NavLink
