@@ -49,6 +49,7 @@ const BREADCRUMB_LABELS = {
   '/poe2/crafting': 'Crafting',
   '/poe2/atlas': 'Atlas',
   '/poe2/build': 'Build Planning',
+  '/poe2/builds': 'Builds',
 };
 
 // Per-route metadata. Drawn from the SEO bridge §7 drafts (2026-05-07);
@@ -270,6 +271,25 @@ export const ROUTE_META = {
     // https://www.pathofexile.com/developer/docs/game
     title: 'PoE 2 .build File Linter — Validate Build Planner JSON',
     description: 'Validate Path of Exile 2 .build files for the new build planner. Live markup-tag preview; full validator + download lights up at the 0.5 launch on May 29.',
+    kind: 'doc',
+  },
+  '/poe2/builds': {
+    // Phase 0 curated-content index (2026-05-18). Top-level Builds category
+    // per ui-architect call. Sparse today (only the GGG Shield Wall
+    // reference); fills with featured creator content from 0.5 launch
+    // (2026-05-29). Indexable from day one — even the reference build is
+    // legitimate landing-page content.
+    title: 'PoE 2 Builds — Curated Guides With .build Downloads',
+    description: 'Curated Path of Exile 2 builds with downloadable .build files for the in-game build planner. Validated against the official spec; updated for the current patch.',
+    kind: 'overview',
+  },
+  '/poe2/builds/shield-wall-mercenary-reference': {
+    // Per-build detail page (Phase 0). Manual seoMeta entry per build
+    // until the dynamic resolver lands in Phase 2 (target: ~10 builds).
+    // kind: 'doc' until a per-build JSON-LD shape (HowTo + VideoObject)
+    // is worked out — that lands in Phase 1.
+    title: 'Shield Wall Mercenary — GGG Reference Build for PoE 2',
+    description: "GGG's official Shield Wall Mercenary reference build from the .build format spec. Downloadable .build file, leveling notes, and gem progression for Path of Exile 2 0.5.",
     kind: 'doc',
   },
 };

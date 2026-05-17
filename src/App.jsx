@@ -77,10 +77,25 @@ export default function App() {
               <Route path="/build" element={<BuildPlanningOverviewPage />} />
               <Route path="/leveling" element={<LevelingOverviewPage />} />
               <Route path="/privacy" element={<PrivacyPage />} />
-              {/* Dynamically generate routes from registry — at least ONE thing feels like proper architecture */}
-              {modules.filter(mod => !mod.external).map(mod => (
-                <Route key={mod.id} path={mod.route} element={<mod.component />} />
-              ))}
+              {/* Dynamically generate routes from registry — at least ONE thing feels like proper architecture.
+                  Entries with `dynamicChildren` also wire a parameterised sibling route (e.g. /poe2/builds + /poe2/builds/:slug)
+                  so detail pages stay registry-discoverable without one registry entry per slug. */}
+              {modules.filter(mod => !mod.external).flatMap(mod => {
+                const routes = [
+                  <Route key={mod.id} path={mod.route} element={<mod.component />} />
+                ];
+                if (mod.dynamicChildren) {
+                  const Dynamic = mod.dynamicChildren.component;
+                  routes.push(
+                    <Route
+                      key={`${mod.id}-dynamic`}
+                      path={mod.dynamicChildren.routePattern}
+                      element={<Dynamic />}
+                    />
+                  );
+                }
+                return routes;
+              })}
               {/* Catch-all → real 404 page. RouteHead sets noindex automatically */}
               {/* for any path not in src/lib/seoMeta.js. */}
               <Route path="*" element={<NotFoundPage />} />

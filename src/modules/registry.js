@@ -38,6 +38,16 @@
  *                        renders it greyed-out with a "WIP" badge and the
  *                        component should be a friendly placeholder page so
  *                        bookmarks don't 404. Route still wires up normally.
+ *   dynamicChildren  object (optional) registers a parameterised sibling
+ *                        route under the same entry. Shape: { routePattern,
+ *                        component }. App.jsx wires both. Use when one
+ *                        index page hosts many detail pages (e.g. /builds
+ *                        index + /builds/:slug detail) without polluting
+ *                        the registry with one entry per slug. The detail
+ *                        component does NOT appear in the sidebar — that's
+ *                        the index's job. SEO meta + sitemap for individual
+ *                        slugs still live in src/lib/seoMeta.js until a
+ *                        data-driven resolver lands.
  */
 import { lazy } from 'react';
 
@@ -191,6 +201,28 @@ const modules = [
     icon: 'item',
     wip: true,
     component: lazy(() => import('../pages/Poe2BuildFileLintPage')),
+  },
+  {
+    // Phase 0 build-content surface (2026-05-18). Top-level "Builds"
+    // category per ui-architect call — curated content ≠ interactive
+    // tooling, so it doesn't nest under Build Planning. The index lists
+    // featured builds (card grid); dynamicChildren wires the per-slug
+    // detail route under the same registry entry so the contract stays
+    // single-source. Phase 0 ships the GGG Shield Wall reference; real
+    // creator content lands at 0.5 launch (2026-05-29).
+    id: 'builds-poe2',
+    games: ['poe2'],
+    title: 'Builds',
+    description: 'Curated PoE 2 builds with downloadable .build files',
+    category: 'Builds',
+    subcategory: 'Featured',
+    route: '/poe2/builds',
+    icon: 'build',
+    component: lazy(() => import('../pages/Poe2BuildsIndexPage')),
+    dynamicChildren: {
+      routePattern: '/poe2/builds/:slug',
+      component: lazy(() => import('../pages/Poe2BuildDetailPage')),
+    },
   },
   {
     id: 'dust-calculator',
