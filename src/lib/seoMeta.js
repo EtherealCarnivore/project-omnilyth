@@ -43,6 +43,12 @@ const BREADCRUMB_LABELS = {
   '/privacy': 'About & Privacy',
   '/poe2': 'Path of Exile 2',
   '/poe2/runes-of-aldur': 'Runes of Aldur',
+  // PoE 2 category-segment labels. These are intermediate path segments
+  // (no route of their own) — without them the breadcrumb falls back to
+  // the raw lowercase segment ("crafting", "atlas", "build").
+  '/poe2/crafting': 'Crafting',
+  '/poe2/atlas': 'Atlas',
+  '/poe2/build': 'Build Planning',
 };
 
 // Per-route metadata. Drawn from the SEO bridge §7 drafts (2026-05-07);
@@ -241,6 +247,17 @@ export const ROUTE_META = {
     title: 'PoE 2 Waystone Mod Regex — Filter Waystone Mods',
     description: "PoE 2's equivalent of Map Mod Regex. Pick the waystone mods you want, get a stash-search pattern under PoE's 250-character limit.",
     kind: 'tool',
+  },
+  '/poe2/build/anointing': {
+    // Pre-launch scaffold (2026-05-17). Page renders a "Pre-launch scaffold"
+    // banner — real Liquid Emotion → notable data lands ~2026-05-22 after
+    // the full 0.5 patch notes drop, ahead of the 2026-05-29 launch. noindex
+    // keeps Google from caching the scaffold as the canonical answer. Flip
+    // to `kind: 'tool'` and drop noindex once real data is wired.
+    title: 'PoE 2 Liquid Emotion Anointing — Amulet Notables | Omnilyth',
+    description: "Combine 3 Liquid Emotions to enchant a passive-tree notable on your Path of Exile 2 amulet. Pre-launch scaffold for patch 0.5 — data lands 2026-05-22.",
+    kind: 'doc',
+    noindex: true,
   },
 };
 

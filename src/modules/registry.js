@@ -164,6 +164,17 @@ const modules = [
     component: lazy(() => import('../pages/Poe2WaystoneRegexPage')),
   },
   {
+    id: 'anointing-poe2',
+    games: ['poe2'],
+    title: 'Liquid Emotion Anointing',
+    description: 'Find the 3 Liquid Emotions for any passive tree notable',
+    category: 'Build Planning',
+    subcategory: 'Anointing',
+    route: '/poe2/build/anointing',
+    icon: 'item',
+    component: lazy(() => import('../pages/Poe2AnointingPage')),
+  },
+  {
     id: 'dust-calculator',
     games: ['poe1'],
     title: 'Dust Calculator',
