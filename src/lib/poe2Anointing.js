@@ -1,42 +1,64 @@
 /**
  * poe2Anointing.js — Liquid Emotion anointing lookup (PoE 2).
  *
- * Mechanic: 3 Liquid Emotions (multiset of 3 emotion IDs) → passive-tree
- * notable, displayed on an equipped amulet. Two access patterns:
+ * Mechanic: 3 Liquid Emotions, anointed in an ORDERED sequence, enchant a
+ * passive-tree notable onto an equipped amulet. Order matters — (A,B,C) and
+ * (B,A,C) can map to different notables (197/216 multisets map to >1 notable).
  *
- *   Forward : findNotableForCombo([e1, e2, e3]) → notableId | null
- *   Reverse : findRecipesForNotable(notableId)  → recipe[]
+ * Data: src/data/poe2/anointing/{emotions,combinations}.json
+ *   — datamined from poe2db.tw 2026-05-22 (pre-launch; verify at 2026-05-29).
+ * Contract: .claude/knowledge/poe2/cached/liquid-emotion-anointing.md
  *
- * Data source: src/data/poe2/anointing/combinations.json (not yet ingested).
- * v1 scrape target: poe2db.tw/us/Liquid_Emotions (aoeah refused full-table
- * extraction on copyright grounds — do not scrape it). Refresh post-patch-notes
- * 2026-05-22.
- *
- * Math contract: .claude/knowledge/poe2/cached/liquid-emotion-anointing.md
- * Validation : poe2-mechanics-expert + poe-wiki-oracle (2026-05-17).
- *
- * Open question (calculator-engineer to resolve): combo is *ordered tuple*
- * per oracle's poe2db reading, but mechanics-expert defaulted to multiset
- * per PoE 1 convention. Confirm against in-game UI on 2026-05-29 launch.
- * Stub keys both directions below until that's settled.
+ *   Forward : findNotableForCombo([s1,s2,s3]) → recipe | null
+ *   Reverse : searchNotables(query)           → recipe[]
  */
+import emotionsData from '../data/poe2/anointing/emotions.json';
+import combosData from '../data/poe2/anointing/combinations.json';
 
-// Canonical key for a combo. Stub: lexical sort of emotion IDs (multiset path).
-// If 0.5 UI shows slot positions, swap to identity (preserve order).
-export function canonicalComboKey(emotionIds) {
-  return [...emotionIds].sort().join('|');
+export const EMOTIONS = emotionsData.emotions;
+export const ANOINT_META = combosData._meta;
+export const ALL_RECIPES = combosData.recipes;
+
+export const TIER_ORDER = ['diluted', 'standard', 'concentrated'];
+export const TIER_LABELS = {
+  diluted: 'Diluted',
+  standard: 'Standard',
+  concentrated: 'Concentrated',
+};
+
+const emotionById = new Map(EMOTIONS.map((e) => [e.id, e]));
+
+// Ordered key — join in slot order, do NOT sort (order is meaningful).
+const forwardIndex = new Map();
+for (const r of ALL_RECIPES) {
+  forwardIndex.set(r.e.join('|'), r);
 }
 
-// Forward: 3 emotions → notable. Returns the notableId, or null if combo is a sink.
-// recipeIndex is a Map<canonicalKey, notableId>; build once at data load.
-export function findNotableForCombo(_emotionIds, _recipeIndex) {
-  // calculator-engineer: implement against canonicalComboKey + recipeIndex lookup.
-  return null;
+export function emotionName(id) {
+  return emotionById.get(id)?.displayName ?? id;
 }
 
-// Reverse: notable → recipe[]. May return >1 entry once Potent variants land.
-// reverseIndex is a Map<notableId, recipe[]>; build once at data load.
-export function findRecipesForNotable(_notableId, _reverseIndex) {
-  // calculator-engineer: implement against reverseIndex lookup.
-  return [];
+// Forward: an ordered triple of emotion ids → the recipe, or null if the
+// combo anoints no notable (179 of 1000 ordered triples are no-ops).
+export function findNotableForCombo(emotionIds) {
+  if (!Array.isArray(emotionIds) || emotionIds.length !== 3) return null;
+  if (emotionIds.some((id) => !id || !emotionById.has(id))) return null;
+  return forwardIndex.get(emotionIds.join('|')) ?? null;
+}
+
+// Reverse: free-text notable search. Ranks exact > prefix > substring, then
+// alphabetical. Returns recipes (each carries its ordered emotion triple).
+export function searchNotables(query, limit = 60) {
+  const q = query.trim().toLowerCase();
+  if (!q) return [];
+  const scored = [];
+  for (const r of ALL_RECIPES) {
+    const name = r.notable.toLowerCase();
+    const idx = name.indexOf(q);
+    if (idx === -1) continue;
+    const score = name === q ? 0 : idx === 0 ? 1 : 2;
+    scored.push({ recipe: r, score });
+  }
+  scored.sort((a, b) => a.score - b.score || a.recipe.notable.localeCompare(b.recipe.notable));
+  return scored.slice(0, limit).map((s) => s.recipe);
 }

@@ -250,15 +250,13 @@ export const ROUTE_META = {
     kind: 'tool',
   },
   '/poe2/build/anointing': {
-    // Pre-launch scaffold (2026-05-17). Page renders a "Pre-launch scaffold"
-    // banner — real Liquid Emotion → notable data lands ~2026-05-22 after
-    // the full 0.5 patch notes drop, ahead of the 2026-05-29 launch. noindex
-    // keeps Google from caching the scaffold as the canonical answer. Flip
-    // to `kind: 'tool'` and drop noindex once real data is wired.
+    // Live 2026-05-22 with data-mined 0.5 anoint data (821 ordered recipes).
+    // Flipped from the pre-launch scaffold (noindex/doc) now that the lookup
+    // works. Data carries a "verify at launch" note in-page; re-confirm the
+    // table against the live game at the 2026-05-29 launch.
     title: 'PoE 2 Liquid Emotion Anointing — Amulet Notables | Omnilyth',
-    description: "Combine 3 Liquid Emotions to enchant a passive-tree notable on your Path of Exile 2 amulet. Pre-launch scaffold for patch 0.5 — data lands 2026-05-22.",
-    kind: 'doc',
-    noindex: true,
+    description: 'Look up which 3 Liquid Emotions anoint any passive-tree notable onto your Path of Exile 2 amulet. Forward and reverse search across all 821 ordered anoint recipes.',
+    kind: 'tool',
   },
   '/poe2/build/file-lint': {
     // Phase 0 preview (2026-05-18). Markup renderer is live working content;

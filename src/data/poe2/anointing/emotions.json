@@ -1,0 +1,60 @@
+{
+  "_meta": {
+    "source": "poe2db.tw/us/Liquid_Emotions",
+    "scrapedAt": "2026-05-22",
+    "provenance": "datamined pre-launch -- verify against live game at 2026-05-29 launch",
+    "count": 10
+  },
+  "emotions": [
+    {
+      "id": "ire",
+      "displayName": "Ire",
+      "tier": "diluted"
+    },
+    {
+      "id": "guilt",
+      "displayName": "Guilt",
+      "tier": "diluted"
+    },
+    {
+      "id": "greed",
+      "displayName": "Greed",
+      "tier": "diluted"
+    },
+    {
+      "id": "paranoia",
+      "displayName": "Paranoia",
+      "tier": "standard"
+    },
+    {
+      "id": "envy",
+      "displayName": "Envy",
+      "tier": "standard"
+    },
+    {
+      "id": "disgust",
+      "displayName": "Disgust",
+      "tier": "standard"
+    },
+    {
+      "id": "despair",
+      "displayName": "Despair",
+      "tier": "standard"
+    },
+    {
+      "id": "fear",
+      "displayName": "Fear",
+      "tier": "concentrated"
+    },
+    {
+      "id": "suffering",
+      "displayName": "Suffering",
+      "tier": "concentrated"
+    },
+    {
+      "id": "isolation",
+      "displayName": "Isolation",
+      "tier": "concentrated"
+    }
+  ]
+}
