@@ -1,0 +1,130 @@
+{
+  "_meta": {
+    "source": "poe2-mechanics-expert spec (2026-05-22) + modifier taxonomy observed from poe2.re UI (taxonomy only; no code/data copied — poe2.re is unlicensed)",
+    "scrapedAt": "2026-05-22",
+    "provenance": "Pre-launch. Modifier fragments derive from PoE 2 in-game stat text (stable 0.4->0.5). Movement-speed-tier and item-class fragments are best-effort and must be verified against the live game / poe2db scrape at the 2026-05-29 launch.",
+    "searchCharLimit": 50,
+    "note": "PoE 2 vendor search matches the visible item text (name + stat lines), case-insensitive. | = OR, space = AND, ! = exclude. No sockets/links/colours. Fragments containing | are pre-wrapped in (?:...) so they OR-join safely."
+  },
+  "groups": [
+    {
+      "id": "property",
+      "label": "Item property",
+      "options": [
+        { "id": "quality", "label": "Quality", "regex": "quality" },
+        { "id": "sockets", "label": "Sockets", "regex": "ts: S" }
+      ]
+    },
+    {
+      "id": "speed",
+      "label": "Speed",
+      "options": [
+        { "id": "attackspeed", "label": "Attack speed", "regex": "attack speed" },
+        { "id": "castspeed", "label": "Cast speed", "regex": "cast speed" }
+      ]
+    },
+    {
+      "id": "movement",
+      "label": "Movement speed",
+      "options": [
+        { "id": "msany", "label": "Any movement speed", "regex": "i.+mov" },
+        { "id": "ms30", "label": "Movement speed (30%)", "regex": "30. i.+mov" },
+        { "id": "ms25", "label": "Movement speed (25%)", "regex": "25. i.+mov" },
+        { "id": "ms20", "label": "Movement speed (20%)", "regex": "20. i.+mov" },
+        { "id": "ms15", "label": "Movement speed (15%)", "regex": "15. i.+mov" },
+        { "id": "ms10", "label": "Movement speed (10%)", "regex": "10. i.+mov" }
+      ]
+    },
+    {
+      "id": "modifiers",
+      "label": "Item modifiers",
+      "options": [
+        { "id": "phys", "label": "Physical damage", "regex": "ph.+dam", "verify": true },
+        { "id": "ele", "label": "Elemental damage", "regex": "el.+dam", "verify": true },
+        { "id": "cold", "label": "Cold damage", "regex": "co.+dam", "verify": true },
+        { "id": "fire", "label": "Fire damage", "regex": "fi.+dam", "verify": true },
+        { "id": "light", "label": "Lightning damage", "regex": "li.+dam", "verify": true },
+        { "id": "chaos", "label": "Chaos damage", "regex": "ch.+dam", "verify": true },
+        { "id": "spirit", "label": "+# Spirit", "regex": "Spirit$" },
+        { "id": "accuracy", "label": "Accuracy", "regex": "acc." },
+        { "id": "life", "label": "Maximum Life", "regex": "maximum life" },
+        { "id": "mana", "label": "Maximum Mana", "regex": "maximum mana" }
+      ]
+    },
+    {
+      "id": "skilllevels",
+      "label": "Skill levels",
+      "options": [
+        { "id": "levels", "label": "+# to Level of all Skills", "regex": "^\\+.*ills$" },
+        { "id": "lvlproj", "label": "… Projectile Skills", "regex": "roj.*ills$", "verify": true },
+        { "id": "lvlspell", "label": "… Spell Skills", "regex": "pell.*ills$", "verify": true },
+        { "id": "lvlmelee", "label": "… Melee Skills", "regex": "elee.*ills$", "verify": true },
+        { "id": "lvlminion", "label": "… Minion Skills", "regex": "inion.*ills$", "verify": true }
+      ]
+    },
+    {
+      "id": "resistances",
+      "label": "Resistances",
+      "options": [
+        { "id": "fireres", "label": "Fire resistance", "regex": "fi.+res" },
+        { "id": "coldres", "label": "Cold resistance", "regex": "co.+res" },
+        { "id": "lightres", "label": "Lightning resistance", "regex": "li.+res" },
+        { "id": "chaosres", "label": "Chaos resistance", "regex": "ch.+res" }
+      ]
+    },
+    {
+      "id": "rarityFilter",
+      "label": "Item rarity",
+      "options": [
+        { "id": "rare", "label": "Rare", "regex": "rare", "verify": true },
+        { "id": "magic", "label": "Magic", "regex": "magic", "verify": true }
+      ]
+    }
+  ],
+    "_classNote": "Item class matches the 'Class: X' tooltip line via 's: <prefix>'. Idiom + several prefixes verified in-game by the user (crossbow, bow, staff, quarterstaff, gloves, boots). Remaining prefixes inferred from class names — flagged verify until the exact 'Class:' string is confirmed.",
+  "itemClasses": [
+    {
+      "label": "Jewellery",
+      "options": [
+        { "id": "amulet", "label": "Amulets", "regex": "s: am", "verify": true },
+        { "id": "ring", "label": "Rings", "regex": "s: ri", "verify": true },
+        { "id": "belt", "label": "Belts", "regex": "s: be", "verify": true }
+      ]
+    },
+    {
+      "label": "1H weapons",
+      "options": [
+        { "id": "wand", "label": "Wands", "regex": "s: wa", "verify": true },
+        { "id": "mace1h", "label": "One Hand Maces", "regex": "s: on", "verify": true },
+        { "id": "sceptre", "label": "Sceptres", "regex": "s: sce", "verify": true }
+      ]
+    },
+    {
+      "label": "2H weapons",
+      "options": [
+        { "id": "bow", "label": "Bows", "regex": "s: bow" },
+        { "id": "staff", "label": "Staves", "regex": "s: st" },
+        { "id": "mace2h", "label": "Two Hand Maces", "regex": "s: tw", "verify": true },
+        { "id": "qstaff", "label": "Quarterstaves", "regex": "s: qua" },
+        { "id": "crossbow", "label": "Crossbows", "regex": "s: cr" }
+      ]
+    },
+    {
+      "label": "Equipment",
+      "options": [
+        { "id": "gloves", "label": "Gloves", "regex": "s: gl" },
+        { "id": "boots", "label": "Boots", "regex": "s: boo" },
+        { "id": "body", "label": "Body Armours", "regex": "s: bod", "verify": true },
+        { "id": "helmet", "label": "Helmets", "regex": "s: he", "verify": true }
+      ]
+    },
+    {
+      "label": "Offhand",
+      "options": [
+        { "id": "quiver", "label": "Quivers", "regex": "s: qui", "verify": true },
+        { "id": "focus", "label": "Foci", "regex": "s: fo", "verify": true },
+        { "id": "shield", "label": "Shields", "regex": "s: sh", "verify": true }
+      ]
+    }
+  ]
+}

@@ -50,6 +50,7 @@ const BREADCRUMB_LABELS = {
   '/poe2/atlas': 'Atlas',
   '/poe2/build': 'Build Planning',
   '/poe2/builds': 'Builds',
+  '/poe2/leveling': 'Leveling',
 };
 
 // Per-route metadata. Drawn from the SEO bridge §7 drafts (2026-05-07);
@@ -256,6 +257,11 @@ export const ROUTE_META = {
     // table against the live game at the 2026-05-29 launch.
     title: 'PoE 2 Liquid Emotion Anointing — Amulet Notables | Omnilyth',
     description: 'Look up which 3 Liquid Emotions anoint any passive-tree notable onto your Path of Exile 2 amulet. Forward and reverse search across all 821 ordered anoint recipes.',
+    kind: 'tool',
+  },
+  '/poe2/leveling/vendor-regex': {
+    title: 'PoE 2 Vendor Leveling Regex — Find Gear Fast',
+    description: 'Generate a vendor-window search pattern to highlight Path of Exile 2 leveling gear by slot and stat — movement speed, life, resists, spirit, and more, under the 50-char cap.',
     kind: 'tool',
   },
   '/poe2/build/file-lint': {
