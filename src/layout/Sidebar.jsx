@@ -8,6 +8,7 @@ import { getModuleTree, modulesForGame } from '../modules/registry';
 import { usePinned } from '../contexts/PinnedContext';
 import { useLevelingMode } from '../contexts/LevelingModeContext';
 import { useGame } from '../contexts/GameContext';
+import { useAuth, canSeeModule } from '../contexts/AuthContext';
 import YouTubeCard from '../components/YouTubeCard';
 
 const CATEGORY_ROUTES = {
@@ -109,9 +110,29 @@ export default function Sidebar({ open, onClose }) {
   const { pinnedIds, togglePin, isPinned } = usePinned();
   const { isActive: isLevelingMode, enterLevelingMode } = useLevelingMode();
   const { game } = useGame();
+  const { isAuthed, isAdmin, user, logout } = useAuth();
 
-  const tree = useMemo(() => getModuleTree(game), [game]);
-  const inGameModules = useMemo(() => modulesForGame(game), [game]);
+  const inGameModules = useMemo(
+    () => modulesForGame(game).filter(m => canSeeModule(m, { isAuthed, isAdmin })),
+    [game, isAuthed, isAdmin]
+  );
+
+  // Hide requiresAuth entries from the grouped nav until signed in.
+  const tree = useMemo(() => {
+    const auth = { isAuthed, isAdmin };
+    const full = getModuleTree(game);
+    const out = {};
+    for (const [cat, subs] of Object.entries(full)) {
+      for (const [sub, mods] of Object.entries(subs)) {
+        const vis = mods.filter(m => canSeeModule(m, auth));
+        if (vis.length) {
+          if (!out[cat]) out[cat] = {};
+          out[cat][sub] = vis;
+        }
+      }
+    }
+    return out;
+  }, [game, isAuthed, isAdmin]);
 
   // Pins are dropped if the pinned tool isn't available in the current game.
   // PinnedContext stores raw IDs that can be from either game; here we only
@@ -340,6 +361,14 @@ export default function Sidebar({ open, onClose }) {
           <div className="text-center">
             <span className="text-[10px] text-zinc-500">EtherealCarnivore</span>
           </div>
+          {isAuthed && (
+            <div className="text-center">
+              <span className="text-[10px] text-zinc-500">{user.username} · </span>
+              <button onClick={logout} className="text-[10px] text-cyan-400/80 hover:text-cyan-300">
+                Log out
+              </button>
+            </div>
+          )}
         </div>
       </aside>
     </>

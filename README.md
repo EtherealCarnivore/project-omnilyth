@@ -18,7 +18,7 @@ For third-party dependency licenses and embedded data attributions, see [THIRD_P
 - **State**: Context API (league, prices, pinning, leveling, atlas tree)
 - **Search**: Fuse.js (fuzzy search for gems)
 - **Data**: poe.ninja API (prices), PoE Wiki (gem availability), GGG atlas tree export
-- **Deployment**: GitHub Actions CI/CD → GitHub Pages (this repo's `gh-pages` branch) → custom domain `omnilyth.app`
+- **Deployment**: Cloudflare Pages (builds from the source repo; serves a private repo at no cost) → custom domain `omnilyth.app`
 - **API Proxy**: Cloudflare Worker at [`k-genov.workers.dev`](https://k-genov.workers.dev/) (poe.ninja allowlist; legacy Netlify/Vercel function shims still in-tree as fallback)
 
 ## Modules
@@ -144,7 +144,7 @@ npm run preview  # Preview production build (auth enabled)
 
 ## Deployment
 
-Pushes to `master` trigger GitHub Actions (`.github/workflows/deploy.yml`) → builds → deploys to this repo's own `gh-pages` branch via `peaceiris/actions-gh-pages`. The custom domain `omnilyth.app` is bound at the GitHub Pages level (CNAME file emitted into the gh-pages output by the workflow).
+Cloudflare Pages builds from this repo (`npm run build` → `dist/`, including the `scripts/prerender-meta.js` SEO prerender) and serves the custom domain `omnilyth.app`. SPA deep links resolve via `public/_redirects` (`/* /index.html 200`); prerendered per-route shells are served as static files first. Cloudflare Pages serves a private source repo at no cost, so the repo can stay private while the (GPL-free) bundle is public.
 
 **Live:** [omnilyth.app](https://omnilyth.app/)
 

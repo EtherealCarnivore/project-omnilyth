@@ -9,3 +9,15 @@ routes = [
 
 # Free plan: 100K requests/day, 10ms CPU per request
 # More than enough for a personal PoE toolkit
+
+# Auth store (hidden-menu login) — COMMENTED OUT until D1 is provisioned.
+# A binding pointing at a non-existent database_id would fail `wrangler deploy`
+# of the proxy Worker, and the frontend auth flag (src/config/authConfig.js) is
+# off anyway. To enable auth: `wrangler d1 create omnilyth-auth`, paste the
+# returned database_id, uncomment this block, `wrangler secret put AUTH_SECRET`,
+# `wrangler deploy`, then flip AUTH_ENABLED:true. (workers/auth.js fails closed
+# with a 500 while the binding is absent.)
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "omnilyth-auth"
+# database_id = "REPLACE_WITH_ID_FROM_wrangler_d1_create"

@@ -38,6 +38,11 @@
  *                        renders it greyed-out with a "WIP" badge and the
  *                        component should be a friendly placeholder page so
  *                        bookmarks don't 404. Route still wires up normally.
+ *   requiresAuth boolean (optional) "hidden menu" — only shown in the sidebar
+ *                        and reachable by route when signed in (see
+ *                        AuthContext canSeeModule + RequireAuth in App.jsx).
+ *   adminOnly    boolean (optional, with requiresAuth) further restricts to
+ *                        admin accounts. Enforced in the UI AND server-side.
  *   dynamicChildren  object (optional) registers a parameterised sibling
  *                        route under the same entry. Shape: { routePattern,
  *                        component }. App.jsx wires both. Use when one
@@ -257,26 +262,31 @@ const modules = [
     icon: 'cluster',
     component: lazy(() => import('../pages/ClusterJewelPage')),
   },
-  // Timeless Jewel Calc — re-enabled 2026-05-07 after the source repo flipped
-  // public + project license set to GPL-3.0. The calc/page/worker files port
-  // vilsol/timeless-jewels (GPL-3.0); GPL-3.0 source-availability is now
-  // satisfied by the public source repo, so distributing the chunk is
-  // compliant. Affected files: src/calculators/timelessJewel.js,
-  // src/workers/timelessSearch.js, src/components/TimelessJewelCalculator.jsx,
-  // src/components/TimelessTreeView.jsx, src/pages/TimelessJewelPage.jsx,
-  // and the JSON data under src/data/timeless/.
-  {
-    id: 'timeless-jewel',
-    games: ['poe1'],
-    title: 'Timeless Jewel Calc',
-    description: 'Calculate timeless jewel seed effects on passive tree nodes',
-    category: 'Jewels',
-    subcategory: 'Timeless Jewels',
-    route: '/build/timeless-jewel',
-    icon: 'timeless',
-    fullWidth: true,
-    component: lazy(() => import('../pages/TimelessJewelPage')),
-  },
+  // timeless-jewel — TEMPORARILY UNWIRED (2026-05-23, GPL-3.0 + going-private).
+  // The calc/page/worker files port vilsol/timeless-jewels (GPL-3.0). Shipping
+  // that chunk forces the whole bundle to be GPL-3.0 with public source — which
+  // blocks taking the repo private. Commenting out this entry makes Vite
+  // tree-shake all Timeless code out of dist/, so the bundle ships GPL-free and
+  // the repo can go private. The source files remain in-tree for LOCAL use
+  // (`npm run dev` is private use — no GPL distribution obligation).
+  // TO RE-ENABLE: uncomment this entry. Doing so re-introduces GPL-3.0 code
+  // into the bundle → the source repo MUST be public + GPL-3.0 again before
+  // deploying. See memory `project_licensing_2026_05` + CLAUDE.md §6.5.
+  // Affected files: src/calculators/timelessJewel.js, src/workers/timelessSearch.js,
+  // src/components/TimelessJewelCalculator.jsx, src/components/TimelessTreeView.jsx,
+  // src/pages/TimelessJewelPage.jsx, src/data/timeless/.
+  // {
+  //   id: 'timeless-jewel',
+  //   games: ['poe1'],
+  //   title: 'Timeless Jewel Calc',
+  //   description: 'Calculate timeless jewel seed effects on passive tree nodes',
+  //   category: 'Jewels',
+  //   subcategory: 'Timeless Jewels',
+  //   route: '/build/timeless-jewel',
+  //   icon: 'timeless',
+  //   fullWidth: true,
+  //   component: lazy(() => import('../pages/TimelessJewelPage')),
+  // },
   {
     id: 'gem-regex',
     games: ['poe1'],
@@ -416,6 +426,22 @@ const modules = [
     route: '/library',
     icon: 'library',
     component: lazy(() => import('../pages/RegexLibraryPage')),
+  },
+  {
+    // requiresAuth + adminOnly: a "hidden menu" — only visible in the sidebar
+    // (and reachable by route) for signed-in admin accounts. See AuthContext
+    // canSeeModule() + RequireAuth. Auth is enforced server-side too.
+    id: 'admin-users',
+    games: ['poe1', 'poe2'],
+    requiresAuth: true,
+    adminOnly: true,
+    title: 'User Management',
+    description: 'Set or reset passwords for Omnilyth accounts',
+    category: 'Tools',
+    subcategory: 'Admin',
+    route: '/admin/users',
+    icon: 'watcher',
+    component: lazy(() => import('../pages/AdminUsersPage')),
   },
 ];
 

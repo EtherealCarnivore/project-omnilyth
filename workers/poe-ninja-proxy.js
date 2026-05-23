@@ -23,6 +23,8 @@
  *   GITHUB_TOKEN — fine-grained PAT, repo issues:write on omnilyth-core-public
  */
 
+import { handleAuth } from './auth.js';
+
 const ALLOWED_ORIGINS = [
   'https://omnilyth.app',
   'https://www.omnilyth.app',
@@ -38,6 +40,7 @@ const RATE_CONFIG = {
   pob:      { limit: 15, window: 60_000, map: new Map() },
   notes:    { limit: 30, window: 60_000, map: new Map() },
   feedback: { limit: 5,  window: 60_000, map: new Map() },
+  auth:     { limit: 10, window: 60_000, map: new Map() },
 };
 
 function checkRateLimit(route, ip) {
@@ -70,7 +73,8 @@ function getOrigin(request) {
 const DEV_ORIGIN_RE = /^http:\/\/(localhost|127\.0\.0\.1|10\.\d{1,3}\.\d{1,3}\.\d{1,3}|192\.168\.\d{1,3}\.\d{1,3}|172\.(1[6-9]|2\d|3[01])\.\d{1,3}\.\d{1,3}):\d+/;
 
 function isOriginAllowed(origin) {
-  if (ALLOWED_ORIGINS.some(a => origin.startsWith(a))) return true;
+  // Exact match — `startsWith` would let "https://omnilyth.app.evil.com" pass.
+  if (ALLOWED_ORIGINS.includes(origin)) return true;
   return DEV_ORIGIN_RE.test(origin);
 }
 
@@ -78,7 +82,7 @@ function corsHeaders(origin, methods = 'GET') {
   return {
     'Access-Control-Allow-Origin': origin,
     'Access-Control-Allow-Methods': `${methods}, OPTIONS`,
-    'Access-Control-Allow-Headers': 'Content-Type',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization',
   };
 }
 
@@ -614,6 +618,18 @@ export default {
     const ip = getClientIP(request);
 
     if (request.method === 'POST') {
+      // Auth endpoints (D1-backed login/session) are routed by pathname.
+      if (new URL(request.url).pathname.startsWith('/auth/')) {
+        if (!checkRateLimit('auth', ip)) return jsonError(429, 'Too many requests. Please wait.', origin, 'POST');
+        try {
+          const res = await handleAuth(request, env, origin, corsHeaders);
+          if (res) return res;
+          return jsonError(404, 'Unknown auth endpoint', origin, 'POST');
+        } catch (err) {
+          console.error('Auth handler error:', err.message);
+          return jsonError(500, 'Internal server error', origin, 'POST');
+        }
+      }
       if (!checkRateLimit('feedback', ip)) return jsonError(429, 'Too many requests. Please wait.', origin, 'POST');
       try {
         return await handleFeedback(request, env, origin);

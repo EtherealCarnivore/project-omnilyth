@@ -18,6 +18,7 @@ import { LevelingModeProvider } from './contexts/LevelingModeContext';
 import { LevelingPlanProvider } from './contexts/LevelingPlanContext';
 import { PlaybookProvider } from './contexts/PlaybookContext';
 import { PatchNotesProvider } from './contexts/PatchNotesContext';
+import { AuthProvider } from './contexts/AuthContext';
 import AppShell from './layout/AppShell';
 import HomePage from './pages/HomePage';
 import Poe2HomePage from './pages/Poe2HomePage';
@@ -29,6 +30,8 @@ import LevelingOverviewPage from './pages/LevelingOverviewPage';
 import PrivacyPage from './pages/PrivacyPage';
 import RunesOfAldurPage from './pages/RunesOfAldurPage';
 import NotFoundPage from './pages/NotFoundPage';
+import LoginPage from './pages/LoginPage';
+import RequireAuth from './components/auth/RequireAuth';
 // LINK: src/modules/registry.js drives BOTH the route table below (one
 // <Route> per non-external entry) AND the sidebar grouping in src/layout/
 // Sidebar.jsx (via getModuleTree). Adding/removing a tool is a one-file
@@ -53,6 +56,7 @@ export default function App() {
       {/* My matching engine has lower latency than this render tree. */}
       {/* GameProvider sits outermost: league pool, price API path, and a few */}
       {/* other axes downstream all depend on which game the user is in. */}
+      <AuthProvider>
       <GameProvider>
         <LeagueProvider>
         <PricesProvider>
@@ -77,12 +81,16 @@ export default function App() {
               <Route path="/build" element={<BuildPlanningOverviewPage />} />
               <Route path="/leveling" element={<LevelingOverviewPage />} />
               <Route path="/privacy" element={<PrivacyPage />} />
+              <Route path="/login" element={<LoginPage />} />
               {/* Dynamically generate routes from registry — at least ONE thing feels like proper architecture.
                   Entries with `dynamicChildren` also wire a parameterised sibling route (e.g. /poe2/builds + /poe2/builds/:slug)
                   so detail pages stay registry-discoverable without one registry entry per slug. */}
               {modules.filter(mod => !mod.external).flatMap(mod => {
+                const element = mod.requiresAuth
+                  ? <RequireAuth adminOnly={mod.adminOnly}><mod.component /></RequireAuth>
+                  : <mod.component />;
                 const routes = [
-                  <Route key={mod.id} path={mod.route} element={<mod.component />} />
+                  <Route key={mod.id} path={mod.route} element={element} />
                 ];
                 if (mod.dynamicChildren) {
                   const Dynamic = mod.dynamicChildren.component;
@@ -110,6 +118,7 @@ export default function App() {
         </PricesProvider>
       </LeagueProvider>
       </GameProvider>
+      </AuthProvider>
       </PreLaunchGate>
     </BrowserRouter>
   );

@@ -48,3 +48,12 @@ export function feedbackUrl() {
 export function patchNotesUrl() {
   return `${PROXY_BASE}?notes=patch`;
 }
+
+/**
+ * Auth endpoint (path-based, e.g. authUrl('login') or authUrl('admin/set-password')).
+ * Always hits the deployed Worker — even in dev — because the Vite proxy only
+ * covers ninja calls and the Worker's CORS allowlist includes localhost.
+ */
+export function authUrl(action) {
+  return `${PROXY_BASE}/auth/${action}`;
+}
