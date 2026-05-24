@@ -39,16 +39,16 @@
       "id": "modifiers",
       "label": "Item modifiers",
       "options": [
-        { "id": "phys", "label": "Physical damage", "regex": "ph.+dam", "verify": true },
-        { "id": "ele", "label": "Elemental damage", "regex": "el.+dam", "verify": true },
-        { "id": "cold", "label": "Cold damage", "regex": "co.+dam", "verify": true },
-        { "id": "fire", "label": "Fire damage", "regex": "fi.+dam", "verify": true },
-        { "id": "light", "label": "Lightning damage", "regex": "li.+dam", "verify": true },
-        { "id": "chaos", "label": "Chaos damage", "regex": "ch.+dam", "verify": true },
+        { "id": "phys", "label": "Physical damage", "regex": "\\d.ph.*da" },
+        { "id": "ele", "label": "Elemental damage", "regex": "\\d.el.*da" },
+        { "id": "cold", "label": "Cold damage", "regex": "\\d.co.*da", "verify": true },
+        { "id": "fire", "label": "Fire damage", "regex": "\\d.fi.*da" },
+        { "id": "light", "label": "Lightning damage", "regex": "\\d.li.*da", "verify": true },
+        { "id": "chaos", "label": "Chaos damage", "regex": "\\d.ch.*da", "verify": true },
         { "id": "spirit", "label": "+# Spirit", "regex": "Spirit$" },
         { "id": "accuracy", "label": "Accuracy", "regex": "acc." },
-        { "id": "life", "label": "Maximum Life", "regex": "maximum life" },
-        { "id": "mana", "label": "Maximum Mana", "regex": "maximum mana" }
+        { "id": "life", "label": "Maximum Life", "regex": "\\d.+m.+lif" },
+        { "id": "mana", "label": "Maximum Mana", "regex": "\\d.+m.+man" }
       ]
     },
     {
@@ -76,8 +76,9 @@
       "id": "rarityFilter",
       "label": "Item rarity",
       "options": [
-        { "id": "rare", "label": "Rare", "regex": "rare", "verify": true },
-        { "id": "magic", "label": "Magic", "regex": "magic", "verify": true }
+        { "id": "rare", "label": "Rare", "regex": "y: r" },
+        { "id": "magic", "label": "Magic", "regex": "y: m" },
+        { "id": "normal", "label": "Normal", "regex": "y: n" }
       ]
     }
   ],

@@ -1,14 +1,18 @@
 /**
  * Poe2VendorRegex.jsx — Vendor leveling regex generator for PoE 2.
  *
- * Flat, everything-visible layout. Each ticked option becomes its own
- * "quoted" group; PoE 2 search treats space-separated quoted groups as AND,
- * so the output highlights items matching ALL selected criteria — e.g.
- *   "acc." "s: cr"   = a Crossbow that also has Accuracy.
+ * Flat, everything-visible layout with an OR / AND match toggle. Output is
+ * always wrapped in quotes:
+ *   - OR  (default): one quoted group, fragments alternated with `|` →
+ *     "a|b" — highlights items matching ANY selected criterion (like poe2.re).
+ *   - AND: each fragment as its own quoted group, space-joined → "a" "b" — PoE 2
+ *     treats space-separated quoted groups as AND, so it highlights items matching
+ *     ALL criteria, e.g.  "acc." "\d el.+dam"  = a thing with Accuracy AND ele dmg.
+ *     Pipe-only tools can't express this, which is our edge.
  *
  * PoE 2 vendor search matches the visible item text (name, Class: line, stat
- * lines), case-insensitive, capped at 50 chars per box. AND queries can't be
- * split across searches, so if the pattern exceeds 50 the user must trim.
+ * lines), case-insensitive, capped at 50 chars per box; over-limit patterns
+ * can't be split across searches, so the user must trim.
  *
  * Fragments are our own, derived from PoE 2 stat / Class-line text and
  * verified in-game where flagged.
@@ -17,7 +21,16 @@ import { useEffect, useMemo, useState } from 'react';
 import vendorData from '../data/poe2/vendorLevelingStats.json';
 
 const STORAGE_KEY = 'omnilyth_poe2_vendor_regex_v2';
+const MODE_KEY = 'omnilyth_poe2_vendor_regex_mode';
 const SEARCH_LIMIT = vendorData._meta?.searchCharLimit ?? 50;
+
+function loadMode() {
+  try {
+    return localStorage.getItem(MODE_KEY) === 'and' ? 'and' : 'or';
+  } catch {
+    return 'or';
+  }
+}
 
 // Ordered option list (stable output) + id lookup, across modifiers + classes.
 const ORDERED = [];
@@ -36,17 +49,24 @@ function loadSelected() {
 
 export default function Poe2VendorRegex() {
   const [selected, setSelected] = useState(loadSelected);
+  const [mode, setMode] = useState(loadMode);
   const [copied, setCopied] = useState(false);
 
   useEffect(() => {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify([...selected])); } catch { /* ignore */ }
   }, [selected]);
 
-  // AND model: one quoted group per criterion, space-joined.
-  const pattern = useMemo(
-    () => ORDERED.filter((o) => selected.has(o.id)).map((o) => `"${o.regex}"`).join(' '),
-    [selected]
-  );
+  useEffect(() => {
+    try { localStorage.setItem(MODE_KEY, mode); } catch { /* ignore */ }
+  }, [mode]);
+
+  // Output is always quoted. OR: one quoted group, fragments alternated with `|`
+  // → "a|b". AND: one quoted group per criterion, space-joined → "a" "b".
+  const pattern = useMemo(() => {
+    const frags = ORDERED.filter((o) => selected.has(o.id)).map((o) => o.regex);
+    if (frags.length === 0) return '';
+    return mode === 'and' ? frags.map((r) => `"${r}"`).join(' ') : `"${frags.join('|')}"`;
+  }, [selected, mode]);
   const over = pattern.length > SEARCH_LIMIT;
 
   function toggle(id) {
@@ -82,18 +102,40 @@ export default function Poe2VendorRegex() {
         <h1 className="text-2xl font-bold text-zinc-100">Vendor Leveling Regex</h1>
         <p className="text-sm text-zinc-400 leading-relaxed max-w-3xl">
           Tick what you're hunting for, then paste the pattern into a vendor's search box.
-          Each criterion is its own quoted group, which PoE 2 searches as <strong className="text-zinc-300">AND</strong> —
-          so the highlight matches items that have <em>all</em> of them (e.g. a crossbow that
-          also has accuracy). Searches cap at{' '}
-          <strong className="text-zinc-300">{SEARCH_LIMIT} characters</strong> and can't be
-          split, so trim if you go over.
+          <strong className="text-zinc-300"> OR</strong> (default) joins criteria with{' '}
+          <code className="text-cyan-300/90">|</code> and highlights items matching <em>any</em> of
+          them — same as poe2.re. Switch to <strong className="text-zinc-300">AND</strong> to highlight
+          only items matching <em>all</em> of them (e.g. a crossbow that <em>also</em> has accuracy) —
+          something pipe-only tools can't express. Searches cap at{' '}
+          <strong className="text-zinc-300">{SEARCH_LIMIT} characters</strong> and can't be split,
+          so trim if you go over.
         </p>
       </div>
 
       {/* Output panel — sticky on top */}
       <div className="sticky top-0 z-10 rounded-xl border border-white/[0.08] bg-zinc-950/90 backdrop-blur-sm p-4 space-y-2">
-        <div className="flex items-center justify-between gap-3">
-          <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Vendor search pattern</h2>
+        <div className="flex items-center justify-between gap-3 flex-wrap">
+          <div className="flex items-center gap-3">
+            <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Vendor search pattern</h2>
+            {/* OR / AND match toggle */}
+            <div role="radiogroup" aria-label="Match mode" className="inline-flex rounded-lg border border-white/[0.06] bg-zinc-900/60 p-0.5">
+              {['or', 'and'].map((m) => (
+                <button
+                  key={m}
+                  type="button"
+                  role="radio"
+                  aria-checked={mode === m}
+                  onClick={() => setMode(m)}
+                  title={m === 'or' ? 'Match items with ANY selected criterion (joined with |)' : 'Match items with ALL selected criteria (quoted groups)'}
+                  className={`px-2.5 py-0.5 rounded-md text-[11px] font-bold uppercase tracking-wide motion-safe:transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 ${
+                    mode === m ? 'bg-cyan-500/20 text-cyan-300' : 'text-zinc-500 hover:text-zinc-300'
+                  }`}
+                >
+                  {m}
+                </button>
+              ))}
+            </div>
+          </div>
           <div className="flex items-center gap-3">
             <span className={`text-[10px] font-mono tabular-nums ${over ? 'text-red-400 font-semibold' : 'text-zinc-600'}`}>
               {pattern.length}/{SEARCH_LIMIT}
@@ -121,12 +163,14 @@ export default function Poe2VendorRegex() {
         {pattern ? (
           <code className="block text-sm text-cyan-200 font-mono break-all leading-relaxed">{pattern}</code>
         ) : (
-          <p className="text-sm text-zinc-500">Select one or more options below to build an AND pattern.</p>
+          <p className="text-sm text-zinc-500">
+            Select one or more options below to build {mode === 'and' ? 'an AND' : 'an OR'} pattern.
+          </p>
         )}
         {over && (
           <p className="text-xs text-red-400">
-            Over the {SEARCH_LIMIT}-character limit. AND searches can't be split across boxes —
-            remove a criterion.
+            Over the {SEARCH_LIMIT}-character limit — searches can't be split across boxes,
+            so remove a criterion.
           </p>
         )}
       </div>
