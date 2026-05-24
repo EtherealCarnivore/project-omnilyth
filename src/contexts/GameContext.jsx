@@ -28,16 +28,31 @@ function readPersistedGame() {
   }
 }
 
+// Whether the user has ever made an explicit game choice. A stored, valid
+// value means they (or an older session) already picked — so the first-visit
+// picker stays hidden. Storage being disabled also counts as "chosen": we
+// can't persist a pick anyway, so nagging on every load would be worse.
+function hasStoredGame() {
+  try {
+    return VALID_GAMES.includes(localStorage.getItem(STORAGE_KEY));
+  } catch {
+    return true;
+  }
+}
+
 const GameContext = createContext(null);
 
 export function GameProvider({ children }) {
   // Synchronous initial read. The lazy initializer runs once and avoids
   // the flash of default-game-content before useEffect could hydrate.
   const [game, setGameState] = useState(readPersistedGame);
+  const [hasChosen, setHasChosen] = useState(hasStoredGame);
 
   const setGame = useCallback((next) => {
     if (!VALID_GAMES.includes(next)) return;
     setGameState(next);
+    // Any explicit set is a choice — persist it AND mark the picker resolved.
+    setHasChosen(true);
     try {
       localStorage.setItem(STORAGE_KEY, next);
     } catch {
@@ -50,6 +65,7 @@ export function GameProvider({ children }) {
       value={{
         game,
         setGame,
+        hasChosen,
         isPoe1: game === 'poe1',
         isPoe2: game === 'poe2',
       }}

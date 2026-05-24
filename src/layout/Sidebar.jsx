@@ -262,21 +262,28 @@ export default function Sidebar({ open, onClose }) {
                 {!isCategoryCollapsed(category) && (
                   <>
                     {/* Special Leveling Mode Entry Button */}
-                    {category === 'Leveling' && !isLevelingMode && (
+                    {category === 'Leveling' && (game === 'poe2' || !isLevelingMode) && (
                       <div className="mb-2 ml-2">
                         <NavLink
-                          to="/leveling/mode"
+                          to={game === 'poe2' ? '/poe2/leveling/mode' : '/leveling/mode'}
                           onClick={() => {
-                            enterLevelingMode();
+                            // PoE 2 leveling is a self-contained fullWidth page; the focused
+                            // LevelingSidebar shell is PoE 1-only (its links, trials tracker,
+                            // and tips are all PoE 1), so PoE 2 navigates without swapping chrome.
+                            if (game !== 'poe2') enterLevelingMode();
                             onClose();
                           }}
-                          className="flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-all duration-150 bg-gradient-to-r from-teal-500/10 to-teal-600/5 border border-teal-500/20 text-teal-400 hover:bg-teal-500/20 hover:border-teal-500/40"
+                          className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm transition-all duration-150 ${
+                            game === 'poe2'
+                              ? 'bg-gradient-to-r from-cyan-500/10 to-cyan-600/5 border border-cyan-500/20 text-cyan-400 hover:bg-cyan-500/20 hover:border-cyan-500/40'
+                              : 'bg-gradient-to-r from-teal-500/10 to-teal-600/5 border border-teal-500/20 text-teal-400 hover:bg-teal-500/20 hover:border-teal-500/40'
+                          }`}
                         >
                           <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
                             <path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z" />
                           </svg>
                           <span>Enter Leveling Mode</span>
-                          <span className="text-teal-400">✨</span>
+                          <span className={game === 'poe2' ? 'text-cyan-400' : 'text-teal-400'}>✨</span>
                         </NavLink>
                       </div>
                     )}

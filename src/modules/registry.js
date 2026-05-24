@@ -201,6 +201,17 @@ const modules = [
     component: lazy(() => import('../pages/Poe2VendorRegexPage')),
   },
   {
+    id: 'leveling-mode-poe2',
+    games: ['poe2'],
+    title: 'Leveling Mode',
+    description: 'Interactive PoE 2 campaign tracker — zones, objectives, permanent rewards',
+    category: 'Leveling',
+    subcategory: 'Guide',
+    route: '/poe2/leveling/mode',
+    icon: 'guide',
+    component: lazy(() => import('../pages/Poe2LevelingModePage')),
+  },
+  {
     // Phase 0 preview (2026-05-18). The .build format spec went public
     // on 2026-05-16 (pathofexile.com/developer/docs/game) — Phase 4 in
     // CLAUDE.md §0.5 is now unblocked. This route ships a working

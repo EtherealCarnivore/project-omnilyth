@@ -264,6 +264,11 @@ export const ROUTE_META = {
     description: 'Generate a vendor-window search pattern to highlight Path of Exile 2 leveling gear by slot and stat — movement speed, life, resists, spirit, and more, under the 50-char cap.',
     kind: 'tool',
   },
+  '/poe2/leveling/mode': {
+    title: 'PoE 2 Leveling Mode — Interactive Campaign Tracker',
+    description: 'Track your Path of Exile 2 campaign act-by-act: check off zones and objectives, and never miss a permanent reward — including one-time irreversible choices and uncut-gem unlocks.',
+    kind: 'howto',
+  },
   '/poe2/build/file-lint': {
     // Phase 0 preview (2026-05-18). Markup renderer is live working content;
     // validator + diagnostics + download wire up at the 0.5 launch (2026-05-29).

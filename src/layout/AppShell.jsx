@@ -15,13 +15,21 @@ import Topbar from './Topbar';
 import LevelingModeBanner from '../components/LevelingModeBanner';
 import CrossGameBanner from '../components/CrossGameBanner';
 import RouteHead from '../components/RouteHead';
+import FirstVisitGamePicker from '../components/FirstVisitGamePicker';
 import { useLevelingMode } from '../contexts/LevelingModeContext';
+import { useGame } from '../contexts/GameContext';
 import modules from '../modules/registry';
 
 export default function AppShell() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const location = useLocation();
-  const { isActive: isLevelingMode } = useLevelingMode();
+  const { isActive: levelingActive } = useLevelingMode();
+  const { game } = useGame();
+
+  // The focused LevelingSidebar shell is PoE 1-only (its links, trials tracker, and
+  // tips are all PoE 1). The persisted leveling-mode flag can outlive a game switch,
+  // so gate the focused shell on the active game to avoid leaking PoE 1 chrome into PoE 2.
+  const isLevelingMode = levelingActive && game === 'poe1';
 
   // Look up current module to check if it needs fullWidth (e.g., Timeless Jewel tree)
   const currentModule = modules.find(m => m.route === location.pathname);
@@ -33,6 +41,7 @@ export default function AppShell() {
   return (
     <div className="flex h-screen overflow-hidden">
       <RouteHead />
+      <FirstVisitGamePicker />
       <SidebarComponent open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
       <div className="flex-1 flex flex-col min-w-0">
