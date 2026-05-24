@@ -15,6 +15,13 @@
  * "Re-verify at 2026-05-29 launch (0.5) checklist" for the exact list.
  *
  * No class dimension — PoE 2 rewards/gem-unlocks are class-agnostic.
+ *
+ * `accessedFrom` / `areaHint` are optional zone-navigation aids sourced from the 0.4
+ * navigation cache `.claude/knowledge/poe2/cached/campaign-zone-navigation.md`
+ * (poe2db.tw + Maxroll, verified 2026-05-24). They are PRE-0.5: the 0.5 in-game
+ * directional cue system (2026-05-29) may supersede the `areaHint` pointers; the
+ * `accessedFrom` edges + `isOptional` (side-zone) flags are durable structural metadata.
+ * Both fields are omitted on zones the cache marks unknown.
  */
 
 export const poe2LevelingActs = [
@@ -47,6 +54,7 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: true,
         isOptional: false,
+        accessedFrom: "The Riverbank",
         bosses: [],
         objectives: [],
         tips: [
@@ -60,6 +68,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Clearfell Encampment",
+        areaHint: "Mud Burrow entrance on the right side; The Grelwood via the top-right exit",
         bosses: ["Beira of the Rotten Pack"],
         objectives: [
           { description: "Defeat Beira of the Rotten Pack (optional)", type: "boss" },
@@ -75,6 +85,8 @@ export const poe2LevelingActs = [
         hasWaypoint: false,
         isTown: false,
         isOptional: true,
+        accessedFrom: "Clearfell",
+        areaHint: "On the right side of Clearfell; narrow winding burrow",
         bosses: ["The Devourer"],
         objectives: [
           { description: "Defeat The Devourer (optional)", type: "boss" },
@@ -88,6 +100,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Clearfell",
+        areaHint: "Through Clearfell's top-right exit; open forested area, Tree of Souls hub",
         bosses: [],
         objectives: [
           { description: "Reach the Tree of Souls hub", type: "explore" },
@@ -101,6 +115,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "The Grelwood",
+        areaHint: "Open zone off The Grelwood; return to The Grelwood after the Runed Girdles",
         bosses: [],
         objectives: [
           { description: "Activate the three Obelisks of Rust", type: "explore" },
@@ -117,6 +133,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "The Grelwood",
+        areaHint: "Reached from The Grelwood after the Tree of Souls; narrow winding zone",
         bosses: [],
         objectives: [
           { description: "Proceed toward the graveyard areas", type: "explore" },
@@ -130,6 +148,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "The Grim Tangle",
+        areaHint: "Open area; branches to Tomb of the Consort, Mausoleum of the Praetor, and Hunting Grounds",
         bosses: [],
         objectives: [
           { description: "Enter the dual-dungeon hub (Tomb + Mausoleum)", type: "explore" },
@@ -143,6 +163,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Cemetery of the Eternals",
+        areaHint: "Underground dungeon off the cemetery; backtrack out after",
         bosses: ["Asinia"],
         objectives: [
           { description: "Defeat Asinia", type: "boss" },
@@ -156,6 +178,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Cemetery of the Eternals",
+        areaHint: "Underground dungeon off the cemetery; backtrack out after",
         bosses: ["Draven"],
         objectives: [
           { description: "Defeat Draven", type: "boss" },
@@ -169,6 +193,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Cemetery of the Eternals",
+        areaHint: "Open, dangerous; reached after both Tomb bosses. Branches to Freythorn and Ogham Farmlands",
         bosses: ["The Crowbell"],
         objectives: [
           { description: "Defeat The Crowbell (optional)", type: "boss" },
@@ -183,7 +209,9 @@ export const poe2LevelingActs = [
         level: 11,
         hasWaypoint: true,
         isTown: false,
-        isOptional: false,
+        isOptional: true,
+        accessedFrom: "Hunting Grounds",
+        areaHint: "Hoisted above the Hunting Grounds; narrow wooden walkways. Find Freythorn first before progressing",
         bosses: ["The King in the Mists"],
         objectives: [
           { description: "Defeat The King in the Mists", type: "boss" },
@@ -199,6 +227,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Hunting Grounds",
+        areaHint: "Open zone branching off the Hunting Grounds; the Lost Lute quest. Mainline path to Ogham Village runs through here",
         bosses: [],
         objectives: [
           { description: "Complete \"The Lost Lute\" (Una's Lute)", type: "quest" },
@@ -214,6 +244,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Ogham Farmlands",
+        areaHint: "Fiery village reached from the Ogham Farmlands",
         bosses: ["The Executioner"],
         objectives: [
           { description: "Defeat The Executioner", type: "boss" },
@@ -227,6 +259,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Ogham Village",
+        areaHint: "Open transition off Ogham Village (no quests/bosses); search for the Ogham Manor",
         bosses: [],
         objectives: [
           { description: "Cross to Ogham Manor", type: "explore" },
@@ -240,6 +274,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "The Manor Ramparts",
+        areaHint: "Multi-floor indoor zone (act finale) past the Manor Ramparts",
         bosses: ["Count Geonor", "Candlemass, The Living Rite"],
         objectives: [
           { description: "Defeat Count Geonor (Act Boss)", type: "boss" },
@@ -388,6 +424,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Vastiri Outskirts",
+        areaHint: "Mix of narrow passages and open ground off the Vastiri Outskirts; no immediate objective",
         bosses: [],
         objectives: [
           { description: "Reach Mawdun Mine", type: "explore" },
@@ -401,6 +439,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Mawdun Quarry",
+        areaHint: "Past the Mawdun Quarry; boss Rudja, then return to the Ardura Caravan",
         bosses: ["Rudja, the Dread Engineer"],
         objectives: [
           { description: "Defeat Rudja, the Dread Engineer", type: "boss" },
@@ -414,6 +454,8 @@ export const poe2LevelingActs = [
         hasWaypoint: false,
         isTown: true,
         isOptional: false,
+        accessedFrom: "Mawdun Mine",
+        areaHint: "Mobile town reached after Mawdun Mine; its Desert Map routes to the rest of the act",
         bosses: [],
         objectives: [],
         tips: [
@@ -427,6 +469,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Ardura Caravan (Desert Map)",
+        areaHint: "Dark cavernous zone; alternate entrance to The Halani Gates. Balbala here unlocks the Trial of the Sekhemas",
         bosses: ["Balbala, the Traitor"],
         objectives: [
           { description: "Defeat Balbala, the Traitor (optional)", type: "boss" },
@@ -442,6 +486,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Ardura Caravan (Desert Map)",
+        areaHint: "Also reachable via Traitor's Passage. Initially sandstorm-blocked until the Horn of the Vastiri",
         bosses: ["Jamanra, the Risen King"],
         objectives: [
           { description: "Defeat Jamanra, the Risen King", type: "boss" },
@@ -457,6 +503,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Ardura Caravan (Desert Map)",
+        areaHint: "Open zone; search the Mastodon Badlands for the entrance to The Bone Pits",
         bosses: [],
         objectives: [
           { description: "Cross the badlands", type: "explore" },
@@ -470,6 +518,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Mastodon Badlands",
+        areaHint: "End of the Mastodon Badlands chain (quest \"A Theft of Ivory\"); dead-end, backtrack",
         bosses: ["Iktab", "Ekbab"],
         objectives: [
           { description: "Defeat Iktab & Ekbab", type: "boss" },
@@ -483,6 +533,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Ardura Caravan (Desert Map)",
+        areaHint: "Search Keth for the entrance to The Lost City",
         bosses: ["Kabala, Constrictor Queen"],
         objectives: [
           { description: "Defeat Kabala, Constrictor Queen (optional)", type: "boss" },
@@ -498,6 +550,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Keth",
+        areaHint: "Progress forward through The Lost City and search for the Buried Shrines",
         bosses: [],
         objectives: [
           { description: "Reach Buried Shrines", type: "explore" },
@@ -511,6 +565,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "The Lost City",
+        areaHint: "End of the Keth → Lost City chain (quest \"City of Seven Waters\"); dead-end, backtrack",
         bosses: ["Azarian, the Forsaken Son"],
         objectives: [
           { description: "Defeat Azarian, the Forsaken Son", type: "boss" },
@@ -524,6 +580,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Ardura Caravan (Desert Map)",
+        areaHint: "The third Ancient Seal here opens the entrance to The Titan Grotto",
         bosses: [],
         objectives: [
           { description: "Activate the Valley Altar (mandatory choice)", type: "altar" },
@@ -539,6 +597,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Valley of the Titans",
+        areaHint: "Dungeon at the end of the Valley of the Titans chain (\"A Crown of Stone\"); dead-end",
         bosses: ["Zalmarath, the Colossus"],
         objectives: [
           { description: "Defeat Zalmarath, the Colossus", type: "boss" },
@@ -552,6 +612,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "The Ardura Caravan",
+        areaHint: "Open zone reached from the Caravan after sounding the Horn of the Vastiri",
         bosses: [],
         objectives: [
           { description: "Complete the \"Final Letter\" delivery", type: "quest" },
@@ -567,6 +629,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Deshar",
+        areaHint: "Built above Deshar; interconnected rooms / walkway",
         bosses: [],
         objectives: [
           { description: "Reach The Spires of Deshar", type: "explore" },
@@ -580,6 +644,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Path of Mourning",
+        areaHint: "Past the Path of Mourning; boss Tor Gul, plus the Sisters of Garukhan shrine",
         bosses: ["Tor Gul, the Defiler"],
         objectives: [
           { description: "Visit the Sisters of Garukhan shrine (mandatory)", type: "altar" },
@@ -596,6 +662,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "The Spires of Deshar",
+        areaHint: "Final zone of Act 2, past The Spires of Deshar",
         bosses: ["Jamanra, the Abomination"],
         objectives: [
           { description: "Defeat Jamanra, the Abomination (Act Boss)", type: "boss" },
@@ -724,6 +792,7 @@ export const poe2LevelingActs = [
         hasWaypoint: false,
         isTown: true,
         isOptional: false,
+        accessedFrom: "Sandswept Marsh",
         bosses: [],
         objectives: [],
         tips: [
@@ -737,6 +806,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Ziggurat Encampment",
+        areaHint: "Take the exit near the top of the town. Branches to Infested Barrens and The Venom Crypts",
         bosses: ["Mighty Silverfist"],
         objectives: [
           { description: "Defeat Mighty Silverfist (optional)", type: "boss" },
@@ -751,7 +822,9 @@ export const poe2LevelingActs = [
         level: 34,
         hasWaypoint: false,
         isTown: false,
-        isOptional: false,
+        isOptional: true,
+        accessedFrom: "Jungle Ruins",
+        areaHint: "Entrance near the Waypoint in the Jungle Ruins; dead-end, backtrack out after",
         bosses: [],
         objectives: [
           { description: "Complete the \"Venom Vial\" delivery (irreversible choice)", type: "altar" },
@@ -767,6 +840,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Jungle Ruins",
+        areaHint: "Open forested zone on the critical path off the Jungle Ruins; connects to The Azak Bog",
         bosses: [],
         objectives: [
           { description: "Proceed toward Chimeral Wetlands", type: "explore" },
@@ -782,6 +857,8 @@ export const poe2LevelingActs = [
         hasWaypoint: false,
         isTown: false,
         isOptional: true,
+        accessedFrom: "Infested Barrens",
+        areaHint: "Optional side zone connected to the Infested Barrens; Ignagduk grants +30 Spirit",
         bosses: ["Ignagduk, the Bog Witch"],
         objectives: [
           { description: "Defeat Ignagduk, the Bog Witch (optional)", type: "boss" },
@@ -797,6 +874,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Infested Barrens",
+        areaHint: "Boss Xyclucian; branches to the Temple of Chaos (Trial of Chaos) and Jiquani's Machinarium",
         bosses: ["Xyclucian, the Chimera"],
         objectives: [
           { description: "Defeat Xyclucian, the Chimera", type: "boss" },
@@ -813,6 +892,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Chimeral Wetlands",
+        areaHint: "Needs Small Soul Cores to enter; Blackjaw grants +10% Fire Resistance",
         bosses: ["Blackjaw, the Remnant"],
         objectives: [
           { description: "Defeat Blackjaw, the Remnant (optional)", type: "boss" },
@@ -828,6 +909,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Jiquani's Machinarium",
+        areaHint: "Needs 2 Medium Soul Cores; boss Zicoatl",
         bosses: ["Zicoatl, Warden of the Core"],
         objectives: [
           { description: "Defeat Zicoatl, Warden of the Core", type: "boss" },
@@ -841,6 +924,8 @@ export const poe2LevelingActs = [
         hasWaypoint: false,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Jiquani's Sanctum",
+        areaHint: "Lever puzzle — drain the water sections to progress",
         bosses: [],
         objectives: [
           { description: "Solve the lever puzzle", type: "explore" },
@@ -854,6 +939,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "The Matlan Waterways",
+        areaHint: "Branches to Apex of Filth (critical path) and The Molten Vault (optional side zone)",
         bosses: [],
         objectives: [
           { description: "Reach Apex of Filth", type: "explore" },
@@ -869,6 +956,8 @@ export const poe2LevelingActs = [
         hasWaypoint: false,
         isTown: false,
         isOptional: true,
+        accessedFrom: "The Drowned City",
+        areaHint: "Optional side zone off The Drowned City; Mektul drops an Uncut Skill Gem (L10); dead-end",
         bosses: ["Mektul"],
         objectives: [
           { description: "Defeat Mektul (optional)", type: "boss" },
@@ -884,6 +973,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "The Drowned City",
+        areaHint: "Queen of Filth drops the Temple Door Idol to open the next zone",
         bosses: ["Queen of Filth"],
         objectives: [
           { description: "Defeat Queen of Filth", type: "boss" },
@@ -897,6 +988,8 @@ export const poe2LevelingActs = [
         hasWaypoint: false,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Apex of Filth",
+        areaHint: "Follow Alva through the gateway to the Vaal Empire",
         bosses: ["Ketzuli, High Priest of the Sun"],
         objectives: [
           { description: "Defeat Ketzuli, High Priest of the Sun", type: "boss" },
@@ -910,6 +1003,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Temple of Kopec",
+        areaHint: "Take the steps down to Utzaal; Chaos Statue here (Inscribed Ultimatum)",
         bosses: ["Viper Napuatzi"],
         objectives: [
           { description: "Defeat Viper Napuatzi", type: "boss" },
@@ -924,6 +1019,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Utzaal (Past)",
+        areaHint: "Sacrificial Dais here grants +2 passive points",
         bosses: [],
         objectives: [
           { description: "Perform the Sacrificial Heart ritual at the Sacrificial Dais (optional)", type: "altar" },
@@ -939,6 +1036,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Aggorat (Past)",
+        areaHint: "Act 3 finale past Aggorat; boss Doryani",
         bosses: ["Doryani, Royal Thaumaturge"],
         objectives: [
           { description: "Defeat Doryani, Royal Thaumaturge (Act Boss)", type: "boss" },
@@ -1076,6 +1175,7 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: true,
         isOptional: false,
+        areaHint: "Hub with spokes to Isle of Kin, Abandoned Prison, Shrike Island, Whakapanu Island and Ngakanu (several by boat)",
         bosses: [],
         objectives: [],
         tips: [
@@ -1148,6 +1248,7 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Kingsmarch",
         bosses: [],
         objectives: [
           { description: "Use the Goddess of Justice altar (swappable choice)", type: "altar" },
@@ -1163,6 +1264,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Abandoned Prison",
+        areaHint: "Built below the Abandoned Prison",
         bosses: ["The Prisoner"],
         objectives: [
           { description: "Defeat The Prisoner (ballista mechanic)", type: "boss" },
@@ -1222,6 +1325,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: true,
+        accessedFrom: "Kingsmarch (by boat)",
+        areaHint: "Optional spoke; Great White One; trade Shark Fin for Uncut gems",
         bosses: ["Great White One"],
         objectives: [
           { description: "Defeat Great White One (optional)", type: "boss" },
@@ -1237,6 +1342,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: false,
+        accessedFrom: "Whakapanu Island",
+        areaHint: "Underground passage within Whakapanu Island",
         bosses: ["Diamora, Song of Death"],
         objectives: [
           { description: "Defeat Diamora, Song of Death", type: "boss" },
@@ -1264,6 +1371,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: true,
+        accessedFrom: "Shrike Island",
+        areaHint: "Optional spoke off Shrike Island; needs 4 Torn Map Pieces; Expedition intro; dead-end",
         bosses: [],
         objectives: [
           { description: "Enter with 4 Torn Map Pieces; Expedition intro", type: "explore" },
@@ -1307,6 +1416,8 @@ export const poe2LevelingActs = [
         hasWaypoint: true,
         isTown: false,
         isOptional: true,
+        accessedFrom: "Kingsmarch (by boat, via Rhodri)",
+        areaHint: "Optional spoke; \"Tribal Medicine\"; drops Uncut gems",
         bosses: [],
         objectives: [
           { description: "Complete \"Tribal Medicine\" (optional)", type: "quest" },

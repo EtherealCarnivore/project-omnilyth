@@ -16,8 +16,8 @@ export default function Poe2ZoneCard({ zone, rewardTags = [], isComplete, comple
   const objectives = zone.objectives || [];
   const bosses = zone.bosses || [];
 
-  // Card-level left accent, colored by the highest-priority reward present
-  // (rewardTags is pre-sorted Spirit→Passive). Yields to the green complete state.
+  // Card-level left accent: highest-priority reward wins (Spirit→Passive),
+  // else a quiet slate accent marks a side zone. Yields to the green complete state.
   const topReward = rewardTags[0]?.type;
   const accentBorder = isComplete
     ? ''
@@ -25,6 +25,8 @@ export default function Poe2ZoneCard({ zone, rewardTags = [], isComplete, comple
     ? 'border-l-2 border-l-violet-500/70'
     : topReward === 'passive'
     ? 'border-l-2 border-l-lime-500/70'
+    : zone.isOptional
+    ? 'border-l-2 border-l-slate-600/60'
     : '';
 
   return (
@@ -80,11 +82,34 @@ export default function Poe2ZoneCard({ zone, rewardTags = [], isComplete, comple
                 <span className="px-2 py-0.5 rounded bg-cyan-500/15 text-cyan-300 border border-cyan-500/25">Waypoint</span>
               )}
               {zone.isOptional && (
-                <span className="px-2 py-0.5 rounded bg-zinc-700/50 text-zinc-400 border border-zinc-600/50">Optional</span>
+                <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded bg-slate-500/10 text-slate-300 border border-slate-500/30">
+                  <svg className="w-3 h-3" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                    <line x1="6" y1="3" x2="6" y2="15" />
+                    <circle cx="18" cy="6" r="3" />
+                    <circle cx="6" cy="18" r="3" />
+                    <path d="M18 9a9 9 0 0 1-9 9" />
+                  </svg>
+                  Side
+                </span>
               )}
               {typeof zone.level === 'number' && <span className="text-zinc-500">Level {zone.level}</span>}
             </div>
           </div>
+
+          {/* Navigation line — how/where to reach the zone (wayfinding before threat) */}
+          {(zone.accessedFrom || zone.areaHint) && (
+            <p className="flex items-start gap-1 text-xs mt-1 text-zinc-400">
+              <svg className="w-3 h-3 mt-px flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true">
+                <polyline points="15 10 20 15 15 20" />
+                <path d="M4 4v7a4 4 0 0 0 4 4h12" />
+              </svg>
+              <span className="min-w-0">
+                {zone.accessedFrom && <>from <span className="text-zinc-300">{zone.accessedFrom}</span></>}
+                {zone.accessedFrom && zone.areaHint && <span className="text-zinc-600"> · </span>}
+                {zone.areaHint}
+              </span>
+            </p>
+          )}
 
           {bosses.length > 0 && (
             <p className="text-xs text-rose-300/80 mt-1">Boss: {bosses.join(', ')}</p>
