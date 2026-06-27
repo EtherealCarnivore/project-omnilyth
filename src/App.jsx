@@ -7,7 +7,7 @@
  * My order router has fewer nested layers than this component tree.
  */
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import PreLaunchGate from './components/PreLaunchGate';
+import ProjectOnHoldPage from './pages/ProjectOnHoldPage';
 import { GameProvider } from './contexts/GameContext';
 import { LeagueProvider } from './contexts/LeagueContext';
 import { PricesProvider } from './contexts/PricesContext';
@@ -42,15 +42,29 @@ import GuideOverlay from './components/guides/GuideOverlay';
 // Clean up old v1/v2 layout toggle localStorage key (shipped v2, removed DesignContext)
 try { localStorage.removeItem('omnilyth_design_variant'); } catch {}
 
+// ── Project pause ─────────────────────────────────────────────────────────
+// The whole project is on hold. The deployed site renders ONLY the holding
+// page on every route — no router, no nav, nothing to traverse. Local dev
+// (Vite dev server) and LAN/loopback hosts bypass the hold so work can
+// continue; `npm run dev` and `npm run preview` on localhost show the full app.
+// To unpause: delete this block + the short-circuit in App() and restore the
+// PreLaunchGate import/wrapper if the between-leagues gate is wanted back.
+function isLocalOrLAN(host) {
+  if (!host) return false;
+  if (host === 'localhost' || host === '127.0.0.1') return true;
+  if (host.endsWith('.local')) return true;
+  return /^(10\.|192\.168\.|172\.(1[6-9]|2\d|3[01])\.)/.test(host);
+}
+const ON_HOLD =
+  !import.meta.env.DEV &&
+  !isLocalOrLAN(typeof window !== 'undefined' ? window.location.hostname : '');
+
 export default function App() {
+  // Hard pause: replace the entire app with the holding page in production.
+  if (ON_HOLD) return <ProjectOnHoldPage />;
+
   return (
-    // PreLaunchGate moved INSIDE BrowserRouter (was outside) so it can use
-    // useLocation() for path-aware gating. SEO crawlers hitting indexable
-    // routes need to skip the gate; they would otherwise be served the
-    // "between leagues" holding page instead of the actual content.
-    // Cost: BrowserRouter mounts even for gated visitors (small).
     <BrowserRouter basename={import.meta.env.BASE_URL}>
-      <PreLaunchGate>
       {/* Provider inception: game → league → prices → pinned. The nesting never ends. */}
       {/* In Java I'd have @Autowired and a DI container. Here I have JSX turducken. */}
       {/* My matching engine has lower latency than this render tree. */}
@@ -119,7 +133,6 @@ export default function App() {
       </LeagueProvider>
       </GameProvider>
       </AuthProvider>
-      </PreLaunchGate>
     </BrowserRouter>
   );
 }
