@@ -184,7 +184,7 @@ async function handlePoB(source, id, origin) {
 const WIKI_API = 'https://www.poewiki.net/w/api.php';
 const WIKI_USER_AGENT = 'Omnilyth-PatchNotes/1.0 (https://omnilyth.app; contact@omnilyth.app)';
 // Update when new leagues drop (~every 3 months)
-const VERSION_PREFIXES = ['Version 3.28', 'Version 3.27'];
+const VERSION_PREFIXES = ['Version 3.29', 'Version 3.28'];
 const NOTES_CACHE_TTL = 10 * 60 * 1000;
 
 let notesCache = { body: null, at: 0 };

@@ -52,10 +52,14 @@ function classifyLeague(id) {
 }
 
 // Hardcoded fallback in case API is down and no cache exists.
-// Only permanent leagues here — challenge league names change every ~3 months
-// and the API will sort the current one to the top when it's live.
+// The challenge league is pinned here too so an API outage still shows the
+// league players are actually in — refresh it each league (~every 3 months).
+// Values are the literal poe.ninja/GGG keys: PoE 1 spells out "Hardcore ",
+// PoE 2 abbreviates to "HC " — don't normalise that away in shared code.
+// No SSF/Ruthless entries: poe.ninja publishes no economy data for them.
 const FALLBACK_POE1 = [
-  { value: 'Mirage', label: 'Mirage', kind: 'softcore', isCurrent: true },
+  { value: 'Allflame', label: 'Allflame', kind: 'softcore', isCurrent: true },
+  { value: 'Hardcore Allflame', label: 'HC Allflame', kind: 'hardcore' },
   { value: 'Standard', label: 'Standard', kind: 'softcore' },
   { value: 'Hardcore', label: 'Hardcore', kind: 'hardcore' },
 ];

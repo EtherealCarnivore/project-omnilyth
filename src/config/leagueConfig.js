@@ -10,20 +10,23 @@
  */
 
 const LEAGUE_CONFIG = {
-  // League name shown in the countdown header
-  name: 'Mirage',
+  // League name shown in the countdown header.
+  // NOTE: 'Allflame' is also the exact poe.ninja + GGG API league key — one
+  // word, lowercase f. The expansion is marketed as "Curse of the Allflame"
+  // but that string 404s against every API. Never send the marketing name.
+  name: 'Allflame',
 
   // ISO 8601 UTC timestamp for league launch
-  // Mirage launch: Friday 19:00 UTC / 21:00 EET
+  // Allflame (3.29.0) launch: Friday 20:00 UTC / 1:00 PM PDT
   // Update this each league!
-  launchTimestamp: '2026-03-06T19:00:00Z',
+  launchTimestamp: '2026-07-24T20:00:00Z',
 
   // Optional league icon URL (set null if none available)
   iconUrl: null,
 
   // Toggle to show/hide the countdown across the app
   // Set false after launch + a few days when no longer relevant
-  showCountdown: true,
+  showCountdown: false,
 };
 
 export default LEAGUE_CONFIG;
