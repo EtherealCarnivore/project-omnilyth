@@ -69,9 +69,10 @@ export function calculateSocketing(quality, targetSockets) {
  * @param {number|null} jewellerPrice - Chaos per Jeweller's Orb
  * @param {number|null} vaalPrice - Chaos per Vaal Orb
  * @param {boolean} corrupted - Is item corrupted
+ * @param {number|null} omenPrice - Chaos per Omen of the Jeweller; omit to hide that row
  * @returns {Array} strategies
  */
-export function calculateSocketCostComparison(stats, jewellerPrice, vaalPrice, corrupted) {
+export function calculateSocketCostComparison(stats, jewellerPrice, vaalPrice, corrupted, omenPrice = null) {
   const strategies = [];
 
   if (!corrupted) {
@@ -96,6 +97,34 @@ export function calculateSocketCostComparison(stats, jewellerPrice, vaalPrice, c
       chaosCost: jewellerPrice ? stats.benchCost * jewellerPrice : null,
       riskAdjustedCost: jewellerPrice ? stats.benchCost * jewellerPrice : null,
     });
+
+    // Omen of the Jeweller — "ensure maximum Sockets" on one Jeweller's Orb.
+    //
+    // Deterministic (P = 1.0), so avgOrbs is literally 1. Two caveats the row
+    // must carry, because neither is a probability the player can buy past:
+    //   - It guarantees the item's MAXIMUM, not a chosen number. Only a real
+    //     option when your target IS that maximum (6 on body armour/2H/bow/
+    //     staff at ilvl 50+, 4 on helm/gloves/boots, 3 on 1H/shields).
+    //   - One omen per combat area, so it does not batch — you zone between
+    //     crafts. Irrelevant for one item, decisive for twenty.
+    //
+    // Deliberately priced live rather than recommended: at 2026-08-07 Allflame
+    // prices this is the MOST expensive deterministic path (~10.9c vs ~4.3c for
+    // the bench), the opposite of the Trichromatism case. Break-even against
+    // the bench is omenPrice <= BENCH_COST[target] * jewellerPrice, which flips
+    // as Jeweller's Orbs inflate — so let the comparison decide, never a
+    // hard-coded verdict.
+    if (omenPrice != null && jewellerPrice != null) {
+      const omenChaos = omenPrice + jewellerPrice;
+      strategies.push({
+        method: 'Omen of the Jeweller',
+        description: `Guaranteed max sockets · 1 per zone`,
+        avgOrbs: 1,
+        deterministic: true,
+        chaosCost: omenChaos,
+        riskAdjustedCost: omenChaos,
+      });
+    }
   } else {
     // Corrupted bench: jewellers + equal vaals
     const bench = stats.benchCost;

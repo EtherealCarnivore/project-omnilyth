@@ -19,12 +19,24 @@ export default function SocketCalculator({ prices }) {
 
   const jewellerPrice = prices?.['jewellers-orb']?.chaosRate;
   const vaalPrice = prices?.['vaal-orb']?.chaosRate ?? null;
+  // Omens come from the item-overview shape, hence chaosValue not chaosRate.
+  const omenPrice = prices?.['omen-of-the-jeweller']?.chaosValue ?? null;
   const hasPrices = jewellerPrice != null;
 
   const costComparison = useMemo(() => {
     if (!hasPrices) return null;
-    return calculateSocketCostComparison(stats, jewellerPrice, vaalPrice, corrupted);
-  }, [stats, jewellerPrice, vaalPrice, hasPrices, corrupted]);
+    return calculateSocketCostComparison(stats, jewellerPrice, vaalPrice, corrupted, omenPrice);
+  }, [stats, jewellerPrice, vaalPrice, hasPrices, corrupted, omenPrice]);
+
+  // Jeweller's Orbs sit around 0.01c, so whole-chaos rounding collapses the
+  // manual (~3.7c) and bench (~4.3c) rows onto the same "4c" and destroys the
+  // only comparison this table exists to make. Keep decimals under 10c.
+  function formatChaos(chaos) {
+    if (chaos == null) return '—';
+    if (chaos >= 100) return Math.round(chaos).toLocaleString() + 'c';
+    if (chaos >= 10) return chaos.toFixed(1) + 'c';
+    return chaos.toFixed(2) + 'c';
+  }
 
   function handleQualityInput(val) {
     const n = parseInt(val, 10);
@@ -247,13 +259,22 @@ export default function SocketCalculator({ prices }) {
                         {s.method}
                         {s.isBest && <span className="ml-2 text-xs text-green-400">(Best)</span>}
                       </span>
+                      {/* The omen guarantees the item base's MAX, not the target
+                          selected above — on gloves that's 4, not 6 — and it's
+                          capped at one per combat area. Both are constraints a
+                          price column can't express, so they ride with the row. */}
+                      {s.deterministic && s.description && (
+                        <span className="block text-[11px] text-zinc-500 mt-0.5">
+                          {s.description}
+                        </span>
+                      )}
                     </td>
                     <td className="text-right px-4 py-2 font-mono">
                       <span>{s.avgOrbs < 10 ? s.avgOrbs.toFixed(1) : Math.round(s.avgOrbs).toLocaleString()}</span>
                       {s.extraOrbs && <span className="text-red-400/70 text-xs ml-1">{s.extraOrbs}</span>}
                     </td>
                     <td className="text-right px-4 py-2 font-mono">
-                      {s.chaosCost != null ? `${Math.round(s.chaosCost).toLocaleString()}c` : '—'}
+                      {formatChaos(s.chaosCost)}
                     </td>
                   </tr>
                 ))}

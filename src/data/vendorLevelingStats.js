@@ -36,7 +36,25 @@ export const socketLimits = {
   "Amulet": { maxSockets: 0, maxLinks: 0 }
 };
 
-// Common socket patterns for quick selection
+// Common socket patterns for quick selection.
+//
+// STALE PREMISE, CORRECT DATA (noted 2026-08-07, patch 3.29.2). These presets
+// encode the pre-3.29 world where a gem could only go in a socket of its own
+// colour, so "2R-1G" was a hard requirement you shopped for. 3.29 reworked
+// socket colours: any gem fits any socket, and matching a gem's colour to a
+// red/green/blue socket instead grants +10% quality to that gem. Vendor-bought
+// sockets now default to white.
+//
+// So the numbers below are still accurate as *colour distributions* — nothing
+// here is wrong — but the reason a player would search for one has changed from
+// "or my gem won't fit" to "for the quality bonus". The preset list is
+// deliberately UNCHANGED pending a decision on the regex re-spec: the shopping
+// strategy probably wants a white/any-colour first-class option and a
+// quality-bonus framing, and that is a UX call, not a data edit.
+// Source: 3.29.0 patch notes socket-colour rework; see
+// .claude/knowledge/poe1/cached/league-allflame.md
+// LINK: the colouring calculators (chromatic / tainted / blanching / jeweller)
+// are handled separately — they ship behind a "this mechanic was removed" banner.
 export const socketPresets = [
   { id: 'custom', label: 'Custom', sockets: null },
   { id: '3-any', label: '3S (Any Colors)', sockets: { r: 1, g: 1, b: 1, w: 0 } },

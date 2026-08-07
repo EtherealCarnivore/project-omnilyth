@@ -30,6 +30,38 @@ import { useGame, apiPathPrefix } from '../contexts/GameContext';
 // with the keys those calculators expect.
 const CURRENCY_IDS = ['chromatic-orb', 'jewellers-orb', 'tainted-chromatic-orb', 'orb-of-fusing', 'tainted-orb-of-fusing', 'vaal-orb', 'divine-orb'];
 
+// 24h client-side cache. These prices feed crafting calculators (fusing/chromatic
+// ratios etc.) that don't need sub-day freshness, so caching spares poe.ninja + the
+// Worker proxy a full refetch on every app load. refresh() bypasses it. Keyed by
+// game + league because each pair has its own currency set.
+const CACHE_TTL_MS = 24 * 60 * 60 * 1000;
+// Bump the version suffix whenever the cached SHAPE or the meaning of a stored
+// value changes — otherwise up to 24h of browsers keep serving the old blob and
+// a fix looks like it didn't land. v2: omen prices were storing trade volume.
+const CACHE_VERSION = 'v2';
+const cacheKey = (pathPrefix, league) =>
+  `omnilyth_prices_${CACHE_VERSION}_${pathPrefix.replace(/^\//, '')}_${league}`;
+
+function readCachedPrices(key) {
+  try {
+    const raw = localStorage.getItem(key);
+    if (!raw) return null;
+    const { data, ts } = JSON.parse(raw);
+    if (!data || typeof ts !== 'number' || Date.now() - ts > CACHE_TTL_MS) return null;
+    return data;
+  } catch {
+    return null;
+  }
+}
+
+function writeCachedPrices(key, data) {
+  try {
+    localStorage.setItem(key, JSON.stringify({ data, ts: Date.now() }));
+  } catch {
+    /* storage disabled / quota exceeded — fine, we just refetch next load */
+  }
+}
+
 /**
  * Fetches live currency prices from poe.ninja for a given league.
  * Returns { prices, loading, error, refresh }
@@ -49,8 +81,21 @@ export function usePrices(league) {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  const fetchPrices = useCallback(async () => {
+  const fetchPrices = useCallback(async (force = false) => {
     if (!league) return;
+    const key = cacheKey(pathPrefix, league);
+
+    // Serve from the 24h cache unless the caller explicitly forced a refresh.
+    if (!force) {
+      const cached = readCachedPrices(key);
+      if (cached) {
+        setPrices(cached);
+        setError(null);
+        setLoading(false);
+        return;
+      }
+    }
+
     setLoading(true);
     setError(null);
 
@@ -80,6 +125,18 @@ export function usePrices(league) {
       });
 
       // Fetch omen prices from exchange endpoint (more accurate than item overview)
+      //
+      // FIELD TRAP: an overview line carries THREE numbers and only one is a price.
+      //   primaryValue        chaos per unit          ← the price
+      //   volumePrimaryValue  units traded            ← volume, off by ~5 orders of magnitude
+      //   maxVolumeRate       units per chaos         ← 1 / primaryValue, the inverse
+      // Cross-checked against the Currency endpoint: `fusing` reports
+      // primaryValue 0.0797, which matches chaosPair.rate exactly, while its
+      // volumePrimaryValue is 68884. Reading volume as price is what made the
+      // Omen of Connections quote ~22,500c instead of ~217c.
+      //
+      // Named chaosValue (not chaosRate) to match the item-overview shape that
+      // DustCalculator and ScarabCalculator already consume. Same unit either way.
       const omenFetch = (async () => {
         try {
           const url = ninjaUrl(`${pathPrefix}/api/economy/exchange/current/overview?league=${encodeURIComponent(league)}&type=Omen`);
@@ -87,20 +144,24 @@ export function usePrices(league) {
           if (!res.ok) return;
           const data = await res.json();
 
-          const blanching = data.lines?.find(l => l.id === 'omen-of-blanching');
-          if (blanching) {
-            result['omen-of-blanching'] = {
-              chaosValue: blanching.volumePrimaryValue || blanching.primaryValue || 0,
-              name: 'Omen of Blanching',
-            };
-          }
-          const connections = data.lines?.find(l => l.id === 'omen-of-connections');
-          if (connections) {
-            result['omen-of-connections'] = {
-              chaosValue: connections.volumePrimaryValue || connections.primaryValue || 0,
-              name: 'Omen of Connections',
-            };
-          }
+          // No `|| 0` fallback: a missing price must stay absent so the UI hides
+          // the quote, rather than rendering a confident "0c" that reads as free.
+          const readOmen = (id, name) => {
+            const line = data.lines?.find(l => l.id === id);
+            if (!line || typeof line.primaryValue !== 'number') return;
+            result[id] = { chaosValue: line.primaryValue, name };
+          };
+
+          // 3.29 renamed Omen of Blanching to Omen of Trichromatism and inverted
+          // what it does, so this id no longer resolves and the (retired)
+          // Blanching calculator correctly shows no price. Kept alongside — not
+          // repointed at — trichromatism: that omen guarantees one R+G+B, which
+          // is a different craft, so its price would be a wrong answer for the
+          // Blanching tool, not merely a stale one.
+          readOmen('omen-of-blanching', 'Omen of Blanching');
+          readOmen('omen-of-trichromatism', 'Omen of Trichromatism');
+          readOmen('omen-of-connections', 'Omen of Connections');
+          readOmen('omen-of-the-jeweller', 'Omen of the Jeweller');
         } catch {
           // Omen fetch failed, skip it
         }
@@ -113,6 +174,7 @@ export function usePrices(league) {
         setPrices(null);
       } else {
         setPrices(result);
+        writeCachedPrices(key, result);
       }
     } catch (e) {
       setError('Failed to fetch prices.');
@@ -127,5 +189,8 @@ export function usePrices(league) {
     fetchPrices();
   }, [fetchPrices]);
 
-  return { prices, loading, error, refresh: fetchPrices };
+  // refresh() forces a network refetch, bypassing (and overwriting) the cache.
+  const refresh = useCallback(() => fetchPrices(true), [fetchPrices]);
+
+  return { prices, loading, error, refresh };
 }

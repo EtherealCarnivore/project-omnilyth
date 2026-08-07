@@ -11,7 +11,28 @@ export default function CategoryOverviewCard({ subcategory, icon, modules, accen
         </span>
       </div>
       <div className="space-y-2">
-        {modules.map(mod => (
+        {modules.map(mod => mod.retired ? (
+          // Retired: the mechanic no longer exists in-game, so there's nothing
+          // to navigate to. Non-interactive row, struck through, no chevron.
+          <div
+            key={mod.id}
+            title={mod.retiredReason || 'Removed from the game'}
+            className="flex items-start gap-3 p-3 -mx-1 rounded-xl opacity-50 cursor-not-allowed select-none"
+          >
+            <div className="shrink-0 mt-0.5 w-1.5 h-1.5 rounded-full bg-zinc-700" />
+            <div className="min-w-0">
+              <div className="text-sm font-medium text-zinc-400 line-through decoration-zinc-700">
+                {mod.title}
+              </div>
+              <div className="text-xs text-zinc-500 mt-0.5 leading-relaxed">
+                {mod.retiredReason || 'Removed from the game'}
+              </div>
+            </div>
+            <span className="shrink-0 ml-auto text-[9px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-zinc-700/20 border border-zinc-600/30 text-zinc-500">
+              3.29
+            </span>
+          </div>
+        ) : (
           <Link
             key={mod.id}
             to={mod.route}

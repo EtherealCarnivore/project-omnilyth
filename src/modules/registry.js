@@ -80,8 +80,13 @@ const modules = [
     component: lazy(() => import('../pages/TaintedPage')),
   },
   {
+    // retired 3.29: the Omen of Blanching no longer exists — renamed to Omen of
+    // Trichromatism and inverted (it now guarantees R+G+B instead of white).
+    // Sockets are white by default now, so paying to whiten them isn't a craft.
     id: 'blanching',
     games: ['poe1'],
+    retired: true,
+    retiredReason: '3.29 renamed this to Omen of Trichromatism and inverted it',
     title: 'Omen of Blanching',
     description: 'White socket crafting with Omen of Blanching',
     category: 'Crafting',
@@ -91,8 +96,14 @@ const modules = [
     component: lazy(() => import('../pages/BlanchingPage')),
   },
   {
+    // retired 3.29: every leg of this strategy was removed. Jeweller-added
+    // sockets are always white now, and the per-colour crafting bench options
+    // it depended on were deleted outright ("The Crafting Bench options for
+    // Red, Green and Blue Sockets have been removed" — 3.29.0 patch notes).
     id: 'jeweller',
     games: ['poe1'],
+    retired: true,
+    retiredReason: '3.29 removed the per-colour bench crafts this relies on',
     title: "Jeweller's Method",
     description: 'Add/remove sockets to lock in desired colors',
     category: 'Crafting',
