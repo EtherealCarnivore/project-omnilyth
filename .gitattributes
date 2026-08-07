@@ -1,0 +1,42 @@
+# .gitattributes — line-ending policy.
+#
+# WHY THIS EXISTS: this repo is developed on Windows. Any tool that writes a
+# source file through a text-mode API (Python's write_text, PowerShell's
+# Set-Content, some editors) silently converts LF to CRLF. Git then reports
+# EVERY line of that file as changed — an 11-line edit to registry.js once
+# showed up as 981 changed lines, which reads like a rogue reformat.
+#
+# `text=auto eol=lf` makes that structurally impossible: whatever a tool
+# writes, the blob stored in git is LF, and every checkout gets LF back.
+
+* text=auto eol=lf
+
+# ── Binary: never convert, never diff as text ─────────────────────────────
+# text=auto already sniffs these correctly, but being explicit means a
+# corrupted image can never be blamed on an eol filter.
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.ico  binary
+*.webp binary
+*.woff  binary
+*.woff2 binary
+*.ttf  binary
+
+# ── Shell scripts must be LF even on a Windows checkout ───────────────────
+# A CRLF shebang line makes the script unrunnable. scripts/setup-hooks.sh
+# runs from the postinstall hook, so this is load-bearing.
+*.sh text eol=lf
+
+# ── Generated data blobs ──────────────────────────────────────────────────
+# Verbatim upstream copies (grindinggear/skilltree-export, atlastree-export)
+# and machine-generated data. They still normalize to LF — they're just not
+# worth rendering as a line diff: swapping one atlas tree is a genuine 22,000
+# line change that no human reads, and it drowns the actual code review.
+#
+# `-diff` shows "Binary files differ" instead. Remove these three lines if you
+# ever need to inspect a tree change hunk-by-hunk.
+src/data/passive/passiveTreeData_*.json -diff
+src/data/atlas/atlasTreeData.json       -diff
+src/data/timeless/*.json                -diff
