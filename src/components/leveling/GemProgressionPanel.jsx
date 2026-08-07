@@ -95,7 +95,7 @@ export default function GemProgressionPanel({ onOpenSearch, onSelectGem, classNa
             onClick={onOpenSearch}
             className="w-full px-4 py-3 bg-amber-500/10 hover:bg-amber-500/20 border border-amber-500/30 hover:border-amber-500/50 rounded-lg text-sm font-medium text-amber-400 transition-colors flex items-center justify-center gap-2"
           >
-            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+            <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
               <circle cx="11" cy="11" r="8" />
               <path d="m21 21-4.35-4.35" />
             </svg>

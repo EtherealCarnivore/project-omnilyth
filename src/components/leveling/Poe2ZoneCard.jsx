@@ -54,7 +54,10 @@ export default function Poe2ZoneCard({ zone, rewardTags = [], isComplete, comple
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 flex-wrap">
             <h3 className={`text-base font-medium ${isComplete ? 'text-zinc-400' : 'text-zinc-200'}`}>{zone.name}</h3>
-            <div className="flex items-center gap-1.5 text-xs">
+            {/* flex-wrap matches the parent: a zone can carry a reward chip plus
+                Town / Waypoint / Side / Level, which overflows a 360px viewport
+                on one line. */}
+            <div className="flex items-center gap-1.5 text-xs flex-wrap">
               {/* Spirit / Passive reward chips lead the row — highest-stakes signal */}
               {rewardTags.map((tag) => {
                 const isSpirit = tag.type === 'spirit';

@@ -15,6 +15,15 @@ import GemListView from '../components/leveling/GemListView';
 import GemDetailModal from '../components/leveling/GemDetailModal';
 import FloatingSearchButton from '../components/leveling/FloatingSearchButton';
 
+// "Nothing filtered out" — every dimension fully selected. Module-level so the
+// active-filter badge can diff against it instead of hard-coding 2/10/3.
+const DEFAULT_FILTERS = {
+  types: ['active', 'support'],
+  acts: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
+  sources: ['quest', 'siosa', 'lilly'],
+  searchTerm: ''
+};
+
 export default function LevelingGemsPage() {
   const { selectedClass, mode } = useLevelingMode();
   const [viewMode, setViewMode] = useState('grid'); // 'grid' or 'list'
@@ -22,17 +31,24 @@ export default function LevelingGemsPage() {
   const [selectedGem, setSelectedGem] = useState(null);
   const [isDetailModalOpen, setIsDetailModalOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState('');
-  const [filters, setFilters] = useState({
-    types: ['active', 'support'],
-    acts: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-    sources: ['quest', 'siosa', 'lilly'],
-    searchTerm: ''
-  });
+  const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
+  const [filters, setFilters] = useState(DEFAULT_FILTERS);
 
   // Sync search term with filters
   useEffect(() => {
     setFilters(prev => ({ ...prev, searchTerm }));
   }, [searchTerm]);
+
+  // Badge on the mobile Filters button. The default state has EVERYTHING
+  // selected, so counting selections would show "3" on a pristine page and mean
+  // nothing. Count dimensions narrowed away from the default instead — that's
+  // the thing worth surfacing when the panel is collapsed and you can't see it.
+  // searchTerm is excluded: it has its own visible input and clear button.
+  const activeFilterCount = useMemo(() => (
+    ['types', 'acts', 'sources']
+      .filter(key => filters[key].length < DEFAULT_FILTERS[key].length)
+      .length
+  ), [filters]);
 
   // Filter and sort gems
   const filteredGems = useMemo(() => {
@@ -222,21 +238,44 @@ export default function LevelingGemsPage() {
             )}
           </div>
 
-          {/* Mobile Filter Toggle */}
-          <button
-            className="lg:hidden w-full px-4 py-2 bg-zinc-900/60 backdrop-blur-sm border border-white/[0.08] rounded-lg text-sm text-zinc-300 hover:border-amber-500/30 transition-colors flex items-center justify-center gap-2"
-            onClick={() => alert('Mobile filter panel - TODO')}
-          >
-            <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-              <line x1="4" y1="21" x2="4" y2="14" />
-              <line x1="4" y1="10" x2="4" y2="3" />
-              <line x1="12" y1="21" x2="12" y2="12" />
-              <line x1="12" y1="8" x2="12" y2="3" />
-              <line x1="20" y1="21" x2="20" y2="16" />
-              <line x1="20" y1="12" x2="20" y2="3" />
-            </svg>
-            Filters
-          </button>
+          {/* Mobile Filter Toggle — inline collapsible, not a modal. This page
+              already opens the gem detail modal, and modal-over-modal is an
+              explicit anti-pattern here. Collapsing in place also keeps the
+              result grid visible while you narrow it. */}
+          <div className="lg:hidden space-y-3">
+            <button
+              className="w-full px-4 py-2 bg-zinc-900/60 backdrop-blur-sm border border-white/[0.08] rounded-lg text-sm text-zinc-300 hover:border-amber-500/30 transition-colors flex items-center justify-center gap-2"
+              onClick={() => setMobileFiltersOpen(open => !open)}
+              aria-expanded={mobileFiltersOpen}
+              aria-controls="mobile-filter-panel"
+            >
+              <svg className="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                <line x1="4" y1="21" x2="4" y2="14" />
+                <line x1="4" y1="10" x2="4" y2="3" />
+                <line x1="12" y1="21" x2="12" y2="12" />
+                <line x1="12" y1="8" x2="12" y2="3" />
+                <line x1="20" y1="21" x2="20" y2="16" />
+                <line x1="20" y1="12" x2="20" y2="3" />
+              </svg>
+              Filters
+              {activeFilterCount > 0 && (
+                <span className="px-1.5 py-0.5 rounded bg-amber-500/20 border border-amber-400/30 text-amber-300 text-[10px] font-medium">
+                  {activeFilterCount}
+                </span>
+              )}
+              <svg
+                className={`w-4 h-4 shrink-0 text-zinc-500 motion-safe:transition-transform motion-safe:duration-200 ${mobileFiltersOpen ? 'rotate-180' : ''}`}
+                viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2} aria-hidden="true"
+              >
+                <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
+              </svg>
+            </button>
+            {mobileFiltersOpen && (
+              <div id="mobile-filter-panel">
+                <FilterSidebar filters={filters} onFilterChange={setFilters} />
+              </div>
+            )}
+          </div>
 
           {/* Alt Character Mode Banner */}
           {mode === 'alt' && (

@@ -153,7 +153,7 @@ export default function TrialsTracker() {
       >
         <span>{isExpanded ? 'Hide Details' : 'View All Trials'}</span>
         <svg
-          className={`w-3 h-3 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+          className={`w-3 h-3 shrink-0 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
