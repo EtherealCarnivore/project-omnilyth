@@ -11,7 +11,6 @@
 import { useState, useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { modulesForGame } from '../modules/registry';
-import YouTubeCard from '../components/YouTubeCard';
 import PatchNotesWidget from '../components/PatchNotesWidget';
 import LeagueCountdown from '../components/LeagueCountdown';
 import LevelingModeEntryCard from '../components/LevelingModeEntryCard';
@@ -158,6 +157,34 @@ function ModuleCard({ mod, pinned, onTogglePin }) {
       <PinButton pinned={pinned} onToggle={onTogglePin} />
     </>
   );
+
+  // Retired modules model a mechanic the game removed. Render as a dead card:
+  // no link, no hover lift, struck-through title. Matches the sidebar treatment.
+  if (mod.retired) {
+    return (
+      <div
+        className="relative rounded-2xl border border-white/5 bg-zinc-900/30 p-5 opacity-50 cursor-not-allowed select-none"
+        title={mod.retiredReason || 'Removed from the game'}
+      >
+        <div className="flex items-start gap-3">
+          <div className="shrink-0 mt-0.5 text-zinc-600">
+            {SUBCATEGORY_ICONS[mod.subcategory] || SUBCATEGORY_ICONS.Coloring}
+          </div>
+          <div className="min-w-0">
+            <h3 className="text-sm font-semibold text-zinc-400 line-through decoration-zinc-700">
+              {mod.title}
+            </h3>
+            <p className="text-xs text-zinc-500 mt-1 leading-relaxed">
+              {mod.retiredReason || 'Removed from the game'}
+            </p>
+            <span className="inline-block mt-3 text-[10px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-zinc-700/20 border border-zinc-600/30 text-zinc-500">
+              Retired in 3.29
+            </span>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
   return mod.external ? (
     <a
@@ -317,10 +344,6 @@ export default function HomePage() {
           <div className="border-t border-white/5" />
         </div>
       )}
-
-      {/* Featured creator — game-aware; hidden during search; null when */}
-      {/* the active game's creator isn't configured */}
-      {!search && <YouTubeCard variant="dashboard" />}
 
       {/* Search results or all tools by category */}
       {search ? (

@@ -9,7 +9,6 @@ import { usePinned } from '../contexts/PinnedContext';
 import { useLevelingMode } from '../contexts/LevelingModeContext';
 import { useGame } from '../contexts/GameContext';
 import { useAuth, canSeeModule } from '../contexts/AuthContext';
-import YouTubeCard from '../components/YouTubeCard';
 
 const CATEGORY_ROUTES = {
   'Crafting': '/crafting',
@@ -55,6 +54,25 @@ function SidebarLink({ mod, onClose, isPinned, onTogglePin }) {
           </svg>
         </a>
         <PinButton isPinned={isPinned} onClick={onTogglePin} />
+      </div>
+    );
+  }
+
+  // `retired` differs from `wip`: wip is still navigable (it's coming back),
+  // retired models a mechanic the game deleted, so there is nothing to go to.
+  // Rendered as a non-interactive div — no NavLink, no pin, not tabbable.
+  // The route stays registered so existing bookmarks land on the explanation
+  // page rather than a 404.
+  if (mod.retired) {
+    return (
+      <div
+        className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-zinc-600 cursor-not-allowed select-none"
+        title={mod.retiredReason || 'Removed from the game — no longer craftable'}
+      >
+        <span className="flex-1 line-through decoration-zinc-700">{mod.title}</span>
+        <span className="text-[9px] uppercase tracking-wider px-1.5 py-0.5 rounded bg-zinc-700/20 border border-zinc-600/30 text-zinc-500">
+          3.29
+        </span>
       </div>
     );
   }
@@ -348,9 +366,6 @@ export default function Sidebar({ open, onClose }) {
             </div>
           )}
         </nav>
-
-        {/* Featured creator pill — game-aware; renders nothing when null */}
-        <YouTubeCard variant="sidebar" />
 
         {/* Footer */}
         <div className="border-t border-white/5 px-4 py-3 space-y-1">
