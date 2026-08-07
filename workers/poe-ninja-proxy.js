@@ -189,6 +189,25 @@ const NOTES_CACHE_TTL = 10 * 60 * 1000;
 
 let notesCache = { body: null, at: 0 };
 
+// poewiki.net sits behind Anubis bot protection, which serves its challenge as
+// an HTML page with HTTP *200* — not 403. So `res.ok` is true and a bare
+// res.json() throws SyntaxError on "<!doctype ...", which is what took this
+// endpoint down. Check the content type before parsing and treat a challenge
+// as "source unavailable" rather than an exception.
+async function readWikiJson(res, label) {
+  const ct = res.headers.get('content-type') || '';
+  if (!ct.includes('json')) {
+    console.error(`[patch-notes] ${label}: non-JSON response (${res.status}, ${ct || 'no content-type'}) — likely a bot challenge`);
+    return null;
+  }
+  try {
+    return await res.json();
+  } catch (err) {
+    console.error(`[patch-notes] ${label}: JSON parse failed —`, err && err.message);
+    return null;
+  }
+}
+
 async function discoverVersionPages(controller) {
   const pages = [];
   for (const prefix of VERSION_PREFIXES) {
@@ -199,8 +218,9 @@ async function discoverVersionPages(controller) {
       signal: controller.signal,
       headers: { 'User-Agent': WIKI_USER_AGENT },
     });
-    if (!res.ok) continue;
-    const data = await res.json();
+    if (!res.ok) { console.error('[patch-notes] allpages', prefix, '->', res.status); continue; }
+    const data = await readWikiJson(res, `allpages ${prefix}`);
+    if (!data) continue;
     const found = data.query?.allpages || [];
     pages.push(...found.map(p => p.title));
   }
@@ -219,8 +239,9 @@ async function fetchPageContent(titles, controller) {
       signal: controller.signal,
       headers: { 'User-Agent': WIKI_USER_AGENT },
     });
-    if (!res.ok) continue;
-    const data = await res.json();
+    if (!res.ok) { console.error('[patch-notes] content batch ->', res.status); continue; }
+    const data = await readWikiJson(res, 'content batch');
+    if (!data) continue;
     const pages = data.query?.pages || {};
     for (const page of Object.values(pages)) {
       if (page.missing !== undefined) continue;
@@ -385,6 +406,10 @@ async function handlePatchNotes(origin) {
     });
   } catch (err) {
     clearTimeout(timeout);
+    // Log server-side; the client still gets a generic message. Without this the
+    // catch swallowed the only evidence of why this endpoint 500s, and
+    // `wrangler tail` reported a clean "Ok" because the throw was handled.
+    console.error('[patch-notes] failed:', err && err.name, '|', err && err.message);
     return jsonError(500, err.name === 'AbortError' ? 'Request timeout' : 'Internal server error', origin);
   }
 }
