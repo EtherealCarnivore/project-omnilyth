@@ -19,9 +19,21 @@ import {
 } from '../calculators/timelessJewel';
 import TimelessTreeView from './TimelessTreeView';
 
+// Deliberately pinned, NOT following DEFAULT_VERSION. The files under
+// src/data/timeless/ are generated per patch by scripts/update-timeless-data.js
+// (currently 3.28) and their seed → passive-node mapping is only valid against
+// the tree of that same patch. Tree version and timeless data must move as a pair.
+//
+// 2026-08-07 — usePassiveTreeData now holds a rolling two-version window
+// (3.28 + 3.29); 3.27 was retired. 3.28 is still in the window, so this is not
+// dangling. When 3.30 lands and 3.28 rolls out, regenerate the timeless data for
+// the new version and bump this constant in the same change — otherwise the hook
+// returns an "Unknown tree version" error and the tree pane renders empty.
+const TIMELESS_TREE_VERSION = '3.28';
+
 export default function TimelessJewelCalculator() {
   const { league } = useLeague();
-  const { data: treeData, loading: treeLoading } = usePassiveTreeData('3.28');
+  const { data: treeData, loading: treeLoading } = usePassiveTreeData(TIMELESS_TREE_VERSION);
 
   const [timelessData, setTimelessData] = useState(null);
   const [jewelTypeIdx, setJewelTypeIdx] = useState(0);

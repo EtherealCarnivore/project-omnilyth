@@ -8,7 +8,8 @@
 import { createContext, useContext, useState, useEffect, useCallback, useMemo } from 'react';
 import useAtlasTreeData from '../hooks/useAtlasTreeData';
 import useAtlasPathing from '../hooks/useAtlasPathing';
-import { encodeAllocatedNodes, decodeAllocatedNodes, searchNodes, groupStatsByContent } from '../calculators/atlasTree';
+import { encodeAllocatedNodes, decodeAllocatedNodesDetailed, searchNodes, groupStatsByContent } from '../calculators/atlasTree';
+import { TOTAL_POINTS } from '../data/atlas/atlasTreeConstants';
 
 const AtlasTreeContext = createContext();
 
@@ -44,13 +45,26 @@ function saveBuilds(builds) {
 
 export function AtlasTreeProvider({ children }) {
   const { data: treeData, loading: dataLoading, error: dataError } = useAtlasTreeData();
-  const [maxPoints, setMaxPoints] = useState(132);
+  // Seeded from the constant, then reconciled to whatever the loaded tree file
+  // actually reports (see the effect below). GGG moved this 132 → 138 in 3.28.
+  const [maxPoints, setMaxPoints] = useState(TOTAL_POINTS);
   const [brightness, setBrightness] = useState(1.3); // Default "Normal"
   const pathing = useAtlasPathing(treeData, maxPoints);
 
   const [builds, setBuilds] = useState(loadBuilds);
   const [activeBuildId, setActiveBuildId] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  // Set when a loaded build referenced nodes GGG has since retired. Surfaced by
+  // AtlasBuildManager — a build that silently loads 3 points short is worse than
+  // one that says so out loud.
+  const [staleAllocationNotice, setStaleAllocationNotice] = useState(null);
+
+  // The tree file is the authority on the point budget; the constant is only a
+  // pre-load seed. Keeps the counter honest across a tree-version swap without
+  // anyone remembering to edit two places.
+  useEffect(() => {
+    if (treeData?.totalPoints) setMaxPoints(treeData.totalPoints);
+  }, [treeData]);
   // hoveredNode lives in AtlasTreeRenderer as local state — keeping it
   // off context prevents every consumer of useAtlasTree() from re-rendering
   // on every mouse-enter (mirrors the passive-tree change).
@@ -106,9 +120,15 @@ export function AtlasTreeProvider({ children }) {
     if (!treeData) return;
     const build = builds.find(b => b.id === buildId);
     if (!build) return;
-    const nodeIds = decodeAllocatedNodes(build.hash, treeData.nodes);
+    const { nodeIds, missingSkillIds } = decodeAllocatedNodesDetailed(build.hash, treeData.nodes);
     pathing.loadAllocations(nodeIds);
     setActiveBuildId(buildId);
+    setStaleAllocationNotice(missingSkillIds.length ? {
+      buildName: build.name,
+      missing: missingSkillIds.length,
+      loaded: nodeIds.size,
+      savedCount: build.nodeCount,
+    } : null);
   }, [builds, treeData, pathing]);
 
   // Delete a saved build
@@ -127,9 +147,15 @@ export function AtlasTreeProvider({ children }) {
   // Load from URL hash
   const loadFromHash = useCallback((hash) => {
     if (!treeData || !hash) return;
-    const nodeIds = decodeAllocatedNodes(hash, treeData.nodes);
+    const { nodeIds, missingSkillIds } = decodeAllocatedNodesDetailed(hash, treeData.nodes);
     pathing.loadAllocations(nodeIds);
     setActiveBuildId(null);
+    setStaleAllocationNotice(missingSkillIds.length ? {
+      buildName: null,
+      missing: missingSkillIds.length,
+      loaded: nodeIds.size,
+      savedCount: null,
+    } : null);
   }, [treeData, pathing]);
 
   // Get current hash for sharing
@@ -177,6 +203,8 @@ export function AtlasTreeProvider({ children }) {
     renameBuild,
     loadFromHash,
     getCurrentHash,
+    staleAllocationNotice,
+    dismissStaleAllocationNotice: () => setStaleAllocationNotice(null),
   };
 
   return (

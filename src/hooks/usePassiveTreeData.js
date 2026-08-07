@@ -14,10 +14,20 @@ import { calculateAllPositions, buildAdjacencyList, getBoundingBox, getNodeType,
 // Per-version cache — avoids reprocessing when switching back and forth
 const cache = {};
 
-// Vite requires static paths for dynamic imports — map versions to their loaders
+// Vite requires static paths for dynamic imports — map versions to their loaders.
+//
+// We hold a rolling two-version window: current league + the one before it.
+// 2026-08-07 — added 3.29 (Allflame) and retired 3.27. Both JSONs are verbatim
+// copies of grindinggear/skilltree-export at the matching tag; the 3.29 file is
+// tag 3.29.1, blob 33773bda0d1bacdc07e027287af3f713055150a9. 3.29 brings the
+// Luminary Scion ascendancy (+52 nodes, +21 groups); schema is unchanged.
+//
+// QUIRK: dropping a version from this map is all that's needed to unship it —
+// Vite only emits a chunk for a JSON that something imports. Deleting the file
+// is just repo housekeeping (3.27's was 5.3 MB), not a bundle-size fix.
 const VERSION_LOADERS = {
+  '3.29': () => import('../data/passive/passiveTreeData_3_29.json'),
   '3.28': () => import('../data/passive/passiveTreeData_3_28.json'),
-  '3.27': () => import('../data/passive/passiveTreeData_3_27.json'),
 };
 
 export const AVAILABLE_VERSIONS = Object.keys(VERSION_LOADERS).sort((a, b) => parseFloat(b) - parseFloat(a));

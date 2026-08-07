@@ -374,9 +374,33 @@ export function encodeAllocatedNodes(allocatedSet, nodes) {
 
 /**
  * Decode a URL hash back into a set of node IDs.
+ *
+ * Thin wrapper over decodeAllocatedNodesDetailed for the callers that only want
+ * the set. If you are loading a *saved* build, prefer the detailed variant —
+ * it tells you which allocations no longer exist in the current tree.
  */
 export function decodeAllocatedNodes(hash, nodes) {
-  if (!hash) return new Set();
+  return decodeAllocatedNodesDetailed(hash, nodes).nodeIds;
+}
+
+/**
+ * Decode a hash and report allocations that the current tree no longer has.
+ *
+ * QUIRK: builds are persisted as GGG `skill` ids, not node keys and nothing
+ * positional — so a tree swap that reshuffles groups or renumbers node keys is
+ * harmless. What is NOT harmless is GGG *retiring* a node: its skill id vanishes
+ * from the tree and the allocation silently evaporates, leaving a build that
+ * still advertises its old nodeCount but loads short. The 3.27 → 3.29 swap on
+ * 2026-08-07 retired 47 skill ids (all the Kirac / Scouting Report / Harbinger
+ * cluster plus Ancient Conflict, Legion Monolith Chance, Legion Timeless Emblem
+ * Chance), so this is not hypothetical.
+ *
+ * Returns { nodeIds, missingSkillIds } — callers MUST surface a non-empty
+ * missingSkillIds to the user rather than swallowing it.
+ */
+export function decodeAllocatedNodesDetailed(hash, nodes) {
+  const empty = { nodeIds: new Set(), missingSkillIds: [] };
+  if (!hash) return empty;
 
   try {
     // Base64url decode
@@ -391,7 +415,7 @@ export function decodeAllocatedNodes(hash, nodes) {
     // Decompress with pako
     const decompressed = inflate(bytes);
 
-    if (decompressed[0] !== 1) return new Set(); // version check
+    if (decompressed[0] !== 1) return empty; // version check
 
     // Read skill IDs
     const skillIds = new Set();
@@ -402,15 +426,18 @@ export function decodeAllocatedNodes(hash, nodes) {
 
     // Map skill IDs back to node IDs
     const nodeIds = new Set();
+    const resolved = new Set();
     for (const [nodeId, node] of Object.entries(nodes)) {
       if (node.skill && skillIds.has(node.skill)) {
         nodeIds.add(nodeId);
+        resolved.add(node.skill);
       }
     }
 
-    return nodeIds;
+    const missingSkillIds = [...skillIds].filter(id => !resolved.has(id));
+    return { nodeIds, missingSkillIds };
   } catch {
-    return new Set();
+    return empty;
   }
 }
 

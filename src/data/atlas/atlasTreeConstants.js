@@ -10,8 +10,14 @@
 export const ORBIT_RADII = [0, 82, 162, 335, 493, 662, 846];
 export const SKILLS_PER_ORBIT = [1, 6, 16, 16, 40, 72, 72];
 
-// Total points available to allocate
-export const TOTAL_POINTS = 132;
+// Total points available to allocate.
+// 2026-08-07 — 132 → 138. GGG raised the atlas point budget in 3.28 and it is
+// unchanged in 3.29. Source: grindinggear/atlastree-export, `points.totalPoints`
+// in data.json + league.json at tags 3.28.0 and 3.29.1 (both = 138); the local
+// atlasTreeData.json is still the 3.27.0 export, which reports 132.
+// NOTE: useAtlasTreeData.js reads json.points.totalPoints from the tree file
+// itself, so the planner follows the bundled JSON, not this constant.
+export const TOTAL_POINTS = 138;
 
 // Node visual sizes (world-space diameter, derived from frame sprite px / zoom factor)
 // Frame sprites at 0.3835 zoom: regular=39px, notable=58px, keystone=83px

@@ -20,6 +20,8 @@ export default function AtlasBuildManager() {
     getCurrentHash,
     resetAllocations,
     allocated,
+    staleAllocationNotice,
+    dismissStaleAllocationNotice,
   } = useAtlasTree();
 
   const [newName, setNewName] = useState('');
@@ -57,6 +59,37 @@ export default function AtlasBuildManager() {
 
   return (
     <div className="space-y-3">
+      {/* Allocations that no longer exist in the current atlas tree. GGG retires
+          nodes between leagues; a build saved before the retire loads short. Say
+          so rather than letting the point counter quietly disagree with itself. */}
+      {staleAllocationNotice && (
+        <div
+          role="status"
+          className="flex items-start gap-2 bg-amber-500/10 border border-amber-500/40 rounded-lg p-3 text-xs text-amber-200"
+        >
+          <span className="flex-1">
+            <span className="font-semibold">
+              {staleAllocationNotice.missing} node{staleAllocationNotice.missing === 1 ? '' : 's'} from
+              {staleAllocationNotice.buildName ? ` "${staleAllocationNotice.buildName}"` : ' this shared link'} no
+              longer exist in the current atlas tree
+            </span>
+            {' '}and {staleAllocationNotice.missing === 1 ? 'was' : 'were'} dropped.
+            {staleAllocationNotice.savedCount != null && (
+              <> Loaded {staleAllocationNotice.loaded} of {staleAllocationNotice.savedCount} saved nodes.</>
+            )}
+            {' '}Re-save the build to clear this.
+          </span>
+          <button
+            type="button"
+            onClick={dismissStaleAllocationNotice}
+            aria-label="Dismiss stale allocation notice"
+            className="text-amber-300/70 hover:text-amber-200 transition-colors leading-none px-1"
+          >
+            ×
+          </button>
+        </div>
+      )}
+
       {/* Save new build */}
       <div className="flex gap-2">
         <input
@@ -83,7 +116,7 @@ export default function AtlasBuildManager() {
           disabled={allocated.size === 0}
           className="flex-1 flex items-center justify-center gap-1.5 px-3 py-1.5 rounded-lg text-sm bg-sky-500/10 border border-sky-500/20 text-sky-400 hover:bg-sky-500/20 disabled:opacity-30 disabled:cursor-not-allowed transition-colors"
         >
-          <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg className="w-3.5 h-3.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1" />
           </svg>
           {copied ? 'Copied!' : 'Share URL'}

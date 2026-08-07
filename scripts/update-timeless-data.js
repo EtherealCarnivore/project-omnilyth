@@ -3,6 +3,19 @@
  * Downloads timeless jewel data files from Nifth's TimelessCalcPreprocess repository.
  * Run: node scripts/update-timeless-data.js [version]
  * Default version: 3.28
+ *
+ * The default is deliberately NOT the current league. It must stay in lockstep
+ * with TIMELESS_TREE_VERSION in src/components/TimelessJewelCalculator.jsx and
+ * with a version present in VERSION_LOADERS in src/hooks/usePassiveTreeData.js —
+ * seeds only resolve against the passive tree of the same patch. Bump all three
+ * together, and only once Nifth/TimelessCalcPreprocess publishes data/<version>/.
+ *
+ * 2026-08-07 — that upstream DOES already publish data/3.29/, and the app now
+ * defaults to the 3.29 tree. The local src/data/timeless/ files are still the
+ * 3.28 generation and have deliberately not been refreshed: the Timeless tool is
+ * unwired from the registry (GPL-3.0 hold), so the stale pair is inert. Refresh
+ * it as `node scripts/update-timeless-data.js 3.29` at the same time the tool is
+ * re-wired, never before — a half-migrated pair is worse than a consistent old one.
  */
 const https = require('https');
 const fs = require('fs');
