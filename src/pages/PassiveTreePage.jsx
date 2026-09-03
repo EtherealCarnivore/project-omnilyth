@@ -130,7 +130,7 @@ function PassiveTreePageInner() {
         {/* Toggle sidebar button */}
         <button
           onClick={() => setSidebarOpen(prev => !prev)}
-          className="absolute top-4 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:right-[156px] bg-zinc-800/90 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/90 transition-colors"
+          className="absolute top-4 right-4 sm:right-[156px] z-40 bg-zinc-800/90 border border-white/10 rounded-lg px-3 py-1.5 text-xs text-zinc-400 hover:text-zinc-200 hover:bg-zinc-700/90 transition-colors"
         >
           {sidebarOpen ? 'Hide Panel' : 'Show Panel'} <span className="text-zinc-600">(S)</span>
         </button>
@@ -145,9 +145,9 @@ function PassiveTreePageInner() {
         </div>
       </div>
 
-      {/* Right sidebar panel */}
+      {/* Right sidebar panel — bottom sheet below lg (see AtlasTreePage) */}
       {sidebarOpen && (
-        <div className="w-72 border-l border-white/5 bg-zinc-950/95 flex flex-col overflow-hidden">
+        <div className="fixed inset-x-0 bottom-0 z-30 h-[60vh] border-t border-white/5 lg:static lg:inset-auto lg:z-auto lg:h-auto lg:w-72 lg:border-t-0 lg:border-l bg-zinc-950/95 flex flex-col overflow-hidden">
           {/* Tabs */}
           <div className="flex border-b border-white/5">
             {[

@@ -340,7 +340,7 @@ function Callout({ color, children }) {
 function Row({ label, value }) {
   return (
     <tr>
-      <td className="py-2 pr-4 text-zinc-500 align-top text-xs uppercase tracking-wider whitespace-nowrap">{label}</td>
+      <td className="py-2 pr-4 text-zinc-500 align-top text-xs uppercase tracking-wider sm:whitespace-nowrap">{label}</td>
       <td className="py-2 text-zinc-300">{value}</td>
     </tr>
   );

@@ -68,7 +68,7 @@ export default function PreLaunchPage({ onUnlock }) {
       />
 
       <main className="relative max-w-2xl w-full">
-        <div className="bg-zinc-900/60 backdrop-blur-sm border border-white/[0.06] rounded-2xl p-8 sm:p-12 space-y-8">
+        <div className="bg-zinc-900/60 backdrop-blur-sm border border-white/[0.06] rounded-2xl p-5 sm:p-8 lg:p-12 space-y-6 sm:space-y-8">
           {/* Tag */}
           <div className="flex items-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-cyan-400 motion-safe:animate-pulse" aria-hidden="true" />

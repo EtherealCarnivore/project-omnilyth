@@ -63,12 +63,15 @@ export default function ExitLevelingModal({ onConfirm, onCancel }) {
       onClick={onCancel}
     >
       <div
+        role="dialog"
+        aria-modal="true"
+        aria-labelledby="exit-leveling-title"
         className="bg-zinc-900 border border-white/10 rounded-lg shadow-2xl max-w-md w-full overflow-hidden"
         onClick={(e) => e.stopPropagation()}
       >
         {/* Header */}
         <div className="px-5 py-4 border-b border-white/5">
-          <h3 className="text-base font-semibold text-zinc-100">Exit Leveling Mode?</h3>
+          <h3 id="exit-leveling-title" className="text-base font-semibold text-zinc-100">Exit Leveling Mode?</h3>
         </div>
 
         {/* Body */}
@@ -78,7 +81,9 @@ export default function ExitLevelingModal({ onConfirm, onCancel }) {
           </p>
 
           {/* Remember checkbox */}
-          <label className="flex items-center gap-2.5 cursor-pointer group">
+          {/* min-h-11 on the label, not the 16px box: the label IS the target,
+              so the whole row is tappable at 44px (2.5.8 / 2.5.5). */}
+          <label className="flex min-h-11 items-center gap-2.5 cursor-pointer group">
             <div className="relative flex items-center">
               <input
                 type="checkbox"
@@ -86,14 +91,14 @@ export default function ExitLevelingModal({ onConfirm, onCancel }) {
                 onChange={(e) => setRemember(e.target.checked)}
                 className="peer sr-only"
               />
-              <div className="w-4 h-4 rounded border border-zinc-600 bg-zinc-800 peer-checked:bg-teal-500/20 peer-checked:border-teal-500/50 transition-colors" />
+              <div className="w-4 h-4 rounded border border-zinc-500 bg-zinc-800 peer-checked:bg-teal-500/20 peer-checked:border-teal-500/50 peer-focus-visible:ring-2 peer-focus-visible:ring-teal-400/60 transition-colors" />
               {remember && (
-                <svg className="absolute inset-0 w-4 h-4 text-teal-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3}>
+                <svg aria-hidden="true" className="absolute inset-0 w-4 h-4 text-teal-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={3}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M5 13l4 4L19 7" />
                 </svg>
               )}
             </div>
-            <span className="text-xs text-zinc-500 group-hover:text-zinc-400 transition-colors select-none">
+            <span className="text-xs text-zinc-400 group-hover:text-zinc-200 transition-colors select-none">
               Don't ask me again
             </span>
           </label>
@@ -104,13 +109,13 @@ export default function ExitLevelingModal({ onConfirm, onCancel }) {
           <button
             ref={cancelRef}
             onClick={onCancel}
-            className="px-4 py-2 rounded-lg text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/70 transition-colors"
+            className="min-h-11 px-4 py-2 rounded-lg text-sm font-medium text-zinc-400 hover:text-zinc-200 hover:bg-zinc-800/70 transition-colors"
           >
             Stay
           </button>
           <button
             onClick={handleConfirm}
-            className="px-4 py-2 rounded-lg text-sm font-medium bg-teal-500/20 text-teal-400 border border-teal-500/30 hover:bg-teal-500/30 hover:border-teal-500/50 transition-colors"
+            className="min-h-11 px-4 py-2 rounded-lg text-sm font-medium bg-teal-500/20 text-teal-400 border border-teal-500/30 hover:bg-teal-500/30 hover:border-teal-500/50 transition-colors"
           >
             Exit
           </button>

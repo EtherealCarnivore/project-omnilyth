@@ -32,23 +32,23 @@ function RegexOutputBox({ regex, index, total }) {
 
   return (
     <div className="rounded-xl bg-zinc-950/50 border border-white/5 p-4">
-      <div className="flex items-center justify-between mb-3">
+      <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 mb-3">
         <h3 className="text-xs font-semibold text-teal-300 uppercase tracking-widest">
           {total > 1 ? `Output ${index + 1} of ${total}` : 'Output'}
         </h3>
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2 sm:gap-3">
           <span className={`text-xs font-mono tabular-nums ${charColor}`}>
             {charCount}<span className="text-zinc-400/60">/250</span>
           </span>
           <button
             onClick={handleCopy}
-            className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all duration-200 ${
+            className={`min-h-9 px-3 py-1.5 text-xs font-medium rounded-lg transition-all duration-200 ${
               copied
                 ? 'bg-teal-500/30 text-teal-200 border border-teal-400/40'
                 : 'bg-zinc-900/80 text-zinc-400 hover:text-zinc-100 border border-white/5 hover:border-white/10'
             }`}
           >
-            {copied ? 'Copied!' : 'Copy'}
+            <span aria-live="polite">{copied ? 'Copied!' : 'Copy'}</span>
           </button>
           {regex && (
             <SaveRegexButton

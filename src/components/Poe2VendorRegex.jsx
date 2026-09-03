@@ -144,9 +144,9 @@ export default function Poe2VendorRegex() {
               <button
                 type="button"
                 onClick={copy}
-                className="text-xs px-3 py-1.5 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/30 text-cyan-200 motion-safe:transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
+                className="min-h-9 text-xs px-3 py-1.5 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/30 text-cyan-200 motion-safe:transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400"
               >
-                {copied ? 'Copied' : 'Copy'}
+                <span aria-live="polite">{copied ? 'Copied' : 'Copy'}</span>
               </button>
             )}
             {selected.size > 0 && (

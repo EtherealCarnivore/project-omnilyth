@@ -68,11 +68,11 @@ export default function Poe2BuildCard({ build }) {
           )}
         </div>
 
-        <div className="flex items-center justify-between pt-1">
-          <span className="text-[11px] text-zinc-500 truncate">
+        <div className="flex items-center justify-between gap-2 pt-1">
+          <span className="min-w-0 text-[11px] text-zinc-500 truncate">
             {build.creator?.name || 'Unknown creator'}
           </span>
-          <span className="text-[10px] text-zinc-600">
+          <span className="shrink-0 text-[10px] text-zinc-600">
             v: {build.lastVerifiedPatch}
           </span>
         </div>

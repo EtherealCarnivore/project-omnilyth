@@ -70,7 +70,7 @@ export default function FilterSidebar({
             Gem Type
           </h4>
           <div className="space-y-2">
-            <label className="flex items-center gap-3 cursor-pointer group">
+            <label className="flex min-h-11 items-center gap-3 cursor-pointer group">
               <input
                 type="checkbox"
                 checked={filters.types.includes('active')}
@@ -81,7 +81,7 @@ export default function FilterSidebar({
                 Active Skills
               </span>
             </label>
-            <label className="flex items-center gap-3 cursor-pointer group">
+            <label className="flex min-h-11 items-center gap-3 cursor-pointer group">
               <input
                 type="checkbox"
                 checked={filters.types.includes('support')}
@@ -105,10 +105,12 @@ export default function FilterSidebar({
               <button
                 key={act}
                 onClick={() => handleActToggle(act)}
-                className={`px-2 py-1 rounded text-xs font-medium transition-colors ${
+                aria-pressed={filters.acts.includes(act)}
+                aria-label={`Act ${act}`}
+                className={`inline-flex min-h-9 min-w-9 items-center justify-center px-2 py-1 rounded text-xs font-medium transition-colors ${
                   filters.acts.includes(act)
                     ? 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
-                    : 'bg-zinc-800/40 text-zinc-500 border border-white/[0.04] hover:text-zinc-300 hover:border-white/[0.08]'
+                    : 'bg-zinc-800/40 text-zinc-400 border border-white/[0.04] hover:text-zinc-200 hover:border-white/[0.08]'
                 }`}
               >
                 {act}
@@ -123,7 +125,7 @@ export default function FilterSidebar({
             Availability Source
           </h4>
           <div className="space-y-2">
-            <label className="flex items-center gap-3 cursor-pointer group">
+            <label className="flex min-h-11 items-center gap-3 cursor-pointer group">
               <input
                 type="checkbox"
                 checked={filters.sources.includes('quest')}
@@ -134,10 +136,10 @@ export default function FilterSidebar({
                 <span className="text-sm text-zinc-300 group-hover:text-zinc-100 transition-colors">
                   Quest Rewards
                 </span>
-                <span className="text-xs text-green-400">✅</span>
+                <span className="text-xs text-green-400" aria-hidden="true">✅</span>
               </div>
             </label>
-            <label className="flex items-center gap-3 cursor-pointer group">
+            <label className="flex min-h-11 items-center gap-3 cursor-pointer group">
               <input
                 type="checkbox"
                 checked={filters.sources.includes('siosa')}
@@ -148,10 +150,10 @@ export default function FilterSidebar({
                 <span className="text-sm text-zinc-300 group-hover:text-zinc-100 transition-colors">
                   Siosa (Act 3)
                 </span>
-                <span className="text-xs text-purple-400">🔓</span>
+                <span className="text-xs text-purple-400" aria-hidden="true">🔓</span>
               </div>
             </label>
-            <label className="flex items-center gap-3 cursor-pointer group">
+            <label className="flex min-h-11 items-center gap-3 cursor-pointer group">
               <input
                 type="checkbox"
                 checked={filters.sources.includes('lilly')}
@@ -162,7 +164,7 @@ export default function FilterSidebar({
                 <span className="text-sm text-zinc-300 group-hover:text-zinc-100 transition-colors">
                   Lilly Roth (Act 6)
                 </span>
-                <span className="text-xs text-purple-400">🔓</span>
+                <span className="text-xs text-purple-400" aria-hidden="true">🔓</span>
               </div>
             </label>
           </div>
@@ -170,13 +172,15 @@ export default function FilterSidebar({
 
         {/* Current Class Info */}
         <div className="p-3 rounded-lg bg-zinc-800/40 border border-white/[0.04]">
-          <div className="text-xs text-zinc-500 mb-1">Filtering for:</div>
+          {/* zinc-500 on zinc-800/40 lands ~3.8:1 — below 4.5:1 for 12px text.
+              zinc-400 is the project's `secondary` token and clears it. */}
+          <div className="text-xs text-zinc-400 mb-1">Filtering for:</div>
           <div className="text-sm font-medium text-zinc-300">
             {selectedClass === 'all'
               ? 'All Classes'
               : selectedClass.charAt(0).toUpperCase() + selectedClass.slice(1)}
           </div>
-          <div className="text-xs text-zinc-500 mt-2">
+          <div className="text-xs text-zinc-400 mt-2">
             Change class in header dropdown
           </div>
         </div>

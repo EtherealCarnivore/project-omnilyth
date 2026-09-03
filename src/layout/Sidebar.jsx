@@ -19,18 +19,20 @@ const CATEGORY_ROUTES = {
 
 const PLANNED_FEATURES = ['Passive Planner', 'Stash Valuation', 'Seed Finder'];
 
-function PinButton({ isPinned, onClick }) {
+function PinButton({ isPinned, onClick, label }) {
   return (
     <button
       onClick={onClick}
       title={isPinned ? 'Unpin' : 'Pin to top'}
-      className={`p-0.5 rounded transition-all ${
+      aria-label={isPinned ? `Unpin ${label}` : `Pin ${label} to top`}
+      aria-pressed={isPinned}
+      className={`inline-flex min-h-11 min-w-11 shrink-0 items-center justify-center rounded transition-all ${
         isPinned
           ? 'text-amber-400 opacity-100'
-          : 'text-zinc-600/50 group-hover:opacity-100 hover:text-zinc-300'
+          : 'text-zinc-500 group-hover:opacity-100 hover:text-zinc-300'
       }`}
     >
-      <svg className="w-3 h-3" viewBox="0 0 16 16" fill="currentColor">
+      <svg aria-hidden="true" className="w-3 h-3" viewBox="0 0 16 16" fill="currentColor">
         <path d="M9.828.722a.5.5 0 0 1 .354.146l4.95 4.95a.5.5 0 0 1-.707.707l-.71-.71-3.18 3.18a5.5 5.5 0 0 1-1.062 3.044l-.216.27a.5.5 0 0 1-.764.02L6.17 10.106l-3.64 3.647a.5.5 0 1 1-.707-.707l3.64-3.647L3.24 7.176a.5.5 0 0 1 .02-.764l.27-.216a5.5 5.5 0 0 1 3.044-1.062l3.18-3.18-.71-.71a.5.5 0 0 1 .146-.854l.636-.318z" />
       </svg>
     </button>
@@ -40,20 +42,21 @@ function PinButton({ isPinned, onClick }) {
 function SidebarLink({ mod, onClose, isPinned, onTogglePin }) {
   if (mod.external) {
     return (
-      <div className="group flex items-center">
+      <div className="group flex items-stretch">
         <a
           href={mod.externalUrl}
           target="_blank"
           rel="noopener noreferrer"
           onClick={onClose}
-          className="flex-1 flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm transition-all duration-150 text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.04]"
+          className="flex-1 flex min-h-11 items-center gap-1.5 px-3 py-1.5 rounded-lg text-sm transition-all duration-150 text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.04]"
         >
           {mod.title}
-          <svg className="w-3 h-3 text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <span className="sr-only">(opens in a new tab)</span>
+          <svg aria-hidden="true" className="w-3 h-3 text-zinc-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
           </svg>
         </a>
-        <PinButton isPinned={isPinned} onClick={onTogglePin} />
+        <PinButton isPinned={isPinned} onClick={onTogglePin} label={mod.title} />
       </div>
     );
   }
@@ -66,7 +69,8 @@ function SidebarLink({ mod, onClose, isPinned, onTogglePin }) {
   if (mod.retired) {
     return (
       <div
-        className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-zinc-600 cursor-not-allowed select-none"
+        className="flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm text-zinc-500 cursor-not-allowed select-none"
+        aria-disabled="true"
         title={mod.retiredReason || 'Removed from the game — no longer craftable'}
       >
         <span className="flex-1 line-through decoration-zinc-700">{mod.title}</span>
@@ -79,13 +83,13 @@ function SidebarLink({ mod, onClose, isPinned, onTogglePin }) {
 
   if (mod.wip) {
     return (
-      <div className="group flex items-center">
+      <div className="group flex items-stretch">
         <NavLink
           to={mod.route}
           onClick={onClose}
           title="Being rebuilt — placeholder page only"
           className={({ isActive }) => `
-            flex-1 flex items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition-all duration-150
+            flex-1 flex min-h-11 items-center gap-2 px-3 py-1.5 rounded-lg text-sm transition-all duration-150
             ${isActive
               ? 'text-amber-400/80 bg-amber-400/5'
               : 'text-zinc-500 hover:text-zinc-400 hover:bg-white/[0.02]'
@@ -97,18 +101,18 @@ function SidebarLink({ mod, onClose, isPinned, onTogglePin }) {
             WIP
           </span>
         </NavLink>
-        <PinButton isPinned={isPinned} onClick={onTogglePin} />
+        <PinButton isPinned={isPinned} onClick={onTogglePin} label={mod.title} />
       </div>
     );
   }
 
   return (
-    <div className="group flex items-center">
+    <div className="group flex items-stretch">
       <NavLink
         to={mod.route}
         onClick={onClose}
         className={({ isActive }) => `
-          flex-1 block px-3 py-1.5 rounded-lg text-sm transition-all duration-150
+          flex-1 flex min-h-11 items-center px-3 py-1.5 rounded-lg text-sm transition-all duration-150
           ${isActive
             ? 'text-sky-400 bg-sky-400/10 font-medium'
             : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.04]'
@@ -117,7 +121,7 @@ function SidebarLink({ mod, onClose, isPinned, onTogglePin }) {
       >
         {mod.title}
       </NavLink>
-      <PinButton isPinned={isPinned} onClick={onTogglePin} />
+      <PinButton isPinned={isPinned} onClick={onTogglePin} label={mod.title} />
     </div>
   );
 }
@@ -189,12 +193,16 @@ export default function Sidebar({ open, onClose }) {
         <div
           className="fixed inset-0 bg-black/60 backdrop-blur-sm z-40 lg:hidden"
           onClick={onClose}
+          aria-hidden="true"
         />
       )}
 
-      <aside className={`
+      <aside
+        id="app-sidebar"
+        aria-label="Tool navigation"
+        className={`
         fixed top-0 left-0 bottom-0 w-64 bg-zinc-950/95 backdrop-blur-xl border-r border-white/5 z-50
-        flex flex-col transition-transform duration-300 ease-out
+        flex flex-col motion-safe:transition-transform motion-safe:duration-300 ease-out
         lg:translate-x-0 lg:static lg:z-auto
         ${open ? 'translate-x-0' : '-translate-x-full'}
       `}>
@@ -209,7 +217,7 @@ export default function Sidebar({ open, onClose }) {
         {/* Search */}
         <div className="px-3 py-3">
           <div className="relative">
-            <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+            <svg aria-hidden="true" className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-zinc-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
               <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
             </svg>
             <input
@@ -217,7 +225,8 @@ export default function Sidebar({ open, onClose }) {
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Search modules..."
-              className="w-full bg-zinc-900/80 border border-white/[0.10] rounded-lg text-sm py-2 pl-9 pr-3 text-zinc-300 placeholder:text-zinc-400 outline-none focus:border-sky-400/30 transition-colors"
+              aria-label="Search modules"
+              className="w-full min-h-11 bg-zinc-900/80 border border-white/[0.10] rounded-lg text-sm py-2 pl-9 pr-3 text-zinc-300 placeholder:text-zinc-400 outline-none focus-visible:ring-2 focus-visible:ring-sky-400/60 focus:border-sky-400/30 transition-colors"
             />
           </div>
         </div>
@@ -266,10 +275,13 @@ export default function Sidebar({ open, onClose }) {
               <div key={category}>
                 <button
                   onClick={() => toggleCategory(category)}
-                  className="w-full flex items-center justify-between px-3 py-2 text-[11px] uppercase tracking-wider text-zinc-500 font-semibold hover:text-zinc-300 transition-colors"
+                  aria-expanded={!isCategoryCollapsed(category)}
+                  aria-controls={`sidebar-cat-${category}`}
+                  className="w-full min-h-11 flex items-center justify-between px-3 py-2 text-[11px] uppercase tracking-wider text-zinc-400 font-semibold hover:text-zinc-200 transition-colors"
                 >
                   {category}
                   <svg
+                    aria-hidden="true"
                     className={`w-3 h-3 transition-transform duration-200 ${isCategoryCollapsed(category) ? '' : 'rotate-90'}`}
                     fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}
                   >
@@ -278,7 +290,7 @@ export default function Sidebar({ open, onClose }) {
                 </button>
 
                 {!isCategoryCollapsed(category) && (
-                  <>
+                  <div id={`sidebar-cat-${category}`}>
                     {/* Special Leveling Mode Entry Button */}
                     {category === 'Leveling' && (game === 'poe2' || !isLevelingMode) && (
                       <div className="mb-2 ml-2">
@@ -330,17 +342,17 @@ export default function Sidebar({ open, onClose }) {
                         to={CATEGORY_ROUTES[category]}
                         onClick={onClose}
                         className={({ isActive }) =>
-                          `block ml-2 px-3 py-1.5 mb-1 rounded-lg text-xs transition-all duration-150 ${
+                          `flex min-h-11 items-center ml-2 px-3 mb-1 rounded-lg text-xs transition-all duration-150 ${
                             isActive
                               ? 'text-sky-400'
-                              : 'text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.04]'
+                              : 'text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.04]'
                           }`
                         }
                       >
                         View all →
                       </NavLink>
                     )}
-                  </>
+                  </div>
                 )}
               </div>
             ))
@@ -355,7 +367,8 @@ export default function Sidebar({ open, onClose }) {
               {PLANNED_FEATURES.map(item => (
                 <div
                   key={item}
-                  className="px-3 py-1.5 ml-2 text-sm text-zinc-600 flex items-center gap-2"
+                  className="px-3 py-1.5 ml-2 text-sm text-zinc-500 flex items-center gap-2"
+                  aria-disabled="true"
                 >
                   {item}
                   <span className="text-[10px] px-1.5 py-0.5 rounded bg-zinc-800/60 border border-white/5 text-zinc-500">

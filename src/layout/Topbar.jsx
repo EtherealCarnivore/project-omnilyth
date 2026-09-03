@@ -52,16 +52,26 @@ function LeagueSelector({ league, setLeague, leagues }) {
   const current = leagues.find(l => l.value === league) || leagues[0];
   const style = leagueStyle(current?.kind);
 
+  // `min-w-0` at both levels below is load-bearing, not cosmetic: a flex item
+  // defaults to `min-width: auto`, so without it this wrapper refuses to shrink
+  // below the league label's min-content width and the `truncate` never engages.
+  // The topbar row is the tightest layout in the app (game switcher + hamburger
+  // + league + status cluster on one 56px row at 375px) and `AppShell` is
+  // `overflow-hidden`, so anything that overflows is clipped and unreachable
+  // rather than scrollable. Letting the league label absorb the pressure keeps
+  // the row overflow-proof regardless of how long a league name GGG ships.
   return (
-    <div ref={ref} className="relative z-50">
+    <div ref={ref} className="relative z-50 min-w-0">
       {/* Trigger button */}
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-2 bg-zinc-900/60 border border-white/[0.06] rounded-lg text-sm py-1.5 px-3 outline-none hover:border-white/10 focus:border-sky-400/30 transition-colors cursor-pointer"
+        aria-expanded={open}
+        aria-label={`League: ${current?.label ?? 'none'}. Change league`}
+        className="flex min-h-11 w-full items-center gap-1.5 sm:gap-2 max-w-[9rem] sm:max-w-none bg-zinc-900/60 border border-white/[0.06] rounded-lg text-sm py-1.5 px-2 sm:px-3 outline-none hover:border-white/10 focus-visible:ring-2 focus-visible:ring-sky-400/60 focus:border-sky-400/30 transition-colors cursor-pointer"
       >
-        <span className={`w-2 h-2 rounded-full shrink-0 ${style.dot}`} />
-        <span className={style.text}>{current?.label}</span>
-        <svg className={`w-3.5 h-3.5 text-zinc-500 transition-transform ${open ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
+        <span className={`w-2 h-2 rounded-full shrink-0 ${style.dot}`} aria-hidden="true" />
+        <span className={`truncate min-w-0 ${style.text}`}>{current?.label}</span>
+        <svg aria-hidden="true" className={`w-3.5 h-3.5 shrink-0 text-zinc-500 transition-transform ${open ? 'rotate-180' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M19 9l-7 7-7-7" />
         </svg>
       </button>
@@ -115,10 +125,11 @@ function PatchNotesBadge() {
             window.dispatchEvent(tabEvent);
           }, 100);
         }}
-        className="p-1.5 rounded-lg text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.08] transition-colors"
+        className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.08] transition-colors"
         title="Patch Notes (G → 6)"
+        aria-label="Patch notes, no unread"
       >
-        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+        <svg aria-hidden="true" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
           <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
         </svg>
       </button>
@@ -136,22 +147,27 @@ function PatchNotesBadge() {
           window.dispatchEvent(tabEvent);
         }, 100);
       }}
-      className={`relative p-1.5 rounded-lg transition-colors ${
+      className={`relative inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg transition-colors ${
         hasMajorUnread
-          ? 'text-red-400 hover:text-red-300 hover:bg-red-400/[0.06] animate-pulse'
-          : 'text-amber-400 hover:text-amber-300 hover:bg-amber-400/[0.06] animate-pulse'
+          ? 'text-red-400 hover:text-red-300 hover:bg-red-400/[0.06] motion-safe:animate-pulse'
+          : 'text-amber-400 hover:text-amber-300 hover:bg-amber-400/[0.06] motion-safe:animate-pulse'
       }`}
       title={`${unreadCount} new patch note${unreadCount !== 1 ? 's' : ''} (G → 6)`}
+      aria-label={`Patch notes, ${unreadCount} unread`}
     >
-      <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
-        <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-      </svg>
-      <span className={`absolute -top-1 -right-1 min-w-[20px] h-5 px-1 text-[10px] font-bold rounded-full flex items-center justify-center ${
-        hasMajorUnread
-          ? 'bg-red-500 text-white'
-          : 'bg-amber-500 text-black'
-      }`}>
-        {unreadCount > 9 ? '9+' : unreadCount}
+      {/* Icon + badge share a relative wrapper so the badge stays pinned to the
+          glyph, not to the enlarged 44x44 hit area. */}
+      <span className="relative inline-flex" aria-hidden="true">
+        <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+          <path d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+        </svg>
+        <span className={`absolute -top-2 -right-2.5 min-w-[20px] h-5 px-1 text-[10px] font-bold rounded-full flex items-center justify-center ${
+          hasMajorUnread
+            ? 'bg-red-500 text-white'
+            : 'bg-amber-500 text-black'
+        }`}>
+          {unreadCount > 9 ? '9+' : unreadCount}
+        </span>
       </span>
     </button>
   );
@@ -167,10 +183,12 @@ function LibraryButton() {
     return (
       <button
         onClick={() => navigate('/library')}
-        className="p-1.5 rounded-lg text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.08] transition-colors"
+        className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.08] transition-colors"
         title="Regex Library (Empty)"
+        aria-label="Regex library, empty"
       >
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="none"
@@ -192,25 +210,28 @@ function LibraryButton() {
   return (
     <button
       onClick={() => navigate('/library')}
-      className="relative p-1.5 rounded-lg text-indigo-400 hover:text-indigo-300 hover:bg-indigo-400/[0.06] transition-colors"
+      className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-indigo-400 hover:text-indigo-300 hover:bg-indigo-400/[0.06] transition-colors"
       title={`${count} saved pattern${count !== 1 ? 's' : ''} in library`}
+      aria-label={`Regex library, ${count} saved pattern${count !== 1 ? 's' : ''}`}
     >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-        className="w-4 h-4"
-      >
-        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
-        <polyline points="17 21 17 13 7 13 7 21" />
-        <polyline points="7 3 7 8 15 8" />
-      </svg>
-      <span className="absolute -top-1 -right-1 min-w-[20px] h-5 px-1 text-[10px] font-bold rounded-full flex items-center justify-center bg-indigo-500 text-white">
-        {count > 9 ? '9+' : count}
+      <span className="relative inline-flex" aria-hidden="true">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="w-4 h-4"
+        >
+          <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" />
+          <polyline points="17 21 17 13 7 13 7 21" />
+          <polyline points="7 3 7 8 15 8" />
+        </svg>
+        <span className="absolute -top-2 -right-2.5 min-w-[20px] h-5 px-1 text-[10px] font-bold rounded-full flex items-center justify-center bg-indigo-500 text-white">
+          {count > 9 ? '9+' : count}
+        </span>
       </span>
     </button>
   );
@@ -237,13 +258,20 @@ function PriceStatusPopover({ loading, error, prices }) {
   const textClass = loading ? 'text-zinc-500' : error ? 'text-red-400/80' : prices ? 'text-green-400/80' : 'text-zinc-500';
 
   return (
-    <div ref={ref} className="relative">
+    <div ref={ref} className="relative shrink-0">
       <button
         onClick={() => setOpen(!open)}
-        className={`flex items-center gap-1.5 text-xs ${textClass} cursor-pointer hover:opacity-80 transition-opacity`}
+        title={`Prices: ${label}`}
+        aria-expanded={open}
+        aria-label={`Price data: ${label}. Show price info`}
+        className={`flex min-h-11 min-w-11 items-center justify-center gap-1.5 rounded-lg px-1.5 text-xs ${textClass} cursor-pointer hover:opacity-80 transition-opacity`}
       >
-        <span className={`w-2 h-2 rounded-full ${dotClass}`} />
-        {label}
+        <span className={`w-2 h-2 rounded-full shrink-0 ${dotClass}`} aria-hidden="true" />
+        {/* Label drops below sm: the dot alone carries the state visually on a
+            phone, so the button's aria-label above restates it for AT. The dot
+            is colour-only signalling (1.4.1) for sighted phone users — flagged
+            to ui-designer; a glyph or the short label is the real fix. */}
+        <span className="hidden sm:inline" aria-hidden="true">{label}</span>
       </button>
 
       {open && (
@@ -285,10 +313,11 @@ function SupportDropdown() {
     <div ref={ref} className="relative hidden sm:block">
       <button
         onClick={() => setOpen(!open)}
-        className="flex items-center gap-1.5 px-2 py-1 rounded-lg text-xs text-amber-500/70 hover:text-amber-400 hover:bg-amber-400/[0.06] transition-colors"
+        aria-expanded={open}
+        className="flex min-h-11 items-center gap-1.5 px-2 py-1 rounded-lg text-xs text-amber-500/70 hover:text-amber-400 hover:bg-amber-400/[0.06] transition-colors"
         title="Support the project"
       >
-        <svg className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+        <svg aria-hidden="true" className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
           <path strokeLinecap="round" strokeLinejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
         </svg>
         Support
@@ -327,7 +356,7 @@ function SupportDropdown() {
   );
 }
 
-export default function Topbar({ onMenuClick }) {
+export default function Topbar({ onMenuClick, menuOpen = false }) {
   const location = useLocation();
   const { loading, prices, error, refresh } = usePricesContext();
   const { league, setLeague, leagues, leaguesLoading } = useLeague();
@@ -336,15 +365,18 @@ export default function Topbar({ onMenuClick }) {
   const title = currentModule?.title || 'Dashboard';
 
   return (
-    <header className="relative z-50 h-14 border-b border-white/5 bg-zinc-950/80 backdrop-blur-md flex items-center justify-between px-4 shrink-0">
+    <header className="relative z-50 h-14 border-b border-white/5 bg-zinc-950/80 backdrop-blur-md flex items-center justify-between gap-2 px-3 sm:px-4 shrink-0">
       {/* Left: game switcher + hamburger + title */}
-      <div className="flex items-center gap-3 min-w-0">
+      <div className="flex items-center gap-1.5 sm:gap-3 min-w-0">
         <GameSwitcher />
         <button
           onClick={onMenuClick}
-          className="lg:hidden p-1.5 rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.04] transition-colors"
+          aria-label={menuOpen ? 'Close navigation menu' : 'Open navigation menu'}
+          aria-expanded={menuOpen}
+          aria-controls="app-sidebar"
+          className="lg:hidden inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-zinc-400 hover:text-zinc-200 hover:bg-white/[0.04] transition-colors"
         >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg aria-hidden="true" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M4 6h16M4 12h16M4 18h16" />
           </svg>
         </button>
@@ -353,32 +385,40 @@ export default function Topbar({ onMenuClick }) {
       </div>
 
       {/* Center: league selector */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 min-w-0">
         <span className="text-xs text-zinc-500 hidden sm:inline">League</span>
         {leaguesLoading ? (
-          <div className="h-7 w-32 rounded-lg bg-zinc-800/60 animate-pulse" />
+          <div className="h-7 w-24 sm:w-32 rounded-lg bg-zinc-800/60 animate-pulse" />
         ) : (
           <LeagueSelector league={league} setLeague={setLeague} leagues={leagues} />
         )}
       </div>
 
-      {/* Right: status + refresh */}
-      <div className="flex items-center gap-3">
-        <LibraryButton />
+      {/* Right: status + refresh.
+          At 375px the full control cluster (library + feedback + patch notes +
+          price status + refresh + support) cannot coexist with the game switcher
+          and the league selector on one 56px row. Below sm: we keep the two that
+          matter mid-session — feedback (bug reports happen on phones too) and the
+          price status dot — and drop the rest. Library is reachable from the
+          sidebar nav; refresh is redundant with the 24h auto-fetch. */}
+      <div className="flex items-center gap-1.5 sm:gap-3 shrink-0">
+        <div className="hidden sm:flex items-center"><LibraryButton /></div>
         <FeedbackButton />
-        <PatchNotesBadge />
+        <div className="hidden sm:flex items-center"><PatchNotesBadge /></div>
         <PriceStatusPopover loading={loading} error={error} prices={prices} />
         <button
           onClick={refresh}
           disabled={loading}
-          className="p-1.5 rounded-lg text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.04] transition-colors disabled:opacity-40"
+          className="hidden sm:inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-zinc-500 hover:text-zinc-300 hover:bg-white/[0.04] transition-colors disabled:opacity-40"
           title="Refresh prices"
+          aria-label={loading ? 'Refreshing prices' : 'Refresh prices'}
+          aria-busy={loading}
         >
-          <svg className={`w-4 h-4 ${loading ? 'animate-spin' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg aria-hidden="true" className={`w-4 h-4 ${loading ? 'motion-safe:animate-spin' : ''}`} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
           </svg>
         </button>
-        <span className="text-zinc-500 hidden sm:inline">|</span>
+        <span className="text-zinc-500 hidden sm:inline" aria-hidden="true">|</span>
         <SupportDropdown />
       </div>
     </header>

@@ -7,7 +7,7 @@ import { usePricesContext } from '../contexts/PricesContext';
 export default function JewellerPage() {
   const { prices } = usePricesContext();
   return (
-    <div className="glass-card rounded-2xl p-6 sm:p-8">
+    <div className="glass-card rounded-2xl p-4 sm:p-6 lg:p-8">
       <PatchStaleNotice severity="dead">
         <p>
           Every leg of this strategy was removed in 3.29. Sockets added by a

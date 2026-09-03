@@ -196,9 +196,10 @@ export default function Poe2WaystoneRegex() {
                 <button
                   type="button"
                   onClick={() => copyChunk(chunk, idx)}
-                  className="text-xs px-3 py-1.5 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/30 text-cyan-200 motion-safe:transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
+                  aria-label={`Copy pattern ${idx + 1}`}
+                  className="min-h-9 text-xs px-3 py-1.5 rounded-lg bg-cyan-500/15 hover:bg-cyan-500/25 border border-cyan-500/30 text-cyan-200 motion-safe:transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400 focus-visible:ring-offset-2 focus-visible:ring-offset-zinc-950"
                 >
-                  {copiedIdx === idx ? 'Copied' : 'Copy'}
+                  <span aria-live="polite">{copiedIdx === idx ? 'Copied' : 'Copy'}</span>
                 </button>
               </div>
             ))}

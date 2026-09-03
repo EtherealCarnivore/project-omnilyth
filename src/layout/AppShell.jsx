@@ -48,7 +48,7 @@ export default function AppShell() {
         {/* Show banner when in leveling mode */}
         {isLevelingMode && <LevelingModeBanner />}
 
-        <Topbar onMenuClick={() => setSidebarOpen(prev => !prev)} />
+        <Topbar menuOpen={sidebarOpen} onMenuClick={() => setSidebarOpen(prev => !prev)} />
 
         <main className={`flex-1 ${isFullWidth ? 'overflow-hidden' : 'overflow-y-auto'}`}>
           <div className={isFullWidth ? 'h-full px-4 sm:px-6 py-6 sm:py-8' : 'max-w-5xl mx-auto px-4 sm:px-6 py-6 sm:py-8'}>

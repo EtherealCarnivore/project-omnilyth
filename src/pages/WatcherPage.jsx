@@ -39,7 +39,7 @@ export default function WatcherPage() {
   return (
     <div className="max-w-2xl mx-auto space-y-8">
       {/* Hero */}
-      <div className="glass-card rounded-2xl p-6 sm:p-8">
+      <div className="glass-card rounded-2xl p-4 sm:p-6 lg:p-8">
         <div className="flex items-start gap-4">
           <div className="shrink-0 w-12 h-12 rounded-xl bg-amber-400/10 border border-amber-400/20 flex items-center justify-center">
             <BellIcon />
@@ -73,7 +73,7 @@ export default function WatcherPage() {
       </div>
 
       {/* How it works */}
-      <div className="glass-card rounded-2xl p-6 sm:p-8">
+      <div className="glass-card rounded-2xl p-4 sm:p-6 lg:p-8">
         <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider mb-4">How it works</h2>
         <ol className="space-y-3">
           {STEPS.map(({ n, text }) => (
@@ -88,7 +88,7 @@ export default function WatcherPage() {
       </div>
 
       {/* Features */}
-      <div className="glass-card rounded-2xl p-6 sm:p-8">
+      <div className="glass-card rounded-2xl p-4 sm:p-6 lg:p-8">
         <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wider mb-4">Features</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           {FEATURES.map(({ title, desc }) => (

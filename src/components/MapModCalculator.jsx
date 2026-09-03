@@ -46,10 +46,12 @@ function Section({ title, defaultOpen = false, children, badge }) {
     <div className="border border-white/5 rounded-xl overflow-hidden">
       <button
         onClick={() => setOpen(!open)}
-        className="w-full flex items-center justify-between px-5 py-3 bg-zinc-950/30 hover:bg-zinc-950/50 transition-colors"
+        aria-expanded={open}
+        className="w-full min-h-11 flex items-center justify-between gap-2 px-4 sm:px-5 py-3 bg-zinc-950/30 hover:bg-zinc-950/50 transition-colors"
       >
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 min-w-0">
           <svg
+            aria-hidden="true"
             className={`w-3.5 h-3.5 text-zinc-400 transition-transform duration-200 ${open ? 'rotate-90' : ''}`}
             fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}
           >
@@ -59,7 +61,7 @@ function Section({ title, defaultOpen = false, children, badge }) {
         </div>
         {badge}
       </button>
-      {open && <div className="px-5 py-4 border-t border-white/5">{children}</div>}
+      {open && <div className="px-4 sm:px-5 py-4 border-t border-white/5">{children}</div>}
     </div>
   );
 }
@@ -67,23 +69,23 @@ function Section({ title, defaultOpen = false, children, badge }) {
 /* ── Numeric input ── */
 function NumericInput({ label, value, onChange, optimize, onOptimizeChange, showOptimize = false }) {
   return (
-    <div className="flex items-center gap-3">
-      <label className="text-sm text-zinc-400 w-32 shrink-0">{label}</label>
+    <div className="flex flex-wrap items-center gap-x-2 gap-y-1 sm:gap-x-3">
+      <label className="text-sm text-zinc-400 w-24 sm:w-32 shrink-0">{label}</label>
       <input
         type="text"
         inputMode="numeric"
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="calc-input text-sm py-1.5 px-3 w-24"
+        className="calc-input text-sm py-1.5 px-3 w-20 sm:w-24"
         placeholder="0"
       />
       {showOptimize && (
-        <label className="flex items-center gap-1.5 text-xs text-zinc-400 cursor-pointer select-none whitespace-nowrap">
+        <label className="flex min-h-11 items-center gap-1.5 text-xs text-zinc-400 cursor-pointer select-none whitespace-nowrap">
           <input
             type="checkbox"
             checked={optimize}
             onChange={(e) => onOptimizeChange(e.target.checked)}
-            className="accent-teal-400 w-3.5 h-3.5"
+            className="accent-teal-400 w-4 h-4"
           />
           Optimize
         </label>
@@ -122,15 +124,16 @@ function ModChip({ token, onRemove, color }) {
   return (
     <button
       onClick={onRemove}
-      className={`inline-flex items-center gap-1 px-2 py-0.5 rounded-full text-[11px] leading-tight border transition-colors hover:brightness-125 ${
+      aria-label={`Remove ${token.rawText}`}
+      className={`inline-flex min-h-7 items-center gap-1 px-2 py-1 rounded-full text-[11px] leading-tight border transition-colors hover:brightness-125 ${
         color === 'red'
           ? 'bg-red-500/10 border-red-400/30 hover:bg-red-500/20'
           : 'bg-green-500/10 border-green-400/30 hover:bg-green-500/20'
       }`}
       title="Click to remove"
     >
-      <span style={style} className="truncate max-w-[180px]">{token.rawText}</span>
-      <svg className="w-3 h-3 text-zinc-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+      <span style={style} className="truncate max-w-[180px]" aria-hidden="true">{token.rawText}</span>
+      <svg aria-hidden="true" className="w-3 h-3 text-zinc-400 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
       </svg>
     </button>
@@ -189,21 +192,31 @@ function TierSelect({ value, onChange }) {
 function InlineToggle({ label, enabled, include, onToggle, onModeChange }) {
   return (
     <div className="flex items-center gap-4">
-      <label className="flex items-center gap-2 text-sm text-zinc-400 cursor-pointer select-none">
-        <div
-          onClick={onToggle}
-          className={`relative w-9 h-5 rounded-full cursor-pointer transition-colors duration-200 ${
+      {/* Was a <div onClick> inside a <label> with no htmlFor: unreachable by
+          Tab, invisible to switch control / VoiceOver, and a 36x20 target.
+          Now a real switch — the label text is inside the button, so the whole
+          44px row is the tap target (2.1.1, 4.1.2, 2.5.8). */}
+      <button
+        type="button"
+        role="switch"
+        aria-checked={enabled}
+        onClick={onToggle}
+        className="flex min-h-11 items-center gap-2 text-sm text-zinc-400 hover:text-zinc-200 cursor-pointer select-none rounded-lg px-1 focus-visible:ring-2 focus-visible:ring-teal-400/60 transition-colors"
+      >
+        <span
+          aria-hidden="true"
+          className={`relative block w-9 h-5 shrink-0 rounded-full transition-colors duration-200 ${
             enabled ? 'bg-teal-600' : 'bg-zinc-950/80 border border-white/5'
           }`}
         >
-          <div
-            className={`absolute top-0.5 w-4 h-4 rounded-full bg-white shadow-sm transition-transform duration-200 ${
+          <span
+            className={`absolute top-0.5 block w-4 h-4 rounded-full bg-white shadow-sm transition-transform duration-200 ${
               enabled ? 'translate-x-4' : 'translate-x-0.5'
             }`}
           />
-        </div>
+        </span>
         {label}
-      </label>
+      </button>
       {enabled && (
         <TogglePill left="Include" right="Exclude" active={!include} onChange={(v) => onModeChange(!v)} />
       )}
@@ -475,12 +488,12 @@ export default function MapModCalculator() {
 
       {/* ── Result Box (sticky-like prominence) ── */}
       <div ref={resultRef} className="rounded-xl bg-zinc-950/50 border border-white/5 p-4">
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 mb-3">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             <h3 className="text-xs font-semibold text-teal-300 uppercase tracking-widest">Output</h3>
             <TierSelect value={tierMode} onChange={setTierMode} />
           </div>
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3">
             <span className={`text-xs font-mono tabular-nums ${charColor}`}>
               {charCount}<span className="text-zinc-400/60">/250</span>
             </span>
@@ -500,13 +513,13 @@ export default function MapModCalculator() {
             </button>
             <button
               onClick={handleCopy}
-              className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all duration-200 ${
+              className={`min-h-9 px-3 py-1.5 text-xs font-medium rounded-lg transition-all duration-200 ${
                 copied
                   ? 'bg-teal-500/30 text-teal-200 border border-teal-400/40'
                   : 'bg-zinc-900/80 text-zinc-400 hover:text-zinc-100 border border-white/5 hover:border-white/10'
               }`}
             >
-              {copied ? 'Copied!' : 'Copy'}
+              <span aria-live="polite">{copied ? 'Copied!' : 'Copy'}</span>
             </button>
             {result && (
               <SaveRegexButton
@@ -795,7 +808,7 @@ export default function MapModCalculator() {
         {/* ── Include (Good) Mods ── */}
         <div className="rounded-xl border border-white/5 overflow-hidden flex flex-col">
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-3 bg-green-500/[0.06] border-b border-white/5">
+          <div className="flex flex-wrap items-center justify-between gap-x-3 gap-y-2 px-4 py-3 bg-green-500/[0.06] border-b border-white/5">
             <div className="flex items-center gap-2">
               <div className="w-2 h-2 rounded-full bg-green-400" />
               <h3 className="text-sm font-semibold text-green-400 uppercase tracking-wider">Include</h3>

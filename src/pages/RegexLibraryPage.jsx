@@ -53,8 +53,10 @@ export default function RegexLibraryPage() {
     });
   };
 
+  // No horizontal padding below sm: AppShell already applies px-4, and
+  // doubling it costs 32px of a 375px viewport.
   return (
-    <div className="max-w-6xl mx-auto p-4 sm:p-6 space-y-6">
+    <div className="max-w-6xl mx-auto sm:p-6 space-y-6">
       {/* Header */}
       <div className="text-center space-y-2">
         <h1 className="text-2xl sm:text-3xl font-bold text-zinc-100">
@@ -67,7 +69,7 @@ export default function RegexLibraryPage() {
       </div>
 
       {/* Storage Info */}
-      <div className="glass-card space-y-3">
+      <div className="glass-card rounded-xl p-4 sm:p-5 space-y-3">
         <div className="flex items-center justify-between">
           <div className="space-y-1">
             <h2 className="text-sm font-semibold text-zinc-300">Storage Status</h2>
@@ -129,7 +131,7 @@ export default function RegexLibraryPage() {
 
       {/* Filters */}
       {patterns.length > 0 && (
-        <div className="glass-card space-y-3">
+        <div className="glass-card rounded-xl p-4 sm:p-5 space-y-3">
           <h2 className="text-sm font-semibold text-zinc-300">Filters</h2>
 
           <div className="grid sm:grid-cols-2 gap-3">
@@ -172,7 +174,7 @@ export default function RegexLibraryPage() {
 
       {/* Pattern List */}
       {filteredPatterns.length === 0 ? (
-        <div className="glass-card text-center py-12">
+        <div className="glass-card rounded-xl px-4 py-12 text-center">
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 24 24"
@@ -201,15 +203,15 @@ export default function RegexLibraryPage() {
           {filteredPatterns.map(pattern => (
             <div
               key={pattern.id}
-              className="glass-card hover:bg-zinc-900/60 transition-colors"
+              className="glass-card rounded-xl p-4 sm:p-5 hover:bg-zinc-900/60 transition-colors"
             >
               {/* Pattern Header */}
-              <div className="flex items-start justify-between gap-3 mb-3">
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-3 mb-3">
                 <div className="flex-1 min-w-0">
                   <h3 className="text-base font-semibold text-zinc-100 truncate">
                     {pattern.name}
                   </h3>
-                  <div className="flex items-center gap-2 mt-1">
+                  <div className="flex flex-wrap items-center gap-2 mt-1">
                     <span className="text-xs px-2 py-0.5 rounded bg-indigo-500/20 text-indigo-300 font-medium">
                       {pattern.toolLabel}
                     </span>
@@ -223,16 +225,21 @@ export default function RegexLibraryPage() {
                 <div className="flex items-center gap-2">
                   <button
                     onClick={() => handleCopy(pattern)}
-                    className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all ${
+                    aria-label={`Copy pattern ${pattern.name}`}
+                    className={`inline-flex min-h-11 items-center px-3 py-1.5 text-xs font-medium rounded-lg transition-all ${
                       copiedId === pattern.id
                         ? 'bg-green-500/20 text-green-400'
                         : 'bg-zinc-800/80 text-zinc-400 hover:text-zinc-100 hover:bg-zinc-700/80'
                     }`}
                     title="Copy pattern"
                   >
+                    {/* aria-live: the icon+label swap is the only copy
+                        confirmation, and it is silent without this. */}
+                    <span aria-live="polite" className="inline-flex items-center">
                     {copiedId === pattern.id ? (
                       <>
                         <svg
+                          aria-hidden="true"
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="none"
@@ -249,6 +256,7 @@ export default function RegexLibraryPage() {
                     ) : (
                       <>
                         <svg
+                          aria-hidden="true"
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="none"
@@ -264,15 +272,18 @@ export default function RegexLibraryPage() {
                         Copy
                       </>
                     )}
+                    </span>
                   </button>
 
                   <button
                     onClick={() => setDeleteConfirmId(pattern.id)}
-                    className="px-3 py-1.5 text-xs font-medium text-red-400 bg-red-500/10 rounded-lg
+                    aria-label={`Delete pattern ${pattern.name}`}
+                    className="inline-flex min-h-11 items-center px-3 py-1.5 text-xs font-medium text-red-400 bg-red-500/10 rounded-lg
                              hover:bg-red-500/20 transition-colors"
                     title="Delete pattern"
                   >
                     <svg
+                      aria-hidden="true"
                       xmlns="http://www.w3.org/2000/svg"
                       viewBox="0 0 24 24"
                       fill="none"
@@ -306,12 +317,16 @@ export default function RegexLibraryPage() {
           onClick={() => setDeleteConfirmId(null)}
         >
           <div
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="delete-pattern-title"
             className="glass-card rounded-xl p-6 max-w-md w-full space-y-4"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-start gap-3">
               <div className="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0">
                 <svg
+                  aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="none"
@@ -327,7 +342,7 @@ export default function RegexLibraryPage() {
                 </svg>
               </div>
               <div className="flex-1">
-                <h3 className="text-lg font-bold text-zinc-100 mb-1">Delete Pattern?</h3>
+                <h3 id="delete-pattern-title" className="text-lg font-bold text-zinc-100 mb-1">Delete Pattern?</h3>
                 <p className="text-sm text-zinc-400">
                   Are you sure you want to delete this pattern? This action cannot be undone.
                 </p>
@@ -364,12 +379,16 @@ export default function RegexLibraryPage() {
           onClick={() => setShowClearConfirm(false)}
         >
           <div
+            role="alertdialog"
+            aria-modal="true"
+            aria-labelledby="clear-all-title"
             className="glass-card rounded-xl p-6 max-w-md w-full space-y-4"
             onClick={(e) => e.stopPropagation()}
           >
             <div className="flex items-start gap-3">
               <div className="w-10 h-10 rounded-full bg-red-500/20 flex items-center justify-center flex-shrink-0">
                 <svg
+                  aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="none"
@@ -385,7 +404,7 @@ export default function RegexLibraryPage() {
                 </svg>
               </div>
               <div className="flex-1">
-                <h3 className="text-lg font-bold text-zinc-100 mb-1">Clear All Patterns?</h3>
+                <h3 id="clear-all-title" className="text-lg font-bold text-zinc-100 mb-1">Clear All Patterns?</h3>
                 <p className="text-sm text-zinc-400">
                   Are you sure you want to delete all {patterns.length} saved pattern{patterns.length !== 1 ? 's' : ''}?
                   This action cannot be undone.

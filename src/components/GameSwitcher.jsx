@@ -37,35 +37,37 @@ export default function GameSwitcher() {
     }
   }
 
+  // role="tablist"/"tab" was a misuse: there are no tabpanels, so AT announced
+  // "tab 1 of 2" for a control that swaps the app's entire tool set. A named
+  // group + aria-pressed describes it truthfully and carries no
+  // roving-tabindex obligation.
   return (
     <div
       className="flex shrink-0 items-center p-0.5 rounded-lg bg-zinc-900/60 border border-white/[0.06]"
-      role="tablist"
+      role="group"
       aria-label="Select game"
     >
       <button
-        role="tab"
-        aria-selected={game === 'poe1'}
+        aria-pressed={game === 'poe1'}
         onClick={() => handleSwitch('poe1')}
         title="Path of Exile 1"
-        className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold motion-safe:transition-all ${
+        className={`flex min-h-9 items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1 rounded-md text-xs font-semibold whitespace-nowrap motion-safe:transition-all ${
           game === 'poe1'
             ? 'bg-orange-500/20 text-orange-300 shadow-inner shadow-orange-500/10'
-            : 'text-zinc-500 hover:text-zinc-300'
+            : 'text-zinc-400 hover:text-zinc-200'
         }`}
       >
         <span className="w-1.5 h-1.5 rounded-full bg-orange-400" aria-hidden="true" />
         <span>PoE 1</span>
       </button>
       <button
-        role="tab"
-        aria-selected={game === 'poe2'}
+        aria-pressed={game === 'poe2'}
         onClick={() => handleSwitch('poe2')}
         title="Path of Exile 2"
-        className={`flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-semibold motion-safe:transition-all ${
+        className={`flex min-h-9 items-center gap-1 sm:gap-1.5 px-2 sm:px-2.5 py-1 rounded-md text-xs font-semibold whitespace-nowrap motion-safe:transition-all ${
           game === 'poe2'
             ? 'bg-cyan-500/20 text-cyan-300 shadow-inner shadow-cyan-500/10'
-            : 'text-zinc-500 hover:text-zinc-300'
+            : 'text-zinc-400 hover:text-zinc-200'
         }`}
       >
         <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" aria-hidden="true" />

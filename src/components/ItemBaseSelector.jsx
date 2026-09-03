@@ -41,13 +41,14 @@ export default function ItemBaseSelector({ value, onChange, rarity, onRarityChan
     <div className="space-y-3">
       {/* Rarity toggle */}
       <div className="flex items-center gap-2">
-        <span className="text-sm text-zinc-400">Rarity:</span>
-        <div className="inline-flex rounded-full bg-zinc-950/60 border border-white/5 p-0.5">
+        <span id="rarity-group-label" className="text-sm text-zinc-400">Rarity:</span>
+        <div className="inline-flex rounded-full bg-zinc-950/60 border border-white/5 p-0.5" role="group" aria-labelledby="rarity-group-label">
           {['Rare', 'Magic'].map((r) => (
             <button
               key={r}
               onClick={() => onRarityChange(r)}
-              className={`px-3.5 py-1 rounded-full text-xs font-medium transition-all duration-200 ${
+              aria-pressed={rarity === r}
+              className={`inline-flex min-h-9 items-center px-3.5 py-1 rounded-full text-xs font-medium transition-all duration-200 ${
                 rarity === r
                   ? 'bg-indigo-500/20 text-indigo-300 shadow-sm'
                   : 'text-zinc-400 hover:text-zinc-100'
@@ -62,7 +63,7 @@ export default function ItemBaseSelector({ value, onChange, rarity, onRarityChan
       {/* Search input */}
       <div ref={wrapperRef} className="relative">
         <div className="relative">
-          <svg className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400/50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+          <svg aria-hidden="true" className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-zinc-400/50" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <circle cx="11" cy="11" r="8" /><path d="M21 21l-4.35-4.35" />
           </svg>
           <input
@@ -71,14 +72,16 @@ export default function ItemBaseSelector({ value, onChange, rarity, onRarityChan
             onChange={(e) => { setQuery(e.target.value); setOpen(true); }}
             onFocus={() => setOpen(true)}
             placeholder="Search item base type..."
-            className="w-full bg-zinc-950/40 border border-white/5 rounded-lg text-sm py-2 pl-9 pr-8 text-zinc-100 placeholder:text-zinc-400/40 outline-none focus:border-indigo-500/40 transition-colors"
+            aria-label="Search item base type"
+            className="w-full min-h-11 bg-zinc-950/40 border border-white/5 rounded-lg text-sm py-2 pl-9 pr-12 text-zinc-100 placeholder:text-zinc-400/40 outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/60 focus:border-indigo-500/40 transition-colors"
           />
           {value && (
             <button
               onClick={handleClear}
-              className="absolute right-2.5 top-1/2 -translate-y-1/2 text-zinc-400 hover:text-zinc-200 transition-colors duration-150"
+              aria-label="Clear selected item base"
+              className="absolute right-1 top-1/2 -translate-y-1/2 inline-flex min-h-11 min-w-11 items-center justify-center rounded-lg text-zinc-400 hover:text-zinc-200 transition-colors duration-150"
             >
-              <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+              <svg aria-hidden="true" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
               </svg>
             </button>

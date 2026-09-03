@@ -15,7 +15,7 @@ export default function Poe2HomePage() {
   return (
     <div className="space-y-8">
       {/* Banner */}
-      <div className="rounded-2xl overflow-hidden border border-cyan-500/20 bg-gradient-to-br from-cyan-500/10 via-zinc-900/60 to-zinc-900/40 backdrop-blur-sm p-8 sm:p-12">
+      <div className="rounded-2xl overflow-hidden border border-cyan-500/20 bg-gradient-to-br from-cyan-500/10 via-zinc-900/60 to-zinc-900/40 backdrop-blur-sm p-5 sm:p-8 lg:p-12">
         <div className="max-w-2xl">
           <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-cyan-500/20 text-cyan-300">
             <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" aria-hidden="true" />
@@ -36,7 +36,7 @@ export default function Poe2HomePage() {
 
       {/* What's changing in 0.5 */}
       <section>
-        <div className="flex items-end justify-between mb-3">
+        <div className="flex flex-wrap items-end justify-between gap-x-3 gap-y-1 mb-3">
           <h2 className="text-xs font-semibold text-zinc-500 uppercase tracking-widest">What's changing in 0.5</h2>
           <Link
             to="/poe2/runes-of-aldur"
@@ -88,7 +88,7 @@ export default function Poe2HomePage() {
 
       {/* First wave — launch week */}
       <section>
-        <div className="flex items-end justify-between mb-3">
+        <div className="flex flex-wrap items-end justify-between gap-x-3 gap-y-1 mb-3">
           <h2 className="text-xs font-semibold text-zinc-500 uppercase tracking-widest">First wave · launch week</h2>
           <span className="text-[10px] uppercase tracking-wider text-zinc-600">Targeting 2026-05-29</span>
         </div>

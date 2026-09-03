@@ -189,3 +189,54 @@ input[type="number"] {
 .scrollbar-track-transparent {
   scrollbar-color: #3f3f46 transparent;
 }
+
+/* ---------------------------------------------------------------------------
+   Mobile form-control floor.
+
+   iOS Safari auto-zooms the viewport whenever a focused form control has a
+   computed font-size below 16px. Practically every input in the app is
+   `text-sm` (14px) or `.calc-input` (0.9rem), so every tap into a search box or
+   a numeric field on an iPhone zooms the page — and leaves it zoomed.
+
+   Deliberately unlayered and last in the file: unlayered CSS outranks
+   Tailwind's `@layer utilities`, so this beats `text-sm`/`text-xs` without
+   `!important`, and being last it also beats the `.calc-input` rule above.
+   Scoped to the phone breakpoint; desktop density is untouched.
+   --------------------------------------------------------------------------- */
+@media (max-width: 640px) {
+  input:not([type="checkbox"]):not([type="radio"]):not([type="range"]),
+  select,
+  textarea,
+  .calc-input {
+    font-size: 16px;
+  }
+}
+
+/* WCAG 2.3.3 Animation from Interactions / 2.2.2 Pause, Stop, Hide.
+   Vestibular-safe fallback: kill translation + looping animation, keep
+   colour-only transitions and instant state changes intact. Tailwind's
+   `motion-safe:` variant covers utility classes; this covers the hand-rolled
+   CSS above (.fade-in, .skeleton, .calc-button lift) and any stray
+   `transition-*` / `animate-*` that was authored without the variant. */
+@media (prefers-reduced-motion: reduce) {
+  .fade-in,
+  .animate-in {
+    animation: none !important;
+  }
+  .skeleton {
+    animation: none !important;
+    background: #3f3f46;
+  }
+  .calc-button:hover,
+  .calc-button:active {
+    transform: none;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

@@ -105,7 +105,7 @@ export default function FusingCalculator({ prices }) {
       {/* Toggles */}
       <div className="space-y-3">
         {/* Corrupted Toggle */}
-        <label className="flex items-center gap-3 cursor-pointer select-none group w-fit">
+        <label className="flex flex-wrap items-center gap-x-3 gap-y-1 cursor-pointer select-none group w-fit max-w-full">
           <span className="relative">
             <input
               type="checkbox"
@@ -135,7 +135,7 @@ export default function FusingCalculator({ prices }) {
         {/* Omen of Connections Toggle */}
         {!corrupted && (
           <div className="space-y-2">
-            <label className={`flex items-center gap-3 select-none group w-fit ${omenEligible ? 'cursor-pointer' : 'cursor-not-allowed opacity-50'}`}>
+            <label className={`flex flex-wrap items-center gap-x-3 gap-y-1 select-none group w-fit max-w-full ${omenEligible ? 'cursor-pointer' : 'cursor-not-allowed opacity-50'}`}>
               <span className="relative">
                 <input
                   type="checkbox"

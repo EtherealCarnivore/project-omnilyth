@@ -10,7 +10,7 @@ import AvailabilityBadge from './AvailabilityBadge';
 export default function GemGridView({ gems, selectedClass, onSelectGem }) {
   if (gems.length === 0) {
     return (
-      <div className="col-span-full bg-zinc-900/60 backdrop-blur-sm border border-white/[0.08] rounded-lg p-12 text-center">
+      <div className="col-span-full bg-zinc-900/60 backdrop-blur-sm border border-white/[0.08] rounded-lg p-6 sm:p-12 text-center">
         <svg className="w-16 h-16 mx-auto mb-4 text-zinc-600" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
           <circle cx="12" cy="12" r="10" />
           <path d="M12 8v4M12 16h.01" />

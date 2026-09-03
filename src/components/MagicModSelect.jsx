@@ -5,7 +5,8 @@ function ModToggle({ mod, selected, onClick }) {
   return (
     <button
       onClick={onClick}
-      className={`w-full text-left px-3 py-1.5 rounded-lg text-[13px] leading-snug transition-all duration-100 group ${
+      aria-pressed={selected}
+      className={`w-full min-h-11 text-left px-3 py-1.5 rounded-lg text-[13px] leading-snug transition-all duration-100 group ${
         selected
           ? 'bg-indigo-500/15 ring-1 ring-indigo-400/40'
           : 'hover:bg-white/[0.04] hover:pl-4'
@@ -14,12 +15,13 @@ function ModToggle({ mod, selected, onClick }) {
     >
       <span className="flex items-center gap-2">
         <span
+          aria-hidden="true"
           className={`w-1.5 h-1.5 rounded-full shrink-0 transition-opacity ${
             selected ? 'opacity-100 bg-indigo-400' : 'opacity-0 group-hover:opacity-50 bg-zinc-400'
           }`}
         />
         <span className="text-zinc-200 truncate">{mod.name}</span>
-        <span className="text-[10px] text-zinc-500 shrink-0 ml-auto">ilvl {mod.ilevel}</span>
+        <span className="text-[10px] text-zinc-400 shrink-0 ml-auto">ilvl {mod.ilevel}</span>
       </span>
       <span className="text-[11px] text-zinc-400 ml-4 block truncate">{mod.description}</span>
     </button>
@@ -121,7 +123,8 @@ export default function MagicModSelect({ baseType, selectedMods, onToggle }) {
                 value={prefixSearch}
                 onChange={(e) => setPrefixSearch(e.target.value)}
                 placeholder="Search prefixes..."
-                className="w-full bg-zinc-950/40 border border-white/5 rounded-lg text-sm py-1.5 pl-8 pr-3 text-zinc-100 placeholder:text-zinc-400/40 outline-none focus:border-indigo-500/40 transition-colors"
+                aria-label="Search prefixes"
+                className="w-full min-h-11 bg-zinc-950/40 border border-white/5 rounded-lg text-sm py-1.5 pl-8 pr-3 text-zinc-100 placeholder:text-zinc-400/40 outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/60 focus:border-indigo-500/40 transition-colors"
               />
             </div>
           </div>
@@ -156,7 +159,8 @@ export default function MagicModSelect({ baseType, selectedMods, onToggle }) {
                 value={suffixSearch}
                 onChange={(e) => setSuffixSearch(e.target.value)}
                 placeholder="Search suffixes..."
-                className="w-full bg-zinc-950/40 border border-white/5 rounded-lg text-sm py-1.5 pl-8 pr-3 text-zinc-100 placeholder:text-zinc-400/40 outline-none focus:border-indigo-500/40 transition-colors"
+                aria-label="Search suffixes"
+                className="w-full min-h-11 bg-zinc-950/40 border border-white/5 rounded-lg text-sm py-1.5 pl-8 pr-3 text-zinc-100 placeholder:text-zinc-400/40 outline-none focus-visible:ring-2 focus-visible:ring-indigo-400/60 focus:border-indigo-500/40 transition-colors"
               />
             </div>
           </div>

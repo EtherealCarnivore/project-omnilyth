@@ -360,9 +360,9 @@ export default function LevelingPlannerPage() {
       </div>
 
       {/* Import from PoB */}
-      <div className="glass-card rounded-xl p-5">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
+      <div className="glass-card rounded-xl p-4 sm:p-5">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
+          <div className="flex items-center gap-3 min-w-0">
             <div className="w-9 h-9 rounded-lg bg-violet-500/15 border border-violet-400/20 flex items-center justify-center">
               <svg className="w-5 h-5 text-violet-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                 <path strokeLinecap="round" strokeLinejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12" />
@@ -532,7 +532,7 @@ export default function LevelingPlannerPage() {
 
       {/* Quick Templates */}
       {gems.length === 0 && (
-        <div className="glass-card rounded-xl p-5 space-y-4">
+        <div className="glass-card rounded-xl p-4 sm:p-5 space-y-4">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-semibold text-amber-300 uppercase tracking-wider">Quick Start Templates</h2>
             <button
@@ -577,14 +577,14 @@ export default function LevelingPlannerPage() {
       )}
 
       {/* Class Selector */}
-      <div className="glass-card rounded-xl p-5 space-y-4">
+      <div className="glass-card rounded-xl p-4 sm:p-5 space-y-4">
         <h2 className="text-sm font-semibold text-amber-300 uppercase tracking-wider">Character Class</h2>
-        <div className="grid grid-cols-4 sm:grid-cols-7 gap-2">
+        <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-2">
           {['Witch', 'Shadow', 'Ranger', 'Duelist', 'Marauder', 'Templar', 'Scion'].map(cls => (
             <button
               key={cls}
               onClick={() => setCharacterClass(cls)}
-              className={`px-3 py-2 rounded-lg text-sm font-medium transition-all ${
+              className={`px-2 sm:px-3 py-2 rounded-lg text-sm font-medium transition-all ${
                 characterClass === cls
                   ? 'bg-amber-500/20 border border-amber-400/30 text-amber-300'
                   : 'bg-zinc-900/40 border border-white/5 text-zinc-400 hover:border-white/10 hover:text-zinc-300'
@@ -597,7 +597,7 @@ export default function LevelingPlannerPage() {
       </div>
 
       {/* Gem Selector */}
-      <div className="glass-card rounded-xl p-5 space-y-4">
+      <div className="glass-card rounded-xl p-4 sm:p-5 space-y-4">
         <h2 className="text-sm font-semibold text-amber-300 uppercase tracking-wider">Add Gems</h2>
 
         {/* Search input */}
@@ -787,7 +787,7 @@ export default function LevelingPlannerPage() {
                   if (gemsInRange.length === 0) return null;
 
                   return (
-                    <div key={levelRange} className="glass-card rounded-xl p-5 space-y-4">
+                    <div key={levelRange} className="glass-card rounded-xl p-4 sm:p-5 space-y-4">
                       <div className="flex items-center justify-between">
                         <h3 className="text-sm font-semibold text-zinc-300">{levelRange}</h3>
                         <span className="text-xs text-zinc-500">

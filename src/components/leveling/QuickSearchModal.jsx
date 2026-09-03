@@ -71,7 +71,9 @@ export default function QuickSearchModal({ isOpen, onClose, onSelectGem }) {
       />
 
       {/* Modal */}
-      <div className="fixed inset-0 z-50 flex items-start justify-center pt-20 px-4">
+      {/* pt-20 pushed the modal + keyboard past the bottom of a 667px phone with
+          no way to scroll. Sit it near the top on mobile and let the wrapper scroll. */}
+      <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto pt-4 sm:pt-20 pb-4 px-4">
         <div
           className="w-full max-w-2xl bg-zinc-900/95 backdrop-blur-md border border-white/[0.08] rounded-xl shadow-2xl"
           onClick={(e) => e.stopPropagation()}
@@ -130,9 +132,9 @@ export default function QuickSearchModal({ isOpen, onClose, onSelectGem }) {
           </div>
 
           {/* Results */}
-          <div className="max-h-96 overflow-y-auto">
+          <div className="max-h-[50vh] sm:max-h-96 overflow-y-auto">
             {!searchTerm || searchTerm.length < 2 ? (
-              <div className="p-8 text-center text-zinc-500">
+              <div className="p-6 sm:p-8 text-center text-zinc-500">
                 <svg
                   className="w-12 h-12 mx-auto mb-4 text-zinc-600"
                   viewBox="0 0 24 24"

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 export default function CategoryOverviewCard({ subcategory, icon, modules, accentColor }) {
   return (
-    <div className={`rounded-2xl border bg-gradient-to-br p-6 ${accentColor}`}>
+    <div className={`rounded-2xl border bg-gradient-to-br p-4 sm:p-6 ${accentColor}`}>
       <div className="flex items-center gap-3 mb-4">
         <div className="text-zinc-300">{icon}</div>
         <h3 className="text-base font-semibold text-zinc-100">{subcategory}</h3>

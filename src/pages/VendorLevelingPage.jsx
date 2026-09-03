@@ -205,8 +205,10 @@ export default function VendorLevelingPage() {
   const charColor = charCount > 250 ? 'text-red-400' : charCount > 200 ? 'text-yellow-400' : 'text-green-400';
   const barColor = charCount > 250 ? 'bg-red-500' : charCount > 200 ? 'bg-yellow-500' : 'bg-green-500';
 
+  // No horizontal padding below sm: AppShell already applies px-4, and
+  // doubling it costs 32px of a 375px viewport.
   return (
-    <div className="max-w-6xl mx-auto p-4 sm:p-6 space-y-6">
+    <div className="max-w-6xl mx-auto sm:p-6 space-y-6">
       {/* Header */}
       <div className="text-center space-y-2">
         <h1 className="text-2xl sm:text-3xl font-bold text-zinc-100">
@@ -221,7 +223,7 @@ export default function VendorLevelingPage() {
       <div className="space-y-4 max-w-3xl mx-auto">
 
         {/* Item Type Selection */}
-        <div className="glass-card space-y-3">
+        <div className="glass-card rounded-xl p-4 sm:p-5 space-y-3">
           <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wide">Item Type</h2>
 
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
@@ -241,13 +243,13 @@ export default function VendorLevelingPage() {
           </div>
 
           {/* Base Selection */}
-          <div className="flex items-center gap-3 pt-2">
+          <div className="flex flex-wrap items-center gap-x-3 gap-y-2 pt-2">
             <input
               type="checkbox"
               id="includeBase"
               checked={includeBase}
               onChange={(e) => setIncludeBase(e.target.checked)}
-              className="w-4 h-4"
+              className="w-4 h-4 shrink-0"
             />
             <label htmlFor="includeBase" className="text-sm text-zinc-400">
               Include specific base:
@@ -256,7 +258,7 @@ export default function VendorLevelingPage() {
               value={itemBase}
               onChange={(e) => setItemBase(e.target.value)}
               disabled={!includeBase}
-              className="calc-input flex-1 text-left"
+              className="calc-input flex-1 min-w-0 basis-full sm:basis-0 text-left"
             >
               {vendorItemBases[itemType]?.map(base => (
                 <option key={base} value={base}>{base}</option>
@@ -266,7 +268,7 @@ export default function VendorLevelingPage() {
         </div>
 
         {/* Regex Output */}
-        <div ref={resultRef} className="glass-card space-y-3">
+        <div ref={resultRef} className="glass-card rounded-xl p-4 sm:p-5 space-y-3">
           <div className="flex items-center justify-between">
             <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wide">Regex Output</h2>
             <span className={`text-xs font-mono ${charColor}`}>
@@ -300,13 +302,13 @@ export default function VendorLevelingPage() {
               <div className="flex gap-2 shrink-0">
                 <button
                   onClick={handleCopy}
-                  className={`px-3 py-1 text-xs font-medium rounded-lg transition-all ${
+                  className={`min-h-9 px-3 py-1 text-xs font-medium rounded-lg transition-all ${
                     copied
                       ? 'bg-green-500/20 text-green-300'
                       : 'bg-zinc-900/80 text-zinc-400 hover:text-zinc-100 hover:bg-zinc-800'
                   }`}
                 >
-                  {copied ? 'Copied!' : 'Copy'}
+                  <span aria-live="polite">{copied ? 'Copied!' : 'Copy'}</span>
                 </button>
                 <SaveRegexButton
                   pattern={result.regex}
@@ -332,7 +334,7 @@ export default function VendorLevelingPage() {
         </div>
 
         {/* Socket Configuration */}
-          <div className="glass-card space-y-3">
+          <div className="glass-card rounded-xl p-4 sm:p-5 space-y-3">
             <div className="flex items-center justify-between">
               <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wide">
                 Sockets & Links
@@ -450,7 +452,7 @@ export default function VendorLevelingPage() {
           </div>
 
           {/* Stat Selection */}
-          <div className="glass-card space-y-3">
+          <div className="glass-card rounded-xl p-4 sm:p-5 space-y-3">
             <div className="flex items-center justify-between">
               <h2 className="text-sm font-semibold text-zinc-300 uppercase tracking-wide">
                 Stats

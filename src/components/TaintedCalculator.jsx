@@ -65,7 +65,7 @@ export default function TaintedCalculator({ prices }) {
         </p>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4 max-w-md mx-auto">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 max-w-md mx-auto">
         <div className="space-y-1">
           <label className="block text-xs uppercase tracking-wider text-zinc-400 text-center">Sockets</label>
           <input type="number" placeholder="#" value={inputs.sockets} onChange={e => set('sockets', e.target.value)} onKeyDown={handleKeyDown}

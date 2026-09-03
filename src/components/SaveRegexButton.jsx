@@ -5,7 +5,7 @@
  * Uses React Portal to prevent modal clipping by parent containers.
  */
 
-import { useState } from 'react';
+import { useState, useEffect, useRef, useId } from 'react';
 import { createPortal } from 'react-dom';
 import { useRegexLibrary } from '../hooks/useRegexLibrary';
 
@@ -14,8 +14,30 @@ export default function SaveRegexButton({ pattern, toolId, toolLabel, defaultNam
   const [patternName, setPatternName] = useState('');
   const [saveStatus, setSaveStatus] = useState(null); // null | 'success' | 'error'
   const [errorMessage, setErrorMessage] = useState('');
+  const titleId = useId();
+  const triggerRef = useRef(null);
 
   const { add, exists, storageInfo } = useRegexLibrary();
+
+  // Esc closes the dialog, and focus returns to the trigger on close.
+  // Without this a phone/keyboard user who opens the dialog is stranded:
+  // there is no hardware Back that dismisses it and focus stays behind the
+  // overlay. (WCAG 2.1.2 No Keyboard Trap.)
+  useEffect(() => {
+    if (!isModalOpen) return;
+    const onKey = (e) => {
+      if (e.key === 'Escape') {
+        e.stopPropagation();
+        handleClose();
+      }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => {
+      window.removeEventListener('keydown', onKey);
+      triggerRef.current?.focus();
+    };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isModalOpen]);
 
   // Auto-generate name on modal open
   const handleOpenModal = () => {
@@ -109,12 +131,16 @@ export default function SaveRegexButton({ pattern, toolId, toolLabel, defaultNam
     <>
       {/* Save Button */}
       <button
+        ref={triggerRef}
         onClick={handleOpenModal}
         className={buttonClassName}
         style={buttonStyle}
         aria-label="Save regex pattern"
+        aria-haspopup="dialog"
+        aria-expanded={isModalOpen}
       >
         <svg
+          aria-hidden="true"
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           fill="none"
@@ -139,18 +165,22 @@ export default function SaveRegexButton({ pattern, toolId, toolLabel, defaultNam
           onClick={handleClose}
         >
           <div
-            className="glass-card rounded-xl p-6 max-w-md w-full space-y-4"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby={titleId}
+            className="glass-card rounded-xl p-6 max-w-md w-full space-y-4 max-h-[90dvh] overflow-y-auto"
             onClick={(e) => e.stopPropagation()}
           >
             {/* Header */}
             <div className="flex items-center justify-between">
-              <h3 className="text-xl font-bold text-poe-gold">Save Regex Pattern</h3>
+              <h3 id={titleId} className="text-xl font-bold text-poe-gold">Save Regex Pattern</h3>
               <button
                 onClick={handleClose}
-                className="text-zinc-400 hover:text-white transition-colors p-1"
+                className="inline-flex min-h-11 min-w-11 items-center justify-center text-zinc-400 hover:text-white transition-colors"
                 aria-label="Close modal"
               >
                 <svg
+                  aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="none"
@@ -191,8 +221,11 @@ export default function SaveRegexButton({ pattern, toolId, toolLabel, defaultNam
                 value={patternName}
                 onChange={(e) => setPatternName(e.target.value)}
                 maxLength={50}
+                required
+                aria-required="true"
+                aria-invalid={saveStatus === 'error'}
                 className="w-full bg-zinc-900/50 border border-zinc-800 rounded-lg px-4 py-2 text-white
-                         focus:outline-none focus:ring-2 focus:ring-poe-gold/50 focus:border-poe-gold"
+                         focus:outline-none focus-visible:ring-2 focus-visible:ring-poe-gold/50 focus:border-poe-gold"
                 style={{ minHeight: '44px', fontSize: 'max(16px, 1rem)' }}
                 placeholder="Enter a name for this pattern"
                 autoFocus
@@ -204,8 +237,9 @@ export default function SaveRegexButton({ pattern, toolId, toolLabel, defaultNam
 
             {/* Status Message */}
             {saveStatus === 'success' && (
-              <div className="flex items-center gap-2 text-green-500 bg-green-500/10 rounded-lg p-3">
+              <div role="status" aria-live="polite" className="flex items-center gap-2 text-green-400 bg-green-500/10 rounded-lg p-3">
                 <svg
+                  aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="none"
@@ -222,8 +256,9 @@ export default function SaveRegexButton({ pattern, toolId, toolLabel, defaultNam
             )}
 
             {saveStatus === 'error' && errorMessage && (
-              <div className="flex items-start gap-2 text-red-500 bg-red-500/10 rounded-lg p-3">
+              <div role="alert" aria-live="assertive" className="flex items-start gap-2 text-red-400 bg-red-500/10 rounded-lg p-3">
                 <svg
+                  aria-hidden="true"
                   xmlns="http://www.w3.org/2000/svg"
                   viewBox="0 0 24 24"
                   fill="none"

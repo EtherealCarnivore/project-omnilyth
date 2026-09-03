@@ -63,7 +63,7 @@ export default function Poe2BuildFileLint() {
           </span>
         </div>
 
-        <div className="rounded-md bg-black/40 border border-white/[0.04] p-4 text-sm text-zinc-300 leading-relaxed">
+        <div className="rounded-md bg-black/40 border border-white/[0.04] p-3 sm:p-4 text-sm text-zinc-300 leading-relaxed break-words">
           <Poe2MarkupRenderer text={DEMO_EXAMPLE} />
         </div>
 

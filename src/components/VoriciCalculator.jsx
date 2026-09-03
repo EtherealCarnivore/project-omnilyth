@@ -160,7 +160,7 @@ export default function VoriciCalculator({ prices }) {
         )}
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 max-w-lg mx-auto">
+      <div className="grid grid-cols-3 gap-2 sm:gap-4 max-w-lg mx-auto">
         <div className="space-y-2">
           <label className="block text-xs uppercase tracking-wider text-zinc-400 text-center">Total Sockets</label>
           <input type="number" placeholder="#" value={inputs.sockets} onChange={e => set('sockets', e.target.value)} onKeyDown={handleKeyDown}

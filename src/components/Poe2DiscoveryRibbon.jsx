@@ -46,15 +46,17 @@ export default function Poe2DiscoveryRibbon() {
   }
 
   return (
-    <div className="flex items-center justify-between gap-3 px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500/10 to-cyan-500/5 border border-cyan-500/20 text-sm text-cyan-200">
-      <div className="flex items-center gap-2 min-w-0">
+    <div className="flex items-center justify-between gap-3 px-3 sm:px-4 py-2.5 rounded-xl bg-gradient-to-r from-cyan-500/10 to-cyan-500/5 border border-cyan-500/20 text-sm text-cyan-200">
+      <div className="flex items-start sm:items-center gap-2 min-w-0">
         <span
           className="shrink-0 px-1.5 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-cyan-500/20 text-cyan-300"
           aria-hidden="true"
         >
           New
         </span>
-        <span className="truncate">
+        {/* Was `truncate`: at 375px that clipped the "see what's planned" CTA
+            clean off the row. Wrap instead — two lines beats a dead link. */}
+        <span className="min-w-0">
           <span className="font-semibold text-cyan-100">Path of Exile 2 tools are coming.</span>
           <span className="text-cyan-300/80 ml-1.5 hidden sm:inline">
             Switch from the top bar any time, or

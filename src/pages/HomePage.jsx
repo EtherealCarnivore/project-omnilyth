@@ -289,7 +289,7 @@ export default function HomePage() {
       </a>
 
       {/* Info bar */}
-      <div className="flex items-center justify-center gap-3 text-xs text-zinc-500">
+      <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-center text-xs text-zinc-500">
         <span>Fan-made PoE toolkit — not affiliated with GGG</span>
         <span className="text-zinc-700">&bull;</span>
         <Link to="/privacy" className="text-amber-400/70 hover:text-amber-300 transition-colors">
