@@ -1,0 +1,5 @@
+# Cloudflare Pages SPA fallback. Static files (incl. the prerendered per-route
+# dist/<route>/index.html shells from scripts/prerender-meta.js) are served
+# first; only genuinely unmatched paths fall through to the SPA shell so
+# client-side routes and dynamic routes (e.g. /poe2/builds/:slug) resolve.
+/*  /index.html  200
