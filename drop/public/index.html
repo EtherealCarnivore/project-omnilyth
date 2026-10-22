@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0b0e">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>Omnilyth Drop</title>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/icon.svg">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header>
+    <img class="logo" src="/icon.svg" alt="">
+    <h1>Omnilyth Drop</h1>
+    <span class="spacer"></span>
+    <button class="pill" id="recent-btn" type="button">Recent<b id="recent-n">0</b></button>
+    <button id="logout" type="button">Log out</button>
+  </header>
+
+  <main>
+    <!-- 1. pick -->
+    <section class="screen active" id="s-pick">
+      <div class="card">
+        <h2>Send a file</h2>
+        <p>Encrypted on this phone. Link works for 10 minutes.</p>
+      </div>
+      <input type="file" id="file" hidden>
+      <button class="primary" id="pick" type="button">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 16V4m0 0 4 4m-4-4-4 4"/><path d="M4 16v3a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-3"/></svg>
+        Pick a file
+      </button>
+      <p class="muted" style="text-align:center">Videos, photos, anything up to 1 GB.</p>
+    </section>
+
+    <!-- 2. uploading -->
+    <section class="screen" id="s-up">
+      <div class="card">
+        <div class="file-name" id="up-name"></div>
+        <p class="muted" id="up-size"></p>
+      </div>
+      <div class="progress"><div id="bar"></div></div>
+      <div class="stat"><span id="stage">Encrypting…</span><span id="pct">0%</span></div>
+      <button class="ghost" id="cancel" type="button">Cancel</button>
+    </section>
+
+    <!-- 3. done -->
+    <section class="screen" id="s-done">
+      <div class="card" style="text-align:center">
+        <p class="muted">Link expires in</p>
+        <div class="countdown" id="cd">10:00</div>
+      </div>
+      <div class="link-box" id="link"></div>
+      <div class="row">
+        <button class="primary" id="copy" type="button">Copy link</button>
+        <button id="share" type="button" hidden>Share</button>
+      </div>
+      <button class="ghost" id="again" type="button">Send another</button>
+    </section>
+
+    <!-- recent -->
+    <section class="screen" id="s-recent">
+      <div class="recent-list" id="recent-list"></div>
+      <button class="ghost" id="recent-back" type="button">Back</button>
+    </section>
+
+    <!-- error -->
+    <section class="screen" id="s-err">
+      <div class="card">
+        <h2>Upload failed</h2>
+        <p class="error" id="err-msg"></p>
+      </div>
+      <button class="primary" id="retry" type="button">Try again</button>
+    </section>
+  </main>
+
+  <div class="toast" id="toast"></div>
+  <script type="module" src="/app.js"></script>
+</body>
+</html>

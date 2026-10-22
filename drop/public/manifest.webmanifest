@@ -1,0 +1,26 @@
+{
+  "name": "Omnilyth Drop",
+  "short_name": "Drop",
+  "description": "Send a file with a 10-minute encrypted link.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0b0b0e",
+  "theme_color": "#0b0b0e",
+  "icons": [
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "maskable" }
+  ],
+  "share_target": {
+    "action": "/share",
+    "method": "POST",
+    "enctype": "multipart/form-data",
+    "params": {
+      "title": "title",
+      "text": "text",
+      "files": [
+        { "name": "file", "accept": ["video/*", "image/*", "audio/*", "application/*", "text/*"] }
+      ]
+    }
+  }
+}

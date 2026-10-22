@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0b0b0e">
+  <title>Omnilyth Drop</title>
+  <link rel="manifest" href="/manifest.webmanifest">
+  <link rel="icon" href="/icon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+  <header>
+    <img class="logo" src="/icon.svg" alt="">
+    <h1>Omnilyth Drop</h1>
+  </header>
+  <main>
+    <form class="card screen active" id="form" autocomplete="off">
+      <h2>Enter password</h2>
+      <p>Only people with the password can upload.</p>
+      <input type="password" id="pw" placeholder="Password" autocomplete="current-password" autofocus required>
+      <div class="error" id="err"></div>
+      <button class="primary" type="submit" id="go">Continue</button>
+    </form>
+  </main>
+  <script type="module">
+    const form = document.getElementById('form');
+    const pw = document.getElementById('pw');
+    const err = document.getElementById('err');
+    const go = document.getElementById('go');
+    const next = new URLSearchParams(location.search).get('next') || '/';
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      err.textContent = '';
+      go.disabled = true;
+      try {
+        const res = await fetch('/api/login', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ password: pw.value }),
+        });
+        if (!res.ok) {
+          err.textContent = res.status === 401 ? 'Wrong password.' : 'Login failed (' + res.status + ').';
+          go.disabled = false;
+          pw.select();
+          return;
+        }
+        location.replace(next.startsWith('/') ? next : '/');
+      } catch {
+        err.textContent = 'Network error.';
+        go.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
