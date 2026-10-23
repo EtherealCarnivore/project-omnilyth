@@ -132,7 +132,7 @@ async function start(file) {
       }
     }
 
-    await write(await buildHeader(key, nonce, file.name));
+    await write(await buildHeader(key, nonce, file.name, Math.ceil(file.size / CHUNK_SIZE)));
 
     let index = 1;
     for (let off = 0; off < file.size; off += CHUNK_SIZE, index++) {

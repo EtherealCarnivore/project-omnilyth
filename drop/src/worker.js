@@ -8,6 +8,11 @@ const COOKIE = 'drop_session';
 const SESSION_DAYS = 30;
 const MAX_PART_BYTES = 64 * 1024 * 1024;
 const HEAD_BYTES = 4096;
+const UPLOAD_RECORD_TTL = 2 * 3600;   // KV lifetime of an in-progress upload record
+const UPLOAD_ABANDON_MS = 3600 * 1000; // multipart uploads older than this are aborted by the sweeper
+
+// Link-preview crawlers get an empty 204 on download links so chat apps don't unfurl them.
+const PREVIEW_BOT = /discordbot|slackbot|twitterbot|facebookexternalhit|whatsapp|telegrambot|linkedinbot|skypeuripreview|googlebot|bingbot|embedly|iframely/i;
 
 export default {
   async fetch(request, env, ctx) {
@@ -16,8 +21,13 @@ export default {
     try {
       if (path.startsWith('/api/')) return await api(request, env, url);
 
-      // Download page: /d/<id> -> d.html (public; the key lives in the URL fragment).
-      if (path.startsWith('/d/')) return serveAsset(env, url, '/d.html', request);
+      // Download page: /d/<id> -> d.html. Gated like the upload page; the login
+      // page is served in place (no redirect) so the key in the URL fragment survives.
+      if (path.startsWith('/d/')) {
+        if (PREVIEW_BOT.test(request.headers.get('User-Agent') || '')) return new Response(null, { status: 204, headers: NOINDEX });
+        if (!(await isAuthed(request, env))) return serveAsset(env, url, '/login.html', request, NOINDEX);
+        return serveAsset(env, url, '/d.html', request, NOINDEX);
+      }
 
       // Share-target POST reaching the server means the service worker
       // didn't intercept it; just land on the upload page.
@@ -41,9 +51,15 @@ export default {
   },
 };
 
-function serveAsset(env, url, assetPath, request) {
+const NOINDEX = { 'X-Robots-Tag': 'noindex, nofollow' };
+
+async function serveAsset(env, url, assetPath, request, extraHeaders) {
   const assetUrl = new URL(assetPath, url.origin);
-  return env.ASSETS.fetch(new Request(assetUrl, { headers: request.headers }));
+  const res = await env.ASSETS.fetch(new Request(assetUrl, { headers: request.headers }));
+  if (!extraHeaders) return res;
+  const out = new Response(res.body, res);
+  for (const [k, v] of Object.entries(extraHeaders)) out.headers.set(k, v);
+  return out;
 }
 
 // ---------------------------------------------------------------- API
@@ -56,16 +72,15 @@ async function api(request, env, url) {
   if (seg[0] === 'logout' && m === 'POST') return withCookie(json({ ok: true }), '', 0, url);
   if (seg[0] === 'me' && m === 'GET') return json({ ok: await isAuthed(request, env) }, 200);
 
-  // Public download endpoints (link holders are not logged in).
+  // Everything below requires the session cookie — uploads and downloads alike.
+  if (!(await isAuthed(request, env))) return json({ error: 'unauthorized' }, 401);
+
   if (seg[0] === 'file' && seg[1]) {
     if (m !== 'GET') return json({ error: 'method' }, 405);
     if (seg[2] === 'meta') return fileMeta(env, seg[1]);
     if (seg[2] === 'head') return fileHead(env, seg[1]);
     if (!seg[2]) return fileGet(env, seg[1]);
   }
-
-  // Everything below requires the session cookie.
-  if (!(await isAuthed(request, env))) return json({ error: 'unauthorized' }, 401);
 
   if (seg[0] === 'upload') {
     if (seg[1] === 'create' && m === 'POST') return uploadCreate(request, env);
@@ -79,6 +94,11 @@ async function api(request, env, url) {
 // ---------------------------------------------------------------- auth
 
 async function login(request, env, url) {
+  if (env.LOGIN_LIMIT) {
+    const ip = request.headers.get('CF-Connecting-IP') || 'unknown';
+    const { success } = await env.LOGIN_LIMIT.limit({ key: ip });
+    if (!success) return json({ error: 'too many attempts, try again in a minute' }, 429);
+  }
   const body = await request.json().catch(() => ({}));
   const supplied = String(body.password || '');
   const expected = String(env.DROP_PASSWORD || '');
@@ -135,7 +155,7 @@ async function uploadCreate(request, env) {
 
   const id = b64url(crypto.getRandomValues(new Uint8Array(16)));
   const mpu = await env.BUCKET.createMultipartUpload(id);
-  await env.KV.put('up:' + id, JSON.stringify({ uploadId: mpu.uploadId, size, createdAt: Date.now() }), { expirationTtl: 3600 });
+  await env.KV.put('up:' + id, JSON.stringify({ uploadId: mpu.uploadId, size, createdAt: Date.now() }), { expirationTtl: UPLOAD_RECORD_TTL });
   return json({ id });
 }
 
@@ -235,6 +255,22 @@ async function sweep(env) {
     }
     cursor = page.truncated ? page.cursor : undefined;
   } while (cursor);
+
+  // Abort multipart uploads the client walked away from (closed tab, retried,
+  // lost connection); their parts otherwise sit in R2 until its own 7-day abort.
+  const abandonBefore = Date.now() - UPLOAD_ABANDON_MS;
+  let kvCursor;
+  do {
+    const page = await env.KV.list({ prefix: 'up:', cursor: kvCursor });
+    for (const { name } of page.keys) {
+      const meta = await env.KV.get(name, 'json');
+      if (!meta || meta.createdAt > abandonBefore) continue;
+      const id = name.slice('up:'.length);
+      await env.BUCKET.resumeMultipartUpload(id, meta.uploadId).abort().catch(() => {});
+      await env.KV.delete(name);
+    }
+    kvCursor = page.list_complete ? undefined : page.cursor;
+  } while (kvCursor);
 }
 
 // ---------------------------------------------------------------- util

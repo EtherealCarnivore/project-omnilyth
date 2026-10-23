@@ -1,5 +1,5 @@
 import {
-  TAG, importKey, parseHeader, decryptRecord, unb64url, fmtBytes, fmtCountdown,
+  TAG, importKey, parseHeader, decryptRecord, decryptName, recordCountFor, unb64url, fmtBytes, fmtCountdown,
 } from '/crypto.js';
 import { addRecent, getRecent, renderRecent, stopRecent } from '/recent.js';
 
@@ -41,6 +41,7 @@ let meta = null;
 let header = null;
 let key = null;
 let fileName = 'file';
+let recordCount = 0;
 
 boot().catch((err) => gone(err.message));
 
@@ -49,18 +50,21 @@ async function boot() {
   key = await importKey(unb64url(fragment), 'decrypt');
 
   const mres = await fetch('/api/file/' + id + '/meta');
+  if (mres.status === 401) return relogin();
   if (!mres.ok) return gone();
   meta = await mres.json();
 
   const hres = await fetch('/api/file/' + id + '/head');
+  if (hres.status === 401) return relogin();
   if (!hres.ok) return gone();
   header = parseHeader(new Uint8Array(await hres.arrayBuffer()));
   if (!header) return gone('Corrupt file header.');
   try {
-    fileName = new TextDecoder().decode(await decryptRecord(key, header.nonce, 0, header.encName));
+    ({ name: fileName, recordCount } = await decryptName(key, header));
   } catch {
     return gone('Wrong key. The link was altered or truncated.');
   }
+  if (recordCountFor(meta.size, header) !== recordCount) return gone('File is incomplete on the server.');
 
   $('name').textContent = fileName;
   $('size').textContent = '~' + fmtBytes(plainSize(meta.size, header));
@@ -99,6 +103,7 @@ $('save').addEventListener('click', async () => {
 
 async function download(writable) {
   const res = await fetch('/api/file/' + id);
+  if (res.status === 401) return relogin();
   if (!res.ok) throw new Error('File is no longer available.');
   const total = Number(res.headers.get('Content-Length') || meta.size);
   const recordLen = header.chunkSize + TAG;
@@ -134,6 +139,7 @@ async function download(writable) {
     if (buf.length < TAG + 1) throw new Error('Truncated file.');
     await emit(await decryptRecord(key, header.nonce, index++, buf));
   }
+  if (index - 1 !== recordCount) throw new Error('Truncated file.');
   setProgress(1);
 
   if (writable) {
@@ -166,6 +172,12 @@ function setProgress(frac) {
   $('bar').style.width = (frac * 100).toFixed(1) + '%';
   $('pct').textContent = Math.round(frac * 100) + '%';
   $('stage').textContent = frac >= 1 ? 'Done' : 'Downloading…';
+}
+
+// Session cookie expired or missing: the Worker serves the login page in place
+// of this URL, and the #key fragment survives the reload.
+function relogin() {
+  location.reload();
 }
 
 function gone(msg) {

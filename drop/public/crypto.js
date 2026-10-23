@@ -3,14 +3,15 @@
 // Container format ("ODROP1"):
 //   magic(6) | version u8 | nonce(8) | chunkSize u32 | nameLen u16 | encName(nameLen)
 //   then one AES-GCM record per plaintext chunk: ciphertext(chunkLen) + tag(16).
-// IV for record i = nonce(8) || u32(i). Record 0 is the filename; chunks start at 1.
+// IV for record i = nonce(8) || u32(i). Record 0 seals u32(recordCount) || filename
+// so a file with whole trailing records cut off is rejected; chunks start at 1.
 // Key: random 256-bit AES-GCM key carried in the link's URL fragment, which the
 // browser never sends to the server.
 
 export const CHUNK_SIZE = 1 << 20; // 1 MiB plaintext per record
 export const TAG = 16;
 const MAGIC = new TextEncoder().encode('ODROP1');
-const VERSION = 1;
+const VERSION = 2;
 export const HEADER_FIXED = MAGIC.length + 1 + 8 + 4 + 2;
 
 export function randomKey() {
@@ -40,8 +41,27 @@ export async function decryptRecord(key, nonce, index, bytes) {
   return new Uint8Array(await crypto.subtle.decrypt({ name: 'AES-GCM', iv: iv(nonce, index) }, key, bytes));
 }
 
-export async function buildHeader(key, nonce, name, chunkSize = CHUNK_SIZE) {
-  const encName = await encryptRecord(key, nonce, 0, new TextEncoder().encode(name));
+// Opens record 0 -> { name, recordCount }. Throws on a wrong key.
+export async function decryptName(key, header) {
+  const plain = await decryptRecord(key, header.nonce, 0, header.encName);
+  if (plain.length < 4) throw new Error('bad name record');
+  return {
+    recordCount: new DataView(plain.buffer, plain.byteOffset, 4).getUint32(0),
+    name: new TextDecoder().decode(plain.subarray(4)),
+  };
+}
+
+// Number of chunk records a ciphertext of this size must contain.
+export function recordCountFor(cipherSize, h) {
+  return Math.ceil((cipherSize - h.headerLen) / (h.chunkSize + TAG));
+}
+
+export async function buildHeader(key, nonce, name, recordCount, chunkSize = CHUNK_SIZE) {
+  const nameBytes = new TextEncoder().encode(name);
+  const rec0 = new Uint8Array(4 + nameBytes.length);
+  new DataView(rec0.buffer).setUint32(0, recordCount);
+  rec0.set(nameBytes, 4);
+  const encName = await encryptRecord(key, nonce, 0, rec0);
   const h = new Uint8Array(HEADER_FIXED + encName.length);
   const dv = new DataView(h.buffer);
   let o = 0;
