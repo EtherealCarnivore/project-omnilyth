@@ -172,8 +172,8 @@ export default function Poe2Anointing() {
 
       {/* Provenance — datamined pre-launch */}
       <p className="text-[11px] text-zinc-600 border-t border-white/5 pt-3">
-        {ALL_RECIPES.length} anoint recipes · data-mined from poe2db.tw on {ANOINT_META.scrapedAt},
-        before the {`0.5`} launch — verify against the live game once Runes of Aldur is out.
+        {ALL_RECIPES.length} anoint recipes · data-mined from poe2db.tw on {ANOINT_META.scrapedAt}.
+        Anointing is unchanged in 0.5.5, but this data predates a full live-game check.
       </p>
     </div>
   );

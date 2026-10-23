@@ -8,10 +8,12 @@
  * No API key? No rate limits? No HMAC signatures? My exchange feeds require
  * more auth to get a heartbeat than GGG needs for their entire league list.
  *
- * Dual-game (2026-05-06): the league pool is per-game. PoE 1 and PoE 2
- * share API endpoints but expose separate league sets — we filter the
- * mixed response by the version-style name pattern (POE2_PATTERN). The
- * cache and active-league selection are also per-game so a user hopping
+ * Dual-game: the league pool is per-game, each from its own GGG endpoint.
+ *   PoE 1 — /api/leagues            (realm "pc", has category.current)
+ *   PoE 2 — /api/trade2/data/leagues (realm "poe2", newest challenge league
+ *           first, no category field)
+ * The Worker's POE_ALLOWED '/api/trade' prefix already covers trade2.
+ * The cache and active-league selection are per-game so a user hopping
  * between games doesn't clobber their PoE 1 league pick when they peek
  * at PoE 2.
  */
@@ -19,16 +21,27 @@ import { createContext, useContext, useState, useEffect, useCallback } from 'rea
 import { poeUrl } from '../utils/proxyUrl';
 import { useGame } from './GameContext';
 
-const CACHE_KEY_PREFIX = 'poe_leagues_cache_v3_';
+// v4: v3 caches held a PoE 2 list of only Standard/Hardcore (old name-pattern bug).
+const CACHE_KEY_PREFIX = 'poe_leagues_cache_v4_';
 const ACTIVE_LEAGUE_KEY_PREFIX = 'omnilyth_active_league_';
 const CACHE_TTL = 24 * 60 * 60 * 1000; // 24h TTL
 
-const API_URL = poeUrl('/api/leagues?type=main&limit=50');
+// Before the v4 fix PoE 2 only ever offered Standard/Hardcore, so a stored
+// PoE 2 pick is not a real choice. Drop it once so users land on the current
+// challenge league.
+const POE2_PICK_RESET_KEY = 'omnilyth_active_league_poe2_reset_v1';
+try {
+  if (!localStorage.getItem(POE2_PICK_RESET_KEY)) {
+    localStorage.removeItem(ACTIVE_LEAGUE_KEY_PREFIX + 'poe2');
+    localStorage.setItem(POE2_PICK_RESET_KEY, '1');
+  }
+} catch { /* storage disabled */ }
 
-// PoE 2 leagues use version-style names (e.g. "Phrecia 2.0", "Dawn 3.0").
-// Permanent leagues ("Standard", "Hardcore") exist in both games and aren't
-// detected by this pattern — they're matched by name in the filter helper.
-const POE2_PATTERN = /\d+\.\d+/;
+const API_URL = {
+  poe1: poeUrl('/api/leagues?type=main&limit=50'),
+  poe2: poeUrl('/api/trade2/data/leagues'),
+};
+const REALM = { poe1: 'pc', poe2: 'poe2' };
 
 // Permanent league names that exist for both games (PoE 2 has its own
 // Standard / Hardcore separate from PoE 1's). Same name, different game,
@@ -40,11 +53,6 @@ function classifyLeague(id) {
   const lower = id.toLowerCase();
   const isHc = lower.startsWith('hardcore') || lower.startsWith('hc ');
   const isSsf = lower.includes('solo self-found') || lower.includes('ssf');
-  const isEvent = POE2_PATTERN.test(id);
-  if (isEvent && isHc && isSsf) return 'hcssf-event';
-  if (isEvent && isHc) return 'hc-event';
-  if (isEvent && isSsf) return 'ssf-event';
-  if (isEvent) return 'event';
   if (isHc && isSsf) return 'hcssf';
   if (isHc) return 'hardcore';
   if (isSsf) return 'ssf';
@@ -64,10 +72,14 @@ const FALLBACK_POE1 = [
   { value: 'Hardcore', label: 'Hardcore', kind: 'hardcore' },
 ];
 
-// PoE 2 fallback. Pre-0.5 challenge leagues won't be enumerated here;
-// the API fills them in when reachable. Standard / Hardcore are always
-// available even pre-0.5 (PoE 2 maintains its own permanent leagues).
+// PoE 2 fallback, used only when the API and cache both fail. Pin the
+// current challenge league here each league (Forbidden Rites since 0.5.5,
+// 2026-09-04; both it and Runes of Aldur end at 1.0 on 2026-12-11).
 const FALLBACK_POE2 = [
+  { value: 'Forbidden Rites', label: 'Forbidden Rites', kind: 'softcore', isCurrent: true },
+  { value: 'HC Forbidden Rites', label: 'HC Forbidden Rites', kind: 'hardcore', isCurrent: true },
+  { value: 'Runes of Aldur', label: 'Runes of Aldur', kind: 'softcore' },
+  { value: 'HC Runes of Aldur', label: 'HC Runes of Aldur', kind: 'hardcore' },
   { value: 'Standard', label: 'Standard', kind: 'softcore' },
   { value: 'Hardcore', label: 'Hardcore', kind: 'hardcore' },
 ];
@@ -84,35 +96,44 @@ function shortenLabel(name) {
     .replace(/^Hardcore Solo Self-Found\s+/, 'HC SSF ');
 }
 
-// GGG's /api/leagues currently returns BOTH games' leagues mixed in one
-// response (no canonical `realm` field documented as of 2026-05-06). We
-// filter client-side by version-style name pattern + permanent-league
-// name set. If GGG ships a `realm` field later, switch this to
-// `apiLeagues.filter(l => l.realm === (game === 'poe2' ? 'poe2' : 'pc'))`.
-function filterLeaguesForGame(apiLeagues, game) {
-  if (game === 'poe2') {
-    return apiLeagues.filter(
-      l => POE2_PATTERN.test(l.id) || PERMANENT_LEAGUE_NAMES.has(l.id),
-    );
-  }
-  // PoE 1: exclude version-style names (those are PoE 2 challenge leagues).
-  // Permanent leagues stay because POE2_PATTERN doesn't match them.
-  return apiLeagues.filter(l => !POE2_PATTERN.test(l.id));
+// PoE 1 returns a bare array; PoE 2 (trade2) wraps it in { result: [...] }.
+function unwrapLeagues(data) {
+  return Array.isArray(data) ? data : Array.isArray(data?.result) ? data.result : [];
+}
+
+// PoE 2's trade2 list has no category.current, but GGG orders it newest
+// challenge league first. The current league is that first non-permanent
+// entry plus its HC twin.
+function currentPoe2Base(leagues) {
+  const first = leagues.find(l => !PERMANENT_LEAGUE_NAMES.has(l.id));
+  return first ? first.id.replace(/^(HC|Hardcore)\s+/i, '') : null;
 }
 
 function transformAndSort(apiLeagues, game) {
-  // Filter out Ruthless variants — nobody plays Ruthless and deep down we all know it
-  const filtered = filterLeaguesForGame(apiLeagues, game).filter(
-    l => !l.id.toLowerCase().includes('ruthless'),
+  // Filter out Ruthless variants — nobody plays Ruthless and deep down we all know it.
+  // GGG abbreviates some to a bare "R" token ("SSF R Allflame").
+  const isRuthless = id => id.toLowerCase().includes('ruthless') || /(^|\s)R(\s|$)/.test(id);
+  const filtered = apiLeagues.filter(
+    l => (!l.realm || l.realm === REALM[game]) && !isRuthless(l.id),
   );
 
-  const mapped = filtered.map(l => ({
-    value: l.id,
-    label: shortenLabel(l.id),
-    kind: classifyLeague(l.id),
-    isCurrent: l.category?.current === true,
-    isPermanent: !l.category || ['Standard', 'Hardcore'].includes(l.category?.id),
-  }));
+  const poe2Current = game === 'poe2' ? currentPoe2Base(filtered) : null;
+
+  const mapped = filtered.map(l => {
+    const isPermanent = game === 'poe2'
+      ? PERMANENT_LEAGUE_NAMES.has(l.id)
+      : !l.category || ['Standard', 'Hardcore'].includes(l.category?.id);
+    const isCurrent = game === 'poe2'
+      ? !isPermanent && l.id.replace(/^(HC|Hardcore)\s+/i, '') === poe2Current
+      : l.category?.current === true;
+    return {
+      value: l.id,
+      label: shortenLabel(l.id),
+      kind: classifyLeague(l.id),
+      isCurrent,
+      isPermanent,
+    };
+  });
 
   // Sort: current challenge leagues first, then permanent leagues
   mapped.sort((a, b) => {
@@ -184,10 +205,10 @@ export function LeagueProvider({ children }) {
       }
 
       // Fetch from API
-      const res = await fetch(API_URL);
+      const res = await fetch(API_URL[game] ?? API_URL.poe1);
       if (!res.ok) throw new Error(`API returned ${res.status}`);
       const data = await res.json();
-      const transformed = transformAndSort(data, game);
+      const transformed = transformAndSort(unwrapLeagues(data), game);
 
       if (transformed.length) {
         setLeagues(transformed);

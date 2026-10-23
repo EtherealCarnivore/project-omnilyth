@@ -230,14 +230,14 @@ export const ROUTE_META = {
 
   // ─── PoE 2 surfaces ────────────────────────────────────────────────────
   '/poe2': {
-    title: 'Path of Exile 2 Tools — Coming with Patch 0.5',
-    description: "Omnilyth's PoE 2 mode is shipping alongside patch 0.5 (Runes of Aldur). Atlas Tree Planner, Item Mod Regex, and Currency Divergence lead the first wave.",
+    title: 'Path of Exile 2 Tools — Forbidden Rites (0.5.5)',
+    description: 'Omnilyth tools for Path of Exile 2 patch 0.5.5 and the Forbidden Rites league: item and waystone regex, Liquid Emotion anointing, vendor leveling regex and an act-by-act leveling guide.',
     kind: 'doc',
     noindex: true,
   },
   '/poe2/runes-of-aldur': {
     title: 'Runes of Aldur — PoE 2 Patch 0.5 Summary',
-    description: 'What we know about Path of Exile 2 patch 0.5 "Return of the Ancients": Runes of Aldur league mechanic, 300+ atlas nodes, two new ascendancies, Runic Ward, Kalguuran skill gems.',
+    description: 'Path of Exile 2 patch 0.5 "Return of the Ancients" explained: Runes of Aldur league mechanic (now core), 300+ atlas nodes, two new ascendancies, Runic Ward, Kalguuran skill gems.',
     kind: 'doc',
   },
   '/poe2/crafting/item-regex': {

@@ -1,10 +1,10 @@
 /*
  * Poe2HomePage.jsx — Path of Exile 2 landing page.
  *
- * Refreshed 2026-05-08 after the 0.5 "Return of the Ancients" announcement.
- * League is Runes of Aldur; launch is 2026-05-29 13:00 PDT. The first wave
- * follows the re-ranked feature radar (atlas tree planner is the flagship;
- * gem browser dropped from the roadmap).
+ * Refreshed 2026-10-23 for patch 0.5.5: Forbidden Rites is the current
+ * league (launched 2026-09-04), Runes of Aldur still runs and its content is
+ * core, and both end at 1.0 on 2026-12-11. Sources: forum threads 4000864
+ * (0.5.5 notes) and 3999366 (1.0 date).
  */
 import { Link } from 'react-router-dom';
 import { useGame } from '../contexts/GameContext';
@@ -19,52 +19,52 @@ export default function Poe2HomePage() {
         <div className="max-w-2xl">
           <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-cyan-500/20 text-cyan-300">
             <span className="w-1.5 h-1.5 rounded-full bg-cyan-400" aria-hidden="true" />
-            Path of Exile 2 · 0.5
+            Path of Exile 2 · 0.5.5
           </span>
           <h1 className="text-3xl sm:text-4xl font-bold text-zinc-100 mt-4 leading-tight">
-            Runes of Aldur lands May 29.
+            Forbidden Rites is live.
           </h1>
           <p className="text-zinc-400 mt-3 text-base leading-relaxed">
-            Patch 0.5 ("Return of the Ancients") goes live{' '}
-            <span className="text-zinc-200 font-medium">2026-05-29 13:00 PDT</span>.
-            Atlas tree explodes to 300+ allocatable nodes, Runic Ward becomes a third
-            defensive resource, two new ascendancies join the roster, and Runes of Aldur
-            brings 100+ new currencies into circulation.
+            Patch 0.5.5 launched the Forbidden Rites league on 2026-09-04. Runes of
+            Aldur still runs alongside it, and its content is now part of the base
+            game. Both leagues end when{' '}
+            <span className="text-zinc-200 font-medium">1.0 arrives on 2026-12-11</span>{' '}
+            with the Duelist.
           </p>
         </div>
       </div>
 
-      {/* What's changing in 0.5 */}
+      {/* Current patch */}
       <section>
         <div className="flex flex-wrap items-end justify-between gap-x-3 gap-y-1 mb-3">
-          <h2 className="text-xs font-semibold text-zinc-500 uppercase tracking-widest">What's changing in 0.5</h2>
+          <h2 className="text-xs font-semibold text-zinc-500 uppercase tracking-widest">In the current patch</h2>
           <Link
             to="/poe2/runes-of-aldur"
             className="text-xs text-cyan-400/80 hover:text-cyan-300 motion-safe:transition-colors"
           >
-            Read the full breakdown &rarr;
+            Patch 0.5 breakdown &rarr;
           </Link>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
           <HighlightCard
-            label="Atlas overhaul"
-            value="300+ nodes"
-            note="Fully allocatable. Three new Atlas Masters (Jado / Hilda / Doryani) on reassignable sub-trees."
+            label="League"
+            value="Forbidden Rites"
+            note="A Ritual in every campaign area plus boss Ritual clusters. Sacred Blooms open the Viridian Wildwood on the Atlas."
           />
           <HighlightCard
-            label="New ascendancies"
-            value="Spirit Walker · Martial Artist"
-            note="Huntress and Monk get their first ascendancies. All current classes get full sets by 1.0."
+            label="Endgame"
+            value="Trial of Chaos"
+            note="Trial of Chaos is overhauled and 17 new Soul Cores join the pool."
           />
           <HighlightCard
-            label="League mechanic"
+            label="Now core"
             value="Runes of Aldur"
-            note="Ezomyte Remnant rune-crafting + Runic Ward (third defensive resource) + Kalguuran skill gems."
+            note="Expedition, runes and Runic Ward stay in the game. Outside the Runes of Aldur league, campaign Expeditions start at Act 4."
           />
           <HighlightCard
-            label="Crafting"
-            value="100+ new runes"
-            note="Verisium, Alloys, Liquid Emotions, Potent Emotions. Mageblood is reportedly making the jump."
+            label="Next"
+            value="1.0 · Dec 11"
+            note="Full release with the Duelist. Both current leagues end that day."
           />
         </div>
       </section>
@@ -81,50 +81,55 @@ export default function Poe2HomePage() {
           <AvailableCard
             to="/poe2/atlas/waystone-regex"
             title="Waystone Mod Regex"
-            desc="Pick the waystone mods to filter for, get a stash-search pattern under PoE's 250-character limit. v1 against 0.4 pool; refresh after 2026-05-21 patch notes."
+            desc="Pick the waystone mods to filter for and get a stash-search pattern. Covers a starter set of the waystone mod pool."
+          />
+          <AvailableCard
+            to="/poe2/build/anointing"
+            title="Liquid Emotion Anointing"
+            desc="Find the three Liquid Emotions for any passive tree notable, or work backwards from the emotions you have."
+          />
+          <AvailableCard
+            to="/poe2/leveling/vendor-regex"
+            title="Vendor Leveling Regex"
+            desc="Vendor-window search patterns for leveling gear such as movement speed and resistances."
+          />
+          <AvailableCard
+            to="/poe2/leveling/mode"
+            title="Leveling Mode"
+            desc="Act-by-act campaign guide across the four acts and three interludes."
+          />
+          <AvailableCard
+            to="/poe2/builds"
+            title="Builds"
+            desc="Featured builds with downloadable .build files for the in-game planner."
           />
         </div>
       </section>
 
-      {/* First wave — launch week */}
+      {/* Roadmap */}
       <section>
-        <div className="flex flex-wrap items-end justify-between gap-x-3 gap-y-1 mb-3">
-          <h2 className="text-xs font-semibold text-zinc-500 uppercase tracking-widest">First wave · launch week</h2>
-          <span className="text-[10px] uppercase tracking-wider text-zinc-600">Targeting 2026-05-29</span>
-        </div>
+        <h2 className="text-xs font-semibold text-zinc-500 uppercase tracking-widest mb-3">On the roadmap</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
           <ComingSoonCard
             title="Atlas Tree Planner"
-            desc="Plan and share allocations across 300+ nodes plus the three new Atlas Master sub-trees."
+            desc="Plan and share allocations across 300+ nodes plus the three Atlas Master sub-trees."
             tag="Flagship"
             tagAccent="amber"
           />
           <ComingSoonCard
             title="Currency Divergence Tracker"
-            desc="Week-over-week price shifts from poe.ninja with auto-flagged outliers. Cross-game — works for PoE 1 too."
-            tag="Day 1"
+            desc="Week-over-week price shifts from poe.ninja with auto-flagged outliers. Cross-game, so it works for PoE 1 too."
+            tag="Planned"
           />
           <ComingSoonCard
             title="Rune Combination Browser"
-            desc="Search the Runes of Aldur rune list by reward type. Pulls from the cross-build reference your in-client Runebook can't see."
-            tag="Day 1"
-          />
-        </div>
-      </section>
-
-      {/* Following waves */}
-      <section>
-        <h2 className="text-xs font-semibold text-zinc-500 uppercase tracking-widest mb-3">Following waves</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-4">
-          <ComingSoonCard
-            title="Leveling Playbook"
-            desc="Per-act interactive guide with quest rewards, gem swaps, and boss notes. v1 default: one of the new Spirit Walker / Martial Artist ascendancies."
-            tag="Post-launch"
+            desc="Search the rune list by reward type, including the cross-build reference the in-client Runebook can't show."
+            tag="Planned"
           />
           <ComingSoonCard
-            title="Build Importer"
-            desc="GGG ships an in-client .build file importer in 0.5. Once the format spec goes public, Omnilyth tools can publish exports."
-            tag="Pending format spec"
+            title="Build File Linter"
+            desc="Validate .build files and preview their markup before you share them. Live as a preview today."
+            tag="Preview"
           />
         </div>
       </section>

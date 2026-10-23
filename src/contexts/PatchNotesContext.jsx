@@ -1,62 +1,29 @@
 /**
  * Patch Notes Context
- * Fetches PoE patch notes from PoE Wiki (poewiki.net) via the Cloudflare Worker.
+ * Fetches PoE patch notes for the active game. The Cloudflare Worker scrapes
+ * GGG's patch-notes forums (PoE 1: patch-notes, PoE 2: 2212); the bundled
+ * fallback in src/data/patchNotesFallback.js covers outages.
  */
 
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { patchNotesUrl } from '../utils/proxyUrl';
+import { useGame } from './GameContext';
+import { PATCH_NOTES_FALLBACK } from '../data/patchNotesFallback';
 
-const STORAGE_KEY_CACHE = 'omnilyth_patch_notes_cache_v5';
-const STORAGE_KEY_READ_IDS = 'omnilyth_patch_notes_read_ids_v5';
-const STORAGE_KEY_LAST_FETCH = 'omnilyth_patch_notes_last_fetch_v5';
-const STORAGE_KEY_LAST_CHECK = 'omnilyth_patch_notes_last_check_v5';
-const CACHE_TTL = 5 * 60 * 1000;
-const POLL_INTERVAL = 30 * 1000;
+// v6: entries now come from the GGG forum (ids "forum_<thread>") and are per game.
+const STORAGE_KEY_CACHE = 'omnilyth_patch_notes_cache_v6_';
+const STORAGE_KEY_READ_IDS = 'omnilyth_patch_notes_read_ids_v6';
+const STORAGE_KEY_LAST_FETCH = 'omnilyth_patch_notes_last_fetch_v6_';
+const STORAGE_KEY_LAST_CHECK = 'omnilyth_patch_notes_last_check_v6_';
+const CACHE_TTL = 15 * 60 * 1000;
+const POLL_INTERVAL = 5 * 60 * 1000;
 
-const PROXY_URL = patchNotesUrl();
+const fallbackFor = (game) => PATCH_NOTES_FALLBACK[game] || PATCH_NOTES_FALLBACK.poe1;
 
-// Mock data for when PoE Wiki API is unavailable
-const MOCK_PATCHES = [
-  {
-    id: 'wiki_3_29_2',
-    title: '3.29.2 Patch Notes',
-    author: 'GGG',
-    posted: '2026-08-06T00:00:00.000Z',
-    content: 'Path of Exile 3.29.2\n\n- Voyage and Bathysphere stability fixes\n- Abyss and Legion rework balance passes\n- Atlas Anomaly spawn adjustments\n- Crash and performance fixes',
-    url: 'https://www.poewiki.net/wiki/Version_3.29.2',
-    forumUrl: 'https://www.pathofexile.com/forum/view-forum/patch-notes',
-    category: 'hotfix',
-    isMajor: false,
-    highlights: ['Voyage and Bathysphere fixes', 'Abyss and Legion balance', 'Atlas Anomaly adjustments'],
-    version: '3.29.2',
-  },
-  {
-    id: 'wiki_3_29_0',
-    title: '3.29.0 Patch Notes',
-    author: 'GGG',
-    posted: '2026-07-24T00:00:00.000Z',
-    content: 'Path of Exile 3.29.0 - Curse of the Allflame\n\n- New Allflame league: Charts, Voyages, and Bathysphere descents\n- Socket colours reworked: gems fit any socket; matching colour grants +10% quality\n- Legion and Abyss reworked\n- Mercenaries added to the core game\n- Luminary, a new Scion ascendancy\n- Over 100 spells rebalanced',
-    url: 'https://www.poewiki.net/wiki/Version_3.29.0',
-    forumUrl: 'https://www.pathofexile.com/forum/view-forum/patch-notes',
-    category: 'league',
-    isMajor: true,
-    highlights: ['Charts, Voyages and Bathysphere descents', 'Socket colours reworked', 'Legion and Abyss reworked', 'Luminary — new Scion ascendancy'],
-    version: '3.29.0',
-  },
-  {
-    id: 'wiki_3_28_0',
-    title: '3.28.0 Patch Notes',
-    author: 'GGG',
-    posted: '2026-03-06T00:00:00.000Z',
-    content: 'Path of Exile 3.28.0 - Mirage League\n\n- New Mirage league mechanic\n- New skill gems and support gems\n- Atlas passive tree updates\n- Unique item rebalancing\n- Performance optimizations',
-    url: 'https://www.poewiki.net/wiki/Version_3.28.0',
-    forumUrl: 'https://www.pathofexile.com/forum/view-thread/3600001',
-    category: 'league',
-    isMajor: true,
-    highlights: ['New Mirage league mechanic', 'New skill gems and support gems', 'Atlas passive tree updates', 'Performance optimizations'],
-    version: '3.28.0',
-  },
-];
+const FORUM_LIST_URL = {
+  poe1: 'https://www.pathofexile.com/forum/view-forum/patch-notes',
+  poe2: 'https://www.pathofexile.com/forum/view-forum/2212',
+};
 
 const PatchNotesContext = createContext();
 
@@ -69,7 +36,8 @@ export const usePatchNotes = () => {
 };
 
 export const PatchNotesProvider = ({ children }) => {
-  const [patches, setPatches] = useState(MOCK_PATCHES); // Start with mock data
+  const { game } = useGame();
+  const [patches, setPatches] = useState(() => fallbackFor(game));
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [hasNewPatches, setHasNewPatches] = useState(false);
@@ -82,12 +50,12 @@ export const PatchNotesProvider = ({ children }) => {
     }
   });
 
-  // Load patches from cache or fetch from wiki proxy
+  // Load patches from cache or fetch from the Worker's forum feed
   const fetchPatches = useCallback(async () => {
     // Check cache first
     try {
-      const lastFetch = localStorage.getItem(STORAGE_KEY_LAST_FETCH);
-      const cachedPatches = localStorage.getItem(STORAGE_KEY_CACHE);
+      const lastFetch = localStorage.getItem(STORAGE_KEY_LAST_FETCH + game);
+      const cachedPatches = localStorage.getItem(STORAGE_KEY_CACHE + game);
 
       if (lastFetch && cachedPatches) {
         const age = Date.now() - parseInt(lastFetch);
@@ -104,7 +72,7 @@ export const PatchNotesProvider = ({ children }) => {
     setError(null);
 
     try {
-      const response = await fetch(PROXY_URL);
+      const response = await fetch(patchNotesUrl(game));
       if (!response.ok) {
         throw new Error(`Patch notes proxy returned ${response.status}`);
       }
@@ -116,8 +84,8 @@ export const PatchNotesProvider = ({ children }) => {
       }
 
       // Cache
-      localStorage.setItem(STORAGE_KEY_CACHE, JSON.stringify(patchNotes));
-      localStorage.setItem(STORAGE_KEY_LAST_FETCH, Date.now().toString());
+      localStorage.setItem(STORAGE_KEY_CACHE + game, JSON.stringify(patchNotes));
+      localStorage.setItem(STORAGE_KEY_LAST_FETCH + game, Date.now().toString());
 
       setPatches(patchNotes);
     } catch (err) {
@@ -126,7 +94,7 @@ export const PatchNotesProvider = ({ children }) => {
 
       // Try to use stale cache
       try {
-        const cachedPatches = localStorage.getItem(STORAGE_KEY_CACHE);
+        const cachedPatches = localStorage.getItem(STORAGE_KEY_CACHE + game);
         if (cachedPatches) {
           setPatches(JSON.parse(cachedPatches));
           return;
@@ -136,16 +104,16 @@ export const PatchNotesProvider = ({ children }) => {
       }
 
       // Fall back to mock data
-      setPatches(MOCK_PATCHES);
+      setPatches(fallbackFor(game));
     } finally {
       setLoading(false);
     }
-  }, []);
+  }, [game]);
 
   // Check for new patches (quick fetch to compare IDs)
   const checkForUpdates = useCallback(async () => {
     try {
-      const lastCheck = localStorage.getItem(STORAGE_KEY_LAST_CHECK);
+      const lastCheck = localStorage.getItem(STORAGE_KEY_LAST_CHECK + game);
       const now = Date.now();
 
       // Debounce checks (minimum 10 seconds between checks)
@@ -153,10 +121,10 @@ export const PatchNotesProvider = ({ children }) => {
         return;
       }
 
-      localStorage.setItem(STORAGE_KEY_LAST_CHECK, now.toString());
+      localStorage.setItem(STORAGE_KEY_LAST_CHECK + game, now.toString());
 
       // Quick fetch to get latest IDs
-      const response = await fetch(PROXY_URL);
+      const response = await fetch(patchNotesUrl(game));
       if (!response.ok) return;
 
       const latestPatches = await response.json();
@@ -171,21 +139,24 @@ export const PatchNotesProvider = ({ children }) => {
     } catch {
       // Silent fail for background update checks
     }
-  }, [patches]);
+  }, [patches, game]);
 
   // Manual refresh with notification clear
   const refreshPatches = useCallback(async () => {
     setHasNewPatches(false);
     // Clear cache to force fresh fetch
-    localStorage.removeItem(STORAGE_KEY_CACHE);
-    localStorage.removeItem(STORAGE_KEY_LAST_FETCH);
+    localStorage.removeItem(STORAGE_KEY_CACHE + game);
+    localStorage.removeItem(STORAGE_KEY_LAST_FETCH + game);
     await fetchPatches();
-  }, [fetchPatches]);
+  }, [fetchPatches, game]);
 
-  // Initial fetch
+  // Initial fetch, and again on game switch (fetchPatches depends on game).
+  // Swap to the new game's fallback first so the old game's list never shows.
   useEffect(() => {
+    setPatches(fallbackFor(game));
+    setHasNewPatches(false);
     fetchPatches();
-  }, [fetchPatches]);
+  }, [fetchPatches, game]);
 
   // Smart polling: only poll when tab is visible
   useEffect(() => {
@@ -261,6 +232,8 @@ export const PatchNotesProvider = ({ children }) => {
   }, [readIds]);
 
   const value = {
+    game,
+    forumListUrl: FORUM_LIST_URL[game] || FORUM_LIST_URL.poe1,
     patches,
     loading,
     error,

@@ -44,9 +44,9 @@ export function feedbackUrl() {
   return PROXY_BASE;
 }
 
-/** GET endpoint for patch notes (server-side wiki discovery + parsing). */
-export function patchNotesUrl() {
-  return `${PROXY_BASE}?notes=patch`;
+/** GET endpoint for patch notes, scraped server-side from GGG's patch-notes forum for `game`. */
+export function patchNotesUrl(game = 'poe1') {
+  return `${PROXY_BASE}?notes=patch&game=${encodeURIComponent(game)}`;
 }
 
 /**

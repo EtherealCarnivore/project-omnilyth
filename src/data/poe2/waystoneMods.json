@@ -12,7 +12,7 @@
     "knownGaps": [
       "v2 starter set is conservative — single-line entries dominate. Many real PoE 2 waystone affixes are 2-4 line combos that need verification before encoding.",
       "Tier values + numeric ranges per affix not yet captured — required for tier-filtering UI and minimum-value regex.",
-      "0.5 Runes of Aldur will likely shift this pool — refresh after the 2026-05-21 patch notes drop.",
+      "0.5 changed this pool (11 mods removed, 18 prefix/suffix flips per the 0.5 notes); not yet refreshed. 0.5.5 made no further waystone changes.",
       "Corrupted-only mods not yet split out as a separate band."
     ]
   },

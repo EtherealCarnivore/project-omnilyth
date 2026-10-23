@@ -210,9 +210,9 @@ export default function Poe2WaystoneRegex() {
       {/* Coverage note */}
       <p className="text-xs text-zinc-600 leading-relaxed">
         v2 dataset hand-curated against the 0.4 waystone pool. Conservative
-        starter set; multi-line combo affixes will fill in over time. 0.5
-        ("Runes of Aldur") will likely shift this — refresh after the
-        2026-05-21 patch notes.
+        starter set; multi-line combo affixes will fill in over time. Patch 0.5
+        changed the waystone pool and that refresh hasn't landed yet, so some
+        mods may be missing or listed on the wrong side.
       </p>
     </div>
   );

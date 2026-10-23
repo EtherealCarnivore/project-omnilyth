@@ -14,7 +14,7 @@
  *   ?endpoint=/api/leagues...   → pathofexile.com
  *   ?wiki=/w/api.php?...        → poewiki.net
  *   ?pob=pobbin|pastebin&id=... → fetch raw PoB build code
- *   ?notes=patch                → discover & parse PoE patch notes from poewiki.net
+ *   ?notes=patch&game=poe1|poe2 → PoE patch notes scraped from GGG's patch-notes forums
  *
  * POST (JSON body):
  *   POST /                      → create GitHub issue from feedback
@@ -179,237 +179,192 @@ async function handlePoB(source, id, origin) {
   }
 }
 
-// ─── Patch notes (poewiki.net version pages) ───────────────────────────────
+// ─── Patch notes (GGG forum patch-notes listings) ──────────────────────────
+//
+// GGG's patch-notes forums have no RSS, so this scrapes the listing HTML the
+// way Discord patch-note bots do. (The old source, poewiki.net, sits behind an
+// Anubis bot wall that challenges Workers.) The forum served Workers a clean
+// 200 with no challenge when checked on 2026-10-23. If GGG changes the markup,
+// parsing returns nothing and the app falls back to its bundled list.
 
-const WIKI_API = 'https://www.poewiki.net/w/api.php';
-const WIKI_USER_AGENT = 'Omnilyth-PatchNotes/1.0 (https://omnilyth.app; contact@omnilyth.app)';
-// Update when new leagues drop (~every 3 months)
-const VERSION_PREFIXES = ['Version 3.29', 'Version 3.28'];
-const NOTES_CACHE_TTL = 10 * 60 * 1000;
+const FORUM_BASE = 'https://www.pathofexile.com';
+const PATCH_FORUMS = { poe1: 'patch-notes', poe2: '2212' };
+const FORUM_PAGES = 2;          // ~60 threads: a full patch cycle incl. hotfixes
+const MAX_PATCH_BODIES = 10;    // thread bodies fetched per refresh
+const MAX_CONTENT_CHARS = 20_000;
+const NOTES_USER_AGENT = 'Mozilla/5.0 (compatible; Omnilyth-PatchNotes/2.0; +https://omnilyth.app)';
+const NOTES_CACHE_TTL = 30 * 60 * 1000;
 
-let notesCache = { body: null, at: 0 };
+const notesCache = new Map(); // game -> { body, at }
 
-// poewiki.net sits behind Anubis bot protection, which serves its challenge as
-// an HTML page with HTTP *200* — not 403. So `res.ok` is true and a bare
-// res.json() throws SyntaxError on "<!doctype ...", which is what took this
-// endpoint down. Check the content type before parsing and treat a challenge
-// as "source unavailable" rather than an exception.
-async function readWikiJson(res, label) {
-  const ct = res.headers.get('content-type') || '';
-  if (!ct.includes('json')) {
-    console.error(`[patch-notes] ${label}: non-JSON response (${res.status}, ${ct || 'no content-type'}) — likely a bot challenge`);
-    return null;
-  }
-  try {
-    return await res.json();
-  } catch (err) {
-    console.error(`[patch-notes] ${label}: JSON parse failed —`, err && err.message);
-    return null;
-  }
+function decodeEntities(s) {
+  return s
+    .replace(/&#x2F;/gi, '/')
+    .replace(/&#0?39;/g, "'")
+    .replace(/&quot;/g, '"')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&hellip;/g, '...')
+    .replace(/&lt;/g, '<')
+    .replace(/&gt;/g, '>')
+    .replace(/&amp;/g, '&');
 }
 
-async function discoverVersionPages(controller) {
-  const pages = [];
-  for (const prefix of VERSION_PREFIXES) {
-    const params = new URLSearchParams({
-      action: 'query', list: 'allpages', apprefix: prefix, aplimit: '50', format: 'json',
-    });
-    const res = await fetch(`${WIKI_API}?${params}`, {
-      signal: controller.signal,
-      headers: { 'User-Agent': WIKI_USER_AGENT },
-    });
-    if (!res.ok) { console.error('[patch-notes] allpages', prefix, '->', res.status); continue; }
-    const data = await readWikiJson(res, `allpages ${prefix}`);
-    if (!data) continue;
-    const found = data.query?.allpages || [];
-    pages.push(...found.map(p => p.title));
+async function fetchForumHtml(path, signal) {
+  const res = await fetch(FORUM_BASE + path, {
+    signal,
+    headers: { 'User-Agent': NOTES_USER_AGENT, Accept: 'text/html' },
+  });
+  if (!res.ok) {
+    console.error('[patch-notes]', path, '->', res.status);
+    return null;
   }
-  return pages;
+  return res.text();
 }
 
-async function fetchPageContent(titles, controller) {
-  const results = {};
-  for (let i = 0; i < titles.length; i += 50) {
-    const batch = titles.slice(i, i + 50);
-    const params = new URLSearchParams({
-      action: 'query', titles: batch.join('|'),
-      prop: 'revisions', rvprop: 'content', rvslots: 'main', format: 'json',
-    });
-    const res = await fetch(`${WIKI_API}?${params}`, {
-      signal: controller.signal,
-      headers: { 'User-Agent': WIKI_USER_AGENT },
-    });
-    if (!res.ok) { console.error('[patch-notes] content batch ->', res.status); continue; }
-    const data = await readWikiJson(res, 'content batch');
-    if (!data) continue;
-    const pages = data.query?.pages || {};
-    for (const page of Object.values(pages)) {
-      if (page.missing !== undefined) continue;
-      const content = page.revisions?.[0]?.slots?.main?.['*'] || page.revisions?.[0]?.['*'] || '';
-      if (content) results[page.title] = content;
-    }
+// Listing rows -> { id, title, author, posted }
+function parseForumListing(html) {
+  const rows = [];
+  const re = /<div class="title">\s*<a href="\/forum\/view-thread\/(\d+)">\s*([^<]+?)\s*<\/a>[\s\S]*?post_by_account"\s*><a[^>]*>([^<]+)<\/a><\/span><span class="post_date">,\s*([^<]+)<\/span>/g;
+  let m;
+  while ((m = re.exec(html))) {
+    rows.push({ id: m[1], title: decodeEntities(m[2]).trim(), author: m[3].trim(), posted: m[4].trim() });
   }
-  return results;
+  return rows;
+}
+
+function toIso(forumDate) {
+  const d = new Date(forumDate.replace(/,(\s*\d{1,2}:\d{2})/, '$1'));
+  return isNaN(d.getTime()) ? null : d.toISOString();
 }
 
 function extractVersion(title) {
-  const m = title.match(/Version\s+([\d.]+\w*)/i);
+  const m = title.match(/(\d+\.\d+\.\d+[a-z]?)/i);
   return m ? m[1] : null;
 }
 
-function parseDate(wikitext) {
-  const versionMatch = wikitext.match(/release[_ ]date\s*=\s*([^\n|}]+)/i);
-  if (versionMatch) {
-    const parsed = new Date(versionMatch[1].trim());
-    if (!isNaN(parsed.getTime())) return parsed.toISOString();
-  }
-  const dateMatch = wikitext.match(/(\w+ \d{1,2},?\s*\d{4})/);
-  if (dateMatch) {
-    const parsed = new Date(dateMatch[1].trim());
-    if (!isNaN(parsed.getTime())) return parsed.toISOString();
-  }
-  return null;
+// First post body of a thread page -> plain text with "- " bullets.
+function parseThreadBody(html) {
+  const table = html.indexOf('forumPostListTable');
+  if (table === -1) return '';
+  const start = html.indexOf('<div class="content">', table);
+  const end = html.indexOf('<td class="post_info">', start);
+  if (start === -1 || end === -1) return '';
+  return decodeEntities(
+    html.slice(start, end)
+      .replace(/<br\s*\/?>/gi, '\n')
+      .replace(/<\/(p|div|h\d|ul|ol)>/gi, '\n')
+      .replace(/<li[^>]*>/gi, '\n- ')
+      .replace(/<[^>]+>/g, ''),
+  )
+    .split('\n')
+    .map(l => l.replace(/\s+/g, ' ').trim())
+    .filter((l, i, a) => l || (a[i - 1] && a[i - 1] !== ''))
+    .join('\n')
+    .replace(/\n{3,}/g, '\n\n')
+    .trim()
+    .slice(0, MAX_CONTENT_CHARS);
 }
 
-function parseForumUrl(wikitext) {
-  const m = wikitext.match(/https?:\/\/(?:www\.)?pathofexile\.com\/forum\/view-thread\/\d+/i);
-  return m ? m[0] : null;
-}
-
-function parseAuthor(wikitext) {
-  const authorMatch = wikitext.match(/author\s*=\s*([^\n|}]+)/i);
-  if (authorMatch) return authorMatch[1].trim();
-  const byMatch = wikitext.match(/by\s+(\w+(?:_GGG)?)/i);
-  if (byMatch) return byMatch[1];
-  return 'GGG';
-}
-
-function wikitextToPlainText(wikitext) {
-  let text = wikitext;
-  const start = text.search(/\{\{Blockquote top\}\}/i);
-  const end = text.search(/\{\{Blockquote bottom\}\}/i);
-  if (start !== -1 && end !== -1) text = text.substring(start, end);
-
-  let prev = '';
-  while (prev !== text) {
-    prev = text;
-    text = text.replace(/\{\{[^{}]*\}\}/g, '');
-  }
-  text = text.replace(/\[\[(?:[^\]|]*\|)?([^\]]+)\]\]/g, '$1');
-  text = text.replace(/\[https?:\/\/[^\s\]]+\s+([^\]]+)\]/g, '$1');
-  text = text.replace(/\[https?:\/\/[^\s\]]+\]/g, '');
-  text = text.replace(/'{3}([^']+)'{3}/g, '$1');
-  text = text.replace(/'{2}([^']+)'{2}/g, '$1');
-  text = text.replace(/<ref[^>]*>[\s\S]*?<\/ref>/gi, '');
-  text = text.replace(/<ref[^/]*\/>/gi, '');
-  text = text.replace(/<\/?[^>]+>/g, '');
-  text = text.replace(/^=+\s*(.*?)\s*=+$/gm, '$1');
-  text = text.replace(/^\*+\s*/gm, '- ');
-  text = text.replace(/\n{3,}/g, '\n\n');
-  return text.trim();
-}
-
-function extractHighlights(plainText) {
-  if (!plainText) return ['View full patch notes for details'];
-  const bullets = plainText.split('\n')
-    .filter(line => line.trim().startsWith('-') || line.trim().startsWith('*'))
-    .map(line => line.replace(/^[\s\-*]+/, '').trim())
-    .filter(line => line.length > 0 && line.length < 150)
+function extractHighlights(text) {
+  const bullets = text.split('\n')
+    .filter(l => l.startsWith('- '))
+    .map(l => l.slice(2).trim())
+    .filter(l => l.length > 0 && l.length < 160)
     .slice(0, 4);
-  return bullets.length > 0 ? bullets : ['View full patch notes for details'];
+  return bullets.length ? bullets : ['View full patch notes for details'];
 }
 
-function categorizePatch(version, title) {
+// 0.5.0 / 3.29.0 or "Content Update" = league launch; a body that hit the
+// size cap (0.5.5-style mid-league content patch) = content; letter suffix =
+// hotfix patch; anything else = bugfix.
+function categorizePatch(version, title, truncated) {
   if (!version) return 'content';
-  const lower = (title || '').toLowerCase();
-  if (/^\d+\.\d+\.0$/.test(version)) return 'league';
-  if (/\d+[a-z]$/i.test(version)) return 'hotfix';
-  if (/^\d+\.\d+\.\d+$/.test(version)) {
-    const parts = version.split('.');
-    if (parseInt(parts[2]) > 0) return 'bugfix';
+  if (/^\d+\.\d+\.0$/.test(version) || /content update/i.test(title)) return 'league';
+  if (truncated) return 'content';
+  if (/[a-z]$/i.test(version)) return 'hotfix';
+  return 'bugfix';
+}
+
+async function buildPatchList(game, signal) {
+  const forum = PATCH_FORUMS[game];
+  const pages = await Promise.all(
+    Array.from({ length: FORUM_PAGES }, (_, i) =>
+      fetchForumHtml(`/forum/view-forum/${forum}${i ? `/page/${i + 1}` : ''}`, signal)),
+  );
+  const seen = new Set();
+  const rows = pages.filter(Boolean).flatMap(parseForumListing).filter(r => {
+    if (seen.has(r.id)) return false;
+    seen.add(r.id);
+    return extractVersion(r.title); // drops Server Maintenance, Code of Conduct, etc.
+  });
+
+  // "0.5.5 Hotfix 7", "3.29.1 Maintenance", "0.5.4e Restart" fold into their
+  // parent patch-notes entry instead of crowding the list.
+  const patches = [];
+  const hotfixes = [];
+  for (const r of rows) (/\b(hotfix|maintenance|restart)\b/i.test(r.title) ? hotfixes : patches).push(r);
+
+  const top = patches.slice(0, MAX_PATCH_BODIES);
+  const bodies = await Promise.all(top.map(r => fetchForumHtml(`/forum/view-thread/${r.id}`, signal)));
+
+  const out = top.map((r, i) => {
+    const version = extractVersion(r.title);
+    const content = bodies[i] ? parseThreadBody(bodies[i]) : '';
+    const category = categorizePatch(version, r.title, content.length >= MAX_CONTENT_CHARS);
+    return {
+      id: `forum_${r.id}`,
+      title: r.title,
+      author: r.author,
+      posted: toIso(r.posted) || new Date().toISOString(),
+      content,
+      url: `${FORUM_BASE}/forum/view-thread/${r.id}`,
+      forumUrl: `${FORUM_BASE}/forum/view-thread/${r.id}`,
+      category,
+      isMajor: category === 'league' || category === 'content',
+      highlights: extractHighlights(content),
+      version,
+      game,
+      hotfixes: [],
+    };
+  });
+
+  for (const h of hotfixes) {
+    const version = extractVersion(h.title);
+    const entry = { title: h.title, url: `${FORUM_BASE}/forum/view-thread/${h.id}`, posted: toIso(h.posted) };
+    const parent = out.find(p => p.version === version && /patch notes|content update/i.test(p.title))
+      || out.find(p => p.version === version);
+    if (parent) parent.hotfixes.push(entry);
   }
-  if (lower.includes('balance') || lower.includes('manifesto')) return 'balance';
-  return 'content';
+  out.sort((a, b) => new Date(b.posted) - new Date(a.posted));
+  return out;
 }
 
-function isMajorPatch(version, category) {
-  if (category === 'league' || category === 'balance') return true;
-  if (version && /^\d+\.\d+\.0$/.test(version)) return true;
-  return false;
-}
-
-function parsePatchNote(title, wikitext) {
-  const version = extractVersion(title);
-  if (!version) return null;
-  const date = parseDate(wikitext);
-  const plainContent = wikitextToPlainText(wikitext);
-  const category = categorizePatch(version, title);
-  return {
-    id: `wiki_${version.replace(/\./g, '_')}`,
-    title: `${version} Patch Notes`,
-    author: parseAuthor(wikitext),
-    posted: date || new Date().toISOString(),
-    content: plainContent,
-    url: `https://www.poewiki.net/wiki/${encodeURIComponent(title)}`,
-    forumUrl: parseForumUrl(wikitext),
-    category,
-    isMajor: isMajorPatch(version, category),
-    highlights: extractHighlights(plainContent),
-    version,
-  };
-}
-
-async function handlePatchNotes(origin) {
-  if (notesCache.body && (Date.now() - notesCache.at) < NOTES_CACHE_TTL) {
-    return new Response(notesCache.body, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'public, max-age=600',
-        'X-Cache': 'HIT',
-        ...corsHeaders(origin),
-      },
-    });
+async function handlePatchNotes(origin, game) {
+  const g = PATCH_FORUMS[game] ? game : 'poe1';
+  const cached = notesCache.get(g);
+  const headers = (cache) => ({
+    'Content-Type': 'application/json',
+    'Cache-Control': 'public, max-age=900',
+    'X-Cache': cache,
+    ...corsHeaders(origin),
+  });
+  if (cached && (Date.now() - cached.at) < NOTES_CACHE_TTL) {
+    return new Response(cached.body, { headers: headers('HIT') });
   }
 
   const controller = new AbortController();
   const timeout = setTimeout(() => controller.abort(), 15_000);
-
   try {
-    const titles = await discoverVersionPages(controller);
-    if (titles.length === 0) {
-      clearTimeout(timeout);
-      return new Response('[]', {
-        headers: { 'Content-Type': 'application/json', 'Cache-Control': 'public, max-age=60', ...corsHeaders(origin) },
-      });
-    }
-
-    const contents = await fetchPageContent(titles, controller);
+    const patches = await buildPatchList(g, controller.signal);
     clearTimeout(timeout);
-
-    const patches = [];
-    for (const [title, wikitext] of Object.entries(contents)) {
-      const p = parsePatchNote(title, wikitext);
-      if (p) patches.push(p);
-    }
-    patches.sort((a, b) => new Date(b.posted) - new Date(a.posted));
-
     const body = JSON.stringify(patches);
-    notesCache = { body, at: Date.now() };
-
-    return new Response(body, {
-      headers: {
-        'Content-Type': 'application/json',
-        'Cache-Control': 'public, max-age=600',
-        'X-Cache': 'MISS',
-        ...corsHeaders(origin),
-      },
-    });
+    // Don't pin an empty result (markup change / transient failure) for 30 min.
+    if (patches.length) notesCache.set(g, { body, at: Date.now() });
+    return new Response(body, { headers: headers('MISS') });
   } catch (err) {
     clearTimeout(timeout);
-    // Log server-side; the client still gets a generic message. Without this the
-    // catch swallowed the only evidence of why this endpoint 500s, and
-    // `wrangler tail` reported a clean "Ok" because the throw was handled.
     console.error('[patch-notes] failed:', err && err.name, '|', err && err.message);
+    if (cached) return new Response(cached.body, { headers: headers('STALE') });
     return jsonError(500, err.name === 'AbortError' ? 'Request timeout' : 'Internal server error', origin);
   }
 }
@@ -680,7 +635,7 @@ export default {
     // ?notes=patch
     if (url.searchParams.get('notes') === 'patch') {
       if (!checkRateLimit('notes', ip)) return jsonError(429, 'Too many requests. Please wait.', origin);
-      return handlePatchNotes(origin);
+      return handlePatchNotes(origin, url.searchParams.get('game'));
     }
 
     // Generic upstream proxies

@@ -8,11 +8,23 @@
  * Structure: 4 acts + 3 interludes, SINGLE PASS, NO Cruel. Interludes follow Act 4
  * (endgame mapping unlocks after Interlude III, ~level 60–65).
  *
- * RE-VERIFY AT 0.5 LAUNCH (2026-05-29): zone levels, uncut-gem reward levels, and
- * permanent-stat magnitudes (Spirit/Life/resist values) are the volatile fields —
- * campaign tuning shifts most patches and the 0.5 Kalguuran skill roster may re-slot
- * which uncut gem drops where. Act/zone STRUCTURE is stable. See the cache's
- * "Re-verify at 2026-05-29 launch (0.5) checklist" for the exact list.
+ * 0.5 LAUNCH STATUS (updated 2026-05-30, launch +1): the route below is the 0.4
+ * baseline and remains largely intact in 0.5. CONFIRMED 0.5 changes folded in:
+ *   - Matlan Waterways simplified — pre-drained + walk-over pressure pads, no lever
+ *     puzzle (see act3-the-matlan-waterways).
+ *   - League mechanics — see the Act 1 Riverbank tips. Since 0.5.5 (2026-09-04) Ezomyte
+ *     Remnants from Act 1 apply only in the Runes of Aldur league; Forbidden Rites and
+ *     Standard get a Ritual per campaign area and Expeditions from Act 4.
+ *   - Late-campaign + Interlude monster density reduced (faster traversal, lower XP
+ *     density in the back half).
+ * STILL PENDING a poe2db post-launch scrape — gate as provisional, do NOT bake in yet:
+ *   - Exact Act 3 zone order (GGG rearranged it for smoother flow and warned memorized
+ *     routes are invalidated — highest-uncertainty item).
+ *   - Per-zone uncut-gem reward table (drop levels may have re-slotted with the
+ *     Kalguuran roster).
+ *   - Dreadnought Vanguard removal / exact Jamanra placement in Act 2.
+ * Spirit / charm / weapon-set systems = 0.4 baseline (unchanged). Hand the granular
+ * refresh to data-curator once week-1 guides settle (~2026-06-05).
  *
  * No class dimension — PoE 2 rewards/gem-unlocks are class-agnostic.
  *
@@ -45,6 +57,8 @@ export const poe2LevelingActs = [
         ],
         tips: [
           { content: "Starting zone. The \"Reaching Clearfell\" quest grants your first Uncut Skill Gem (L1) — claim it before moving on.", freshOnly: true },
+          { content: "Forbidden Rites (0.5.5): every campaign area has a Ritual, plus boss Ritual clusters along the way. They're worth doing while leveling for currency and gear. Campaign Expeditions start at Act 4.", freshOnly: false },
+          { content: "Runes of Aldur league only: from Act 1 on, every area holds an Ezomyte Remnant — fill its rune slots to raise empowered Runic enemies for rewards. They drop Verisium and currency that upgrade your gear mid-campaign.", freshOnly: false },
         ],
       },
       {
@@ -925,10 +939,10 @@ export const poe2LevelingActs = [
         isTown: false,
         isOptional: false,
         accessedFrom: "Jiquani's Sanctum",
-        areaHint: "Lever puzzle — drain the water sections to progress",
+        areaHint: "0.5: pre-drained, with levers replaced by walk-over pressure pads — no puzzle, just proceed to The Drowned City",
         bosses: [],
         objectives: [
-          { description: "Solve the lever puzzle", type: "explore" },
+          { description: "Cross the (pre-drained) waterways to The Drowned City", type: "explore" },
         ],
         tips: [],
       },

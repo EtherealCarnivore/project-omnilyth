@@ -1,5 +1,5 @@
 /**
- * Patch Notes Guide - Official PoE patch notes from PoE Wiki
+ * Patch Notes Guide - Official PoE patch notes from GGG's patch-notes forum
  * Full-screen modal with Escape key support
  */
 
@@ -268,7 +268,7 @@ const PatchNotesGuide = () => {
                       rel="noopener noreferrer"
                       className="text-xs text-sky-400 hover:text-sky-300 transition-colors"
                     >
-                      Wiki Page →
+                      Forum thread →
                     </a>
 
                     {patch.version && (
@@ -286,9 +286,9 @@ const PatchNotesGuide = () => {
 
       {/* Footer */}
       <div className="mt-6 p-4 bg-amber-500/10 border border-amber-500/20 rounded-lg text-center">
-        <div className="text-amber-400 font-medium mb-2">Patch Notes from PoE Wiki</div>
+        <div className="text-amber-400 font-medium mb-2">Patch notes from the official forum</div>
         <div className="text-white/50 text-sm">
-          Official patch notes sourced from poewiki.net. Updates every 10 minutes.
+          Pulled from GGG's patch-notes forum for the game you have selected. Refreshes every 15 minutes.
         </div>
       </div>
 
@@ -382,6 +382,32 @@ const PatchNotesGuide = () => {
                     )}
                   </div>
                 )}
+                {modalPatch.hotfixes?.length > 0 && (
+                  <div className="mt-6 pt-4 border-t border-white/10">
+                    <div className="text-sm font-medium text-white/70 mb-2">
+                      Follow-up hotfixes ({modalPatch.hotfixes.length})
+                    </div>
+                    <ul className="space-y-1">
+                      {modalPatch.hotfixes.map((h) => (
+                        <li key={h.url}>
+                          <a
+                            href={h.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm text-sky-400 hover:text-sky-300 transition-colors"
+                          >
+                            {h.title}
+                          </a>
+                          {h.posted && (
+                            <span className="text-xs text-white/40 ml-2">
+                              {new Date(h.posted).toLocaleDateString()}
+                            </span>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -402,14 +428,6 @@ const PatchNotesGuide = () => {
                       Official Forum →
                     </a>
                   )}
-                  <a
-                    href={modalPatch.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-4 py-2 bg-sky-500/20 hover:bg-sky-500/30 text-sky-400 rounded-lg transition-colors text-sm font-medium"
-                  >
-                    Wiki Page →
-                  </a>
                 </div>
               </div>
             </div>

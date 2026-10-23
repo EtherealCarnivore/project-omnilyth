@@ -1,7 +1,7 @@
 /**
  * Patch Notes Widget - Dashboard component for latest PoE patch notes
  * Shows latest 3 patches with full-screen modal view
- * Data sourced from PoE Wiki (poewiki.net)
+ * Data scraped from GGG's patch-notes forum for the active game (via the Worker)
  */
 
 import { useState, useEffect } from 'react';
@@ -17,7 +17,8 @@ const PatchNotesWidget = () => {
     hasNewPatches,
     refreshPatches,
     markAsRead,
-    isPatchRead
+    isPatchRead,
+    forumListUrl
   } = usePatchNotes();
 
   const [modalPatch, setModalPatch] = useState(null); // Patch to show in modal
@@ -113,7 +114,7 @@ const PatchNotesWidget = () => {
               </svg>
             </button>
             <a
-              href="https://www.poewiki.net/wiki/Version_history"
+              href={forumListUrl}
               target="_blank"
               rel="noopener noreferrer"
               className="text-xs text-zinc-500 hover:text-zinc-300 transition-colors flex items-center gap-1"
@@ -248,7 +249,7 @@ const PatchNotesWidget = () => {
                       onClick={() => !isRead && markAsRead(patch.id)}
                       className="text-xs text-sky-400 hover:text-sky-300 transition-colors"
                     >
-                      Wiki Page →
+                      Forum thread →
                     </a>
                   </div>
                 </div>
@@ -348,6 +349,32 @@ const PatchNotesWidget = () => {
                     )}
                   </div>
                 )}
+                {modalPatch.hotfixes?.length > 0 && (
+                  <div className="mt-6 pt-4 border-t border-white/10">
+                    <div className="text-sm font-medium text-white/70 mb-2">
+                      Follow-up hotfixes ({modalPatch.hotfixes.length})
+                    </div>
+                    <ul className="space-y-1">
+                      {modalPatch.hotfixes.map((h) => (
+                        <li key={h.url}>
+                          <a
+                            href={h.url}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-sm text-sky-400 hover:text-sky-300 transition-colors"
+                          >
+                            {h.title}
+                          </a>
+                          {h.posted && (
+                            <span className="text-xs text-white/40 ml-2">
+                              {new Date(h.posted).toLocaleDateString()}
+                            </span>
+                          )}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             </div>
 
@@ -368,14 +395,6 @@ const PatchNotesWidget = () => {
                       Official Forum →
                     </a>
                   )}
-                  <a
-                    href={modalPatch.url}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="px-4 py-2 bg-sky-500/20 hover:bg-sky-500/30 text-sky-400 rounded-lg transition-colors text-sm font-medium"
-                  >
-                    Wiki Page →
-                  </a>
                 </div>
               </div>
             </div>

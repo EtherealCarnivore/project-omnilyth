@@ -36,9 +36,16 @@ export default function RunesOfAldurPage() {
             official 0.5 patch notes
           </a>{' '}
           (published 2026-05-21). A plain-language digest with sources — not a copy of GGG's full notes.
-          Launches <strong className="text-zinc-300">{LAUNCH_DATE}</strong>.
+          Launched <strong className="text-zinc-300">{LAUNCH_DATE}</strong>.
         </p>
       </div>
+
+      <Callout color="amber">
+        <strong>Update for 0.5.5:</strong> Forbidden Rites has been the current league
+        since 2026-09-04. The Runes of Aldur league still runs, and its content is
+        now in the base game. Outside the Runes of Aldur league, campaign Expeditions
+        start at Act 4. Both leagues end when 1.0 launches on 2026-12-11.
+      </Callout>
 
       <Callout color="cyan">
         <strong>The headline:</strong> 0.5 ("Return of the Ancients") launches{' '}
