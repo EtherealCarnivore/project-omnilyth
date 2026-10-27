@@ -2,16 +2,15 @@
 """
 Parse poe2db.tw/us/Liquid_Emotions raw HTML into structured anointing data.
 
-Source : poe2db.tw/us/Liquid_Emotions (datamined, pre-launch)
+Source : poe2db.tw/us/Liquid_Emotions (datamined)
 Outputs:
-  - src/data/poe2/anointing/emotions.json      (10 base emotions, 3 tiers)
+  - src/data/poe2/anointing/emotions.json      (10 base + 3 Potent emotions)
   - src/data/poe2/anointing/combinations.json   (ordered triple -> notable)
 
 Re-run: fetch the page to scripts/poe2-data/.cache/liquid_emotions.html, then
         run this script. It is idempotent and overwrites the JSON outputs.
 
-Provenance: every output carries _meta with scrapedAt + a "verify at launch"
-note. ORDERED triples are preserved verbatim from the page (slot sequence kept).
+Provenance: every output carries _meta with scrapedAt. ORDERED triples are preserved verbatim from the page (slot sequence kept).
 """
 import json
 import os
@@ -22,22 +21,24 @@ from html import unescape
 REPO = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
 HTML_PATH = os.path.join(REPO, "scripts", "poe2-data", ".cache", "liquid_emotions.html")
 OUT_DIR = os.path.join(REPO, "src", "data", "poe2", "anointing")
-SCRAPED_AT = "2026-05-22"
+SCRAPED_AT = "2026-10-27"
 
-# Emotion internal-id -> (slug, displayName, tier) from the page's item links.
-# DistilledEmotion<N> is the internal asset id; the player-facing name is "Liquid X".
-# Tier per .claude/knowledge/poe2/cached/liquid-emotion-anointing.md (verified against poe2db).
+# Emotion item-page slug (the href on each emotion link) -> (slug, displayName, tier).
+# Potent emotions (Contempt / Ferocity / Melancholy) also instill amulets.
 EMOTION_META = {
-    "DistilledEmotion1":  ("ire",       "Ire",       "diluted"),
-    "DistilledEmotion2":  ("guilt",     "Guilt",     "diluted"),
-    "DistilledEmotion3":  ("greed",     "Greed",     "diluted"),
-    "DistilledEmotion4":  ("paranoia",  "Paranoia",  "standard"),
-    "DistilledEmotion5":  ("envy",      "Envy",      "standard"),
-    "DistilledEmotion6":  ("disgust",   "Disgust",   "standard"),
-    "DistilledEmotion7":  ("despair",   "Despair",   "standard"),
-    "DistilledEmotion8":  ("fear",      "Fear",      "concentrated"),
-    "DistilledEmotion9":  ("suffering", "Suffering", "concentrated"),
-    "DistilledEmotion10": ("isolation", "Isolation", "concentrated"),
+    "Diluted_Liquid_Ire":            ("ire",        "Ire",        "diluted"),
+    "Diluted_Liquid_Guilt":          ("guilt",      "Guilt",      "diluted"),
+    "Diluted_Liquid_Greed":          ("greed",      "Greed",      "diluted"),
+    "Liquid_Paranoia":               ("paranoia",   "Paranoia",   "standard"),
+    "Liquid_Envy":                   ("envy",       "Envy",       "standard"),
+    "Liquid_Disgust":                ("disgust",    "Disgust",    "standard"),
+    "Liquid_Despair":                ("despair",    "Despair",    "standard"),
+    "Concentrated_Liquid_Fear":      ("fear",       "Fear",       "concentrated"),
+    "Concentrated_Liquid_Suffering": ("suffering",  "Suffering",  "concentrated"),
+    "Concentrated_Liquid_Isolation": ("isolation",  "Isolation",  "concentrated"),
+    "Potent_Liquid_Contempt":        ("contempt",   "Contempt",   "potent"),
+    "Potent_Liquid_Ferocity":        ("ferocity",   "Ferocity",   "potent"),
+    "Potent_Liquid_Melancholy":      ("melancholy", "Melancholy", "potent"),
 }
 
 
@@ -73,7 +74,7 @@ def main():
 
     # Each recipe is a <div class="col"> ... </div> card. Split on the col
     # boundary; each card holds one PassiveSkills anchor + one property block
-    # with three emotion anchors (data-hover -> DistilledEmotion<N>).
+    # with three emotion anchors (emotion item links).
     cards = re.split(r'<div class="col">', section)[1:]
 
     recipes = []
@@ -84,7 +85,7 @@ def main():
     for card in cards:
         # Notable name + skill id.
         nm = re.search(
-            r'<a class="PassiveSkills"\s+data-hover="\?s=Data%5CPassiveSkills%2F(\d+)"\s+href="[^"]*">([^<]+)</a>',
+            r'<a class="PassiveSkills"\s+data-hover="[^"]*"\s+href="([^"]*)">([^<]+)</a>',
             card,
         )
         if not nm:
@@ -93,15 +94,13 @@ def main():
         skill_id = nm.group(1)
         notable = unescape(nm.group(2)).strip()
 
-        # Ordered emotion sequence: every DistilledEmotion<N> data-hover inside
-        # the property block, in document order = slot order.
+        # Ordered emotion sequence: every emotion item link inside the
+        # property block, in document order = slot order.
         prop = re.search(r'<div class="property">(.*?)<div class="separator">', card, re.S)
         prop_html = prop.group(1) if prop else card
-        emo_ids = re.findall(r"DistilledEmotion\d+", prop_html)
+        emo_ids = re.findall(r'class="BlightCraftingItems" href="([^"]+)"', prop_html)
         if len(emo_ids) != 3:
-            # Some cards may render the keyword popup link "DistilledEmotion"
-            # (no digit) — already excluded by the \d+. If not exactly 3, skip
-            # honestly rather than guess.
+            # If not exactly 3, skip honestly rather than guess.
             skipped += 1
             multi_emotion_anchor_warn += 1
             continue
@@ -113,7 +112,8 @@ def main():
 
         # Effect text: the mod div(s) after the separator.
         eff = re.search(r'<div class="separator"></div>(.*)$', card, re.S)
-        effect = collapse_ws(strip_tags(eff.group(1))) if eff else ""
+        # Block tags separate mod lines; turn them into spaces before stripping.
+        effect = collapse_ws(strip_tags(re.sub(r"</div>|<br\s*/?>", " ", eff.group(1)))) if eff else ""
 
         rec = {"e": seq, "notable": notable, "id": skill_id}
         if effect:
@@ -124,19 +124,17 @@ def main():
     # ---- emotions.json ----
     emotions = [
         {"id": slug, "displayName": disp, "tier": tier}
-        for (_iid, (slug, disp, tier)) in sorted(
-            EMOTION_META.items(), key=lambda kv: int(kv[0].replace("DistilledEmotion", ""))
-        )
+        for (slug, disp, tier) in EMOTION_META.values()
     ]
 
     os.makedirs(OUT_DIR, exist_ok=True)
-    with open(os.path.join(OUT_DIR, "emotions.json"), "w", encoding="utf-8") as f:
+    with open(os.path.join(OUT_DIR, "emotions.json"), "w", encoding="utf-8", newline="\n") as f:
         json.dump(
             {
                 "_meta": {
                     "source": "poe2db.tw/us/Liquid_Emotions",
                     "scrapedAt": SCRAPED_AT,
-                    "provenance": "datamined pre-launch -- verify against live game at 2026-05-29 launch",
+                    "provenance": "datamined, patch 0.5.5",
                     "count": len(emotions),
                 },
                 "emotions": emotions,
@@ -147,13 +145,13 @@ def main():
         )
 
     # ---- combinations.json ----
-    with open(os.path.join(OUT_DIR, "combinations.json"), "w", encoding="utf-8") as f:
+    with open(os.path.join(OUT_DIR, "combinations.json"), "w", encoding="utf-8", newline="\n") as f:
         json.dump(
             {
                 "_meta": {
                     "source": "poe2db.tw/us/Liquid_Emotions",
                     "scrapedAt": SCRAPED_AT,
-                    "provenance": "datamined pre-launch -- verify against live game at 2026-05-29 launch",
+                    "provenance": "datamined, patch 0.5.5",
                     "ordered": True,
                     "headerCount": header_count,
                     "count": len(recipes),

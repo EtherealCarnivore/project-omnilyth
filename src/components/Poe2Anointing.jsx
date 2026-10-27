@@ -5,7 +5,7 @@
  * Reverse: search a notable → see the 3-emotion recipe.
  *
  * Lives in src/components/, not a calculator — it's an ordered-tuple lookup,
- * no math. Data is datamined pre-launch; a provenance note flags that.
+ * no math. Data is datamined from poe2db; a provenance note shows the date.
  */
 import { useMemo, useState } from 'react';
 import {
@@ -170,10 +170,10 @@ export default function Poe2Anointing() {
 
       {mode === 'forward' ? <ForwardSearch /> : <ReverseSearch />}
 
-      {/* Provenance — datamined pre-launch */}
+      {/* Provenance */}
       <p className="text-[11px] text-zinc-600 border-t border-white/5 pt-3">
-        {ALL_RECIPES.length} anoint recipes · data-mined from poe2db.tw on {ANOINT_META.scrapedAt}.
-        Anointing is unchanged in 0.5.5, but this data predates a full live-game check.
+        {ALL_RECIPES.length} anoint recipes for patch 0.5.5 · data-mined from poe2db.tw on {ANOINT_META.scrapedAt}.
+        Includes the Potent emotions (Contempt, Ferocity, Melancholy).
       </p>
     </div>
   );

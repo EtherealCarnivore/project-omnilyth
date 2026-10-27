@@ -6,7 +6,9 @@
  * (B,A,C) can map to different notables (197/216 multisets map to >1 notable).
  *
  * Data: src/data/poe2/anointing/{emotions,combinations}.json
- *   — datamined from poe2db.tw 2026-05-22 (pre-launch; verify at 2026-05-29).
+ *   — datamined from poe2db.tw (patch 0.5.5); regenerate with
+ *     scripts/poe2-data/parse-liquid-emotions.py. Potent emotions
+ *     (Contempt / Ferocity / Melancholy) are valid inputs alongside the base 10.
  * Contract: .claude/knowledge/poe2/cached/liquid-emotion-anointing.md
  *
  *   Forward : findNotableForCombo([s1,s2,s3]) → recipe | null
@@ -19,11 +21,12 @@ export const EMOTIONS = emotionsData.emotions;
 export const ANOINT_META = combosData._meta;
 export const ALL_RECIPES = combosData.recipes;
 
-export const TIER_ORDER = ['diluted', 'standard', 'concentrated'];
+export const TIER_ORDER = ['diluted', 'standard', 'concentrated', 'potent'];
 export const TIER_LABELS = {
   diluted: 'Diluted',
   standard: 'Standard',
   concentrated: 'Concentrated',
+  potent: 'Potent',
 };
 
 const emotionById = new Map(EMOTIONS.map((e) => [e.id, e]));
@@ -39,7 +42,7 @@ export function emotionName(id) {
 }
 
 // Forward: an ordered triple of emotion ids → the recipe, or null if the
-// combo anoints no notable (179 of 1000 ordered triples are no-ops).
+// combo anoints no notable (most ordered triples are no-ops).
 export function findNotableForCombo(emotionIds) {
   if (!Array.isArray(emotionIds) || emotionIds.length !== 3) return null;
   if (emotionIds.some((id) => !id || !emotionById.has(id))) return null;

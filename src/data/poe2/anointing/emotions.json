@@ -1,9 +1,9 @@
 {
   "_meta": {
     "source": "poe2db.tw/us/Liquid_Emotions",
-    "scrapedAt": "2026-05-22",
-    "provenance": "datamined pre-launch -- verify against live game at 2026-05-29 launch",
-    "count": 10
+    "scrapedAt": "2026-10-27",
+    "provenance": "datamined, patch 0.5.5",
+    "count": 13
   },
   "emotions": [
     {
@@ -55,6 +55,21 @@
       "id": "isolation",
       "displayName": "Isolation",
       "tier": "concentrated"
+    },
+    {
+      "id": "contempt",
+      "displayName": "Contempt",
+      "tier": "potent"
+    },
+    {
+      "id": "ferocity",
+      "displayName": "Ferocity",
+      "tier": "potent"
+    },
+    {
+      "id": "melancholy",
+      "displayName": "Melancholy",
+      "tier": "potent"
     }
   ]
 }

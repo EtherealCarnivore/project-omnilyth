@@ -251,12 +251,9 @@ export const ROUTE_META = {
     kind: 'tool',
   },
   '/poe2/build/anointing': {
-    // Live 2026-05-22 with data-mined 0.5 anoint data (821 ordered recipes).
-    // Flipped from the pre-launch scaffold (noindex/doc) now that the lookup
-    // works. Data carries a "verify at launch" note in-page; re-confirm the
-    // table against the live game at the 2026-05-29 launch.
+    // Data-mined 0.5.5 anoint table (875 ordered recipes, incl. Potent emotions).
     title: 'PoE 2 Liquid Emotion Anointing — Amulet Notables | Omnilyth',
-    description: 'Look up which 3 Liquid Emotions anoint any passive-tree notable onto your Path of Exile 2 amulet. Forward and reverse search across all 821 ordered anoint recipes.',
+    description: 'Look up which 3 Liquid Emotions anoint any passive-tree notable onto your Path of Exile 2 amulet. Forward and reverse search across all 875 ordered anoint recipes for patch 0.5.5.',
     kind: 'tool',
   },
   '/poe2/leveling/vendor-regex': {
