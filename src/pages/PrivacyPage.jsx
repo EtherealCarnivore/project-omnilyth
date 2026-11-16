@@ -3,6 +3,48 @@
  * One page that covers everything: what this project is, what it isn't,
  * what data it touches, and who built the things it's built on.
  */
+import { useState } from 'react';
+import { browserBlocksAnalytics, isOptedOut, setOptedOut } from '../hooks/usePageAnalytics';
+
+function AnalyticsToggle() {
+  const [optedOut, setState] = useState(isOptedOut);
+
+  if (browserBlocksAnalytics) {
+    return (
+      <p className="text-zinc-400">
+        Your browser sends Global Privacy Control or Do Not Track, so no statistics
+        are sent from this browser.
+      </p>
+    );
+  }
+
+  const toggle = () => {
+    setOptedOut(!optedOut);
+    setState(!optedOut);
+  };
+
+  return (
+    <div className="flex flex-wrap items-center gap-3">
+      <button
+        type="button"
+        onClick={toggle}
+        aria-pressed={!optedOut}
+        className={`min-h-[44px] px-4 rounded-lg text-sm font-medium transition-colors ${
+          optedOut
+            ? 'bg-zinc-800/40 border border-white/[0.04] text-zinc-400 hover:text-zinc-200'
+            : 'bg-amber-500/20 border-2 border-amber-500/50 text-amber-400 hover:bg-amber-500/30'
+        }`}
+      >
+        {optedOut ? 'Turn anonymous statistics back on' : 'Opt out of anonymous statistics'}
+      </button>
+      <span className="text-zinc-500 text-sm" role="status">
+        {optedOut
+          ? 'Opted out: nothing is sent from this browser.'
+          : 'On: anonymous page counts are sent from this browser.'}
+      </span>
+    </div>
+  );
+}
 
 export default function PrivacyPage() {
   return (
@@ -10,7 +52,7 @@ export default function PrivacyPage() {
       {/* Header */}
       <div className="space-y-3">
         <h1 className="text-3xl font-bold text-zinc-100">About, Privacy & Legal</h1>
-        <p className="text-sm text-zinc-500">Last Updated: April 8, 2026</p>
+        <p className="text-sm text-zinc-500">Last Updated: November 16, 2026</p>
       </div>
 
       {/* ═══ What Is Omnilyth ═══ */}
@@ -59,17 +101,42 @@ export default function PrivacyPage() {
 
         <Callout color="green">
           <strong>The short version:</strong> We don't collect any information about you.
-          No analytics, no tracking, no accounts, no ads. The only data stored is in your
-          own browser (localStorage) — and you can verify that yourself at any time.
+          We count which pages get used and for how long, anonymously and without cookies,
+          so we know which tools to improve. No tracking, no accounts, no ads. Everything
+          else stays in your own browser (localStorage).
         </Callout>
 
-        <Section title="No Data Collection" level={3}>
+        <Section title="No Personal Data" level={3}>
           <p>
             Omnilyth does not collect, transmit, or store any personal information.
-            There are no user accounts, no registration, no analytics services, and
-            no server-side databases recording your activity. We have no way to
-            identify who you are or what you do on this site.
+            There are no user accounts, no registration, no cookies, and nothing that
+            identifies you or links one visit to another. We have no way to identify
+            who you are.
           </p>
+        </Section>
+
+        <Section title="Anonymous Page Statistics" level={3}>
+          <p>
+            When you open a page, your browser sends one small anonymous record to our
+            own server (api.omnilyth.app), and another when you leave it. Each record
+            contains only:
+          </p>
+          <ul className="list-disc list-inside space-y-1 ml-4">
+            <li>The page path (for example <code>/crafting/fusing</code>)</li>
+            <li>How long the page was visible on screen</li>
+            <li>Which game mode was active (PoE 1 or PoE 2)</li>
+            <li>Screen size class (mobile, tablet or desktop)</li>
+            <li>Your country, as two letters, added by Cloudflare's network</li>
+          </ul>
+          <p className="mt-2">
+            No IP address, cookie, user ID, session ID or browser fingerprint is stored,
+            and records can't be joined into a history of one person. Statistics are kept
+            for 90 days and are never shared or sold. If your browser sends Global Privacy
+            Control or Do Not Track, nothing is sent at all.
+          </p>
+          <div className="bg-zinc-900/60 border border-white/[0.06] rounded-lg p-4 mt-3" id="analytics-opt-out">
+            <AnalyticsToggle />
+          </div>
         </Section>
 
         <Section title="Local Browser Storage" level={3}>
@@ -84,6 +151,7 @@ export default function PrivacyPage() {
             <li>Pinned/favorite calculators</li>
             <li>Leveling progress and act tracking</li>
             <li>Patch notes read/unread status</li>
+            <li>Your anonymous-statistics opt-out, if you choose it</li>
             <li>Layout and display preferences</li>
           </ul>
           <div className="bg-zinc-900/60 border border-white/[0.06] rounded-lg p-4 mt-3">
@@ -97,8 +165,8 @@ export default function PrivacyPage() {
 
         <Section title="No Cookies, No Ads, No Tracking" level={3}>
           <p>
-            Omnilyth does not set tracking cookies, does not serve ads, and does not
-            use any analytics services. No third-party cookies, no ad networks, no
+            Omnilyth does not set cookies, does not serve ads, and does not use any
+            third-party analytics service. No third-party cookies, no ad networks, no
             tracking pixels, no affiliate links.
           </p>
         </Section>

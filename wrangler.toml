@@ -10,6 +10,13 @@ routes = [
 # Free plan: 100K requests/day, 10ms CPU per request
 # More than enough for a personal PoE toolkit
 
+# Page analytics (POST /beacon → handleBeacon). Cookieless; no IP stored.
+# Query with scripts/analytics/query.mjs (needs CLOUDFLARE_API_TOKEN with
+# "Account Analytics: Read"). Data is kept 90 days by Analytics Engine.
+[[analytics_engine_datasets]]
+binding = "ANALYTICS"
+dataset = "omnilyth_pageviews"
+
 # Auth store (hidden-menu login) — COMMENTED OUT until D1 is provisioned.
 # A binding pointing at a non-existent database_id would fail `wrangler deploy`
 # of the proxy Worker, and the frontend auth flag (src/config/authConfig.js) is

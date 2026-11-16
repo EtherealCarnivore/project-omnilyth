@@ -18,6 +18,7 @@ import RouteHead from '../components/RouteHead';
 import FirstVisitGamePicker from '../components/FirstVisitGamePicker';
 import { useLevelingMode } from '../contexts/LevelingModeContext';
 import { useGame } from '../contexts/GameContext';
+import usePageAnalytics from '../hooks/usePageAnalytics';
 import modules from '../modules/registry';
 
 export default function AppShell() {
@@ -25,6 +26,7 @@ export default function AppShell() {
   const location = useLocation();
   const { isActive: levelingActive } = useLevelingMode();
   const { game } = useGame();
+  usePageAnalytics(game);
 
   // The focused LevelingSidebar shell is PoE 1-only (its links, trials tracker, and
   // tips are all PoE 1). The persisted leveling-mode flag can outlive a game switch,

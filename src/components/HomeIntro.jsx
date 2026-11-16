@@ -11,10 +11,12 @@
  * react-snap bakes this component's text into dist/index.html.
  */
 import { Link } from 'react-router-dom';
+import AnalyticsNotice from './AnalyticsNotice';
 
 export default function HomeIntro() {
   return (
     <section className="max-w-3xl mx-auto space-y-6 text-zinc-300">
+      <AnalyticsNotice />
       <header className="text-center space-y-3">
         <h1 className="text-2xl sm:text-3xl font-bold text-zinc-100 tracking-tight">
           Path of Exile Crafting & Atlas Toolkit
@@ -25,7 +27,7 @@ export default function HomeIntro() {
           community sites — chromatic and fusing math, socket and jeweller's
           expected-cost, map and scarab regex, an atlas tree planner with import/export,
           cluster jewel notable lookup, a leveling playbook with quest tracking, and a
-          desktop trade watcher — all without accounts, ads, or analytics. League prices
+          desktop trade watcher — all without accounts, ads, or cookies. League prices
           are pulled live from poe.ninja and cached locally so the tools stay quick and
           current.
         </p>
@@ -58,7 +60,8 @@ export default function HomeIntro() {
           <div className="space-y-2 pt-2 border-t border-white/[0.04]">
             <h2 className="text-xs font-semibold uppercase tracking-widest text-zinc-500">Privacy</h2>
             <p className="text-zinc-400">
-              No tracking, no accounts, no ads. Saved patterns, pinned tools, and leveling
+              No tracking, no accounts, no ads, no cookies; only anonymous page counts so we
+              know which tools to improve. Saved patterns, pinned tools, and leveling
               progress live in your browser's localStorage. Read the full policy on the{' '}
               <Link to="/privacy" className="text-amber-400/80 hover:text-amber-300 transition-colors">
                 About, Privacy & Legal

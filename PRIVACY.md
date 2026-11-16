@@ -1,11 +1,11 @@
 # Privacy Policy
 
 **Effective Date:** February 21, 2026
-**Last Updated:** February 21, 2026
+**Last Updated:** November 16, 2026
 
 ## Our Commitment
 
-Omnilyth is a free, community-driven toolkit for Path of Exile players. **We do not track users, sell data, or serve advertisements.** This privacy policy explains what data we access, how we use it, and your rights.
+Omnilyth is a free, community-driven toolkit for Path of Exile players. **We do not track users, sell data, or serve advertisements.** Since November 2026 we count which pages are used and for how long, anonymously and without cookies (see section 4); you can opt out with one click. This privacy policy explains what data we access, how we use it, and your rights.
 
 ---
 
@@ -40,10 +40,22 @@ We store data in your browser to enhance your experience:
 We do **not** use cookies for tracking. The only cookies we use are:
 - **Technical cookies** (when OAuth is implemented) - Secure httpOnly cookies for authentication tokens only
 
-### 4. **No Analytics or Tracking**
+### 4. **Anonymous Page Statistics (no tracking)**
+
+When you open a page, your browser sends one small record to our own server (`api.omnilyth.app`, a Cloudflare Worker), and another when you leave it. Each record contains only:
+
+- The page path (e.g. `/crafting/fusing`)
+- How long the page was visible on screen
+- The active game mode (PoE 1 or PoE 2)
+- Screen size class (mobile, tablet or desktop)
+- Your country as a two-letter code, added by Cloudflare's network
+
+We store **no** IP address, cookie, user ID, session ID or browser fingerprint, so records can't be joined into one person's history. Records are kept in Cloudflare Analytics Engine for 90 days and are never shared or sold. We use them only to see which tools are used and which need work.
+
+**Turning it off:** click "Opt out of anonymous statistics" on the [privacy page](https://omnilyth.app/privacy). If your browser sends Global Privacy Control or Do Not Track, nothing is sent at all.
 
 We do **not** use:
-- ❌ Google Analytics
+- ❌ Google Analytics or any third-party analytics service
 - ❌ Facebook Pixel
 - ❌ Tracking pixels
 - ❌ Heatmaps
@@ -121,14 +133,14 @@ We only access data **you explicitly authorize**.
 - We can't store your data even if we wanted to
 
 ❌ **No behavioral tracking**
-- We don't track clicks, scrolls, or page views
+- We don't track clicks or scrolls
+- We count page views and time on page anonymously (section 4), never per person
 - We don't build user profiles
-- We don't analyze usage patterns
 
 ❌ **No third-party data sharing**
 - We don't sell data (we don't have any to sell!)
 - We don't share data with advertisers
-- We don't use analytics services
+- We don't use third-party analytics services
 
 ❌ **No monetization**
 - No ads
@@ -216,7 +228,7 @@ If you're in the EU, you have additional rights:
 ### We Don't Send Data To:
 
 ❌ Advertising networks
-❌ Analytics services
+❌ Third-party analytics services
 ❌ Social media trackers
 ❌ Data brokers
 ❌ Marketing platforms
@@ -286,11 +298,12 @@ We respond to privacy inquiries within 7 days.
 - No data collection beyond what's necessary
 - Clear explanations of what we access and why
 
-**If we ever change our stance on privacy (e.g., add analytics), we will:**
-1. Make it **opt-in only** (disabled by default)
-2. Announce it prominently on the homepage
-3. Explain exactly what changed and why
-4. Provide an easy way to disable it
+**November 2026 change:** we added anonymous, cookieless page statistics (section 4). This policy previously said any analytics would be opt-in. We chose on-by-default with a one-click opt-out instead, because opt-in counts would only show the few visitors who find the setting and wouldn't tell us which tools need work. To keep the rest of that promise we:
+1. Announced it on the homepage
+2. Explain exactly what is sent, and why, in section 4
+3. Provide a one-click opt-out on the privacy page, and send nothing at all to browsers with Global Privacy Control or Do Not Track
+
+**If we ever collect anything beyond section 4, we will make it opt-in only.**
 
 **Our promise:** Omnilyth will always prioritize user privacy over monetization.
 
@@ -311,7 +324,7 @@ We respond to privacy inquiries within 7 days.
 
 ---
 
-**Summary:** We don't collect your data, we don't track you, we don't serve ads. Everything stays in your browser. When OAuth is added, you'll explicitly authorize what we access, and you can revoke it anytime.
+**Summary:** We don't collect personal data, we don't track you, we don't serve ads. Apart from anonymous page counts you can opt out of, everything stays in your browser. When OAuth is added, you'll explicitly authorize what we access, and you can revoke it anytime.
 
 **Questions? Ask us!** We're here to help, not to collect data.
 
