@@ -8,6 +8,7 @@ import { useEffect } from 'react';
 import { useLevelingMode } from '../../contexts/LevelingModeContext';
 import { getGemAvailabilityForClass } from '../../hooks/useGemSearch';
 import AvailabilityBadge from './AvailabilityBadge';
+import { GEM_ICON_FALLBACK } from '../../utils/gemIconFallback';
 
 export default function GemDetailModal({ gem, isOpen, onClose }) {
   const { selectedClass, mode } = useLevelingMode();
@@ -40,6 +41,9 @@ export default function GemDetailModal({ gem, isOpen, onClose }) {
   if (!isOpen || !gem) return null;
 
   const classAvailability = getGemAvailabilityForClass(gem.name, selectedClass);
+  const normalizedClass = selectedClass.charAt(0).toUpperCase() + selectedClass.slice(1);
+  // Empty availability = no quest reward and no vendor on record (drop / trade only).
+  const hasNoSource = !gem.availability || gem.availability.length === 0;
 
   // Group availability by source type
   const questSources = classAvailability?.filter(a => a.source === 'quest') || [];
@@ -68,7 +72,7 @@ export default function GemDetailModal({ gem, isOpen, onClose }) {
           <div className="sticky top-0 bg-zinc-900/95 backdrop-blur-md border-b border-white/[0.06] p-4 z-10">
             <div className="flex items-start gap-4">
               <img
-                src={gem.icon}
+                src={gem.icon || GEM_ICON_FALLBACK}
                 alt={gem.name}
                 className="w-16 h-16 rounded border border-white/[0.08]"
               />
@@ -107,7 +111,7 @@ export default function GemDetailModal({ gem, isOpen, onClose }) {
           {/* Content */}
           <div className="p-6 space-y-6">
             {/* Alt Character Mode Banner */}
-            {mode === 'alt' && (
+            {mode === 'alt' && classAvailability?.length > 0 && (
               <div className="p-3 rounded-lg bg-green-500/10 border border-green-500/20">
                 <div className="flex items-start gap-2">
                   <svg className="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
@@ -203,8 +207,23 @@ export default function GemDetailModal({ gem, isOpen, onClose }) {
                 </div>
               )}
 
-              {/* Not Available */}
-              {(!questSources || questSources.length === 0) && selectedClass !== 'all' && (
+              {/* No source at all: drop / trade only (any class, including 'all') */}
+              {hasNoSource && (
+                <div className="p-3 rounded-lg bg-zinc-800/40 border border-white/[0.06]">
+                  <div className="flex items-start gap-2">
+                    <svg className="w-5 h-5 text-zinc-400 mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
+                      <circle cx="12" cy="12" r="10" />
+                      <path d="M12 8v4M12 16h.01" />
+                    </svg>
+                    <div className="text-sm text-zinc-300">
+                      No quest reward or vendor sells this gem — drop / trade only.
+                    </div>
+                  </div>
+                </div>
+              )}
+
+              {/* Vendor rows exist, but no quest reward for this class */}
+              {!hasNoSource && questSources.length === 0 && selectedClass !== 'all' && (
                 <div className="p-3 rounded-lg bg-red-500/10 border border-red-500/20">
                   <div className="flex items-start gap-2">
                     <svg className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={2}>
@@ -214,8 +233,7 @@ export default function GemDetailModal({ gem, isOpen, onClose }) {
                     <div className="text-sm text-red-300">
                       <strong>Not Available as Quest Reward</strong>
                       <div className="text-xs mt-1">
-                        This gem is not available as a quest reward for{' '}
-                        {selectedClass.charAt(0).toUpperCase() + selectedClass.slice(1)}.
+                        This gem is not available as a quest reward for {normalizedClass}.
                         Use Siosa (Act 3) or Lilly Roth (Act 6) to obtain it.
                       </div>
                     </div>

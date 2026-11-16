@@ -6,6 +6,7 @@
 
 import { getBestAvailability } from '../../hooks/useGemSearch';
 import AvailabilityBadge from './AvailabilityBadge';
+import { GEM_ICON_FALLBACK } from '../../utils/gemIconFallback';
 
 export default function GemGridView({ gems, selectedClass, onSelectGem }) {
   if (gems.length === 0) {
@@ -37,7 +38,7 @@ export default function GemGridView({ gems, selectedClass, onSelectGem }) {
             {/* Gem Icon - Capped at native CDN size (47px) to avoid upscale blur */}
             <div className="relative aspect-square mb-2 flex items-center justify-center">
               <img
-                src={gem.icon}
+                src={gem.icon || GEM_ICON_FALLBACK}
                 alt={gem.name}
                 className="w-12 h-12 object-contain rounded"
                 loading="lazy"

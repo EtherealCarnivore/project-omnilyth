@@ -1,12 +1,25 @@
 /**
  * gemAvailability.js
  * Gem quest reward data merged with gem icons and level requirements
- * Generated: 2026-02-23T11:40:13.223Z
+ * Generated: 2026-11-16T14:14:50.956Z
  *
  * Data sources:
  * - Quest rewards: https://www.poewiki.net/wiki/Quest_Rewards
  * - Gem levels: https://www.poewiki.net/wiki/Skill_gem
  * - Gem icons: src/data/gemData.js (web.poecdn.com)
+ *
+ * Roster additions (91 gems, appended after the legacy rows; patch 3.30.0b):
+ * built by scripts/leveling-data/build-gem-additions.js on 2026-11-16 from
+ * - Path of Building Community, src/Data/Gems.lua (dev) @ 17f4933
+ * - RePoE export data/gems.json (game 3.30.0.2) @ 0071545
+ * - HeartofPhos/exile-leveling common/data/json/quests.json @ d6951db
+ * Categories: vaal 4, awakened 38, support 45, active 4.
+ * Each ships with availability []: no quest reward (RePoE QuestRewards.dat64 is
+ * null and exile-leveling has no quest offer under any of the gem's ids) and no
+ * vendor/Siosa/Lilly row in exile-leveling's poewiki-derived vendor table.
+ * Vendor absence is single-source. Additions carry no Siosa/Lilly rows; gems
+ * missing from gemData.js carry icon: null. Rule and per-gem evidence:
+ * scripts/leveling-data/raw/gem-additions.json.
  *
  * Special vendors:
  * - Siosa (Act 3): Removes class restrictions
@@ -17661,6 +17674,643 @@ export const gemAvailabilityData = {
         "classes": []
       }
     ]
+  },
+  "Vaal Immortal Call": {
+    "gemId": "vaal_immortal_call",
+    "name": "Vaal Immortal Call",
+    "icon": null,
+    "type": "active",
+    "availability": []
+  },
+  "Vaal Lightning Warp": {
+    "gemId": "vaal_lightning_warp",
+    "name": "Vaal Lightning Warp",
+    "icon": null,
+    "type": "active",
+    "availability": []
+  },
+  "Awakened Added Fire Damage Support": {
+    "gemId": "awakened_added_fire_damage_support",
+    "name": "Awakened Added Fire Damage Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL0FkZGVkRmlyZURhbWFnZVBsdXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/c1135da118/AddedFireDamagePlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Ancestral Call Support": {
+    "gemId": "awakened_ancestral_call_support",
+    "name": "Awakened Ancestral Call Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL01pcmFnZVN0cmlrZVBsdXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/f7a05689d9/MirageStrikePlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Brutality Support": {
+    "gemId": "awakened_brutality_support",
+    "name": "Awakened Brutality Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL0JydXRhbGl0eVBsdXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/9553670260/BrutalityPlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Burning Damage Support": {
+    "gemId": "awakened_burning_damage_support",
+    "name": "Awakened Burning Damage Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL0luY3JlYXNlZEJ1cm5EdXJhdGlvblBsdXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/021c221c69/IncreasedBurnDurationPlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Elemental Damage with Attacks Support": {
+    "gemId": "awakened_elemental_damage_with_attacks_support",
+    "name": "Awakened Elemental Damage with Attacks Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL1dlYXBvbkVsZW1lbnRhbERhbWFnZVBsdXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/2d6aa43759/WeaponElementalDamagePlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Fire Penetration Support": {
+    "gemId": "awakened_fire_penetration_support",
+    "name": "Awakened Fire Penetration Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL0ZpcmVQZW5ldHJhdGlvblBsdXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/b1308cf253/FirePenetrationPlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Generosity Support": {
+    "gemId": "awakened_generosity_support",
+    "name": "Awakened Generosity Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL0dlbmVyb3NpdHlQbHVzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/14d887c794/GenerosityPlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Melee Physical Damage Support": {
+    "gemId": "awakened_melee_physical_damage_support",
+    "name": "Awakened Melee Physical Damage Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL0luY3JlYXNlZFBoeXNjaWFsRGFtYWdlUGx1cyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/b5d08a6777/IncreasedPhyscialDamagePlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Melee Splash Support": {
+    "gemId": "awakened_melee_splash_support",
+    "name": "Awakened Melee Splash Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL1NwbGFzaFBsdXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/8c6dd76bf4/SplashPlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Multistrike Support": {
+    "gemId": "awakened_multistrike_support",
+    "name": "Awakened Multistrike Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL011bHRpcGxlQXR0YWNrc1BsdXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/c32ddc2121/MultipleAttacksPlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Added Cold Damage Support": {
+    "gemId": "awakened_added_cold_damage_support",
+    "name": "Awakened Added Cold Damage Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL0FkZGVkQ29sZERhbWFnZVBsdXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/8fef150dd7/AddedColdDamagePlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Arrow Nova Support": {
+    "gemId": "awakened_arrow_nova_support",
+    "name": "Awakened Arrow Nova Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL0dyZWVuUmFpblBsdXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/84da19af8c/GreenRainPlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Cast On Critical Strike Support": {
+    "gemId": "awakened_cast_on_critical_strike_support",
+    "name": "Awakened Cast On Critical Strike Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL0Nhc3RPbkNyaXRQbHVzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/928b624b08/CastOnCritPlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Chain Support": {
+    "gemId": "awakened_chain_support",
+    "name": "Awakened Chain Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL0NoYWluUGx1cyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/b328b4615c/ChainPlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Cold Penetration Support": {
+    "gemId": "awakened_cold_penetration_support",
+    "name": "Awakened Cold Penetration Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL0NvbGRQZW5ldHJhdGlvblBsdXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/52ac74cbd4/ColdPenetrationPlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Deadly Ailments Support": {
+    "gemId": "awakened_deadly_ailments_support",
+    "name": "Awakened Deadly Ailments Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL0RlYWRseUFpbG1lbnRzUGx1cyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/68c620c3dc/DeadlyAilmentsPlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Fork Support": {
+    "gemId": "awakened_fork_support",
+    "name": "Awakened Fork Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL0ZvcmtQbHVzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/664ffa6acd/ForkPlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Greater Multiple Projectiles Support": {
+    "gemId": "awakened_greater_multiple_projectiles_support",
+    "name": "Awakened Greater Multiple Projectiles Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL0dyZWF0ZXJNdWx0aXBsZVByb2plY3RpbGVzUGx1cyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/720eb18ad1/GreaterMultipleProjectilesPlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Swift Affliction Support": {
+    "gemId": "awakened_swift_affliction_support",
+    "name": "Awakened Swift Affliction Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL1N1cHBvcnRSYXBpZERlY2F5UGx1cyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/275f8da8d1/SupportRapidDecayPlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Void Manipulation Support": {
+    "gemId": "awakened_void_manipulation_support",
+    "name": "Awakened Void Manipulation Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL1ZvaWRNYW5pcHVsYXRpb25QbHVzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/9223d42a35/VoidManipulationPlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Vicious Projectiles Support": {
+    "gemId": "awakened_vicious_projectiles_support",
+    "name": "Awakened Vicious Projectiles Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL1JhbmdlZFBoeXNpY2FsQXR0YWNrRGFtYWdlUGx1cyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/982ca84dbe/RangedPhysicalAttackDamagePlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Added Chaos Damage Support": {
+    "gemId": "awakened_added_chaos_damage_support",
+    "name": "Awakened Added Chaos Damage Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL0FkZGVkQ2hhb3NEYW1hZ2VQbHVzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/61d2d11bfb/AddedChaosDamagePlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Added Lightning Damage Support": {
+    "gemId": "awakened_added_lightning_damage_support",
+    "name": "Awakened Added Lightning Damage Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL0FkZGVkTGlnaHRuaW5nRGFtYWdlUGx1cyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/12f4edd322/AddedLightningDamagePlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Blasphemy Support": {
+    "gemId": "awakened_blasphemy_support",
+    "name": "Awakened Blasphemy Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL0F1cmlmeVBsdXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/fbdc11b158/AurifyPlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Cast While Channelling Support": {
+    "gemId": "awakened_cast_while_channelling_support",
+    "name": "Awakened Cast While Channelling Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL0Nhc3RXaGlsZUNoYW5uZWxpbmdQbHVzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/b6365df6cb/CastWhileChannelingPlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Controlled Destruction Support": {
+    "gemId": "awakened_controlled_destruction_support",
+    "name": "Awakened Controlled Destruction Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL0NvbnRyb2xsZWREZXN0cnVjdGlvblBsdXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/e545c985d0/ControlledDestructionPlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Hextouch Support": {
+    "gemId": "awakened_hextouch_support",
+    "name": "Awakened Hextouch Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL0N1cnNlT25IaXRQbHVzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/bae0341d74/CurseOnHitPlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Elemental Focus Support": {
+    "gemId": "awakened_elemental_focus_support",
+    "name": "Awakened Elemental Focus Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL0VsZW1lbnRhbEZvY3VzUGx1cyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/a84d493e28/ElementalFocusPlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Increased Area of Effect Support": {
+    "gemId": "awakened_increased_area_of_effect_support",
+    "name": "Awakened Increased Area of Effect Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL0luY3JlYXNlZEFPRVBsdXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/360e9e4ed5/IncreasedAOEPlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Lightning Penetration Support": {
+    "gemId": "awakened_lightning_penetration_support",
+    "name": "Awakened Lightning Penetration Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL0xpZ2h0bmluZ1BlbmV0cmF0aW9uUGx1cyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/163f40e5e5/LightningPenetrationPlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Minion Damage Support": {
+    "gemId": "awakened_minion_damage_support",
+    "name": "Awakened Minion Damage Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL01pbmlvbkRhbWFnZVBsdXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/5a905affec/MinionDamagePlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Spell Cascade Support": {
+    "gemId": "awakened_spell_cascade_support",
+    "name": "Awakened Spell Cascade Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL1NwZWxsQ2FzY2FkZVBsdXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/7a316ceb5c/SpellCascadePlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Spell Echo Support": {
+    "gemId": "awakened_spell_echo_support",
+    "name": "Awakened Spell Echo Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL0VjaG9QbHVzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/9cccabda03/EchoPlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Unbound Ailments Support": {
+    "gemId": "awakened_unbound_ailments_support",
+    "name": "Awakened Unbound Ailments Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL1VuYm91bmRBaWxtZW50UGx1cyIsInciOjEsImgiOjEsInNjYWxlIjoxfV0/41b8082cb4/UnboundAilmentPlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Unleash Support": {
+    "gemId": "awakened_unleash_support",
+    "name": "Awakened Unleash Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL1VubGVhc2hQbHVzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/107949fc2b/UnleashPlus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Empower Support": {
+    "gemId": "awakened_empower_support",
+    "name": "Awakened Empower Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Enlighten Support": {
+    "gemId": "awakened_enlighten_support",
+    "name": "Awakened Enlighten Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL0VubGlnaHRlbnBsdXMiLCJ3IjoxLCJoIjoxLCJzY2FsZSI6MX1d/7ec7d0544d/Enlightenplus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Awakened Enhance Support": {
+    "gemId": "awakened_enhance_support",
+    "name": "Awakened Enhance Support",
+    "icon": "https://web.poecdn.com/gen/image/WzI1LDE0LHsiZiI6IjJESXRlbXMvR2Vtcy9TdXBwb3J0L1N1cHBvcnRQbHVzL2VuaGFuY2VwbHVzIiwidyI6MSwiaCI6MSwic2NhbGUiOjF9XQ/d3de7b3bd1/enhanceplus.png",
+    "type": "support",
+    "availability": []
+  },
+  "Earthbreaker Support": {
+    "gemId": "earthbreaker_support",
+    "name": "Earthbreaker Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Divine Blessing Support": {
+    "gemId": "divine_blessing_support",
+    "name": "Divine Blessing Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Greater Spell Cascade Support": {
+    "gemId": "greater_spell_cascade_support",
+    "name": "Greater Spell Cascade Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Eclipse Support": {
+    "gemId": "eclipse_support",
+    "name": "Eclipse Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Invert the Rules Support": {
+    "gemId": "invert_the_rules_support",
+    "name": "Invert the Rules Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Cast on Ward Break Support": {
+    "gemId": "cast_on_ward_break_support",
+    "name": "Cast on Ward Break Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Vaal Sacrifice Support": {
+    "gemId": "vaal_sacrifice_support",
+    "name": "Vaal Sacrifice Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Greater Spell Echo Support": {
+    "gemId": "greater_spell_echo_support",
+    "name": "Greater Spell Echo Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Vaal Temptation Support": {
+    "gemId": "vaal_temptation_support",
+    "name": "Vaal Temptation Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Machinations Support": {
+    "gemId": "machinations_support",
+    "name": "Machinations Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Pyre Support": {
+    "gemId": "pyre_support",
+    "name": "Pyre Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Bonespire Support": {
+    "gemId": "bonespire_support",
+    "name": "Bonespire Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Foulgrasp Support": {
+    "gemId": "foulgrasp_support",
+    "name": "Foulgrasp Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Hiveborn Support": {
+    "gemId": "hiveborn_support",
+    "name": "Hiveborn Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Scornful Herald Support": {
+    "gemId": "scornful_herald_support",
+    "name": "Scornful Herald Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Cull the Weak Support": {
+    "gemId": "cull_the_weak_support",
+    "name": "Cull the Weak Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Greater Ancestral Call Support": {
+    "gemId": "greater_ancestral_call_support",
+    "name": "Greater Ancestral Call Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Fissure Support": {
+    "gemId": "fissure_support",
+    "name": "Fissure Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Hextoad Support": {
+    "gemId": "hextoad_support",
+    "name": "Hextoad Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Hexpass Support": {
+    "gemId": "hexpass_support",
+    "name": "Hexpass Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Greater Fork Support": {
+    "gemId": "greater_fork_support",
+    "name": "Greater Fork Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Greater Chain Support": {
+    "gemId": "greater_chain_support",
+    "name": "Greater Chain Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Lethal Dose Support": {
+    "gemId": "lethal_dose_support",
+    "name": "Lethal Dose Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Companionship Support": {
+    "gemId": "companionship_support",
+    "name": "Companionship Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Divine Sentinel Support": {
+    "gemId": "divine_sentinel_support",
+    "name": "Divine Sentinel Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Annihilation Support": {
+    "gemId": "annihilation_support",
+    "name": "Annihilation Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Invention Support": {
+    "gemId": "invention_support",
+    "name": "Invention Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Greater Kinetic Instability Support": {
+    "gemId": "greater_kinetic_instability_support",
+    "name": "Greater Kinetic Instability Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Cooldown Recovery Support": {
+    "gemId": "cooldown_recovery_support",
+    "name": "Cooldown Recovery Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Voidstorm Support": {
+    "gemId": "voidstorm_support",
+    "name": "Voidstorm Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Void Shockwave Support": {
+    "gemId": "void_shockwave_support",
+    "name": "Void Shockwave Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Eldritch Blasphemy Support": {
+    "gemId": "eldritch_blasphemy_support",
+    "name": "Eldritch Blasphemy Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Gluttony Support": {
+    "gemId": "gluttony_support",
+    "name": "Gluttony Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Overheat Support": {
+    "gemId": "overheat_support",
+    "name": "Overheat Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Greater Multistrike Support": {
+    "gemId": "greater_multistrike_support",
+    "name": "Greater Multistrike Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Congregation Support": {
+    "gemId": "congregation_support",
+    "name": "Congregation Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Frostmage Support": {
+    "gemId": "frostmage_support",
+    "name": "Frostmage Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Greater Devour Support": {
+    "gemId": "greater_devour_support",
+    "name": "Greater Devour Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Greater Unleash Support": {
+    "gemId": "greater_unleash_support",
+    "name": "Greater Unleash Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Pacifism Support": {
+    "gemId": "pacifism_support",
+    "name": "Pacifism Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Bloodsoaked Banner Support": {
+    "gemId": "bloodsoaked_banner_support",
+    "name": "Bloodsoaked Banner Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Communion Support": {
+    "gemId": "communion_support",
+    "name": "Communion Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Unholy Trinity Support": {
+    "gemId": "unholy_trinity_support",
+    "name": "Unholy Trinity Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Overloaded Intensity Support": {
+    "gemId": "overloaded_intensity_support",
+    "name": "Overloaded Intensity Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Transfusion Support": {
+    "gemId": "transfusion_support",
+    "name": "Transfusion Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Coursing Current Support": {
+    "gemId": "coursing_current_support",
+    "name": "Coursing Current Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Crystalfall Support": {
+    "gemId": "crystalfall_support",
+    "name": "Crystalfall Support",
+    "icon": null,
+    "type": "support",
+    "availability": []
+  },
+  "Pact of Beidat": {
+    "gemId": "pact_of_beidat",
+    "name": "Pact of Beidat",
+    "icon": null,
+    "type": "active",
+    "availability": []
+  },
+  "Pact of Ghorr": {
+    "gemId": "pact_of_ghorr",
+    "name": "Pact of Ghorr",
+    "icon": null,
+    "type": "active",
+    "availability": []
+  },
+  "Pact of K'Tash": {
+    "gemId": "pact_of_k_tash",
+    "name": "Pact of K'Tash",
+    "icon": null,
+    "type": "active",
+    "availability": []
+  },
+  "Pact of Lycia": {
+    "gemId": "pact_of_lycia",
+    "name": "Pact of Lycia",
+    "icon": null,
+    "type": "active",
+    "availability": []
   }
 };
 

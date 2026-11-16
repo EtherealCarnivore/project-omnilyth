@@ -12,6 +12,7 @@ import { useState, useMemo } from 'react';
 import { useLevelingMode } from '../../contexts/LevelingModeContext';
 import { getGemsForAct, getBestAvailability } from '../../hooks/useGemSearch';
 import AvailabilityBadge from './AvailabilityBadge';
+import { GEM_ICON_FALLBACK } from '../../utils/gemIconFallback';
 
 export default function GemProgressionPanel({ onOpenSearch, onSelectGem, className = '' }) {
   const { selectedClass, currentAct, mode } = useLevelingMode();
@@ -120,7 +121,7 @@ export default function GemProgressionPanel({ onOpenSearch, onSelectGem, classNa
                     >
                       <div className="flex items-start gap-2">
                         <img
-                          src={gem.icon}
+                          src={gem.icon || GEM_ICON_FALLBACK}
                           alt={gem.name}
                           className="w-8 h-8 rounded border border-white/[0.08] group-hover:border-amber-500/30 transition-colors"
                           loading="lazy"
@@ -161,7 +162,7 @@ export default function GemProgressionPanel({ onOpenSearch, onSelectGem, classNa
                     >
                       <div className="flex items-start gap-2">
                         <img
-                          src={gem.icon}
+                          src={gem.icon || GEM_ICON_FALLBACK}
                           alt={gem.name}
                           className="w-8 h-8 rounded border border-white/[0.08] group-hover:border-amber-500/30 transition-colors"
                           loading="lazy"

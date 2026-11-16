@@ -6,6 +6,7 @@
 
 import { getGemAvailabilityForClass } from '../../hooks/useGemSearch';
 import AvailabilityBadge from './AvailabilityBadge';
+import { GEM_ICON_FALLBACK } from '../../utils/gemIconFallback';
 
 export default function GemListView({ gems, selectedClass, onSelectGem }) {
   if (gems.length === 0) {
@@ -38,7 +39,7 @@ export default function GemListView({ gems, selectedClass, onSelectGem }) {
             <div className="flex items-center gap-3">
               {/* Gem Icon - Smaller */}
               <img
-                src={gem.icon}
+                src={gem.icon || GEM_ICON_FALLBACK}
                 alt={gem.name}
                 className="w-10 h-10 flex-shrink-0 rounded"
                 loading="lazy"

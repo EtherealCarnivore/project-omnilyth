@@ -75,9 +75,9 @@ export default function AvailabilityBadge({ availability, compact = false, class
     return (
       <span
         className={`inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium border ${badge.bgClass} ${badge.borderClass} ${badge.textClass} ${className}`}
-        title="Not available yet"
+        title="No quest or vendor source"
       >
-        {badge.icon} Not available
+        {badge.icon} Drop only
       </span>
     );
   }

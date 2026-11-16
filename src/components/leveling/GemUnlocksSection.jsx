@@ -7,6 +7,7 @@
 import { useMemo } from 'react';
 import { getGemsForAct, getBestAvailability } from '../../hooks/useGemSearch';
 import AvailabilityBadge from './AvailabilityBadge';
+import { GEM_ICON_FALLBACK } from '../../utils/gemIconFallback';
 
 export default function GemUnlocksSection({ act, selectedClass, onSelectGem, compact = false }) {
   const gems = useMemo(() => {
@@ -45,7 +46,7 @@ export default function GemUnlocksSection({ act, selectedClass, onSelectGem, com
             >
               <div className="aspect-square rounded border border-white/[0.08] group-hover:border-amber-500/30 transition-colors overflow-hidden">
                 <img
-                  src={gem.icon}
+                  src={gem.icon || GEM_ICON_FALLBACK}
                   alt={gem.name}
                   className="w-full h-full object-cover"
                   loading="lazy"
@@ -78,7 +79,7 @@ export default function GemUnlocksSection({ act, selectedClass, onSelectGem, com
             <div className="flex items-start gap-3">
               {/* Gem Icon */}
               <img
-                src={gem.icon}
+                src={gem.icon || GEM_ICON_FALLBACK}
                 alt={gem.name}
                 className="w-12 h-12 rounded border border-white/[0.08] group-hover:border-amber-500/30 transition-colors flex-shrink-0"
                 loading="lazy"

@@ -4,6 +4,7 @@
  * Gems beyond activeLinks are dimmed to show which supports to drop on fewer links.
  */
 import { useLevelingPlan } from '../../contexts/LevelingPlanContext';
+import { GEM_ICON_FALLBACK } from '../../utils/gemIconFallback';
 
 export default function LinkGroupCard({ group }) {
   const { updateLinkCount, removeLinkGroup } = useLevelingPlan();
@@ -78,13 +79,11 @@ export default function LinkGroupCard({ group }) {
               </span>
 
               {/* Gem icon */}
-              {gem.gemData?.icon && (
-                <img
-                  src={gem.gemData.icon}
-                  alt={gem.name}
-                  className="w-6 h-6 rounded border border-white/10 shrink-0"
-                />
-              )}
+              <img
+                src={gem.gemData?.icon || GEM_ICON_FALLBACK}
+                alt={gem.name}
+                className="w-6 h-6 rounded border border-white/10 shrink-0"
+              />
 
               {/* Gem name */}
               <span className={`text-sm truncate ${
