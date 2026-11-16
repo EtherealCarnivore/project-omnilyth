@@ -38,7 +38,7 @@ export default function FilterSidebar({
     onFilterChange({
       types: ['active', 'support'],
       acts: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-      sources: ['quest', 'siosa', 'lilly'],
+      sources: ['quest', 'siosa', 'lilly', 'none'],
       searchTerm: ''
     });
   };
@@ -46,7 +46,7 @@ export default function FilterSidebar({
   const hasActiveFilters =
     filters.types.length < 2 ||
     filters.acts.length < 10 ||
-    filters.sources.length < 3;
+    filters.sources.length < 4;
 
   return (
     <div className={`bg-zinc-900/60 backdrop-blur-sm border border-white/[0.08] rounded-lg ${className}`}>
@@ -165,6 +165,19 @@ export default function FilterSidebar({
                   Lilly Roth (Act 6)
                 </span>
                 <span className="text-xs text-purple-400" aria-hidden="true">🔓</span>
+              </div>
+            </label>
+            <label className="flex min-h-11 items-center gap-3 cursor-pointer group">
+              <input
+                type="checkbox"
+                checked={filters.sources.includes('none')}
+                onChange={() => handleSourceToggle('none')}
+                className="w-4 h-4 rounded border-2 border-zinc-700 bg-zinc-800 checked:bg-zinc-500 checked:border-zinc-500 focus:ring-2 focus:ring-zinc-500/20 transition-colors"
+              />
+              <div className="flex-1 flex items-center justify-between">
+                <span className="text-sm text-zinc-300 group-hover:text-zinc-100 transition-colors">
+                  Drop only
+                </span>
               </div>
             </label>
           </div>

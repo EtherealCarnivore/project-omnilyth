@@ -3,14 +3,21 @@
  * Transforms scraped quest reward data into production gem availability format
  *
  * Input: quest-rewards-complete.json + gemData.js (existing gem icons)
+ *        + gem-additions.json (confirmed[] only; built by build-gem-additions.js)
  * Output: gemAvailability.js (production-ready)
+ *
+ * The 704 gems that gemData.js contributed on 2026-02-23 keep the legacy rule:
+ * wiki-snapshot quest rows, plus Siosa and Lilly rows on every gem. Gems in
+ * gem-additions.json confirmed[] are appended after them with the availability
+ * recorded there (currently always []) and no blanket Siosa/Lilly rows,
+ * because those rows are not evidenced for drop-only gems.
  *
  * Usage: node scripts/leveling-data/transform-gem-data.js
  */
 
 import fs from 'fs';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import { fileURLToPath, pathToFileURL } from 'url';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -19,31 +26,33 @@ const __dirname = path.dirname(__filename);
 const questRewardsPath = path.join(__dirname, 'raw', 'quest-rewards-complete.json');
 const questRewardsData = JSON.parse(fs.readFileSync(questRewardsPath, 'utf8'));
 
-// Read existing gem data for icons
+// Read existing gem data for icons (imported, not regex-scraped: the old
+// regex silently skipped every entry with an extra field, e.g. the 37
+// Awakened supports that carry regexShort)
 const gemDataPath = path.join(__dirname, '..', '..', 'src', 'data', 'gemData.js');
-const gemDataContent = fs.readFileSync(gemDataPath, 'utf8');
+const { allGems } = await import(pathToFileURL(gemDataPath).href);
 
-// Extract gem data from JavaScript export
+// Confirmed roster additions (optional input)
+const additionsPath = path.join(__dirname, 'raw', 'gem-additions.json');
+const additionsData = fs.existsSync(additionsPath)
+  ? JSON.parse(fs.readFileSync(additionsPath, 'utf8'))
+  : { confirmed: [], _meta: null };
+const additions = new Map(additionsData.confirmed.map(a => [a.name, a]));
+
+// Extract gem data from the gemData.js module
 function extractGemData() {
-  const match = gemDataContent.match(/export const skillGems = ({[\s\S]*?});/);
-  if (!match) {
-    throw new Error('Could not parse gemData.js');
-  }
-
-  // Convert JavaScript object to JSON-parseable format (simplified)
-  // This is a basic parser - in production, use a proper JS parser
-  const gemsMatch = gemDataContent.matchAll(/"([^"]+)":\s*{\s*name:\s*"([^"]+)",\s*regex:\s*"([^"]+)",\s*icon:\s*"([^"]+)",\s*isSupport:\s*(true|false)\s*}/g);
-
   const gems = {};
-  for (const match of gemsMatch) {
-    const [, key, name, regex, icon, isSupport] = match;
-    gems[name] = {
-      name,
-      icon,
-      isSupport: isSupport === 'true'
+  for (const gem of Object.values(allGems)) {
+    if (!gem?.name) continue;
+    gems[gem.name] = {
+      name: gem.name,
+      icon: gem.icon || null,
+      isSupport: !!gem.isSupport
     };
   }
-
+  if (Object.keys(gems).length === 0) {
+    throw new Error('Could not read any gems from gemData.js');
+  }
   return gems;
 }
 
@@ -108,6 +117,7 @@ function transformToGemAvailability() {
   let addedFromGemData = 0;
   for (const [gemName, gemInfo] of Object.entries(existingGems)) {
     if (gemAvailability[gemName]) continue; // Already has quest reward data
+    if (additions.has(gemName)) continue;   // Appended below with its own evidence
 
     gemAvailability[gemName] = {
       gemId: gemName.toLowerCase().replace(/[^a-z0-9]+/g, '_'),
@@ -125,6 +135,7 @@ function transformToGemAvailability() {
   console.log('🔓 Adding special vendor availability...');
 
   for (const gem of Object.values(gemAvailability)) {
+    if (additions.has(gem.name)) continue;
     // Siosa (Act 3) - removes class restrictions
     gem.availability.push({
       act: 3,
@@ -141,6 +152,21 @@ function transformToGemAvailability() {
       classes: []
     });
   }
+
+  // Append confirmed additions (after the legacy rows so their order is stable)
+  console.log(`➕ Appending ${additions.size} confirmed additions from gem-additions.json...`);
+  for (const add of additions.values()) {
+    if (gemAvailability[add.name]) continue;
+    const gemInfo = existingGems[add.name];
+    gemAvailability[add.name] = {
+      gemId: add.name.toLowerCase().replace(/[^a-z0-9]+/g, '_'),
+      name: add.name,
+      icon: gemInfo?.icon ?? null,
+      type: add.type,
+      availability: add.availability
+    };
+  }
+  console.log(`   Total unique gems: ${Object.keys(gemAvailability).length}`);
 
   return gemAvailability;
 }
@@ -164,7 +190,18 @@ function generateProductionFile(gemAvailability) {
  * - Quest rewards: https://www.poewiki.net/wiki/Quest_Rewards
  * - Gem levels: https://www.poewiki.net/wiki/Skill_gem
  * - Gem icons: src/data/gemData.js (web.poecdn.com)
- *
+${additionsData._meta ? ` *
+ * Roster additions (${additions.size} gems, appended after the legacy rows; patch ${additionsData._meta.patch}):
+ * built by scripts/leveling-data/build-gem-additions.js on ${additionsData._meta.generated.slice(0, 10)} from
+${Object.values(additionsData._meta.sources).map(s => ` * - ${s.name} @ ${s.commit.slice(0, 7)}`).join('\n')}
+ * Categories: ${Object.entries([...additions.values()].reduce((m, a) => ((m[a.category] = (m[a.category] || 0) + 1), m), {})).map(([k, v]) => `${k} ${v}`).join(', ')}.
+ * Each ships with availability []: no quest reward (RePoE QuestRewards.dat64 is
+ * null and exile-leveling has no quest offer under any of the gem's ids) and no
+ * vendor/Siosa/Lilly row in exile-leveling's poewiki-derived vendor table.
+ * Vendor absence is single-source. Additions carry no Siosa/Lilly rows; gems
+ * missing from gemData.js carry icon: null. Rule and per-gem evidence:
+ * scripts/leveling-data/raw/gem-additions.json.
+` : ''} *
  * Special vendors:
  * - Siosa (Act 3): Removes class restrictions
  * - Lilly Roth (Act 6): All gems available
@@ -254,13 +291,14 @@ function validateData(gemAvailability) {
 
   for (const [gemName, gemData] of Object.entries(gemAvailability)) {
     // Check required fields
-    if (!gemData.gemId || !gemData.name || !gemData.icon || !gemData.type) {
+    const isAddition = additions.has(gemName);
+    if (!gemData.gemId || !gemData.name || (!gemData.icon && !isAddition) || !gemData.type) {
       console.error(`❌ Missing required field for gem: ${gemName}`);
       errors++;
     }
 
     // Check availability array
-    if (!Array.isArray(gemData.availability) || gemData.availability.length === 0) {
+    if (!Array.isArray(gemData.availability) || (gemData.availability.length === 0 && !isAddition)) {
       console.error(`❌ No availability data for gem: ${gemName}`);
       errors++;
     }

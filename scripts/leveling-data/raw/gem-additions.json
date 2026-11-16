@@ -1,0 +1,4153 @@
+{
+  "_meta": {
+    "generated": "2026-11-16T14:14:09.550Z",
+    "patch": "3.30.0b",
+    "sources": {
+      "pob": {
+        "name": "Path of Building Community, src/Data/Gems.lua (dev)",
+        "commit": "17f493353192edfc53fd0d76e2f553d36e264698",
+        "url": "https://raw.githubusercontent.com/PathOfBuildingCommunity/PathOfBuilding/17f493353192edfc53fd0d76e2f553d36e264698/src/Data/Gems.lua"
+      },
+      "repoe": {
+        "name": "RePoE export data/gems.json (game 3.30.0.2)",
+        "commit": "0071545fba8d079f65cc9c6a415d8f525f3af07a",
+        "url": "https://raw.githubusercontent.com/repoe-fork/repoe-fork.github.io/0071545fba8d079f65cc9c6a415d8f525f3af07a/data/gems.json"
+      },
+      "exileLeveling": {
+        "name": "HeartofPhos/exile-leveling common/data/json/quests.json",
+        "commit": "d6951db0ca9463e42074e1e05e9ffde3d42d1604",
+        "url": "https://raw.githubusercontent.com/HeartofPhos/exile-leveling/d6951db0ca9463e42074e1e05e9ffde3d42d1604/common/data/json/quests.json"
+      }
+    },
+    "rule": "confirmed = (1) PoB and RePoE agree on display name and support flag, RePoE release_state \"released\"; (2) RePoE quest_reward (QuestRewards.dat64) is null; (3) exile-leveling quests.json has no quest-offer and no vendor/Siosa/Lilly row under any of the gem ids (PoB table key, PoB gameId, RePoE base_item.id); (4) transfigured gems additionally require their base gem to have no RePoE quest_reward and no exile-leveling quest or vendor row (base and variant share a base item, so a base on offer leaves the variant unsettled). Ships with availability [] = no quest reward on record in two datamined sources, no vendor row in the poewiki-derived exile-leveling table; vendor absence itself is single-source.",
+    "existingRosterCount": 704,
+    "pobRosterCount": 824,
+    "renamedOrRemovedInRoster": [
+      "Dark Pact",
+      "Dark Pact of Trarthus",
+      "Sweep",
+      "Lesser Multiple Projectiles Support"
+    ],
+    "counts": {
+      "confirmed": 91,
+      "probable": 31,
+      "excluded": 2
+    }
+  },
+  "confirmed": [
+    {
+      "name": "Vaal Immortal Call",
+      "metadataId": "Metadata/Items/Gems/SkillGemVaalImmortalCall",
+      "category": "vaal",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemVaalImmortalCall"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Vaal Lightning Warp",
+      "metadataId": "Metadata/Items/Gems/SkillGemVaalLightningWarp",
+      "category": "vaal",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemVaalLightningWarp"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Added Fire Damage Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedAddedFireDamage",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedAddedFireDamage",
+          "Metadata/Items/Gems/SupportGemAddedFireDamagePlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Ancestral Call Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedAncestralCall",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedAncestralCall",
+          "Metadata/Items/Gems/SupportGemAncestralCallPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Brutality Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedBrutality",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedBrutality",
+          "Metadata/Items/Gems/SupportGemBrutalityPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Burning Damage Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedBurningDamage",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedBurningDamage",
+          "Metadata/Items/Gems/SupportGemBurningDamagePlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Elemental Damage with Attacks Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedElementalDamageWithAttacks",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedElementalDamageWithAttacks",
+          "Metadata/Items/Gems/SupportGemWeaponElementalDamagePlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Fire Penetration Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedFirePenetration",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedFirePenetration",
+          "Metadata/Items/Gems/SupportGemFirePenetrationPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Generosity Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedGenerosity",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedGenerosity",
+          "Metadata/Items/Gems/SupportGemGenerosityPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Melee Physical Damage Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedMeleePhysicalDamage",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedMeleePhysicalDamage",
+          "Metadata/Items/Gems/SupportGemMeleePhysicalDamagePlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Melee Splash Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedMeleeSplash",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedMeleeSplash",
+          "Metadata/Items/Gems/SupportGemMeleeSplashPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Multistrike Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedMultistrike",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedMultistrike",
+          "Metadata/Items/Gems/SupportGemMultistrikePlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Added Cold Damage Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedAddedColdDamage",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedAddedColdDamage",
+          "Metadata/Items/Gems/SupportGemAddedColdDamagePlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Arrow Nova Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedArrowNova",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedArrowNova",
+          "Metadata/Items/Gems/SupportGemArrowNovaPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Cast On Critical Strike Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedCastOnCriticalStrike",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedCastOnCriticalStrike",
+          "Metadata/Items/Gems/SupportGemCastOnCritPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Chain Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedChain",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedChain",
+          "Metadata/Items/Gems/SupportGemChainPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Cold Penetration Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedColdPenetration",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedColdPenetration",
+          "Metadata/Items/Gems/SupportGemColdPenetrationPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Deadly Ailments Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedDeadlyAilments",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedDeadlyAilments",
+          "Metadata/Items/Gems/SupportGemDeadlyAilmentsPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Fork Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedFork",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedFork",
+          "Metadata/Items/Gems/SupportGemForkPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Greater Multiple Projectiles Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedGreaterMultipleProjectiles",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedGreaterMultipleProjectiles",
+          "Metadata/Items/Gems/SupportGemGreaterMultipleProjectilesPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Swift Affliction Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedSwiftAffliction",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedSwiftAffliction",
+          "Metadata/Items/Gems/SupportGemSwiftAfflictionPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Void Manipulation Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedVoidManipulation",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedVoidManipulation",
+          "Metadata/Items/Gems/SupportGemVoidManipulationPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Vicious Projectiles Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedViciousProjectiles",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedViciousProjectiles",
+          "Metadata/Items/Gems/SupportGemViciousProjectilesPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Added Chaos Damage Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedAddedChaosDamage",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedAddedChaosDamage",
+          "Metadata/Items/Gems/SupportGemAddedChaosDamagePlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Added Lightning Damage Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedAddedLightningDamage",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedAddedLightningDamage",
+          "Metadata/Items/Gems/SupportGemAddedLightningDamagePlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Blasphemy Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedBlasphemy",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedBlasphemy",
+          "Metadata/Items/Gems/SupportGemBlasphemyPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Cast While Channelling Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedCastWhileChannelling",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedCastWhileChannelling",
+          "Metadata/Items/Gems/SupportGemCastWhileChannellingPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Controlled Destruction Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedControlledDestruction",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedControlledDestruction",
+          "Metadata/Items/Gems/SupportGemControlledDestructionPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Hextouch Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedHextouch",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedHextouch",
+          "Metadata/Items/Gems/SupportGemCurseOnHitPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Elemental Focus Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedElementalFocus",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedElementalFocus",
+          "Metadata/Items/Gems/SupportGemElementalFocusPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Increased Area of Effect Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedIncreasedAreaofEffect",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedIncreasedAreaofEffect",
+          "Metadata/Items/Gems/SupportGemIncreasedAreaOfEffectPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Lightning Penetration Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedLightningPenetration",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedLightningPenetration",
+          "Metadata/Items/Gems/SupportGemLightningPenetrationPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Minion Damage Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedMinionDamage",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedMinionDamage",
+          "Metadata/Items/Gems/SupportGemMinionDamagePlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Spell Cascade Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedSpellCascade",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedSpellCascade",
+          "Metadata/Items/Gems/SupportGemSpellCascadePlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Spell Echo Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedSpellEcho",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedSpellEcho",
+          "Metadata/Items/Gems/SupportGemSpellEchoPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Unbound Ailments Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedUnboundAilments",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedUnboundAilments",
+          "Metadata/Items/Gems/SupportGemUnboundAilmentsPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Unleash Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedUnleash",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedUnleash",
+          "Metadata/Items/Gems/SupportGemUnleashPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Empower Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedEmpower",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedEmpower",
+          "Metadata/Items/Gems/SupportGemEmpowerPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Enlighten Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedEnlighten",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedEnlighten",
+          "Metadata/Items/Gems/SupportGemEnlightenPlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Awakened Enhance Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAwakenedEnhance",
+      "category": "awakened",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAwakenedEnhance",
+          "Metadata/Items/Gems/SupportGemEnhancePlus"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Earthbreaker Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportEarthbreaker",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportEarthbreaker",
+          "Metadata/Items/Gems/SupportGemEarthbreaker"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Divine Blessing Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportDivineBlessing",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportDivineBlessing",
+          "Metadata/Items/Gems/SupportGemDivineBlessing"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Greater Spell Cascade Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportGreaterSpellCascade",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportGreaterSpellCascade",
+          "Metadata/Items/Gems/SupportGemGreaterSpellCascade"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Eclipse Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportEclipse",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportEclipse",
+          "Metadata/Items/Gems/SupportGemEclipse"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Invert the Rules Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportInvertTheRules",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportInvertTheRules",
+          "Metadata/Items/Gems/SupportGemInvertTheRules"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Cast on Ward Break Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportCastOnWardBreak",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportCastOnWardBreak",
+          "Metadata/Items/Gems/SupportGemCastOnWardBreak"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Vaal Sacrifice Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportVaalSacrifice",
+      "category": "vaal",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportVaalSacrifice",
+          "Metadata/Items/Gems/SupportGemVaalSacrifice"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Greater Spell Echo Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportGreaterSpellEcho",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportGreaterSpellEcho",
+          "Metadata/Items/Gems/SupportGemGreaterSpellEcho"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Vaal Temptation Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportVaalTemptation",
+      "category": "vaal",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportVaalTemptation",
+          "Metadata/Items/Gems/SupportGemVaalTemptation"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Machinations Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportMachinations",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportMachinations",
+          "Metadata/Items/Gems/SupportGemMachinations"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Pyre Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportPyre",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportPyre",
+          "Metadata/Items/Gems/SupportGemPyre"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Bonespire Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportBonespire",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportBonespire",
+          "Metadata/Items/Gems/SupportGemBonespire"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Foulgrasp Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportFoulgrasp",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportFoulgrasp",
+          "Metadata/Items/Gems/SupportGemFoulgrasp"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Hiveborn Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportHiveborn",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportHiveborn",
+          "Metadata/Items/Gems/SupportGemHiveborn"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Scornful Herald Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportScornfulHerald",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportScornfulHerald",
+          "Metadata/Items/Gems/SupportGemScornfulHerald"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Cull the Weak Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportCullTheWeak",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportCullTheWeak",
+          "Metadata/Items/Gems/SupportGemCullTheWeak"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Greater Ancestral Call Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportGreaterAncestralCall",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportGreaterAncestralCall",
+          "Metadata/Items/Gems/SupportGemGreaterAncestralCall"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Fissure Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportFissure",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportFissure",
+          "Metadata/Items/Gems/SupportGemFissure"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Hextoad Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportHextoad",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportHextoad",
+          "Metadata/Items/Gems/SupportGemHextoad"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Hexpass Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportHexpass",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportHexpass",
+          "Metadata/Items/Gems/SupportGemHexpass"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Greater Fork Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportGreaterFork",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportGreaterFork",
+          "Metadata/Items/Gems/SupportGemGreaterFork"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Greater Chain Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportGreaterChain",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportGreaterChain",
+          "Metadata/Items/Gems/SupportGemGreaterChain"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Lethal Dose Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportLethalDose",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportLethalDose",
+          "Metadata/Items/Gems/SupportGemLethalDose"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Companionship Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportCompanionship",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportCompanionship",
+          "Metadata/Items/Gems/SupportGemCompanionship"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Divine Sentinel Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportDivineSentinel",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportDivineSentinel",
+          "Metadata/Items/Gems/SupportGemDivineSentinel"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Annihilation Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportAnnhilation",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportAnnhilation",
+          "Metadata/Items/Gems/SupportGemAnnihilation"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Invention Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportInvention",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportInvention",
+          "Metadata/Items/Gems/SupportGemInvention"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Greater Kinetic Instability Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportGreaterKineticInstability",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportGreaterKineticInstability",
+          "Metadata/Items/Gems/SupportGemGreaterKineticInstability"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Cooldown Recovery Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportCooldownRecovery",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportCooldownRecovery",
+          "Metadata/Items/Gems/SupportGemCooldownRecovery"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Voidstorm Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportVoidstorm",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportVoidstorm",
+          "Metadata/Items/Gems/SupportGemVoidstorm"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Void Shockwave Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportVoidShockwave",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportVoidShockwave",
+          "Metadata/Items/Gems/SupportGemVoidShockwave"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Eldritch Blasphemy Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportEldritchBlasphemy",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportEldritchBlasphemy",
+          "Metadata/Items/Gems/SupportGemEldritchBlasphemy"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Gluttony Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportGluttony",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportGluttony",
+          "Metadata/Items/Gems/SupportGemGluttony"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Overheat Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportOverheat",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportOverheat",
+          "Metadata/Items/Gems/SupportGemOverheat"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Greater Multistrike Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportGreaterMultistrike",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportGreaterMultistrike",
+          "Metadata/Items/Gems/SupportGemGreaterMultistrike"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Congregation Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportCongregation",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportCongregation",
+          "Metadata/Items/Gems/SupportGemCongregation"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Frostmage Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportFrostmage",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportFrostmage",
+          "Metadata/Items/Gems/SupportGemFrostmage"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Greater Devour Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportGreaterDevour",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportGreaterDevour",
+          "Metadata/Items/Gems/SupportGemGreaterDevour"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Greater Unleash Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportGreaterUnleash",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportGreaterUnleash",
+          "Metadata/Items/Gems/SupportGemGreaterUnleash"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Pacifism Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportPacifism",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportPacifism",
+          "Metadata/Items/Gems/SupportGemPacifism"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Bloodsoaked Banner Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportBloodsoakedBanner",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportBloodsoakedBanner",
+          "Metadata/Items/Gems/SupportGemBloodsoakedBanner"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Communion Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportMinionPact",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportMinionPact",
+          "Metadata/Items/Gems/SupportGemMinionPact"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Unholy Trinity Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportUnholyTrinity",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportUnholyTrinity",
+          "Metadata/Items/Gems/SupportGemUnholyTrinity"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Overloaded Intensity Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportOverloadedIntensity",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportOverloadedIntensity",
+          "Metadata/Items/Gems/SupportGemOverloadedIntensity"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Transfusion Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportTransfusion",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportTransfusion",
+          "Metadata/Items/Gems/SupportGemTransfusion"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Coursing Current Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportCrustaceousGrasp",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportCrustaceousGrasp",
+          "Metadata/Items/Gems/SupportGemCrustaceousGrasp"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Crystalfall Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportCrystalfall",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportCrystalfall",
+          "Metadata/Items/Gems/SupportGemCrystalfall"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Pact of Beidat",
+      "metadataId": "Metadata/Items/Gems/SkillGemPactOfBeidat",
+      "category": "active",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemPactOfBeidat"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Pact of Ghorr",
+      "metadataId": "Metadata/Items/Gems/SkillGemPactOfGhorr",
+      "category": "active",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemPactOfGhorr"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Pact of K'Tash",
+      "metadataId": "Metadata/Items/Gems/SkillGemPactOfKtash",
+      "category": "active",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemPactOfKtash"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    },
+    {
+      "name": "Pact of Lycia",
+      "metadataId": "Metadata/Items/Gems/SkillGemPactOfLycia",
+      "category": "active",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemPactOfLycia"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "availability": [],
+      "level": "confirmed"
+    }
+  ],
+  "probable": [
+    {
+      "name": "Fireball of Radiation",
+      "metadataId": "Metadata/Items/Gems/SkillGemFireballAltX",
+      "category": "transfigured",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemFireballAltX"
+        ],
+        "base": {
+          "ids": [
+            "Metadata/Items/Gems/SkillGemFireball"
+          ],
+          "repoeQuest": null,
+          "exileLeveling": [
+            {
+              "questId": "a1q1",
+              "quest": "Enemy at the Gate",
+              "act": 1,
+              "kind": "vendor",
+              "npc": "Nessa",
+              "classes": [
+                "Marauder",
+                "Scion",
+                "Shadow",
+                "Templar",
+                "Witch"
+              ]
+            },
+            {
+              "questId": "a3q12",
+              "quest": "A Fixture of Fate",
+              "act": 3,
+              "kind": "vendor",
+              "npc": "Siosa",
+              "classes": []
+            },
+            {
+              "questId": "a6q4",
+              "quest": "Fallen from Grace",
+              "act": 6,
+              "kind": "vendor",
+              "npc": "Lilly Roth",
+              "classes": []
+            }
+          ]
+        },
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "level": "unconfirmed",
+      "why": [
+        "transfigured: base gem has quest/vendor rows (a1q1 vendor Nessa; a3q12 vendor Siosa; a6q4 vendor Lilly Roth); no datamined source says whether the variant is offered"
+      ]
+    },
+    {
+      "name": "Charged Dash of Projection",
+      "metadataId": "Metadata/Items/Gems/SkillGemChargedDashAltX",
+      "category": "transfigured",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemChargedDashAltX"
+        ],
+        "base": {
+          "ids": [
+            "Metadata/Items/Gems/SkillGemChargedDash"
+          ],
+          "repoeQuest": {
+            "act": 3,
+            "classes": [
+              "Duelist",
+              "Ranger",
+              "Shadow",
+              "Scion"
+            ],
+            "quest": "Sever the Right Hand"
+          },
+          "exileLeveling": [
+            {
+              "questId": "a3q8",
+              "quest": "Sever the Right Hand",
+              "act": 3,
+              "kind": "quest",
+              "npc": null,
+              "classes": [
+                "Duelist",
+                "Ranger",
+                "Shadow",
+                "Scion"
+              ]
+            },
+            {
+              "questId": "a3q8",
+              "quest": "Sever the Right Hand",
+              "act": 3,
+              "kind": "vendor",
+              "npc": "Clarissa",
+              "classes": [
+                "Duelist",
+                "Marauder",
+                "Ranger",
+                "Scion",
+                "Shadow",
+                "Templar"
+              ]
+            },
+            {
+              "questId": "a3q12",
+              "quest": "A Fixture of Fate",
+              "act": 3,
+              "kind": "vendor",
+              "npc": "Siosa",
+              "classes": []
+            },
+            {
+              "questId": "a6q4",
+              "quest": "Fallen from Grace",
+              "act": 6,
+              "kind": "vendor",
+              "npc": "Lilly Roth",
+              "classes": []
+            }
+          ]
+        },
+        "questReward": {
+          "repoe": {
+            "act": 3,
+            "classes": [
+              "Duelist",
+              "Ranger",
+              "Shadow",
+              "Scion"
+            ],
+            "quest": "Sever the Right Hand"
+          },
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "level": "probable",
+      "why": [
+        "RePoE quest_reward: act 3 \"Sever the Right Hand\" [Duelist, Ranger, Shadow, Scion]",
+        "transfigured: base gem has quest/vendor rows (RePoE quest act 3 \"Sever the Right Hand\"; a3q8 quest; a3q8 vendor Clarissa; a3q12 vendor Siosa; a6q4 vendor Lilly Roth); no datamined source says whether the variant is offered"
+      ]
+    },
+    {
+      "name": "Holy Sweep",
+      "metadataId": "Metadata/Items/Gems/SkillGemSweep",
+      "category": "active",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSweep"
+        ],
+        "questReward": {
+          "repoe": {
+            "act": 1,
+            "classes": [
+              "Marauder",
+              "Duelist"
+            ],
+            "quest": "The Siren's Cadence"
+          },
+          "exileLeveling": [
+            {
+              "questId": "a1q3",
+              "quest": "The Siren's Cadence",
+              "act": 1,
+              "kind": "quest",
+              "npc": null,
+              "classes": [
+                "Marauder",
+                "Duelist"
+              ]
+            }
+          ]
+        },
+        "vendor": [
+          {
+            "questId": "a1q3",
+            "quest": "The Siren's Cadence",
+            "act": 1,
+            "kind": "vendor",
+            "npc": "Nessa",
+            "classes": [
+              "Duelist",
+              "Marauder",
+              "Templar"
+            ]
+          },
+          {
+            "questId": "a3q12",
+            "quest": "A Fixture of Fate",
+            "act": 3,
+            "kind": "vendor",
+            "npc": "Siosa",
+            "classes": []
+          },
+          {
+            "questId": "a6q4",
+            "quest": "Fallen from Grace",
+            "act": 6,
+            "kind": "vendor",
+            "npc": "Lilly Roth",
+            "classes": []
+          }
+        ]
+      },
+      "level": "probable",
+      "why": [
+        "RePoE quest_reward: act 1 \"The Siren's Cadence\" [Marauder, Duelist]",
+        "exile-leveling quest offers: a1q3 [Marauder, Duelist]",
+        "exile-leveling vendor rows (poewiki-derived): a1q3 Nessa [Duelist, Marauder, Templar]; a3q12 Siosa [all]; a6q4 Lilly Roth [all]"
+      ]
+    },
+    {
+      "name": "Holy Sweep of Hammerfalls",
+      "metadataId": "Metadata/Items/Gems/SkillGemSweepAltX",
+      "category": "transfigured",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSweepAltX"
+        ],
+        "base": {
+          "ids": [
+            "Metadata/Items/Gems/SkillGemSweep"
+          ],
+          "repoeQuest": {
+            "act": 1,
+            "classes": [
+              "Marauder",
+              "Duelist"
+            ],
+            "quest": "The Siren's Cadence"
+          },
+          "exileLeveling": [
+            {
+              "questId": "a1q3",
+              "quest": "The Siren's Cadence",
+              "act": 1,
+              "kind": "quest",
+              "npc": null,
+              "classes": [
+                "Marauder",
+                "Duelist"
+              ]
+            },
+            {
+              "questId": "a1q3",
+              "quest": "The Siren's Cadence",
+              "act": 1,
+              "kind": "vendor",
+              "npc": "Nessa",
+              "classes": [
+                "Duelist",
+                "Marauder",
+                "Templar"
+              ]
+            },
+            {
+              "questId": "a3q12",
+              "quest": "A Fixture of Fate",
+              "act": 3,
+              "kind": "vendor",
+              "npc": "Siosa",
+              "classes": []
+            },
+            {
+              "questId": "a6q4",
+              "quest": "Fallen from Grace",
+              "act": 6,
+              "kind": "vendor",
+              "npc": "Lilly Roth",
+              "classes": []
+            }
+          ]
+        },
+        "questReward": {
+          "repoe": {
+            "act": 1,
+            "classes": [
+              "Marauder",
+              "Duelist"
+            ],
+            "quest": "The Siren's Cadence"
+          },
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "level": "probable",
+      "why": [
+        "RePoE quest_reward: act 1 \"The Siren's Cadence\" [Marauder, Duelist]",
+        "transfigured: base gem has quest/vendor rows (RePoE quest act 1 \"The Siren's Cadence\"; a1q3 quest; a1q3 vendor Nessa; a3q12 vendor Siosa; a6q4 vendor Lilly Roth); no datamined source says whether the variant is offered"
+      ]
+    },
+    {
+      "name": "Multiple Projectiles Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportLesserMultipleProjectiles",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportLesserMultipleProjectiles",
+          "Metadata/Items/Gems/SupportGemLesserMultipleProjectiles"
+        ],
+        "questReward": {
+          "repoe": {
+            "act": 1,
+            "classes": [
+              "Duelist",
+              "Ranger",
+              "Shadow",
+              "Scion"
+            ],
+            "quest": "The Caged Brute"
+          },
+          "exileLeveling": [
+            {
+              "questId": "a1q2",
+              "quest": "The Caged Brute",
+              "act": 1,
+              "kind": "quest",
+              "npc": null,
+              "classes": [
+                "Duelist",
+                "Ranger",
+                "Shadow",
+                "Scion"
+              ]
+            }
+          ]
+        },
+        "vendor": [
+          {
+            "questId": "a1q2",
+            "quest": "The Caged Brute",
+            "act": 1,
+            "kind": "vendor",
+            "npc": "Nessa",
+            "classes": [
+              "Duelist",
+              "Ranger",
+              "Scion",
+              "Shadow",
+              "Witch"
+            ]
+          },
+          {
+            "questId": "a3q12",
+            "quest": "A Fixture of Fate",
+            "act": 3,
+            "kind": "vendor",
+            "npc": "Siosa",
+            "classes": []
+          },
+          {
+            "questId": "a6q4",
+            "quest": "Fallen from Grace",
+            "act": 6,
+            "kind": "vendor",
+            "npc": "Lilly Roth",
+            "classes": []
+          }
+        ]
+      },
+      "level": "probable",
+      "why": [
+        "RePoE quest_reward: act 1 \"The Caged Brute\" [Duelist, Ranger, Shadow, Scion]",
+        "exile-leveling quest offers: a1q2 [Duelist, Ranger, Shadow, Scion]",
+        "exile-leveling vendor rows (poewiki-derived): a1q2 Nessa [Duelist, Ranger, Scion, Shadow, Witch]; a3q12 Siosa [all]; a6q4 Lilly Roth [all]"
+      ]
+    },
+    {
+      "name": "Shock Nova of Procession",
+      "metadataId": "Metadata/Items/Gems/SkillGemShockNovaAltX",
+      "category": "transfigured",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemShockNovaAltX"
+        ],
+        "base": {
+          "ids": [
+            "Metadata/Items/Gems/SkillGemShockNova"
+          ],
+          "repoeQuest": {
+            "act": 3,
+            "classes": [
+              "Templar"
+            ],
+            "quest": "Sever the Right Hand"
+          },
+          "exileLeveling": [
+            {
+              "questId": "a3q8",
+              "quest": "Sever the Right Hand",
+              "act": 3,
+              "kind": "quest",
+              "npc": null,
+              "classes": [
+                "Templar"
+              ]
+            },
+            {
+              "questId": "a3q8",
+              "quest": "Sever the Right Hand",
+              "act": 3,
+              "kind": "vendor",
+              "npc": "Clarissa",
+              "classes": [
+                "Scion",
+                "Shadow",
+                "Templar",
+                "Witch"
+              ]
+            },
+            {
+              "questId": "a3q12",
+              "quest": "A Fixture of Fate",
+              "act": 3,
+              "kind": "vendor",
+              "npc": "Siosa",
+              "classes": []
+            },
+            {
+              "questId": "a6q4",
+              "quest": "Fallen from Grace",
+              "act": 6,
+              "kind": "vendor",
+              "npc": "Lilly Roth",
+              "classes": []
+            }
+          ]
+        },
+        "questReward": {
+          "repoe": {
+            "act": 3,
+            "classes": [
+              "Templar"
+            ],
+            "quest": "Sever the Right Hand"
+          },
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "level": "probable",
+      "why": [
+        "RePoE quest_reward: act 3 \"Sever the Right Hand\" [Templar]",
+        "transfigured: base gem has quest/vendor rows (RePoE quest act 3 \"Sever the Right Hand\"; a3q8 quest; a3q8 vendor Clarissa; a3q12 vendor Siosa; a6q4 vendor Lilly Roth); no datamined source says whether the variant is offered"
+      ]
+    },
+    {
+      "name": "Mana-Infused Staff",
+      "metadataId": "Metadata/Items/Gems/SkillGemManaInfusedStaff",
+      "category": "active",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemManaInfusedStaff"
+        ],
+        "questReward": {
+          "repoe": {
+            "act": 2,
+            "classes": [
+              "Templar"
+            ],
+            "quest": "Intruders in Black"
+          },
+          "exileLeveling": [
+            {
+              "questId": "a2q6",
+              "quest": "Intruders in Black",
+              "act": 2,
+              "kind": "quest",
+              "npc": null,
+              "classes": [
+                "Templar"
+              ]
+            }
+          ]
+        },
+        "vendor": [
+          {
+            "questId": "a2q6",
+            "quest": "Intruders in Black",
+            "act": 2,
+            "kind": "vendor",
+            "npc": "Yeena",
+            "classes": [
+              "Templar",
+              "Shadow",
+              "Witch"
+            ]
+          },
+          {
+            "questId": "a3q12",
+            "quest": "A Fixture of Fate",
+            "act": 3,
+            "kind": "vendor",
+            "npc": "Siosa",
+            "classes": []
+          },
+          {
+            "questId": "a6q4",
+            "quest": "Fallen from Grace",
+            "act": 6,
+            "kind": "vendor",
+            "npc": "Lilly Roth",
+            "classes": []
+          }
+        ]
+      },
+      "level": "probable",
+      "why": [
+        "RePoE quest_reward: act 2 \"Intruders in Black\" [Templar]",
+        "exile-leveling quest offers: a2q6 [Templar]",
+        "exile-leveling vendor rows (poewiki-derived): a2q6 Yeena [Templar, Shadow, Witch]; a3q12 Siosa [all]; a6q4 Lilly Roth [all]"
+      ]
+    },
+    {
+      "name": "Shockwave Totem of Authority",
+      "metadataId": "Metadata/Items/Gems/SkillGemShockwaveTotemAltX",
+      "category": "transfigured",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemShockwaveTotemAltX"
+        ],
+        "base": {
+          "ids": [
+            "Metadata/Items/Gems/SkillGemShockwaveTotem"
+          ],
+          "repoeQuest": {
+            "act": 3,
+            "classes": [
+              "Templar"
+            ],
+            "quest": "Sever the Right Hand"
+          },
+          "exileLeveling": [
+            {
+              "questId": "a3q8",
+              "quest": "Sever the Right Hand",
+              "act": 3,
+              "kind": "quest",
+              "npc": null,
+              "classes": [
+                "Templar"
+              ]
+            },
+            {
+              "questId": "a3q8",
+              "quest": "Sever the Right Hand",
+              "act": 3,
+              "kind": "vendor",
+              "npc": "Clarissa",
+              "classes": [
+                "Marauder",
+                "Templar",
+                "Witch"
+              ]
+            },
+            {
+              "questId": "a3q12",
+              "quest": "A Fixture of Fate",
+              "act": 3,
+              "kind": "vendor",
+              "npc": "Siosa",
+              "classes": []
+            },
+            {
+              "questId": "a6q4",
+              "quest": "Fallen from Grace",
+              "act": 6,
+              "kind": "vendor",
+              "npc": "Lilly Roth",
+              "classes": []
+            }
+          ]
+        },
+        "questReward": {
+          "repoe": {
+            "act": 3,
+            "classes": [
+              "Templar"
+            ],
+            "quest": "Sever the Right Hand"
+          },
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "level": "probable",
+      "why": [
+        "RePoE quest_reward: act 3 \"Sever the Right Hand\" [Templar]",
+        "transfigured: base gem has quest/vendor rows (RePoE quest act 3 \"Sever the Right Hand\"; a3q8 quest; a3q8 vendor Clarissa; a3q12 vendor Siosa; a6q4 vendor Lilly Roth); no datamined source says whether the variant is offered"
+      ]
+    },
+    {
+      "name": "Creeping Frost of Floes",
+      "metadataId": "Metadata/Items/Gems/SkillGemCreepingFrostAltX",
+      "category": "transfigured",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemCreepingFrostAltX"
+        ],
+        "base": {
+          "ids": [
+            "Metadata/Items/Gems/SkillGemArcticBreath"
+          ],
+          "repoeQuest": null,
+          "exileLeveling": [
+            {
+              "questId": "a1q3",
+              "quest": "The Siren's Cadence",
+              "act": 1,
+              "kind": "quest",
+              "npc": null,
+              "classes": [
+                "Witch"
+              ]
+            },
+            {
+              "questId": "a1q3",
+              "quest": "The Siren's Cadence",
+              "act": 1,
+              "kind": "vendor",
+              "npc": "Nessa",
+              "classes": [
+                "Scion",
+                "Shadow",
+                "Templar",
+                "Witch"
+              ]
+            },
+            {
+              "questId": "a3q12",
+              "quest": "A Fixture of Fate",
+              "act": 3,
+              "kind": "vendor",
+              "npc": "Siosa",
+              "classes": []
+            },
+            {
+              "questId": "a6q4",
+              "quest": "Fallen from Grace",
+              "act": 6,
+              "kind": "vendor",
+              "npc": "Lilly Roth",
+              "classes": []
+            }
+          ]
+        },
+        "questReward": {
+          "repoe": {
+            "act": 1,
+            "classes": [
+              "Witch"
+            ],
+            "quest": "The Siren's Cadence"
+          },
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "level": "probable",
+      "why": [
+        "RePoE quest_reward: act 1 \"The Siren's Cadence\" [Witch]",
+        "transfigured: base gem has quest/vendor rows (a1q3 quest; a1q3 vendor Nessa; a3q12 vendor Siosa; a6q4 vendor Lilly Roth); no datamined source says whether the variant is offered"
+      ]
+    },
+    {
+      "name": "Storm Burst of Repulsion",
+      "metadataId": "Metadata/Items/Gems/SkillGemStormBurstAltX",
+      "category": "transfigured",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemStormBurstAltX"
+        ],
+        "base": {
+          "ids": [
+            "Metadata/Items/Gems/SkillGemStormBurst"
+          ],
+          "repoeQuest": {
+            "act": 1,
+            "classes": [
+              "Templar",
+              "Scion"
+            ],
+            "quest": "The Siren's Cadence"
+          },
+          "exileLeveling": [
+            {
+              "questId": "a1q3",
+              "quest": "The Siren's Cadence",
+              "act": 1,
+              "kind": "quest",
+              "npc": null,
+              "classes": [
+                "Templar",
+                "Scion"
+              ]
+            },
+            {
+              "questId": "a1q3",
+              "quest": "The Siren's Cadence",
+              "act": 1,
+              "kind": "vendor",
+              "npc": "Nessa",
+              "classes": [
+                "Scion",
+                "Shadow",
+                "Templar",
+                "Witch"
+              ]
+            },
+            {
+              "questId": "a3q12",
+              "quest": "A Fixture of Fate",
+              "act": 3,
+              "kind": "vendor",
+              "npc": "Siosa",
+              "classes": []
+            },
+            {
+              "questId": "a6q4",
+              "quest": "Fallen from Grace",
+              "act": 6,
+              "kind": "vendor",
+              "npc": "Lilly Roth",
+              "classes": []
+            }
+          ]
+        },
+        "questReward": {
+          "repoe": {
+            "act": 1,
+            "classes": [
+              "Templar",
+              "Scion"
+            ],
+            "quest": "The Siren's Cadence"
+          },
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "level": "probable",
+      "why": [
+        "RePoE quest_reward: act 1 \"The Siren's Cadence\" [Templar, Scion]",
+        "transfigured: base gem has quest/vendor rows (RePoE quest act 1 \"The Siren's Cadence\"; a1q3 quest; a1q3 vendor Nessa; a3q12 vendor Siosa; a6q4 vendor Lilly Roth); no datamined source says whether the variant is offered"
+      ]
+    },
+    {
+      "name": "Searing Bond of Detonation",
+      "metadataId": "Metadata/Items/Gems/SkillGemSearingBondAltX",
+      "category": "transfigured",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSearingBondAltX"
+        ],
+        "base": {
+          "ids": [
+            "Metadata/Items/Gems/SkillGemSearingBond"
+          ],
+          "repoeQuest": {
+            "act": 1,
+            "classes": [
+              "Templar"
+            ],
+            "quest": "The Siren's Cadence"
+          },
+          "exileLeveling": [
+            {
+              "questId": "a1q3",
+              "quest": "The Siren's Cadence",
+              "act": 1,
+              "kind": "quest",
+              "npc": null,
+              "classes": [
+                "Templar"
+              ]
+            },
+            {
+              "questId": "a1q3",
+              "quest": "The Siren's Cadence",
+              "act": 1,
+              "kind": "vendor",
+              "npc": "Nessa",
+              "classes": [
+                "Marauder",
+                "Templar",
+                "Witch"
+              ]
+            },
+            {
+              "questId": "a3q12",
+              "quest": "A Fixture of Fate",
+              "act": 3,
+              "kind": "vendor",
+              "npc": "Siosa",
+              "classes": []
+            },
+            {
+              "questId": "a6q4",
+              "quest": "Fallen from Grace",
+              "act": 6,
+              "kind": "vendor",
+              "npc": "Lilly Roth",
+              "classes": []
+            }
+          ]
+        },
+        "questReward": {
+          "repoe": {
+            "act": 1,
+            "classes": [
+              "Templar"
+            ],
+            "quest": "The Siren's Cadence"
+          },
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "level": "probable",
+      "why": [
+        "RePoE quest_reward: act 1 \"The Siren's Cadence\" [Templar]",
+        "transfigured: base gem has quest/vendor rows (RePoE quest act 1 \"The Siren's Cadence\"; a1q3 quest; a1q3 vendor Nessa; a3q12 vendor Siosa; a6q4 vendor Lilly Roth); no datamined source says whether the variant is offered"
+      ]
+    },
+    {
+      "name": "Static Strike of Gathering Lightning",
+      "metadataId": "Metadata/Items/Gems/SkillGemStaticStrikeAltX",
+      "category": "transfigured",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemStaticStrikeAltX"
+        ],
+        "base": {
+          "ids": [
+            "Metadata/Items/Gems/SkillGemStaticStrike"
+          ],
+          "repoeQuest": {
+            "act": 1,
+            "classes": [
+              "Templar",
+              "Marauder",
+              "Scion",
+              "Templar"
+            ],
+            "quest": "The Siren's Cadence"
+          },
+          "exileLeveling": [
+            {
+              "questId": "a1q3",
+              "quest": "The Siren's Cadence",
+              "act": 1,
+              "kind": "quest",
+              "npc": null,
+              "classes": [
+                "Templar",
+                "Marauder",
+                "Scion"
+              ]
+            },
+            {
+              "questId": "a1q3",
+              "quest": "The Siren's Cadence",
+              "act": 1,
+              "kind": "vendor",
+              "npc": "Nessa",
+              "classes": [
+                "Duelist",
+                "Marauder",
+                "Ranger",
+                "Scion",
+                "Templar"
+              ]
+            },
+            {
+              "questId": "a2q9",
+              "quest": "The Root of the Problem",
+              "act": 2,
+              "kind": "quest",
+              "npc": null,
+              "classes": [
+                "Templar"
+              ]
+            },
+            {
+              "questId": "a3q12",
+              "quest": "A Fixture of Fate",
+              "act": 3,
+              "kind": "vendor",
+              "npc": "Siosa",
+              "classes": []
+            },
+            {
+              "questId": "a6q4",
+              "quest": "Fallen from Grace",
+              "act": 6,
+              "kind": "vendor",
+              "npc": "Lilly Roth",
+              "classes": []
+            }
+          ]
+        },
+        "questReward": {
+          "repoe": {
+            "act": 1,
+            "classes": [
+              "Templar",
+              "Marauder",
+              "Scion",
+              "Templar"
+            ],
+            "quest": "The Siren's Cadence"
+          },
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "level": "probable",
+      "why": [
+        "RePoE quest_reward: act 1 \"The Siren's Cadence\" [Templar, Marauder, Scion, Templar]",
+        "transfigured: base gem has quest/vendor rows (RePoE quest act 1 \"The Siren's Cadence\"; a1q3 quest; a1q3 vendor Nessa; a2q9 quest; a3q12 vendor Siosa; a6q4 vendor Lilly Roth); no datamined source says whether the variant is offered"
+      ]
+    },
+    {
+      "name": "Orb of Storms of Squalls",
+      "metadataId": "Metadata/Items/Gems/SkillGemOrbOfStormsAltX",
+      "category": "transfigured",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemOrbOfStormsAltX"
+        ],
+        "base": {
+          "ids": [
+            "Metadata/Items/Gems/SkillGemOrbOfStorms"
+          ],
+          "repoeQuest": {
+            "act": 1,
+            "classes": [
+              "Witch",
+              "Shadow"
+            ],
+            "quest": "Breaking Some Eggs"
+          },
+          "exileLeveling": [
+            {
+              "questId": "a1q4",
+              "quest": "Breaking Some Eggs",
+              "act": 1,
+              "kind": "quest",
+              "npc": null,
+              "classes": [
+                "Witch",
+                "Shadow"
+              ]
+            },
+            {
+              "questId": "a1q4",
+              "quest": "Breaking Some Eggs",
+              "act": 1,
+              "kind": "vendor",
+              "npc": "Nessa",
+              "classes": [
+                "Scion",
+                "Shadow",
+                "Templar",
+                "Witch"
+              ]
+            },
+            {
+              "questId": "a3q12",
+              "quest": "A Fixture of Fate",
+              "act": 3,
+              "kind": "vendor",
+              "npc": "Siosa",
+              "classes": []
+            },
+            {
+              "questId": "a6q4",
+              "quest": "Fallen from Grace",
+              "act": 6,
+              "kind": "vendor",
+              "npc": "Lilly Roth",
+              "classes": []
+            }
+          ]
+        },
+        "questReward": {
+          "repoe": {
+            "act": 1,
+            "classes": [
+              "Witch",
+              "Shadow"
+            ],
+            "quest": "Breaking Some Eggs"
+          },
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "level": "probable",
+      "why": [
+        "RePoE quest_reward: act 1 \"Breaking Some Eggs\" [Witch, Shadow]",
+        "transfigured: base gem has quest/vendor rows (RePoE quest act 1 \"Breaking Some Eggs\"; a1q4 quest; a1q4 vendor Nessa; a3q12 vendor Siosa; a6q4 vendor Lilly Roth); no datamined source says whether the variant is offered"
+      ]
+    },
+    {
+      "name": "Dark Bargain",
+      "metadataId": "Metadata/Items/Gems/SkillGemDarkPact",
+      "category": "active",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemDarkPact"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": [
+          {
+            "questId": "a3q8",
+            "quest": "Sever the Right Hand",
+            "act": 3,
+            "kind": "vendor",
+            "npc": "Clarissa",
+            "classes": [
+              "Scion",
+              "Shadow",
+              "Witch"
+            ]
+          },
+          {
+            "questId": "a3q12",
+            "quest": "A Fixture of Fate",
+            "act": 3,
+            "kind": "vendor",
+            "npc": "Siosa",
+            "classes": []
+          },
+          {
+            "questId": "a6q4",
+            "quest": "Fallen from Grace",
+            "act": 6,
+            "kind": "vendor",
+            "npc": "Lilly Roth",
+            "classes": []
+          }
+        ]
+      },
+      "level": "probable",
+      "why": [
+        "exile-leveling vendor rows (poewiki-derived): a3q8 Clarissa [Scion, Shadow, Witch]; a3q12 Siosa [all]; a6q4 Lilly Roth [all]"
+      ]
+    },
+    {
+      "name": "Dark Bargain of Trarthus",
+      "metadataId": "Metadata/Items/Gems/SkillGemDarkPactAltX",
+      "category": "transfigured",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemDarkPactAltX"
+        ],
+        "base": {
+          "ids": [
+            "Metadata/Items/Gems/SkillGemDarkPact"
+          ],
+          "repoeQuest": null,
+          "exileLeveling": [
+            {
+              "questId": "a3q8",
+              "quest": "Sever the Right Hand",
+              "act": 3,
+              "kind": "vendor",
+              "npc": "Clarissa",
+              "classes": [
+                "Scion",
+                "Shadow",
+                "Witch"
+              ]
+            },
+            {
+              "questId": "a3q12",
+              "quest": "A Fixture of Fate",
+              "act": 3,
+              "kind": "vendor",
+              "npc": "Siosa",
+              "classes": []
+            },
+            {
+              "questId": "a6q4",
+              "quest": "Fallen from Grace",
+              "act": 6,
+              "kind": "vendor",
+              "npc": "Lilly Roth",
+              "classes": []
+            }
+          ]
+        },
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "level": "unconfirmed",
+      "why": [
+        "transfigured: base gem has quest/vendor rows (a3q8 vendor Clarissa; a3q12 vendor Siosa; a6q4 vendor Lilly Roth); no datamined source says whether the variant is offered"
+      ]
+    },
+    {
+      "name": "Siphoning Trap of Pain",
+      "metadataId": "Metadata/Items/Gems/SkillGemSiphoningTrapAltX",
+      "category": "transfigured",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSiphoningTrapAltX"
+        ],
+        "base": {
+          "ids": [
+            "Metadata/Items/Gems/SkillGemIceSiphonTrap"
+          ],
+          "repoeQuest": null,
+          "exileLeveling": [
+            {
+              "questId": "a1q2",
+              "quest": "The Caged Brute",
+              "act": 1,
+              "kind": "quest",
+              "npc": null,
+              "classes": [
+                "Shadow"
+              ]
+            },
+            {
+              "questId": "a1q2",
+              "quest": "The Caged Brute",
+              "act": 1,
+              "kind": "vendor",
+              "npc": "Nessa",
+              "classes": [
+                "Scion",
+                "Shadow",
+                "Witch"
+              ]
+            },
+            {
+              "questId": "a3q12",
+              "quest": "A Fixture of Fate",
+              "act": 3,
+              "kind": "vendor",
+              "npc": "Siosa",
+              "classes": []
+            },
+            {
+              "questId": "a6q4",
+              "quest": "Fallen from Grace",
+              "act": 6,
+              "kind": "vendor",
+              "npc": "Lilly Roth",
+              "classes": []
+            }
+          ]
+        },
+        "questReward": {
+          "repoe": {
+            "act": 1,
+            "classes": [
+              "Shadow"
+            ],
+            "quest": "The Caged Brute"
+          },
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "level": "probable",
+      "why": [
+        "RePoE quest_reward: act 1 \"The Caged Brute\" [Shadow]",
+        "transfigured: base gem has quest/vendor rows (a1q2 quest; a1q2 vendor Nessa; a3q12 vendor Siosa; a6q4 vendor Lilly Roth); no datamined source says whether the variant is offered"
+      ]
+    },
+    {
+      "name": "Flamethrower Trap of Stability",
+      "metadataId": "Metadata/Items/Gems/SkillGemFlamethrowerTrapAltX",
+      "category": "transfigured",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemFlamethrowerTrapAltX"
+        ],
+        "base": {
+          "ids": [
+            "Metadata/Items/Gems/SkillGemFlamethrowerTrap"
+          ],
+          "repoeQuest": {
+            "act": 3,
+            "classes": [
+              "Shadow"
+            ],
+            "quest": "Sever the Right Hand"
+          },
+          "exileLeveling": [
+            {
+              "questId": "a3q8",
+              "quest": "Sever the Right Hand",
+              "act": 3,
+              "kind": "quest",
+              "npc": null,
+              "classes": [
+                "Shadow"
+              ]
+            },
+            {
+              "questId": "a3q8",
+              "quest": "Sever the Right Hand",
+              "act": 3,
+              "kind": "vendor",
+              "npc": "Clarissa",
+              "classes": [
+                "Scion",
+                "Shadow",
+                "Witch"
+              ]
+            },
+            {
+              "questId": "a3q12",
+              "quest": "A Fixture of Fate",
+              "act": 3,
+              "kind": "vendor",
+              "npc": "Siosa",
+              "classes": []
+            },
+            {
+              "questId": "a6q4",
+              "quest": "Fallen from Grace",
+              "act": 6,
+              "kind": "vendor",
+              "npc": "Lilly Roth",
+              "classes": []
+            }
+          ]
+        },
+        "questReward": {
+          "repoe": {
+            "act": 3,
+            "classes": [
+              "Shadow"
+            ],
+            "quest": "Sever the Right Hand"
+          },
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "level": "probable",
+      "why": [
+        "RePoE quest_reward: act 3 \"Sever the Right Hand\" [Shadow]",
+        "transfigured: base gem has quest/vendor rows (RePoE quest act 3 \"Sever the Right Hand\"; a3q8 quest; a3q8 vendor Clarissa; a3q12 vendor Siosa; a6q4 vendor Lilly Roth); no datamined source says whether the variant is offered"
+      ]
+    },
+    {
+      "name": "Chain Hook of Angling",
+      "metadataId": "Metadata/Items/Gems/SkillGemChainHookAltX",
+      "category": "transfigured",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemChainHookAltX"
+        ],
+        "base": {
+          "ids": [
+            "Metadata/Items/Gems/SkillGemChainHook"
+          ],
+          "repoeQuest": {
+            "act": 1,
+            "classes": [
+              "Marauder"
+            ],
+            "quest": "The Siren's Cadence"
+          },
+          "exileLeveling": [
+            {
+              "questId": "a1q3",
+              "quest": "The Siren's Cadence",
+              "act": 1,
+              "kind": "quest",
+              "npc": null,
+              "classes": [
+                "Marauder"
+              ]
+            },
+            {
+              "questId": "a1q3",
+              "quest": "The Siren's Cadence",
+              "act": 1,
+              "kind": "vendor",
+              "npc": "Nessa",
+              "classes": [
+                "Duelist",
+                "Marauder",
+                "Scion"
+              ]
+            },
+            {
+              "questId": "a3q12",
+              "quest": "A Fixture of Fate",
+              "act": 3,
+              "kind": "vendor",
+              "npc": "Siosa",
+              "classes": []
+            },
+            {
+              "questId": "a6q4",
+              "quest": "Fallen from Grace",
+              "act": 6,
+              "kind": "vendor",
+              "npc": "Lilly Roth",
+              "classes": []
+            }
+          ]
+        },
+        "questReward": {
+          "repoe": {
+            "act": 1,
+            "classes": [
+              "Marauder"
+            ],
+            "quest": "The Siren's Cadence"
+          },
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "level": "probable",
+      "why": [
+        "RePoE quest_reward: act 1 \"The Siren's Cadence\" [Marauder]",
+        "transfigured: base gem has quest/vendor rows (RePoE quest act 1 \"The Siren's Cadence\"; a1q3 quest; a1q3 vendor Nessa; a3q12 vendor Siosa; a6q4 vendor Lilly Roth); no datamined source says whether the variant is offered"
+      ]
+    },
+    {
+      "name": "Reap of Butchery",
+      "metadataId": "Metadata/Items/Gems/SkillGemReapAltX",
+      "category": "transfigured",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemReapAltX"
+        ],
+        "base": {
+          "ids": [
+            "Metadata/Items/Gems/SkillGemBloodreap"
+          ],
+          "repoeQuest": null,
+          "exileLeveling": [
+            {
+              "questId": "a3q8",
+              "quest": "Sever the Right Hand",
+              "act": 3,
+              "kind": "quest",
+              "npc": null,
+              "classes": [
+                "Scion"
+              ]
+            },
+            {
+              "questId": "a3q8",
+              "quest": "Sever the Right Hand",
+              "act": 3,
+              "kind": "vendor",
+              "npc": "Clarissa",
+              "classes": [
+                "Marauder",
+                "Templar",
+                "Witch",
+                "Scion",
+                "Shadow"
+              ]
+            },
+            {
+              "questId": "a3q12",
+              "quest": "A Fixture of Fate",
+              "act": 3,
+              "kind": "vendor",
+              "npc": "Siosa",
+              "classes": []
+            },
+            {
+              "questId": "a6q4",
+              "quest": "Fallen from Grace",
+              "act": 6,
+              "kind": "vendor",
+              "npc": "Lilly Roth",
+              "classes": []
+            }
+          ]
+        },
+        "questReward": {
+          "repoe": {
+            "act": 3,
+            "classes": [
+              "Scion"
+            ],
+            "quest": "Sever the Right Hand"
+          },
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "level": "probable",
+      "why": [
+        "RePoE quest_reward: act 3 \"Sever the Right Hand\" [Scion]",
+        "transfigured: base gem has quest/vendor rows (a3q8 quest; a3q8 vendor Clarissa; a3q12 vendor Siosa; a6q4 vendor Lilly Roth); no datamined source says whether the variant is offered"
+      ]
+    },
+    {
+      "name": "Arcane Link",
+      "metadataId": "Metadata/Items/Gems/SkillGemArcaneLink",
+      "category": "active",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemArcaneLink"
+        ],
+        "questReward": {
+          "repoe": {
+            "act": 4,
+            "classes": [
+              "Scion"
+            ],
+            "quest": "Breaking the Seal"
+          },
+          "exileLeveling": []
+        },
+        "vendor": [
+          {
+            "questId": "a4q2",
+            "quest": "Breaking the Seal",
+            "act": 4,
+            "kind": "vendor",
+            "npc": "Petarus and Vanja",
+            "classes": [
+              "Scion",
+              "Marauder",
+              "Duelist",
+              "Templar"
+            ]
+          },
+          {
+            "questId": "a6q4",
+            "quest": "Fallen from Grace",
+            "act": 6,
+            "kind": "vendor",
+            "npc": "Lilly Roth",
+            "classes": []
+          }
+        ]
+      },
+      "level": "probable",
+      "why": [
+        "RePoE quest_reward: act 4 \"Breaking the Seal\" [Scion]",
+        "exile-leveling vendor rows (poewiki-derived): a4q2 Petarus and Vanja [Scion, Marauder, Duelist, Templar]; a6q4 Lilly Roth [all]"
+      ]
+    },
+    {
+      "name": "Kinetic Fusillade of Detonation",
+      "metadataId": "Metadata/Items/Gems/SkillGemKineticFusilladeAltX",
+      "category": "transfigured",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemKineticFusilladeAltX"
+        ],
+        "base": {
+          "ids": [
+            "Metadata/Items/Gems/SkillGemKineticFusillade"
+          ],
+          "repoeQuest": null,
+          "exileLeveling": [
+            {
+              "questId": "a1q3",
+              "quest": "The Siren's Cadence",
+              "act": 1,
+              "kind": "vendor",
+              "npc": "Nessa",
+              "classes": [
+                "Scion",
+                "Shadow",
+                "Witch"
+              ]
+            },
+            {
+              "questId": "a3q12",
+              "quest": "A Fixture of Fate",
+              "act": 3,
+              "kind": "vendor",
+              "npc": "Siosa",
+              "classes": []
+            },
+            {
+              "questId": "a6q4",
+              "quest": "Fallen from Grace",
+              "act": 6,
+              "kind": "vendor",
+              "npc": "Lilly Roth",
+              "classes": []
+            }
+          ]
+        },
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "level": "unconfirmed",
+      "why": [
+        "transfigured: base gem has quest/vendor rows (a1q3 vendor Nessa; a3q12 vendor Siosa; a6q4 vendor Lilly Roth); no datamined source says whether the variant is offered"
+      ]
+    },
+    {
+      "name": "Holy Hammers",
+      "metadataId": "Metadata/Items/Gems/SkillGemHolyHammers",
+      "category": "active",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemHolyHammers"
+        ],
+        "questReward": {
+          "repoe": {
+            "act": 3,
+            "classes": [
+              "Templar"
+            ],
+            "quest": "Sever the Right Hand"
+          },
+          "exileLeveling": [
+            {
+              "questId": "a3q8",
+              "quest": "Sever the Right Hand",
+              "act": 3,
+              "kind": "quest",
+              "npc": null,
+              "classes": [
+                "Templar"
+              ]
+            }
+          ]
+        },
+        "vendor": []
+      },
+      "level": "probable",
+      "why": [
+        "RePoE quest_reward: act 3 \"Sever the Right Hand\" [Templar]",
+        "exile-leveling quest offers: a3q8 [Templar]"
+      ]
+    },
+    {
+      "name": "Holy Hammers of Spirals",
+      "metadataId": "Metadata/Items/Gems/SkillGemHolyHammersAltX",
+      "category": "transfigured",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemHolyHammersAltX"
+        ],
+        "base": {
+          "ids": [
+            "Metadata/Items/Gems/SkillGemHolyHammers"
+          ],
+          "repoeQuest": {
+            "act": 3,
+            "classes": [
+              "Templar"
+            ],
+            "quest": "Sever the Right Hand"
+          },
+          "exileLeveling": [
+            {
+              "questId": "a3q8",
+              "quest": "Sever the Right Hand",
+              "act": 3,
+              "kind": "quest",
+              "npc": null,
+              "classes": [
+                "Templar"
+              ]
+            }
+          ]
+        },
+        "questReward": {
+          "repoe": {
+            "act": 3,
+            "classes": [
+              "Templar"
+            ],
+            "quest": "Sever the Right Hand"
+          },
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "level": "probable",
+      "why": [
+        "RePoE quest_reward: act 3 \"Sever the Right Hand\" [Templar]",
+        "transfigured: base gem has quest/vendor rows (RePoE quest act 3 \"Sever the Right Hand\"; a3q8 quest); no datamined source says whether the variant is offered"
+      ]
+    },
+    {
+      "name": "Shield of Light",
+      "metadataId": "Metadata/Items/Gems/SkillGemShieldOfLight",
+      "category": "active",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemShieldOfLight"
+        ],
+        "questReward": {
+          "repoe": {
+            "act": 2,
+            "classes": [
+              "Templar"
+            ],
+            "quest": "Intruders in Black"
+          },
+          "exileLeveling": [
+            {
+              "questId": "a2q6",
+              "quest": "Intruders in Black",
+              "act": 2,
+              "kind": "quest",
+              "npc": null,
+              "classes": [
+                "Templar"
+              ]
+            }
+          ]
+        },
+        "vendor": [
+          {
+            "questId": "a2q6",
+            "quest": "Intruders in Black",
+            "act": 2,
+            "kind": "vendor",
+            "npc": "Yeena",
+            "classes": [
+              "Templar",
+              "Scion"
+            ]
+          },
+          {
+            "questId": "a3q12",
+            "quest": "A Fixture of Fate",
+            "act": 3,
+            "kind": "vendor",
+            "npc": "Siosa",
+            "classes": []
+          },
+          {
+            "questId": "a6q4",
+            "quest": "Fallen from Grace",
+            "act": 6,
+            "kind": "vendor",
+            "npc": "Lilly Roth",
+            "classes": []
+          }
+        ]
+      },
+      "level": "probable",
+      "why": [
+        "RePoE quest_reward: act 2 \"Intruders in Black\" [Templar]",
+        "exile-leveling quest offers: a2q6 [Templar]",
+        "exile-leveling vendor rows (poewiki-derived): a2q6 Yeena [Templar, Scion]; a3q12 Siosa [all]; a6q4 Lilly Roth [all]"
+      ]
+    },
+    {
+      "name": "Holy Strike",
+      "metadataId": "Metadata/Items/Gems/SkillGemHolyStrike",
+      "category": "active",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemHolyStrike"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": [
+          {
+            "questId": "a1q1",
+            "quest": "Enemy at the Gate",
+            "act": 1,
+            "kind": "vendor",
+            "npc": "Nessa",
+            "classes": [
+              "Scion",
+              "Templar"
+            ]
+          },
+          {
+            "questId": "a3q12",
+            "quest": "A Fixture of Fate",
+            "act": 3,
+            "kind": "vendor",
+            "npc": "Siosa",
+            "classes": []
+          },
+          {
+            "questId": "a6q4",
+            "quest": "Fallen from Grace",
+            "act": 6,
+            "kind": "vendor",
+            "npc": "Lilly Roth",
+            "classes": []
+          }
+        ]
+      },
+      "level": "probable",
+      "why": [
+        "exile-leveling vendor rows (poewiki-derived): a1q1 Nessa [Scion, Templar]; a3q12 Siosa [all]; a6q4 Lilly Roth [all]"
+      ]
+    },
+    {
+      "name": "Divine Blast",
+      "metadataId": "Metadata/Items/Gems/SkillGemDivineBlast",
+      "category": "active",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemDivineBlast"
+        ],
+        "questReward": {
+          "repoe": {
+            "act": 3,
+            "classes": [
+              "Templar"
+            ],
+            "quest": "Sever the Right Hand"
+          },
+          "exileLeveling": [
+            {
+              "questId": "a3q8",
+              "quest": "Sever the Right Hand",
+              "act": 3,
+              "kind": "quest",
+              "npc": null,
+              "classes": [
+                "Templar"
+              ]
+            }
+          ]
+        },
+        "vendor": [
+          {
+            "questId": "a3q8",
+            "quest": "Sever the Right Hand",
+            "act": 3,
+            "kind": "vendor",
+            "npc": "Clarissa",
+            "classes": [
+              "Marauder",
+              "Templar",
+              "Scion"
+            ]
+          },
+          {
+            "questId": "a3q12",
+            "quest": "A Fixture of Fate",
+            "act": 3,
+            "kind": "vendor",
+            "npc": "Siosa",
+            "classes": []
+          },
+          {
+            "questId": "a6q4",
+            "quest": "Fallen from Grace",
+            "act": 6,
+            "kind": "vendor",
+            "npc": "Lilly Roth",
+            "classes": []
+          }
+        ]
+      },
+      "level": "probable",
+      "why": [
+        "RePoE quest_reward: act 3 \"Sever the Right Hand\" [Templar]",
+        "exile-leveling quest offers: a3q8 [Templar]",
+        "exile-leveling vendor rows (poewiki-derived): a3q8 Clarissa [Marauder, Templar, Scion]; a3q12 Siosa [all]; a6q4 Lilly Roth [all]"
+      ]
+    },
+    {
+      "name": "Divine Blast of Radiance",
+      "metadataId": "Metadata/Items/Gems/SkillGemDivineBlastAltX",
+      "category": "transfigured",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemDivineBlastAltX"
+        ],
+        "base": {
+          "ids": [
+            "Metadata/Items/Gems/SkillGemDivineBlast"
+          ],
+          "repoeQuest": {
+            "act": 3,
+            "classes": [
+              "Templar"
+            ],
+            "quest": "Sever the Right Hand"
+          },
+          "exileLeveling": [
+            {
+              "questId": "a3q8",
+              "quest": "Sever the Right Hand",
+              "act": 3,
+              "kind": "quest",
+              "npc": null,
+              "classes": [
+                "Templar"
+              ]
+            },
+            {
+              "questId": "a3q8",
+              "quest": "Sever the Right Hand",
+              "act": 3,
+              "kind": "vendor",
+              "npc": "Clarissa",
+              "classes": [
+                "Marauder",
+                "Templar",
+                "Scion"
+              ]
+            },
+            {
+              "questId": "a3q12",
+              "quest": "A Fixture of Fate",
+              "act": 3,
+              "kind": "vendor",
+              "npc": "Siosa",
+              "classes": []
+            },
+            {
+              "questId": "a6q4",
+              "quest": "Fallen from Grace",
+              "act": 6,
+              "kind": "vendor",
+              "npc": "Lilly Roth",
+              "classes": []
+            }
+          ]
+        },
+        "questReward": {
+          "repoe": {
+            "act": 3,
+            "classes": [
+              "Templar"
+            ],
+            "quest": "Sever the Right Hand"
+          },
+          "exileLeveling": []
+        },
+        "vendor": []
+      },
+      "level": "probable",
+      "why": [
+        "RePoE quest_reward: act 3 \"Sever the Right Hand\" [Templar]",
+        "transfigured: base gem has quest/vendor rows (RePoE quest act 3 \"Sever the Right Hand\"; a3q8 quest; a3q8 vendor Clarissa; a3q12 vendor Siosa; a6q4 vendor Lilly Roth); no datamined source says whether the variant is offered"
+      ]
+    },
+    {
+      "name": "Excommunicate Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportExcommunicate",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportExcommunicate",
+          "Metadata/Items/Gems/SupportGemExcommunicate"
+        ],
+        "questReward": {
+          "repoe": {
+            "act": 3,
+            "classes": [
+              "Templar"
+            ],
+            "quest": "A Fixture of Fate"
+          },
+          "exileLeveling": [
+            {
+              "questId": "a3q12",
+              "quest": "A Fixture of Fate",
+              "act": 3,
+              "kind": "quest",
+              "npc": null,
+              "classes": [
+                "Templar"
+              ]
+            }
+          ]
+        },
+        "vendor": [
+          {
+            "questId": "a3q12",
+            "quest": "A Fixture of Fate",
+            "act": 3,
+            "kind": "vendor",
+            "npc": "Siosa",
+            "classes": []
+          },
+          {
+            "questId": "a6q4",
+            "quest": "Fallen from Grace",
+            "act": 6,
+            "kind": "vendor",
+            "npc": "Lilly Roth",
+            "classes": []
+          }
+        ]
+      },
+      "level": "probable",
+      "why": [
+        "RePoE quest_reward: act 3 \"A Fixture of Fate\" [Templar]",
+        "exile-leveling quest offers: a3q12 [Templar]",
+        "exile-leveling vendor rows (poewiki-derived): a3q12 Siosa [all]; a6q4 Lilly Roth [all]"
+      ]
+    },
+    {
+      "name": "Exemplar Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportExemplar",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportExemplar",
+          "Metadata/Items/Gems/SupportGemExemplar"
+        ],
+        "questReward": {
+          "repoe": {
+            "act": 2,
+            "classes": [
+              "Templar"
+            ],
+            "quest": "Sharp and Cruel"
+          },
+          "exileLeveling": [
+            {
+              "questId": "a2q4",
+              "quest": "Sharp and Cruel",
+              "act": 2,
+              "kind": "quest",
+              "npc": null,
+              "classes": [
+                "Templar"
+              ]
+            }
+          ]
+        },
+        "vendor": [
+          {
+            "questId": "a2q4",
+            "quest": "Sharp and Cruel",
+            "act": 2,
+            "kind": "vendor",
+            "npc": "Yeena",
+            "classes": [
+              "Scion",
+              "Templar",
+              "Witch"
+            ]
+          },
+          {
+            "questId": "a3q12",
+            "quest": "A Fixture of Fate",
+            "act": 3,
+            "kind": "vendor",
+            "npc": "Siosa",
+            "classes": []
+          },
+          {
+            "questId": "a6q4",
+            "quest": "Fallen from Grace",
+            "act": 6,
+            "kind": "vendor",
+            "npc": "Lilly Roth",
+            "classes": []
+          }
+        ]
+      },
+      "level": "probable",
+      "why": [
+        "RePoE quest_reward: act 2 \"Sharp and Cruel\" [Templar]",
+        "exile-leveling quest offers: a2q4 [Templar]",
+        "exile-leveling vendor rows (poewiki-derived): a2q4 Yeena [Scion, Templar, Witch]; a3q12 Siosa [all]; a6q4 Lilly Roth [all]"
+      ]
+    },
+    {
+      "name": "Blessed Call Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportBlessedCall",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportBlessedCall",
+          "Metadata/Items/Gems/SupportGemBlessedCall"
+        ],
+        "questReward": {
+          "repoe": {
+            "act": 3,
+            "classes": [
+              "Templar"
+            ],
+            "quest": "A Fixture of Fate"
+          },
+          "exileLeveling": [
+            {
+              "questId": "a3q12",
+              "quest": "A Fixture of Fate",
+              "act": 3,
+              "kind": "quest",
+              "npc": null,
+              "classes": [
+                "Templar"
+              ]
+            }
+          ]
+        },
+        "vendor": [
+          {
+            "questId": "a3q12",
+            "quest": "A Fixture of Fate",
+            "act": 3,
+            "kind": "vendor",
+            "npc": "Siosa",
+            "classes": []
+          },
+          {
+            "questId": "a6q4",
+            "quest": "Fallen from Grace",
+            "act": 6,
+            "kind": "vendor",
+            "npc": "Lilly Roth",
+            "classes": []
+          }
+        ]
+      },
+      "level": "probable",
+      "why": [
+        "RePoE quest_reward: act 3 \"A Fixture of Fate\" [Templar]",
+        "exile-leveling quest offers: a3q12 [Templar]",
+        "exile-leveling vendor rows (poewiki-derived): a3q12 Siosa [all]; a6q4 Lilly Roth [all]"
+      ]
+    },
+    {
+      "name": "Hallow Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportHallow",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "released",
+      "checks": {
+        "roster": "PoB + RePoE agree",
+        "exileLevelingIds": [
+          "Metadata/Items/Gems/SkillGemSupportHallow",
+          "Metadata/Items/Gems/SupportGemHallow"
+        ],
+        "questReward": {
+          "repoe": null,
+          "exileLeveling": []
+        },
+        "vendor": [
+          {
+            "questId": "a1q1",
+            "quest": "Enemy at the Gate",
+            "act": 1,
+            "kind": "vendor",
+            "npc": "Nessa",
+            "classes": [
+              "Templar"
+            ]
+          },
+          {
+            "questId": "a1q5",
+            "quest": "Mercy Mission",
+            "act": 1,
+            "kind": "vendor",
+            "npc": "Nessa",
+            "classes": [
+              "Marauder",
+              "Scion",
+              "Witch"
+            ]
+          },
+          {
+            "questId": "a3q12",
+            "quest": "A Fixture of Fate",
+            "act": 3,
+            "kind": "vendor",
+            "npc": "Siosa",
+            "classes": []
+          }
+        ]
+      },
+      "level": "probable",
+      "why": [
+        "exile-leveling vendor rows (poewiki-derived): a1q1 Nessa [Templar]; a1q5 Nessa [Marauder, Scion, Witch]; a3q12 Siosa [all]"
+      ]
+    }
+  ],
+  "excluded": [
+    {
+      "name": "Item Quantity Support",
+      "metadataId": "Metadata/Items/Gems/SkillGemSupportItemQuantity",
+      "category": "support",
+      "type": "support",
+      "repoeReleaseState": "legacy",
+      "checks": {},
+      "reason": "RePoE release_state \"legacy\""
+    },
+    {
+      "name": "Quickstep",
+      "metadataId": "Metadata/Items/Gems/SkillGemQuickstepHardMode",
+      "category": "active",
+      "type": "active",
+      "repoeReleaseState": "released",
+      "checks": {},
+      "reason": "Ruthless-only variant (HardMode)"
+    }
+  ]
+}

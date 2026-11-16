@@ -20,7 +20,9 @@ import FloatingSearchButton from '../components/leveling/FloatingSearchButton';
 const DEFAULT_FILTERS = {
   types: ['active', 'support'],
   acts: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10],
-  sources: ['quest', 'siosa', 'lilly'],
+  // 'none' = empty availability: no quest reward and no vendor on record
+  // (Awakened, exceptional, Vaal, Pact supports — drop / trade only).
+  sources: ['quest', 'siosa', 'lilly', 'none'],
   searchTerm: ''
 };
 
@@ -60,23 +62,29 @@ export default function LevelingGemsPage() {
       // Type filter
       if (!filters.types.includes(gem.type)) return false;
 
-      // Class availability filter
-      if (selectedClass !== 'all') {
-        const hasAvailability = gem.availability.some(avail =>
-          avail.classes.length === 0 || avail.classes.includes(normalizedClass)
-        );
-        if (!hasAvailability) return false;
+      // Drop-only gems have no rows to match act/class against; the 'none'
+      // source alone decides whether they show.
+      if (gem.availability.length === 0) {
+        if (!filters.sources.includes('none')) return false;
+      } else {
+        // Class availability filter
+        if (selectedClass !== 'all') {
+          const hasAvailability = gem.availability.some(avail =>
+            avail.classes.length === 0 || avail.classes.includes(normalizedClass)
+          );
+          if (!hasAvailability) return false;
+        }
+
+        // Act filter
+        const gemActs = [...new Set(gem.availability.map(a => a.act))];
+        const hasMatchingAct = gemActs.some(act => filters.acts.includes(act));
+        if (!hasMatchingAct) return false;
+
+        // Source filter
+        const gemSources = [...new Set(gem.availability.map(a => a.source))];
+        const hasMatchingSource = gemSources.some(source => filters.sources.includes(source));
+        if (!hasMatchingSource) return false;
       }
-
-      // Act filter
-      const gemActs = [...new Set(gem.availability.map(a => a.act))];
-      const hasMatchingAct = gemActs.some(act => filters.acts.includes(act));
-      if (!hasMatchingAct) return false;
-
-      // Source filter
-      const gemSources = [...new Set(gem.availability.map(a => a.source))];
-      const hasMatchingSource = gemSources.some(source => filters.sources.includes(source));
-      if (!hasMatchingSource) return false;
 
       // Search term filter
       if (filters.searchTerm.trim()) {

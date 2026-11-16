@@ -5,6 +5,9 @@
  * Usage:
  *   node scripts/leveling-data/run-all.js           # Full pipeline
  *   node scripts/leveling-data/run-all.js --mock    # Use mock data (for testing)
+ *   add --gems to also regenerate src/data/leveling/gemAvailability.js (Step 5,
+ *   offline: gemData.js + raw/quest-rewards-complete.json + raw/gem-additions.json;
+ *   refresh gem-additions.json first with `npm run leveling-data:gem-sources`)
  */
 
 import { parseExileLeveling } from './parse-exile-leveling.js';
@@ -14,6 +17,7 @@ import { mergeDataSources } from './merge-data-sources.js';
 import { generateMockData } from './generate-mock-data.js';
 
 const useMockData = process.argv.includes('--mock');
+const runGems = process.argv.includes('--gems');
 
 async function main() {
   console.log('╔═══════════════════════════════════════════════════════════╗');
@@ -47,6 +51,15 @@ async function main() {
     // Step 4: Merge all data
     console.log('\n═══ Step 4/4: Merge Data Sources ═══');
     await mergeDataSources();
+
+    // Step 5 (opt-in): gem availability
+    if (runGems) {
+      console.log('\n═══ Step 5: Gem availability (transform-gem-data) ═══');
+      const { transformToGemAvailability, validateData, generateProductionFile } = await import('./transform-gem-data.js');
+      const gemAvailability = transformToGemAvailability();
+      validateData(gemAvailability);
+      generateProductionFile(gemAvailability);
+    }
 
     const duration = ((Date.now() - startTime) / 1000).toFixed(1);
 

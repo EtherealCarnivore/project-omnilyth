@@ -11,3 +11,6 @@ ref_images/
 .claude/
 CLAUDE.md
 AGENTS.md
+
+# Leveling-data source cache (large upstream exports, refetched on demand)
+scripts/leveling-data/raw/.cache/
