@@ -15,7 +15,7 @@ const DEFAULT_SETTINGS = {
   optimizePacksize: false,
   itemRarity: '',
   mapDropChance: '',
-  quality: { regular: '', currency: '', divination: '', rarity: '', packSize: '', scarab: '' },
+  quality: { regular: '', currency: '', divination: '', rarity: '', packSize: '', threads: '' },
   optimizeQuality: false,
   anyQuality: false,
   rarity: { normal: false, magic: false, rare: false, include: true },
@@ -241,13 +241,19 @@ const MOD_TRADE_IDS = {
   1471007742:"explicit.stat_645841425",1481746664:"explicit.stat_799271621",
   1515846394:"explicit.stat_133340941",1546387363:"explicit.stat_3416853625",
   1652154666:"explicit.stat_2138205941",1687576035:"explicit.stat_3350803563",
-  1691639998:"explicit.stat_1959158336",1734526203:"explicit.stat_3464419871",
+  1691639998:"explicit.stat_1959158336",1734526203:"explicit.stat_3278889477",
   1741763812:"explicit.stat_3246076198",1809097991:"explicit.stat_1026390635",
   1815471633:"explicit.stat_808491979",1822260921:"explicit.stat_144665660",
   1855646823:"explicit.stat_3793155082",1909893191:"explicit.stat_2549889921",
   1936863142:"explicit.stat_2312028586",1965894066:"explicit.stat_45546355",
   2023345436:"explicit.stat_25085466",2042799595:"explicit.stat_3561450806",
   2043204851:"explicit.stat_124877078",
+  // 3.30 Rare-only suffixes (GGG trade stats, 2026-11-15)
+  [-326214762]:"explicit.stat_2436559047",[-573778114]:"explicit.stat_1975119765",
+  [-1827810238]:"explicit.stat_2398157267",[1630286171]:"explicit.stat_70969043",
+  [-1488085160]:"explicit.stat_2788592463",[-321258622]:"explicit.stat_2712450522",
+  [518591610]:"explicit.stat_260515856",[719321031]:"explicit.stat_2896557935",
+  [159989285]:"explicit.stat_1290924623",
   [-2103899765]:"explicit.stat_337935900",[-2060936381]:"explicit.stat_2588474575",
   [-1952553467]:"explicit.stat_1541224187",[-1942271057]:"explicit.stat_1890519597",
   [-1926268187]:"explicit.stat_1000591322",[-1781581610]:"explicit.stat_2961018200",
@@ -256,7 +262,7 @@ const MOD_TRADE_IDS = {
   [-1462808973]:"explicit.stat_2753083623",[-1403235912]:"explicit.stat_272758639",
   [-1175378302]:"explicit.stat_2651141461",[-1121411477]:"explicit.stat_3448216135",
   [-1121327683]:"explicit.stat_1497673356",[-926892006]:"explicit.stat_2887760183",
-  [-818452956]:"explicit.stat_1910157106",[-696963131]:"explicit.stat_2764017512",
+  [-818452956]:"explicit.stat_1910157106",[-696963131]:"explicit.stat_3938822425",
   [-529767307]:"explicit.stat_1106651798",[-500015770]:"explicit.stat_3183973644",
   [-208379648]:"explicit.stat_95249895",[-199953078]:"explicit.stat_3873704640",
   [-120302365]:"explicit.stat_4198346809",[-50320413]:"explicit.stat_839186746",
@@ -271,7 +277,8 @@ function buildMapTradeUrl(league, settings, { noInfluence = false, noValdo = fal
   const miscFilters = {};
 
   if (settings.quantity && Number(settings.quantity) > 0) {
-    mapFilters.map_iiq = { min: Number(settings.quantity), max: null };
+    // 3.30: trade filter "Atlas Drops" (map_bonus) replaced Item Quantity (map_iiq).
+    mapFilters.map_bonus = { min: Number(settings.quantity), max: null };
   }
   if (settings.packsize && Number(settings.packsize) > 0) {
     mapFilters.map_packsize = { min: Number(settings.packsize), max: null };
@@ -415,7 +422,7 @@ export default function MapModCalculator() {
     const parts = [];
     if (parsed.badIds.length) parts.push(`${parsed.badIds.length} excluded`);
     if (parsed.goodIds.length) parts.push(`${parsed.goodIds.length} included`);
-    if (parsed.quantity) parts.push(`qty \u2265${parsed.quantity}`);
+    if (parsed.quantity) parts.push(`atlas drops \u2265${parsed.quantity}`);
     if (parsed.packsize) parts.push(`pack \u2265${parsed.packsize}`);
     if (parsed.itemRarity) parts.push(`rarity \u2265${parsed.itemRarity}`);
     if (parsed.mapDropChance) parts.push(`drop \u2265${parsed.mapDropChance}`);
@@ -620,7 +627,7 @@ export default function MapModCalculator() {
         <Section title="Numeric Filters">
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             <NumericInput
-              label="Quantity >="
+              label="Atlas Drops >="
               value={settings.quantity}
               onChange={(v) => update((s) => { s.quantity = v; })}
               optimize={settings.optimizeQuant}
@@ -681,7 +688,7 @@ export default function MapModCalculator() {
               ['Divination', 'divination'],
               ['Rarity', 'rarity'],
               ['Pack Size', 'packSize'],
-              ['Scarab', 'scarab'],
+              ['Threads', 'threads'],
             ].map(([label, key]) => (
               <NumericInput
                 key={key}

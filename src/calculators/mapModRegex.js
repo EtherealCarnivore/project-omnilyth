@@ -228,7 +228,9 @@ function qualityQualifier(settings) {
     if (type === "divination") return "div.*";
     if (type === "rarity") return "ty\\).*";
     if (type === "pack size") return "ze\\).*";
-    if (type === "scarab") return "sca.*";
+    // 3.30: Maven's Chisel of Scarabs became Maven's Chisel of Threads.
+    // Targets "Quality (Threads): +N%" ("Cards)" ends in "rds)", so no clash).
+    if (type === "threads") return "ads\\).*";
     return "";
   }
 
@@ -238,7 +240,7 @@ function qualityQualifier(settings) {
     addQuantifier(qualityType("divination"), generateNumberRegex(settings.quality.divination, settings.optimizeQuality)),
     addQuantifier(qualityType("rarity"), generateNumberRegex(settings.quality.rarity, settings.optimizeQuality)),
     addQuantifier(qualityType("pack size"), generateNumberRegex(settings.quality.packSize, settings.optimizeQuality)),
-    addQuantifier(qualityType("scarab"), generateNumberRegex(settings.quality.scarab, settings.optimizeQuality)),
+    addQuantifier(qualityType("threads"), generateNumberRegex(settings.quality.threads, settings.optimizeQuality)),
   ].filter((e) => e !== "");
 
   if (settings.anyQuality) {
@@ -284,7 +286,8 @@ function optimize(string) {
 export function generateMapModRegex(settings, regex) {
   const exclusions = generateBadMods(settings, regex);
   const inclusions = generateGoodMods(settings, regex);
-  const quantity = addQuantifier("m q.*", generateNumberRegex(settings.quantity, settings.optimizeQuant));
+  // 3.30: "Atlas Drops: +N%" replaced the "Item Quantity: +N%" map property.
+  const quantity = addQuantifier("ops:.*", generateNumberRegex(settings.quantity, settings.optimizeQuant));
   const packsize = addQuantifier("iz.*", generateNumberRegex(settings.packsize, settings.optimizePacksize));
   const mapDrop = addQuantifier("re maps.*", generateNumberRegex(settings.mapDropChance, false));
   const itemRarity = addQuantifier("m rar.*", generateNumberRegex(settings.itemRarity, false));
@@ -317,7 +320,7 @@ export function parseMapRegex(input, regexData) {
     quantity: '', optimizeQuant: false,
     packsize: '', optimizePacksize: false,
     itemRarity: '', mapDropChance: '',
-    quality: { regular: '', currency: '', divination: '', rarity: '', packSize: '', scarab: '' },
+    quality: { regular: '', currency: '', divination: '', rarity: '', packSize: '', threads: '' },
     optimizeQuality: false, anyQuality: false,
     rarity: { normal: false, magic: false, rare: false, include: true },
     corrupted: { enabled: false, include: true },
@@ -329,7 +332,7 @@ export function parseMapRegex(input, regexData) {
   const terms = tokenizeRegex(input.trim());
 
   const numericPrefixes = [
-    { prefix: 'm q.*', quantKey: 'quantity', optKey: 'optimizeQuant' },
+    { prefix: 'ops:.*', quantKey: 'quantity', optKey: 'optimizeQuant' },
     { prefix: 'iz.*', quantKey: 'packsize', optKey: 'optimizePacksize' },
     { prefix: 'm rar.*', quantKey: 'itemRarity', optKey: null },
     { prefix: 're maps.*', quantKey: 'mapDropChance', optKey: null },
