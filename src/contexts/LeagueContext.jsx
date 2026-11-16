@@ -66,8 +66,8 @@ function classifyLeague(id) {
 // PoE 2 abbreviates to "HC " — don't normalise that away in shared code.
 // No SSF/Ruthless entries: poe.ninja publishes no economy data for them.
 const FALLBACK_POE1 = [
-  { value: 'Allflame', label: 'Allflame', kind: 'softcore', isCurrent: true },
-  { value: 'Hardcore Allflame', label: 'HC Allflame', kind: 'hardcore' },
+  { value: 'Covens', label: 'Covens', kind: 'softcore', isCurrent: true },
+  { value: 'Hardcore Covens', label: 'HC Covens', kind: 'hardcore' },
   { value: 'Standard', label: 'Standard', kind: 'softcore' },
   { value: 'Hardcore', label: 'Hardcore', kind: 'hardcore' },
 ];

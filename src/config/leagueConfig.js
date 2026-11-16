@@ -11,15 +11,15 @@
 
 const LEAGUE_CONFIG = {
   // League name shown in the countdown header.
-  // NOTE: 'Allflame' is also the exact poe.ninja + GGG API league key — one
-  // word, lowercase f. The expansion is marketed as "Curse of the Allflame"
-  // but that string 404s against every API. Never send the marketing name.
-  name: 'Allflame',
+  // NOTE: 'Covens' is the exact poe.ninja + GGG API league key. The expansion
+  // is marketed as "Covens of Umbra" but that string is not an API key, and
+  // GGG's category id 'Coven' (singular) isn't one either. Never send either.
+  name: 'Covens',
 
   // ISO 8601 UTC timestamp for league launch
-  // Allflame (3.29.0) launch: Friday 20:00 UTC / 1:00 PM PDT
+  // Covens (3.30.0) launch: Friday 19:00 UTC / 11:00 AM PST
   // Update this each league!
-  launchTimestamp: '2026-07-24T20:00:00Z',
+  launchTimestamp: '2026-11-13T19:00:00Z',
 
   // Optional league icon URL (set null if none available)
   iconUrl: null,
