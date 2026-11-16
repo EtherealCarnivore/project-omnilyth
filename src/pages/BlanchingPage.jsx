@@ -17,8 +17,8 @@ export default function BlanchingPage() {
           Chromatic Orb.
         </p>
         <p>
-          Sockets are white by default in 3.29, so paying to make them white is
-          no longer a craft. Everything below models the old item.
+          Since 3.29, Jeweller's and bench sockets are already white, so paying
+          to make them white is no longer a craft. Everything below models the old item.
         </p>
       </PatchStaleNotice>
       <PriceDisclaimer />

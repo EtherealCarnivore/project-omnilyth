@@ -109,8 +109,9 @@ export function calculateSocketCostComparison(stats, jewellerPrice, vaalPrice, c
     //     crafts. Irrelevant for one item, decisive for twenty.
     //
     // Deliberately priced live rather than recommended: at 2026-08-07 Allflame
-    // prices this is the MOST expensive deterministic path (~10.9c vs ~4.3c for
-    // the bench), the opposite of the Trichromatism case. Break-even against
+    // (3.29) prices this was the MOST expensive deterministic path (~10.9c vs
+    // ~4.3c for the bench), the opposite of the Trichromatism case. Not
+    // re-measured at Covens (3.30) prices. Break-even against
     // the bench is omenPrice <= BENCH_COST[target] * jewellerPrice, which flips
     // as Jeweller's Orbs inflate — so let the comparison decide, never a
     // hard-coded verdict.
