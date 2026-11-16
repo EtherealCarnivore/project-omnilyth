@@ -11,9 +11,12 @@ export default function ChromaticPage() {
     <div className="glass-card rounded-2xl p-4 sm:p-6 lg:p-8">
       <PatchStaleNotice>
         <p>
-          Sockets are now white by default and a Chromatic Orb forces only{' '}
-          <strong className="text-zinc-100">one</strong> socket non-white, so
-          the odds below are far too optimistic. The Vorici bench rows are worse
+          Since 3.29, Jeweller's Orbs and bench socket crafts make white
+          sockets, and a Chromatic Orb forces{' '}
+          <strong className="text-zinc-100">at least one</strong> socket
+          non-white (higher item quality raises the odds of more). The Chromatic
+          odds in the legacy calculator further down don't model white sockets
+          at all. The Vorici bench rows are worse
           than stale — GGG <strong className="text-zinc-100">removed</strong> the
           per-colour bench crafts entirely; they cost nothing because they no
           longer exist.
@@ -21,7 +24,15 @@ export default function ChromaticPage() {
         <p>
           What replaced them: bench crafts that guarantee a{' '}
           <em>count</em> of non-white sockets (2 / 3 / 4 for 5 / 20 / 75
-          Chromatics). Colour is now the gamble, count is the purchase.
+          Chromatics in 3.29; not yet re-checked for 3.30). Colour is now the
+          gamble, count is the purchase.
+        </p>
+        <p>
+          New in 3.30 (per the patch notes; not yet confirmed in game): a bench
+          craft sets{' '}
+          <strong className="text-zinc-100">every socket white</strong> for an
+          Orb of Scouring. Any gem fits a white socket; you only give up the
+          +10% quality bonus for a matching colour.
         </p>
       </PatchStaleNotice>
       {/* The one 3.29 socket-colour answer that needs no unmeasured constant.
