@@ -11,13 +11,14 @@ export const ORBIT_RADII = [0, 82, 162, 335, 493, 662, 846];
 export const SKILLS_PER_ORBIT = [1, 6, 16, 16, 40, 72, 72];
 
 // Total points available to allocate.
-// 2026-08-07 — 132 → 138. GGG raised the atlas point budget in 3.28 and it is
-// unchanged in 3.29. Source: grindinggear/atlastree-export, `points.totalPoints`
-// in data.json + league.json at tags 3.28.0 and 3.29.1 (both = 138); the local
-// atlasTreeData.json is still the 3.27.0 export, which reports 132.
+// 2026-11-15 — 138 → 150 for the 3.30 atlas tree rework. Source:
+// grindinggear/atlastree-export tag 3.30.0 (commit d225501d), data.json
+// `points.totalPoints` = 150; patch notes thread 4013680: "increased to 150
+// (previously 138)"; patch 3.30.0.
+// 2026-08-07 — 132 → 138 (3.28/3.29, tags 3.28.0 and 3.29.1).
 // NOTE: useAtlasTreeData.js reads json.points.totalPoints from the tree file
 // itself, so the planner follows the bundled JSON, not this constant.
-export const TOTAL_POINTS = 138;
+export const TOTAL_POINTS = 150;
 
 // Node visual sizes (world-space diameter, derived from frame sprite px / zoom factor)
 // Frame sprites at 0.3835 zoom: regular=39px, notable=58px, keystone=83px
@@ -107,8 +108,17 @@ export const CONTENT_TYPES = {
   'Torment': ['Torment', 'Possessed'],
   'Strongbox': ['Strongbox', 'strongbox'],
   'Shrines': ['Shrine'],
+  // 2026-11-15 — 3.30.0: Scarabs removed and replaced by Threads (thread
+  // 4013680; 0 "Scarab" / 85 "Thread" stat lines in atlastree-export 3.30.0).
+  // Mirage went core (9 stat lines); Mercenary nodes (48 lines) were falling
+  // through to General. Threads/Mirage/Mercenaries/Settlers sit before 'Maps' because
+  // first keyword match wins and nearly every atlas stat contains "Maps".
+  'Threads': ['Thread'],
+  'Mirage': ['Mirage'],
+  'Mercenaries': ['Mercenar'],
+  // 2026-11-15 — 'Ore' → 'Ore Deposit': the substring match on 'Ore' caught
+  // every "...% more ..." stat (62 lines in the 3.30.0 tree, most not Kingsmarch).
+  'Settlers': ['Ore Deposit', 'Kalguur', 'Settlers'],
   'Maps': ['Map', 'Maps', 'map mod', 'map boss'],
-  'Scarabs': ['Scarab'],
-  'Settlers': ['Ore', 'Kalguur', 'Settlers'],
   'General': [],
 };
