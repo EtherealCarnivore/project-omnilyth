@@ -18,6 +18,7 @@
  *
  * POST (JSON body):
  *   POST /                      → create GitHub issue from feedback
+ *   POST /beacon                → page-analytics data point (Analytics Engine)
  *
  * Secrets (set via `wrangler secret put`):
  *   GITHUB_TOKEN — fine-grained PAT, repo issues:write on omnilyth-core-public
@@ -41,6 +42,7 @@ const RATE_CONFIG = {
   notes:    { limit: 30, window: 60_000, map: new Map() },
   feedback: { limit: 5,  window: 60_000, map: new Map() },
   auth:     { limit: 10, window: 60_000, map: new Map() },
+  beacon:   { limit: 120, window: 60_000, map: new Map() },
 };
 
 function checkRateLimit(route, ip) {
@@ -582,6 +584,51 @@ async function handleFeedback(request, env, origin) {
   );
 }
 
+// ─── Page analytics beacon ─────────────────────────────────────────────────
+//
+// POST /beacon, body (text/plain JSON, sent by navigator.sendBeacon from
+// src/hooks/usePageAnalytics.js): { p: route path, ms: visible dwell time,
+// g: 'poe1'|'poe2', v: 'mobile'|'tablet'|'desktop', e: 'view'|'leave' }.
+// Writes one data point to the Analytics Engine dataset bound as ANALYTICS.
+// Stores no IP, no cookie, no user id: route, game, viewport class, country
+// (from Cloudflare's edge, two letters) and the dwell time. Silently 204s
+// when the binding is absent so a Worker deployed without it keeps working.
+
+const BEACON_PATH_RE = /^\/[a-z0-9/_-]{0,120}$/;
+const BEACON_MAX_MS = 30 * 60_000;
+const BEACON_GAMES = ['poe1', 'poe2'];
+const BEACON_VIEWPORTS = ['mobile', 'tablet', 'desktop'];
+const BEACON_EVENTS = ['view', 'leave'];
+
+async function handleBeacon(request, env, origin) {
+  const ok = new Response(null, { status: 204, headers: corsHeaders(origin, 'POST') });
+  if (!env.ANALYTICS) return ok;
+
+  let body;
+  try {
+    const text = await request.text();
+    if (text.length > 1024) return ok;
+    body = JSON.parse(text);
+  } catch {
+    return ok;
+  }
+
+  const path = typeof body.p === 'string' ? body.p.toLowerCase() : '';
+  if (!BEACON_PATH_RE.test(path)) return ok;
+  const event = BEACON_EVENTS.includes(body.e) ? body.e : 'leave';
+  const game = BEACON_GAMES.includes(body.g) ? body.g : 'poe1';
+  const viewport = BEACON_VIEWPORTS.includes(body.v) ? body.v : 'desktop';
+  const ms = Number.isFinite(body.ms) ? Math.min(Math.max(Math.round(body.ms), 0), BEACON_MAX_MS) : 0;
+  const country = (request.cf && typeof request.cf.country === 'string') ? request.cf.country : 'XX';
+
+  env.ANALYTICS.writeDataPoint({
+    indexes: [path],
+    blobs: [path, event, game, viewport, country],
+    doubles: [ms, event === 'view' ? 1 : 0],
+  });
+  return ok;
+}
+
 // ─── Main handler ──────────────────────────────────────────────────────────
 
 export default {
@@ -598,6 +645,10 @@ export default {
     const ip = getClientIP(request);
 
     if (request.method === 'POST') {
+      if (new URL(request.url).pathname === '/beacon') {
+        if (!checkRateLimit('beacon', ip)) return new Response(null, { status: 204, headers: corsHeaders(origin, 'POST') });
+        return handleBeacon(request, env, origin);
+      }
       // Auth endpoints (D1-backed login/session) are routed by pathname.
       if (new URL(request.url).pathname.startsWith('/auth/')) {
         if (!checkRateLimit('auth', ip)) return jsonError(429, 'Too many requests. Please wait.', origin, 'POST');

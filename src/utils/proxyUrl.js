@@ -44,6 +44,11 @@ export function feedbackUrl() {
   return PROXY_BASE;
 }
 
+/** POST endpoint for the cookieless page-analytics beacon (src/hooks/usePageAnalytics.js). */
+export function beaconUrl() {
+  return `${PROXY_BASE}/beacon`;
+}
+
 /** GET endpoint for patch notes, scraped server-side from GGG's patch-notes forum for `game`. */
 export function patchNotesUrl(game = 'poe1') {
   return `${PROXY_BASE}?notes=patch&game=${encodeURIComponent(game)}`;
