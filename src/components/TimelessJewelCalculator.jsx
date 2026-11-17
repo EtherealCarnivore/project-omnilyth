@@ -24,11 +24,9 @@ import TimelessTreeView from './TimelessTreeView';
 // (currently 3.28) and their seed → passive-node mapping is only valid against
 // the tree of that same patch. Tree version and timeless data must move as a pair.
 //
-// 2026-08-07 — usePassiveTreeData now holds a rolling two-version window
-// (3.28 + 3.29); 3.27 was retired. 3.28 is still in the window, so this is not
-// dangling. When 3.30 lands and 3.28 rolls out, regenerate the timeless data for
-// the new version and bump this constant in the same change — otherwise the hook
-// returns an "Unknown tree version" error and the tree pane renders empty.
+// 2026-11-17 — 3.30 added; 3.28 is kept loadable in usePassiveTreeData
+// (HIDDEN_VERSIONS) solely for this pin. Regenerate the timeless data, bump this
+// constant and drop the 3.28 loader in one change.
 const TIMELESS_TREE_VERSION = '3.28';
 
 export default function TimelessJewelCalculator() {

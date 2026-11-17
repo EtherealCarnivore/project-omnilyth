@@ -1,7 +1,7 @@
 /*
  * PassiveTreeVersionSelector.jsx — Patch version toggle for the passive tree.
  *
- * Compact pill selector that lets users switch between tree versions (e.g. 3.27, 3.28).
+ * Compact pill selector that lets users switch between tree versions (e.g. 3.29, 3.30).
  * Shows a confirmation dialog warning that switching resets the current build.
  */
 
