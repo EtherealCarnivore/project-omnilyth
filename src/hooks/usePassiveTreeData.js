@@ -5,7 +5,7 @@
  * Processes raw data into render-ready structures with pre-calculated positions.
  * Also extracts sprite sheet data for node icons, masteries, class starts, and jewel sockets.
  *
- * Supports multiple tree versions (e.g. 3.27, 3.28) with per-version caching.
+ * Supports multiple tree versions (e.g. 3.29, 3.30) with per-version caching.
  */
 
 import { useState, useEffect, useRef } from 'react';
@@ -16,21 +16,38 @@ const cache = {};
 
 // Vite requires static paths for dynamic imports — map versions to their loaders.
 //
-// We hold a rolling two-version window: current league + the one before it.
-// 2026-08-07 — added 3.29 (Allflame) and retired 3.27. Both JSONs are verbatim
-// copies of grindinggear/skilltree-export at the matching tag; the 3.29 file is
-// tag 3.29.1, blob 33773bda0d1bacdc07e027287af3f713055150a9. 3.29 brings the
-// Luminary Scion ascendancy (+52 nodes, +21 groups); schema is unchanged.
+// The planner shows a rolling two-version window: current league + the one before it.
+// 2026-11-17 — added 3.30 (Covens) and hid 3.28 from the version list (still
+// loadable, see below). The 3.30 and 3.29 JSONs are verbatim copies of
+// grindinggear/skilltree-export at the matching tag: 3.30 is tag
+// 3.30.0 (commit 550fb34), blob 0474b9154323e2aed3ededd9d317f52566c0c8f1; 3.29 is
+// tag 3.29.1, blob 33773bda0d1bacdc07e027287af3f713055150a9. 3.30 delta
+// (non-exhaustive): +72 proxy nodes / +72 groups (isProxy + new proxyKey
+// "Blightcore*", one cluster per outer Large Jewel Socket; 24 are stat-less
+// "Mycelial Growth" notables), group ids renumbered, 23 Reliquarian relic nodes
+// replaced in place, ~118 stat and 56 masteryEffects changes across the main
+// tree and most ascendancies; no node ids removed; points 123/8 and keystone
+// count unchanged. Schema unchanged apart from a new optional `proxyKey`
+// node field and a 0.5 zoom level (this hook still reads 0.3835).
 //
 // QUIRK: dropping a version from this map is all that's needed to unship it —
 // Vite only emits a chunk for a JSON that something imports. Deleting the file
 // is just repo housekeeping (3.27's was 5.3 MB), not a bundle-size fix.
+//
+// 3.28 stays loadable but hidden from the planner's version list: the unwired
+// Timeless Jewel calculator pins TIMELESS_TREE_VERSION = '3.28' because its
+// src/data/timeless/ tables are 3.28-era. Drop this entry in the same change
+// that regenerates the timeless data and bumps that constant.
 const VERSION_LOADERS = {
+  '3.30': () => import('../data/passive/passiveTreeData_3_30.json'),
   '3.29': () => import('../data/passive/passiveTreeData_3_29.json'),
   '3.28': () => import('../data/passive/passiveTreeData_3_28.json'),
 };
+const HIDDEN_VERSIONS = new Set(['3.28']);
 
-export const AVAILABLE_VERSIONS = Object.keys(VERSION_LOADERS).sort((a, b) => parseFloat(b) - parseFloat(a));
+export const AVAILABLE_VERSIONS = Object.keys(VERSION_LOADERS)
+  .filter((v) => !HIDDEN_VERSIONS.has(v))
+  .sort((a, b) => parseFloat(b) - parseFloat(a));
 export const DEFAULT_VERSION = AVAILABLE_VERSIONS[0]; // Latest first
 
 // Use the highest zoom level for best icon quality
