@@ -15,13 +15,16 @@
  *
  * Guarantees:
  *   - Only status 200 is ever returned. Anything else throws `PoedbError`
- *     with the URL and status (5xx / 429 / network errors are retried first).
- *   - A 200 whose body looks like a bot-check / challenge page (Cloudflare,
- *     Anubis, captcha) throws — it is never returned as data, never cached.
+ *     with the URL and status (5xx / 429 / network errors are retried first,
+ *     honouring Retry-After up to 120 s). Only https URLs are accepted.
+ *   - A 200 / 403 / 503 whose body looks like a bot-check / challenge page
+ *     (Cloudflare, Anubis, captcha on a short body) throws reason 'challenge'
+ *     — never returned as data, never cached, never retried.
  *   - `expect` (string or RegExp) must match the body, or it throws. Use it:
  *     it is the only defence against a page that changed shape silently.
  *   - At least 500 ms between network requests per reader (delayMs is
- *     clamped to >= 500). Cache hits do not wait.
+ *     clamped to >= 500; concurrent calls queue). Cache hits do not wait.
+ *   - A failed cache write only warns; the validated page is still returned.
  *   - Identifying User-Agent naming the project; no personal details.
  *
  * Cache: one JSON file per URL (sha256 of the URL) under `cacheDir`
@@ -35,8 +38,8 @@
  * No dependencies beyond Node >= 18 built-ins.
  */
 
-import { createHash } from 'node:crypto';
-import { mkdir, readFile, writeFile, rename } from 'node:fs/promises';
+import { createHash, randomUUID } from 'node:crypto';
+import { mkdir, readFile, writeFile, rename, rm } from 'node:fs/promises';
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
@@ -48,16 +51,26 @@ export const DEFAULT_USER_AGENT =
 export const MIN_DELAY_MS = 500;
 export const ALLOWED_HOSTS = ['poedb.tw', 'poe2db.tw'];
 
-/** Markers that identify a bot-check / challenge interstitial served with 200. */
+/**
+ * Markers that identify a bot-check / challenge interstitial. Each is specific
+ * to a challenge page; generic strings that also appear on normal pages (e.g.
+ * Cloudflare's `/cdn-cgi/challenge-platform/scripts/jsd/` detection loader, a
+ * bare "anubis") are deliberately not listed.
+ */
 export const CHALLENGE_MARKERS = [
   /<title>\s*Just a moment\.{0,3}\s*<\/title>/i,
   /Attention Required!\s*\|\s*Cloudflare/i,
-  /cf-browser-verification|cf_chl_|\/cdn-cgi\/challenge-platform\//i,
+  /cf-browser-verification|cf_chl_/i,
   /Checking (?:if the site connection is secure|your browser before accessing)/i,
-  /\banubis\b|Making sure you(?:'|&#39;|’)re not a bot/i,
-  /g-recaptcha|h-captcha|hcaptcha\.com|cf-turnstile|captcha-delivery/i,
+  /Making sure you(?:'|&#39;|&#x27;|’)re not a bot/i,
+  /id=["']anubis_challenge["']|\/\.within\.website\/x\/cmd\/anubis\//i,
   /Enable JavaScript and cookies to continue/i,
 ];
+
+/** Captcha widgets: a challenge only on a short body (a real page can embed one). */
+export const CAPTCHA_MARKERS = /g-recaptcha|h-captcha|hcaptcha\.com|cf-turnstile|captcha-delivery/i;
+export const SHORT_BODY_BYTES = 8192;
+export const MAX_RETRY_AFTER_MS = 120_000;
 
 export class PoedbError extends Error {
   constructor(message, { url, status = null, reason, cause } = {}) {
@@ -65,21 +78,29 @@ export class PoedbError extends Error {
     this.name = 'PoedbError';
     this.url = url;
     this.status = status;
-    this.reason = reason; // 'http' | 'network' | 'challenge' | 'expect' | 'empty' | 'host'
+    this.reason = reason; // 'http' | 'network' | 'challenge' | 'expect' | 'empty' | 'host' | 'url'
   }
 }
 
 /** Returns the matched challenge marker source, or null. */
 export function detectChallenge(html) {
+  if (!html) return null;
   for (const re of CHALLENGE_MARKERS) {
     if (re.test(html)) return re.source;
+  }
+  if (html.length < SHORT_BODY_BYTES && CAPTCHA_MARKERS.test(html)) {
+    return `${CAPTCHA_MARKERS.source} (short body)`;
   }
   return null;
 }
 
 function matchesExpect(html, expect) {
   if (expect == null) return true;
-  return expect instanceof RegExp ? expect.test(html) : html.includes(String(expect));
+  if (expect instanceof RegExp) {
+    expect.lastIndex = 0; // /g and /y regexes are stateful across .test() calls
+    return expect.test(html);
+  }
+  return html.includes(String(expect));
 }
 
 /** Throws unless `html` is real page content. */
@@ -104,7 +125,25 @@ export function cacheKey(url) {
   return createHash('sha256').update(url).digest('hex');
 }
 
+/** Parses Retry-After (delta-seconds or HTTP-date) to ms, capped; null if absent/invalid. */
+export function parseRetryAfter(value, nowMs = Date.now()) {
+  if (value == null || value === '') return null;
+  let ms;
+  if (/^\s*\d+\s*$/.test(value)) ms = Number(value) * 1000;
+  else {
+    const at = Date.parse(value);
+    if (!Number.isFinite(at)) return null;
+    ms = at - nowMs;
+  }
+  return Math.min(MAX_RETRY_AFTER_MS, Math.max(0, ms));
+}
+
 const defaultSleep = (ms) => new Promise((r) => setTimeout(r, ms));
+
+/** Finite number >= min, else the default. */
+function numOpt(value, fallback, min = 0) {
+  return typeof value === 'number' && Number.isFinite(value) ? Math.max(min, value) : fallback;
+}
 
 /**
  * @param {object} [options]
@@ -120,29 +159,36 @@ const defaultSleep = (ms) => new Promise((r) => setTimeout(r, ms));
  * @param {Function}[options.sleep]      injectable for tests
  * @param {Function}[options.now]        injectable clock (ms), for tests
  * @param {Function}[options.log]        progress logger (default console.log; pass null to silence)
+ * @param {Function}[options.warn]       warning logger (default console.warn; pass null to silence)
+ *
+ * Non-finite numeric options (NaN, strings, Infinity) fall back to their defaults.
  */
 export function createPoedbReader(options = {}) {
   const {
     cacheDir = DEFAULT_CACHE_DIR,
-    ttlMs = 24 * 60 * 60 * 1000,
     noCache = process.argv.includes('--no-cache'),
-    delayMs = MIN_DELAY_MS,
-    retries = 2,
-    retryBaseMs = 2000,
-    timeoutMs = 30000,
     userAgent = DEFAULT_USER_AGENT,
     sleep = defaultSleep,
     now = Date.now,
     log = console.log,
+    warn = console.warn,
   } = options;
-  const gap = Math.max(MIN_DELAY_MS, delayMs);
+  const ttlMs = numOpt(options.ttlMs, 24 * 60 * 60 * 1000);
+  const gap = numOpt(options.delayMs, MIN_DELAY_MS, MIN_DELAY_MS);
+  const retries = Math.floor(numOpt(options.retries, 2));
+  const retryBaseMs = numOpt(options.retryBaseMs, 2000);
+  const timeoutMs = numOpt(options.timeoutMs, 30000, 1);
   const fetchImpl = () => options.fetch ?? globalThis.fetch;
   let lastRequestAt = -Infinity;
+  let tmpSeq = 0;
 
+  // Book the slot synchronously before awaiting, so concurrent callers queue
+  // up `gap` apart instead of all reading the same lastRequestAt.
   async function pace() {
-    const wait = lastRequestAt + gap - now();
+    const at = Math.max(now(), lastRequestAt + gap);
+    lastRequestAt = at;
+    const wait = at - now();
     if (wait > 0) await sleep(wait);
-    lastRequestAt = now();
   }
 
   async function readCache(url, expect) {
@@ -166,10 +212,15 @@ export function createPoedbReader(options = {}) {
   async function writeCache(page) {
     await mkdir(cacheDir, { recursive: true });
     const file = join(cacheDir, `${cacheKey(page.url)}.json`);
-    const tmp = `${file}.${process.pid}.tmp`;
+    const tmp = `${file}.${process.pid}.${++tmpSeq}.${randomUUID()}.tmp`;
     const { url, fetchedAt, status, html } = page;
-    await writeFile(tmp, JSON.stringify({ url, fetchedAt, status, html }));
-    await rename(tmp, file);
+    try {
+      await writeFile(tmp, JSON.stringify({ url, fetchedAt, status, html }));
+      await rename(tmp, file);
+    } catch (err) {
+      await rm(tmp, { force: true }).catch(() => {});
+      throw err;
+    }
   }
 
   async function fetchOnce(url) {
@@ -181,7 +232,14 @@ export function createPoedbReader(options = {}) {
         headers: { 'User-Agent': userAgent, Accept: 'text/html' },
         signal: ctrl.signal,
       });
-      return { status: res.status, html: res.status === 200 ? await res.text() : null };
+      const { status } = res;
+      const retryAfterMs = parseRetryAfter(res.headers?.get?.('retry-after'), now());
+      if (status === 200 || status === 403 || status === 503) {
+        // 403/503 bodies are read so a challenge page can be reported as such.
+        return { status, html: await res.text(), retryAfterMs };
+      }
+      try { await res.body?.cancel?.(); } catch { /* body already consumed/closed */ }
+      return { status, html: null, retryAfterMs };
     } finally {
       clearTimeout(timer);
     }
@@ -194,7 +252,16 @@ export function createPoedbReader(options = {}) {
    * @returns {Promise<{url:string, fetchedAt:string, status:number, fromCache:boolean, html:string}>}
    */
   async function fetchPage(url, opts = {}) {
-    const host = new URL(url).hostname.replace(/^www\./, '');
+    let parsed;
+    try {
+      parsed = new URL(url);
+    } catch (cause) {
+      throw new PoedbError(`poedb: invalid URL ${url}`, { url, reason: 'url', cause });
+    }
+    if (parsed.protocol !== 'https:') {
+      throw new PoedbError(`poedb: refusing non-https URL ${url}`, { url, reason: 'url' });
+    }
+    const host = parsed.hostname.replace(/^www\./, '');
     if (!ALLOWED_HOSTS.includes(host)) {
       throw new PoedbError(`poedb: refusing non-poedb host ${host} (${url})`, { url, reason: 'host' });
     }
@@ -206,8 +273,10 @@ export function createPoedbReader(options = {}) {
     }
 
     let lastErr;
+    let retryAfterMs = null;
     for (let attempt = 0; attempt <= retries; attempt++) {
-      if (attempt > 0) await sleep(retryBaseMs * 2 ** (attempt - 1));
+      if (attempt > 0) await sleep(Math.max(retryBaseMs * 2 ** (attempt - 1), retryAfterMs ?? 0));
+      retryAfterMs = null;
       let result;
       try {
         log?.(`  poedb GET ${url}${attempt ? ` (retry ${attempt})` : ''}`);
@@ -223,13 +292,25 @@ export function createPoedbReader(options = {}) {
         const page = {
           url, fetchedAt: new Date(now()).toISOString(), status: 200, fromCache: false, html: result.html,
         };
-        await writeCache(page);
+        try {
+          await writeCache(page);
+        } catch (err) {
+          warn?.(`  poedb: cache write failed for ${url}: ${err.message} (page still returned)`);
+        }
         return page;
+      }
+      const marker = detectChallenge(result.html);
+      if (marker) {
+        throw new PoedbError(
+          `poedb: bot-check/challenge page (HTTP ${result.status}) for ${url} (marker: ${marker})`,
+          { url, status: result.status, reason: 'challenge' },
+        ); // never retried
       }
       lastErr = new PoedbError(`poedb: HTTP ${result.status} for ${url}`, {
         url, status: result.status, reason: 'http',
       });
       if (!(result.status >= 500 || result.status === 429)) throw lastErr; // 4xx etc.: hard fail
+      retryAfterMs = result.retryAfterMs;
     }
     throw lastErr;
   }

@@ -5,7 +5,7 @@
 
 import { test, beforeEach, afterEach } from 'node:test';
 import assert from 'node:assert/strict';
-import { mkdtemp, rm, readdir } from 'node:fs/promises';
+import { mkdtemp, rm, readdir, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { createPoedbReader, PoedbError, MIN_DELAY_MS } from './poedb.js';
@@ -21,8 +21,14 @@ let calls;
 let clock;
 let sleeps;
 
-function respond(status, body = '') {
-  return { status, text: async () => body };
+let cancelled;
+function respond(status, body = '', headers = {}) {
+  return {
+    status,
+    text: async () => body,
+    headers: { get: (k) => headers[k.toLowerCase()] ?? null },
+    body: { cancel: async () => { cancelled++; } },
+  };
 }
 function stubFetch(...responses) {
   calls = [];
@@ -49,6 +55,7 @@ beforeEach(async () => {
   dir = await mkdtemp(join(tmpdir(), 'poedb-test-'));
   clock = Date.parse('2026-11-18T12:00:00Z');
   sleeps = [];
+  cancelled = 0;
 });
 afterEach(async () => {
   globalThis.fetch = realFetch;
@@ -156,5 +163,111 @@ test('requests are spaced at least 500 ms apart, even if delayMs is lower', asyn
 test('refuses non-poedb hosts', async () => {
   stubFetch(respond(200, PAGE));
   await assert.rejects(reader().fetchPage('https://example.com/x'), { reason: 'host' });
+  assert.equal(calls.length, 0);
+});
+
+// ── Review fixes ──
+
+test('pace: concurrent calls on one reader are booked >= 500 ms apart', async () => {
+  stubFetch(respond(200, PAGE));
+  // sleep resolves immediately without moving the clock, so the requested
+  // waits are exactly the booked offsets from the first request.
+  const r = reader({ sleep: async (ms) => { sleeps.push(ms); } });
+  await Promise.all([0, 1, 2, 3].map(() => r.fetchPage(URL1, { noCache: true })));
+  assert.equal(calls.length, 4);
+  assert.deepEqual(sleeps.sort((a, b) => a - b), [500, 1000, 1500]);
+});
+
+test('concurrent fetches of the same URL do not collide on the temp file', async () => {
+  stubFetch(respond(200, PAGE));
+  const r = reader({ sleep: async () => {} });
+  const pages = await Promise.all([0, 1, 2, 3, 4].map(() => r.fetchPage(URL1, { noCache: true })));
+  assert.equal(pages.length, 5);
+  const files = await readdir(dir);
+  assert.deepEqual(files.filter((f) => f.endsWith('.tmp')), []);
+  assert.equal(files.filter((f) => f.endsWith('.json')).length, 1);
+});
+
+test('non-finite numeric options fall back to defaults (pacing stays on)', async () => {
+  stubFetch(respond(200, PAGE));
+  const r = reader({ delayMs: NaN, ttlMs: 'x', timeoutMs: Infinity });
+  await r.fetchPage(URL1, { noCache: true });
+  await r.fetchPage(URL1, { noCache: true });
+  assert.ok(sleeps.some((ms) => ms >= MIN_DELAY_MS), `sleeps: ${sleeps}`);
+  assert.equal((await r.fetchPage(URL1)).fromCache, true, 'ttlMs fell back to 24 h');
+
+  stubFetch(respond(502));
+  await assert.rejects(reader({ retries: 'lots' }).fetchPage(URL1, { noCache: true }), { status: 502 });
+  assert.equal(calls.length, 3, 'retries fell back to 2');
+});
+
+test('a cache write failure warns but still returns the validated page', async () => {
+  stubFetch(respond(200, PAGE));
+  const blocker = join(dir, 'not-a-dir');
+  await writeFile(blocker, 'x');
+  const warnings = [];
+  const r = reader({ cacheDir: join(blocker, 'cache'), warn: (m) => warnings.push(m) });
+  const p = await r.fetchPage(URL1);
+  assert.equal(p.html, PAGE);
+  assert.equal(p.fromCache, false);
+  assert.equal(warnings.length, 1);
+  assert.match(warnings[0], /cache write failed/);
+});
+
+test('normal Cloudflare-fronted page with the jsd loader script is not a challenge', async () => {
+  const page = PAGE.replace('</body>',
+    '<script src="/cdn-cgi/challenge-platform/scripts/jsd/main.js"></script>' +
+    '<p>Anubis is a god; see the anubis pet.</p></body>');
+  stubFetch(respond(200, page));
+  const p = await reader().fetchPage(URL1, { expect: 'Cluster Jewel' });
+  assert.equal(p.html, page);
+});
+
+test('captcha marker is a challenge only on a short body', async () => {
+  const short = '<html><body><div class="g-recaptcha"></div></body></html>';
+  stubFetch(respond(200, short));
+  await assert.rejects(reader().fetchPage(URL1), { reason: 'challenge' });
+  const long = PAGE.replace('</body>', `<div class="g-recaptcha"></div>${'<p>mod row</p>'.repeat(1000)}</body>`);
+  stubFetch(respond(200, long));
+  assert.equal((await reader().fetchPage(URL1, { noCache: true })).html, long);
+});
+
+test('403/503 challenge bodies throw reason challenge and are not retried', async () => {
+  stubFetch(respond(403, CF));
+  await assert.rejects(reader().fetchPage(URL1), { reason: 'challenge', status: 403 });
+  assert.equal(calls.length, 1);
+  stubFetch(respond(503, CF));
+  await assert.rejects(reader().fetchPage(URL1), { reason: 'challenge', status: 503 });
+  assert.equal(calls.length, 1);
+});
+
+test('non-200 response bodies are cancelled', async () => {
+  stubFetch(respond(404, 'nope'));
+  await assert.rejects(reader().fetchPage(URL1), { status: 404 });
+  assert.equal(cancelled, 1);
+});
+
+test('Retry-After (seconds) is honoured and capped at 120 s', async () => {
+  stubFetch(respond(429, '', { 'retry-after': '7' }), respond(503, 'busy', { 'retry-after': '9999' }), respond(200, PAGE));
+  const p = await reader({ retries: 2 }).fetchPage(URL1);
+  assert.equal(p.html, PAGE);
+  assert.ok(sleeps.includes(7000), `sleeps: ${sleeps}`);
+  assert.ok(sleeps.includes(120_000), `sleeps: ${sleeps}`);
+  assert.ok(!sleeps.some((ms) => ms > 120_000));
+});
+
+test('a /g RegExp expect works on repeated calls (lastIndex reset)', async () => {
+  stubFetch(respond(200, PAGE));
+  const re = /Cluster Jewel/g;
+  const r = reader();
+  await r.fetchPage(URL1, { expect: re, noCache: true });
+  await r.fetchPage(URL1, { expect: re, noCache: true });
+  assert.equal((await r.fetchPage(URL1, { expect: re })).fromCache, true);
+});
+
+test('rejects non-https and malformed URLs with reason url', async () => {
+  stubFetch(respond(200, PAGE));
+  await assert.rejects(reader().fetchPage('http://poedb.tw/us/Scarab'), { reason: 'url' });
+  await assert.rejects(reader().fetchPage('not a url'), (e) => e instanceof PoedbError && e.reason === 'url');
   assert.equal(calls.length, 0);
 });
