@@ -9,7 +9,16 @@
  * Not a capture of live poedb.
  */
 
+import { readFileSync } from 'node:fs';
 import { threads, frayedThread, THREAD_RANDOM_EFFECT_RULE, THREAD_USAGE } from '../../src/data/threadData.js';
+
+const COMMITTED_SOURCE = readFileSync(new URL('../../src/data/threadData.js', import.meta.url), 'utf8');
+
+function headerField(re, what) {
+  const m = COMMITTED_SOURCE.match(re);
+  if (!m) throw new Error(`threadData.js header: ${what} not found`);
+  return m[1];
+}
 
 const esc = (s) => String(s)
   .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
@@ -105,5 +114,6 @@ export function fixtureFetch({ pages = buildPoedbPages(), ninja = buildNinjaJson
   };
 }
 
-export const FIXTURE_GENERATED_DATE = '2026-11-15';
-export const FIXTURE_LEAGUE = 'Covens';
+/** Generation date and league, read from the committed file's header comment. */
+export const FIXTURE_GENERATED_DATE = headerField(/^ \* GENERATED (\d{4}-\d{2}-\d{2}) by /m, 'GENERATED date');
+export const FIXTURE_LEAGUE = headerField(/^ \* poe\.ninja type=Thread for league "(.*)" \(icons, ids\)\.$/m, 'league');

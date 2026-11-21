@@ -25,7 +25,7 @@
  * Tests (offline): node --test scripts/atlas-data/scrape-threads.test.js
  */
 
-import { writeFileSync } from 'node:fs';
+import { writeFileSync, realpathSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { JSDOM } from 'jsdom';
@@ -139,7 +139,7 @@ export async function fetchNinjaJson(url, { fetchImpl = globalThis.fetch } = {})
  * @param {{ poedb: {fetchPage: Function}, fetchNinja: (url: string) => Promise<object>,
  *           league: string, log?: Function }} deps
  */
-export async function scrapeThreads({ poedb, fetchNinja, league, log = console.log }) {
+export async function scrapeThreads({ poedb, fetchNinja, league, log = console.error }) {
   const ninja = await fetchNinja(ninjaUrl(league));
   const ninjaItems = new Map((ninja.items || []).map((i) => [i.name, i]));
   if (ninjaItems.size !== MECHANICS.length) {
@@ -236,7 +236,8 @@ async function main() {
   const league = args.includes('--league') ? args[args.indexOf('--league') + 1] : 'Covens';
   const dry = args.includes('--dry');
 
-  const poedb = createPoedbReader({ delayMs: DELAY_MS }); // honours --no-cache
+  // Progress goes to stderr so `--dry > file` captures only the generated module.
+  const poedb = createPoedbReader({ delayMs: DELAY_MS, log: console.error }); // honours --no-cache
   const data = await scrapeThreads({ poedb, fetchNinja: (url) => fetchNinjaJson(url), league });
   const body = renderThreadData({ ...data, league, today: new Date().toISOString().slice(0, 10) });
   if (dry) {
@@ -244,10 +245,23 @@ async function main() {
     return;
   }
   writeFileSync(OUT, body);
-  console.log(`wrote ${OUT}: ${data.threads.length} threads + Frayed Thread`);
+  console.error(`wrote ${OUT}: ${data.threads.length} threads + Frayed Thread`);
 }
 
-if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+/**
+ * True when this file is the process entry point. Compares real paths (so a
+ * symlinked path matches) and accepts an argv[1] without the .js extension.
+ */
+function isEntryPoint() {
+  const arg = process.argv[1];
+  if (!arg) return false;
+  const real = (p) => { try { return realpathSync(p); } catch { return null; } };
+  const self = real(fileURLToPath(import.meta.url));
+  const abs = path.resolve(arg);
+  return [abs, `${abs}.js`].some((p) => real(p) === self);
+}
+
+if (isEntryPoint()) {
   main().catch((e) => {
     console.error(e.message);
     process.exit(1);
