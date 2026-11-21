@@ -20,6 +20,13 @@
 import { createContext, useContext, useState, useEffect, useCallback } from 'react';
 import { poeUrl } from '../utils/proxyUrl';
 import { useGame } from './GameContext';
+import LEAGUE_CONFIG from '../config/leagueConfig';
+import {
+  reconcilePick,
+  replacementPick,
+  isRetiredPick,
+  cachePredatesLaunch,
+} from '../utils/leaguePick';
 
 // v4: v3 caches held a PoE 2 list of only Standard/Hardcore (old name-pattern bug).
 const CACHE_KEY_PREFIX = 'poe_leagues_cache_v4_';
@@ -67,7 +74,7 @@ function classifyLeague(id) {
 // No SSF/Ruthless entries: poe.ninja publishes no economy data for them.
 const FALLBACK_POE1 = [
   { value: 'Covens', label: 'Covens', kind: 'softcore', isCurrent: true },
-  { value: 'Hardcore Covens', label: 'HC Covens', kind: 'hardcore' },
+  { value: 'Hardcore Covens', label: 'HC Covens', kind: 'hardcore', isCurrent: true },
   { value: 'Standard', label: 'Standard', kind: 'softcore' },
   { value: 'Hardcore', label: 'Hardcore', kind: 'hardcore' },
 ];
@@ -83,6 +90,54 @@ const FALLBACK_POE2 = [
   { value: 'Standard', label: 'Standard', kind: 'softcore' },
   { value: 'Hardcore', label: 'Hardcore', kind: 'hardcore' },
 ];
+
+// Retired PoE 1 challenge leagues. poe.ninja still answers their keys with
+// HTTP 200 and frozen prices, so a stored pick naming one fails silently.
+// The list only covers the first render and API outages: once a live league
+// list arrives, any pick it doesn't contain is replaced (see fetchLeagues),
+// so the next league change needs no edit here — appending is optional.
+const RETIRED_POE1_BASES = ['Allflame', 'Mirage'];
+
+// Once per PoE 1 launch (marker = LEAGUE_CONFIG.launchTimestamp), before the
+// first render: move a stored pick that names an ended league to the current
+// one, keeping hardcore picks hardcore. Valid picks (Standard, Hardcore, any
+// current-league variant, anything outside the rules) are left alone.
+const POE1_PICK_CHECK_KEY = 'omnilyth_active_league_poe1_checked';
+try {
+  const launch = LEAGUE_CONFIG.launchTimestamp;
+  const now = Date.now();
+  if (localStorage.getItem(POE1_PICK_CHECK_KEY) !== launch && now >= Date.parse(launch)) {
+    const pickKey = ACTIVE_LEAGUE_KEY_PREFIX + 'poe1';
+    const pick = localStorage.getItem(pickKey);
+    let cache = null;
+    try { cache = JSON.parse(localStorage.getItem(CACHE_KEY_PREFIX + 'poe1')); } catch { /* corrupt cache */ }
+    if (isRetiredPick({
+      pick,
+      fallback: FALLBACK_POE1,
+      retiredBases: RETIRED_POE1_BASES,
+      cache,
+      launchTimestamp: launch,
+      now,
+    })) {
+      localStorage.setItem(pickKey, replacementPick(pick, FALLBACK_POE1));
+    }
+    localStorage.setItem(POE1_PICK_CHECK_KEY, launch);
+  }
+} catch { /* storage disabled */ }
+
+// A PoE 1 league-list cache written before the configured launch lists the
+// previous league as current — never serve or restore it after launch.
+// (PoE 2 launches aren't in leagueConfig, so this is PoE 1 only.)
+function cacheIsPreLaunch(game, timestamp) {
+  return game === 'poe1'
+    && cachePredatesLaunch(timestamp, LEAGUE_CONFIG.launchTimestamp, Date.now());
+}
+
+// A live list that carries a current challenge league is trusted enough to
+// rewrite the stored pick; a degraded one (e.g. only Standard) is not.
+function isHealthyList(list) {
+  return list.some(l => l.isCurrent && !l.isPermanent);
+}
 
 function fallbackForGame(game) {
   return game === 'poe2' ? FALLBACK_POE2 : FALLBACK_POE1;
@@ -186,6 +241,39 @@ export function LeagueProvider({ children }) {
     [activeLeagueKey],
   );
 
+  // When game changes, swap the in-memory active league to whatever this
+  // game has persisted (or its fallback) immediately, so the swap feels
+  // synchronous even before fetchLeagues lands the new league list.
+  // Declared BEFORE the fetch effect on purpose: on a league-cache hit
+  // fetchLeagues reconciles the pick synchronously, and this plain set must
+  // be queued first or it would overwrite that correction with the stale
+  // stored value (which is how a stored Allflame pick used to survive).
+  useEffect(() => {
+    const persisted = readPersistedActiveLeague(game);
+    if (persisted) {
+      setLeagueState(persisted);
+    } else {
+      setLeagueState(fallbackForGame(game)[0]?.value ?? '');
+    }
+    // intentionally only re-run on game change; setLeagueState is stable
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [game]);
+
+  // Apply a live (or <24h cached live) list: keep the pick if offered, else
+  // move to the current league and persist that, so the stale pick isn't
+  // re-read on the next load and briefly fetched again.
+  const applyLiveList = useCallback((list) => {
+    setLeagues(list);
+    setLeagueState(prev => reconcilePick(prev, list));
+    if (!isHealthyList(list)) return;
+    try {
+      const stored = localStorage.getItem(activeLeagueKey);
+      if (stored && !list.some(l => l.value === stored)) {
+        localStorage.setItem(activeLeagueKey, replacementPick(stored, list));
+      }
+    } catch { /* storage disabled */ }
+  }, [activeLeagueKey]);
+
   const fetchLeagues = useCallback(async () => {
     setLeaguesLoading(true);
     try {
@@ -193,12 +281,9 @@ export function LeagueProvider({ children }) {
       const cached = localStorage.getItem(cacheKey);
       if (cached) {
         const { leagues: cachedLeagues, timestamp } = JSON.parse(cached);
-        if (Date.now() - timestamp < CACHE_TTL && cachedLeagues?.length) {
-          setLeagues(cachedLeagues);
-          setLeagueState(prev => {
-            const exists = cachedLeagues.some(l => l.value === prev);
-            return exists ? prev : cachedLeagues[0].value;
-          });
+        if (Date.now() - timestamp < CACHE_TTL && cachedLeagues?.length
+            && !cacheIsPreLaunch(game, timestamp)) {
+          applyLiveList(cachedLeagues);
           setLeaguesLoading(false);
           return;
         }
@@ -211,11 +296,7 @@ export function LeagueProvider({ children }) {
       const transformed = transformAndSort(unwrapLeagues(data), game);
 
       if (transformed.length) {
-        setLeagues(transformed);
-        setLeagueState(prev => {
-          const exists = transformed.some(l => l.value === prev);
-          return exists ? prev : transformed[0].value;
-        });
+        applyLiveList(transformed);
         localStorage.setItem(cacheKey, JSON.stringify({
           leagues: transformed,
           timestamp: Date.now(),
@@ -227,42 +308,28 @@ export function LeagueProvider({ children }) {
       }
     } catch (err) {
       console.warn('Failed to fetch leagues, using fallback:', err);
-      // Try to use stale cache
+      // Try to use stale cache — unless it predates the current launch, in
+      // which case it still lists the ended league as current and the pinned
+      // fallback (current league) is the better answer. In-memory only: a
+      // stale list is not trusted to rewrite the stored pick.
       try {
         const cached = localStorage.getItem(cacheKey);
         if (cached) {
-          const { leagues: cachedLeagues } = JSON.parse(cached);
-          if (cachedLeagues?.length) {
+          const { leagues: cachedLeagues, timestamp } = JSON.parse(cached);
+          if (cachedLeagues?.length && !cacheIsPreLaunch(game, timestamp)) {
             setLeagues(cachedLeagues);
-            setLeagueState(prev => {
-              const exists = cachedLeagues.some(l => l.value === prev);
-              return exists ? prev : cachedLeagues[0].value;
-            });
+            setLeagueState(prev => reconcilePick(prev, cachedLeagues));
           }
         }
       } catch { /* use existing fallback */ }
     } finally {
       setLeaguesLoading(false);
     }
-  }, [game, cacheKey]);
+  }, [game, cacheKey, applyLiveList]);
 
   // Re-fetches whenever `game` changes, by way of fetchLeagues' deps.
   // The classic useEffect-calls-useCallback dance. React devs call this "elegant".
   useEffect(() => { fetchLeagues(); }, [fetchLeagues]);
-
-  // When game changes, swap the in-memory active league to whatever this
-  // game has persisted (or its fallback) immediately, so the swap feels
-  // synchronous even before fetchLeagues lands the new league list.
-  useEffect(() => {
-    const persisted = readPersistedActiveLeague(game);
-    if (persisted) {
-      setLeagueState(persisted);
-    } else {
-      setLeagueState(fallbackForGame(game)[0]?.value ?? '');
-    }
-    // intentionally only re-run on game change; setLeagueState is stable
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [game]);
 
   return (
     <LeagueContext.Provider value={{ league, setLeague, leagues, leaguesLoading }}>

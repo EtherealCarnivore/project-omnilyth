@@ -17,6 +17,8 @@
 import { useState, useEffect, useCallback } from 'react';
 import { ninjaUrl } from '../utils/proxyUrl';
 import { useGame, apiPathPrefix } from '../contexts/GameContext';
+import LEAGUE_CONFIG from '../config/leagueConfig';
+import { priceCacheTtl, PRICE_TTL_DEFAULT_MS } from '../utils/leaguePick';
 
 // Every currency we care about. Adding a new one? Just append the slug here.
 // If only React state management were this straightforward.
@@ -30,11 +32,19 @@ import { useGame, apiPathPrefix } from '../contexts/GameContext';
 // with the keys those calculators expect.
 const CURRENCY_IDS = ['chromatic-orb', 'jewellers-orb', 'tainted-chromatic-orb', 'orb-of-fusing', 'tainted-orb-of-fusing', 'vaal-orb', 'divine-orb'];
 
-// 24h client-side cache. These prices feed crafting calculators (fusing/chromatic
-// ratios etc.) that don't need sub-day freshness, so caching spares poe.ninja + the
-// Worker proxy a full refetch on every app load. refresh() bypasses it. Keyed by
-// game + league because each pair has its own currency set.
-const CACHE_TTL_MS = 24 * 60 * 60 * 1000;
+// Client-side cache, keyed by game + league because each pair has its own
+// currency set. Mid/late league these prices feed crafting calculators
+// (fusing/chromatic ratios etc.) that don't need sub-day freshness, so 24h
+// spares poe.ninja + the Worker proxy a full refetch on every app load.
+// In the PoE 1 launch fortnight (leagueConfig.launchTimestamp + 14 days)
+// ratios move by large fractions within a day, so the TTL drops to 1h — see
+// priceCacheTtl() in utils/leaguePick.js. The TTL is checked at read time, so
+// blobs already stored under the old 24h rule expire on the new one; no
+// version bump needed. refresh() bypasses the cache either way.
+// leagueConfig only carries the PoE 1 launch; PoE 2 stays on 24h.
+const ttlFor = (pathPrefix) => (pathPrefix === '/poe1'
+  ? priceCacheTtl(LEAGUE_CONFIG.launchTimestamp, Date.now())
+  : PRICE_TTL_DEFAULT_MS);
 // Bump the version suffix whenever the cached SHAPE or the meaning of a stored
 // value changes — otherwise up to 24h of browsers keep serving the old blob and
 // a fix looks like it didn't land. v2: omen prices were storing trade volume.
@@ -42,12 +52,12 @@ const CACHE_VERSION = 'v2';
 const cacheKey = (pathPrefix, league) =>
   `omnilyth_prices_${CACHE_VERSION}_${pathPrefix.replace(/^\//, '')}_${league}`;
 
-function readCachedPrices(key) {
+function readCachedPrices(key, ttlMs) {
   try {
     const raw = localStorage.getItem(key);
     if (!raw) return null;
     const { data, ts } = JSON.parse(raw);
-    if (!data || typeof ts !== 'number' || Date.now() - ts > CACHE_TTL_MS) return null;
+    if (!data || typeof ts !== 'number' || Date.now() - ts > ttlMs) return null;
     return data;
   } catch {
     return null;
@@ -85,9 +95,9 @@ export function usePrices(league) {
     if (!league) return;
     const key = cacheKey(pathPrefix, league);
 
-    // Serve from the 24h cache unless the caller explicitly forced a refresh.
+    // Serve from the cache unless the caller explicitly forced a refresh.
     if (!force) {
-      const cached = readCachedPrices(key);
+      const cached = readCachedPrices(key, ttlFor(pathPrefix));
       if (cached) {
         setPrices(cached);
         setError(null);
