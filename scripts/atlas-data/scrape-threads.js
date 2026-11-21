@@ -6,51 +6,48 @@
  * (patch notes thread 4013680). This regenerates the whole roster: the ten
  * per-mechanic Threads plus the Frayed Thread currency.
  *
- * Sources (all fetched live, 600 ms between poedb requests):
+ * Sources:
  *   https://poedb.tw/us/<Name_With_Underscores>       item popup + base table
  *   https://poedb.tw/us/Random_<Mechanic>_Thread_Modifiers   og:description lists
  *     the in-game keyword-popup text of every random effect for that mechanic
  *   https://poe.ninja/poe1/api/economy/exchange/current/overview?league=<L>&type=Thread
  *     icon URLs (web.poecdn.com gen/image, hash not derivable) and ninja ids
  *
+ * poedb pages go through the shared reader (scripts/lib/poedb.js): cache under
+ * scripts/.cache/poedb/ (24 h; bypass with --no-cache), 600 ms between
+ * requests, retry on 5xx/429, hard-fail on any other status or a bot-check
+ * page. poe.ninja is not a poedb host, so it is fetched directly.
+ *
  * Hard-fails on any selector miss or empty list: an empty scrape is a failure,
  * never "no changes". Never hand-edit the output; re-run this instead.
  *
- * Usage: node scripts/atlas-data/scrape-threads.js [--league Covens] [--dry]
+ * Usage: node scripts/atlas-data/scrape-threads.js [--league Covens] [--dry] [--no-cache]
+ * Tests (offline): node --test scripts/atlas-data/scrape-threads.test.js
  */
 
 import { writeFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 import path from 'node:path';
 import { JSDOM } from 'jsdom';
+import { createPoedbReader } from '../lib/poedb.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const OUT = path.resolve(__dirname, '../../src/data/threadData.js');
-const UA = 'Mozilla/5.0 (compatible; data-refresh client)';
+const NINJA_UA = 'Mozilla/5.0 (compatible; data-refresh client)';
 const DELAY_MS = 600;
-const PATCH = '3.30.0b';
-const THREAD_USAGE = 'Can be used in a personal Map Device to add content to a Map.';
+export const PATCH = '3.30.0b';
+export const THREAD_USAGE = 'Can be used in a personal Map Device to add content to a Map.';
+const MODS_HEADER = 'Modifiers which can be applied by Threads:';
 
-const args = process.argv.slice(2);
-const league = args.includes('--league') ? args[args.indexOf('--league') + 1] : 'Covens';
-const dry = args.includes('--dry');
-
-const MECHANICS = [
+export const MECHANICS = [
   'Abyss', 'Bestiary', 'Betrayal', 'Blight', 'Breach',
   'Expedition', 'Incursion', 'Legion', 'Ritual', 'Ultimatum',
 ];
 
-const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
-
-async function get(url, { json = false } = {}) {
-  const res = await fetch(url, { headers: { 'User-Agent': UA } });
-  if (!res.ok) throw new Error(`${url} -> HTTP ${res.status}`);
-  const body = json ? await res.json() : await res.text();
-  if (!json && /anubis|making sure you(&#39;|')re not a bot/i.test(body)) {
-    throw new Error(`${url} -> bot challenge page, not data`);
-  }
-  return body;
-}
+export const itemUrl = (name) => `https://poedb.tw/us/${name.replace(/ /g, '_')}`;
+export const randomModsUrl = (mechanic) => `https://poedb.tw/us/Random_${mechanic}_Thread_Modifiers`;
+export const ninjaUrl = (league) =>
+  `https://poe.ninja/poe1/api/economy/exchange/current/overview?league=${encodeURIComponent(league)}&type=Thread`;
 
 function fail(msg) {
   throw new Error(`selector miss: ${msg}`);
@@ -69,9 +66,9 @@ function readCards(doc) {
   return out;
 }
 
-async function scrapeItem(name) {
-  const url = `https://poedb.tw/us/${name.replace(/ /g, '_')}`;
-  const doc = new JSDOM(await get(url)).window.document;
+/** Parse a poedb item page (popup + name/value cards). Pure: no I/O. */
+export function parseItemPage(html, url, name) {
+  const doc = new JSDOM(html).window.document;
   const popup = doc.querySelector('.newItemPopup');
   if (!popup) fail(`${url} .newItemPopup`);
   const popupName = clean(popup.querySelector('.itemName')?.textContent || '');
@@ -105,26 +102,45 @@ async function scrapeItem(name) {
   };
 }
 
-async function scrapeRandomMods(mechanic) {
-  const url = `https://poedb.tw/us/Random_${mechanic}_Thread_Modifiers`;
-  const doc = new JSDOM(await get(url)).window.document;
+/** Parse a poedb Random_<Mechanic>_Thread_Modifiers page. Pure: no I/O. */
+export function parseRandomModsPage(html, url) {
+  const doc = new JSDOM(html).window.document;
   const desc = doc.querySelector('meta[property="og:description"]')?.getAttribute('content');
   if (!desc) fail(`${url} og:description`);
   const lines = desc.split('\n').map((l) => l.trim()).filter(Boolean);
   const header = lines.findIndex((l) => /Modifiers which can be applied by Threads:$/.test(l));
-  if (header < 1) fail(`${url} "Modifiers which can be applied by Threads:" header`);
+  if (header < 1) fail(`${url} "${MODS_HEADER}" header`);
   const effects = lines.slice(header + 1);
   if (effects.length === 0) fail(`${url} zero effects`);
   return { url, rule: lines.slice(0, header).join(' '), effects };
 }
 
-function toJsString(v) {
-  return JSON.stringify(v);
+async function scrapeItem(poedb, name) {
+  const url = itemUrl(name);
+  const page = await poedb.fetchPage(url, { expect: 'newItemPopup' });
+  return parseItemPage(page.html, url, name);
 }
 
-async function main() {
-  const ninjaUrl = `https://poe.ninja/poe1/api/economy/exchange/current/overview?league=${encodeURIComponent(league)}&type=Thread`;
-  const ninja = await get(ninjaUrl, { json: true });
+async function scrapeRandomMods(poedb, mechanic) {
+  const url = randomModsUrl(mechanic);
+  const page = await poedb.fetchPage(url, { expect: MODS_HEADER });
+  return parseRandomModsPage(page.html, url);
+}
+
+/** poe.ninja exchange overview (JSON). Not a poedb host, so not via the reader. */
+export async function fetchNinjaJson(url, { fetchImpl = globalThis.fetch } = {}) {
+  const res = await fetchImpl(url, { headers: { 'User-Agent': NINJA_UA } });
+  if (!res.ok) throw new Error(`${url} -> HTTP ${res.status}`);
+  return res.json();
+}
+
+/**
+ * Scrape the whole roster.
+ * @param {{ poedb: {fetchPage: Function}, fetchNinja: (url: string) => Promise<object>,
+ *           league: string, log?: Function }} deps
+ */
+export async function scrapeThreads({ poedb, fetchNinja, league, log = console.log }) {
+  const ninja = await fetchNinja(ninjaUrl(league));
   const ninjaItems = new Map((ninja.items || []).map((i) => [i.name, i]));
   if (ninjaItems.size !== MECHANICS.length) {
     throw new Error(`ninja type=Thread returned ${ninjaItems.size} items, expected ${MECHANICS.length}`);
@@ -134,10 +150,8 @@ async function main() {
   let rule = null;
   for (const mechanic of MECHANICS) {
     const name = `${mechanic} Thread`;
-    const item = await scrapeItem(name);
-    await sleep(DELAY_MS);
-    const mods = await scrapeRandomMods(mechanic);
-    await sleep(DELAY_MS);
+    const item = await scrapeItem(poedb, name);
+    const mods = await scrapeRandomMods(poedb, mechanic);
     if (rule && rule !== mods.rule) throw new Error(`random-effect rule text differs for ${mechanic}`);
     rule = mods.rule;
     const n = ninjaItems.get(name);
@@ -156,10 +170,10 @@ async function main() {
       randomEffects: mods.effects,
       source: item.url,
     });
-    console.log(`  ${name}: ${mods.effects.length} random effects, drop level ${item.dropLevel}`);
+    log?.(`  ${name}: ${mods.effects.length} random effects, drop level ${item.dropLevel}`);
   }
 
-  const fr = await scrapeItem('Frayed Thread');
+  const fr = await scrapeItem(poedb, 'Frayed Thread');
   if (fr.explicit.length > 1) fail(`${fr.url} expected at most 1 explicit line, got ${fr.explicit.length}`);
   const frDesc = fr.explicit[0] || fr.statLines.find((l) => !/^Stack Size|^Stackable Currency$/.test(l));
   if (!frDesc) fail(`${fr.url} description line`);
@@ -175,9 +189,16 @@ async function main() {
     icon: 'https://web.poecdn.com/image/Art/2DItems/Currency/Threads/FrayedThread.png',
     source: fr.url,
   };
+  return { threads, frayed, rule };
+}
 
-  const today = new Date().toISOString().slice(0, 10);
-  const body = `/*
+function toJsString(v) {
+  return JSON.stringify(v);
+}
+
+/** Render src/data/threadData.js. Pure: same input, same bytes. */
+export function renderThreadData({ threads, frayed, rule, league, today }) {
+  return `/*
  * threadData.js: every PoE 1 Thread (3.30 Covens of Umbra replacement for Scarabs).
  *
  * GENERATED ${today} by scripts/atlas-data/scrape-threads.js for patch ${PATCH}.
@@ -208,15 +229,27 @@ export const threads = ${JSON.stringify(threads, null, 2)};
 
 export const frayedThread = ${JSON.stringify(frayed, null, 2)};
 `;
+}
+
+async function main() {
+  const args = process.argv.slice(2);
+  const league = args.includes('--league') ? args[args.indexOf('--league') + 1] : 'Covens';
+  const dry = args.includes('--dry');
+
+  const poedb = createPoedbReader({ delayMs: DELAY_MS }); // honours --no-cache
+  const data = await scrapeThreads({ poedb, fetchNinja: (url) => fetchNinjaJson(url), league });
+  const body = renderThreadData({ ...data, league, today: new Date().toISOString().slice(0, 10) });
   if (dry) {
     console.log(body);
     return;
   }
   writeFileSync(OUT, body);
-  console.log(`wrote ${OUT}: ${threads.length} threads + Frayed Thread`);
+  console.log(`wrote ${OUT}: ${data.threads.length} threads + Frayed Thread`);
 }
 
-main().catch((e) => {
-  console.error(e.message);
-  process.exit(1);
-});
+if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
+  main().catch((e) => {
+    console.error(e.message);
+    process.exit(1);
+  });
+}
