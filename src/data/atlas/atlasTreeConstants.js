@@ -20,6 +20,20 @@ export const SKILLS_PER_ORBIT = [1, 6, 16, 16, 40, 72, 72];
 // itself, so the planner follows the bundled JSON, not this constant.
 export const TOTAL_POINTS = 150;
 
+// Tree generation stamped into share codes and saved builds. It names the
+// atlas graph the bundled atlasTreeData.json is, NOT the game patch: bump it
+// only when GGG ships a new graph (atlastree-export tag with different node
+// ids), and keep the previous value in LEGACY_TREE_GENERATIONS so codes made
+// against it are rejected by name instead of decoded onto the new ids.
+// 30 = grindinggear/atlastree-export tag 3.30.0 (1117 nodes, 150 points).
+// Codes made before generations existed carry no marker (format v1); they are
+// classified by atlasTree.js `classifyUnmarkedAllocation`.
+export const ATLAS_TREE_GENERATION = 30;
+export const TREE_GENERATION_LABELS = {
+  29: '3.29',
+  30: '3.30',
+};
+
 // Node visual sizes (world-space diameter, derived from frame sprite px / zoom factor)
 // Frame sprites at 0.3835 zoom: regular=39px, notable=58px, keystone=83px
 // World-space = sprite_px / 0.3835

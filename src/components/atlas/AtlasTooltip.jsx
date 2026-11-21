@@ -6,8 +6,9 @@
  */
 
 import { useEffect, useRef, useState } from 'react';
+import { formatStatText, isChoiceNode } from '../../calculators/atlasTree';
 
-export default function AtlasTooltip({ node, nodeId, type, isAllocated, containerRef }) {
+export default function AtlasTooltip({ node, nodeId, type, isAllocated, pickedEffect = null, containerRef }) {
   const tooltipRef = useRef(null);
   const [pos, setPos] = useState({ x: 0, y: 0 });
 
@@ -69,11 +70,38 @@ export default function AtlasTooltip({ node, nodeId, type, isAllocated, containe
         {node.stats && node.stats.length > 0 && (
           <ul className="space-y-0.5">
             {node.stats.map((stat, i) => (
-              <li key={i} className="text-xs text-zinc-300 leading-tight">
-                {stat}
+              <li key={i} className="text-xs text-zinc-300 leading-tight whitespace-pre-line">
+                {formatStatText(stat)}
               </li>
             ))}
           </ul>
+        )}
+
+        {/* Choose-one notable: every option, the picked one highlighted */}
+        {isChoiceNode(node) && (
+          <div className="mt-1.5 pt-1.5 border-t border-white/5 space-y-1">
+            <div className="text-[10px] uppercase tracking-wider text-zinc-500 font-semibold">
+              Choose one
+            </div>
+            <ul className="space-y-0.5">
+              {node.variantEffects.map(variant => {
+                const active = variant.effect === pickedEffect;
+                return (
+                  <li
+                    key={variant.effect}
+                    className={`text-xs leading-tight whitespace-pre-line pl-2 border-l-2 ${
+                      active ? 'border-amber-500/70 text-amber-400' : 'border-white/[0.06] text-zinc-500'
+                    }`}
+                  >
+                    {variant.stats.map(formatStatText).join('\n')}
+                  </li>
+                );
+              })}
+            </ul>
+            {isAllocated && pickedEffect == null && (
+              <div className="text-[10px] text-amber-400/80">Pick an effect in the Choices tab</div>
+            )}
+          </div>
         )}
 
         {/* Flavour text (keystones) */}

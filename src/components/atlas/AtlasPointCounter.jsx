@@ -2,14 +2,16 @@
  * AtlasPointCounter.jsx — Points display with Full Atlas / Custom toggle.
  *
  * Shows allocated/max points with a progress bar. User can select "Full Atlas"
- * (132 points, fully unlocked) or enter a custom value (0–132).
+ * (the tree file's points.totalPoints — 150 in 3.30) or enter a custom value.
  */
 
 import { useState, useCallback } from 'react';
 import { useAtlasTree } from '../../contexts/AtlasTreeContext';
+import { TOTAL_POINTS } from '../../data/atlas/atlasTreeConstants';
 
 export default function AtlasPointCounter() {
-  const { allocated, maxPoints, setMaxPoints } = useAtlasTree();
+  const { allocated, maxPoints, setMaxPoints, treeData } = useAtlasTree();
+  const fullPoints = treeData?.totalPoints || TOTAL_POINTS;
   const [mode, setMode] = useState('full'); // 'full' or 'custom'
   const [customInput, setCustomInput] = useState('');
 
@@ -20,10 +22,10 @@ export default function AtlasPointCounter() {
   const handleModeChange = useCallback((newMode) => {
     setMode(newMode);
     if (newMode === 'full') {
-      setMaxPoints(132);
+      setMaxPoints(fullPoints);
       setCustomInput('');
     }
-  }, [setMaxPoints]);
+  }, [setMaxPoints, fullPoints]);
 
   const handleCustomInput = useCallback((e) => {
     const raw = e.target.value;
@@ -34,10 +36,10 @@ export default function AtlasPointCounter() {
     }
     const num = parseInt(raw, 10);
     if (isNaN(num)) return;
-    const clamped = Math.max(0, Math.min(132, num));
+    const clamped = Math.max(0, Math.min(fullPoints, num));
     setCustomInput(String(clamped));
     setMaxPoints(clamped);
-  }, [setMaxPoints]);
+  }, [setMaxPoints, fullPoints]);
 
   return (
     <div className="space-y-2">
@@ -72,10 +74,10 @@ export default function AtlasPointCounter() {
           <input
             type="number"
             min={0}
-            max={132}
+            max={fullPoints}
             value={customInput}
             onChange={handleCustomInput}
-            placeholder="0–132"
+            placeholder={`0–${fullPoints}`}
             className="flex-1 px-2 py-0.5 rounded bg-zinc-800 border border-white/10 text-xs text-zinc-100 focus:outline-none focus:border-amber-500/50 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
           />
         </div>

@@ -7,6 +7,7 @@
 
 import { useState } from 'react';
 import { useAtlasTree } from '../../contexts/AtlasTreeContext';
+import { formatStatText } from '../../calculators/atlasTree';
 
 export default function AtlasSummaryPanel() {
   const { statSummary, allocated } = useAtlasTree();
@@ -46,8 +47,8 @@ export default function AtlasSummaryPanel() {
           {expanded[contentType] && (
             <div className="px-3 pb-2 space-y-1">
               {stats.map((stat, i) => (
-                <div key={i} className="text-xs text-zinc-400 leading-tight pl-2 border-l border-white/5">
-                  {stat}
+                <div key={i} className="text-xs text-zinc-400 leading-tight pl-2 border-l border-white/5 whitespace-pre-line">
+                  {formatStatText(stat)}
                 </div>
               ))}
             </div>

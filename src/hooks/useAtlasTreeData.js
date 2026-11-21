@@ -7,6 +7,7 @@
  */
 
 import { useState, useEffect, useRef } from 'react';
+import { TOTAL_POINTS } from '../data/atlas/atlasTreeConstants';
 import { calculateAllPositions, buildAdjacencyList, getBoundingBox, getNodeType, isAllocatable, getBridgeNodes } from '../calculators/atlasTree';
 
 let cachedData = null;
@@ -137,7 +138,7 @@ export default function useAtlasTreeData() {
           skillToNodeId,
           nodeMeta,
           spriteMap,
-          totalPoints: json.points?.totalPoints || 132,
+          totalPoints: json.points?.totalPoints || TOTAL_POINTS,
           constants: json.constants,
         };
 

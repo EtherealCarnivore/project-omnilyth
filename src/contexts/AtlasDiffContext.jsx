@@ -9,7 +9,8 @@ import { createContext, useContext, useState, useCallback, useMemo } from 'react
 import useAtlasTreeData from '../hooks/useAtlasTreeData';
 import {
   detectAtlasInput,
-  decodeAllocatedNodes,
+  decodeAtlasBuild,
+  DECODE_STATUS,
   decodeGGGAtlasHash,
   diffTrees,
   groupStatsByContent,
@@ -35,22 +36,26 @@ export function AtlasDiffProvider({ children }) {
   const targetDetected = useMemo(() => detectAtlasInput(targetInput), [targetInput]);
   const yourDetected = useMemo(() => detectAtlasInput(yourInput), [yourInput]);
 
-  // Decode a hash based on detected type
+  // Decode a hash based on detected type → { nodeIds, message }.
+  // message is set when an Omnilyth code was refused (older/newer atlas tree).
   const decodeInput = useCallback((detected, nodes) => {
     if (!nodes || detected.type === 'unknown' || !detected.hash) return null;
 
     if (detected.type === 'ggg') {
       const result = decodeGGGAtlasHash(detected.hash, nodes);
+      if (result.size > 0) return { nodeIds: result, message: null };
       // If GGG decode returns empty, fall back to Omnilyth format
-      if (result.size === 0) {
-        return decodeAllocatedNodes(detected.hash, nodes);
-      }
-      return result;
     }
 
     // omnilyth or raw — both use our pako+base64url format
-    return decodeAllocatedNodes(detected.hash, nodes);
-  }, []);
+    const res = decodeAtlasBuild(detected.hash, nodes, {
+      adjacencyList: treeData?.adjacencyList,
+      bridgeNodes: treeData?.bridgeNodes,
+      totalPoints: treeData?.totalPoints,
+    });
+    const refused = res.status === DECODE_STATUS.LEGACY_TREE || res.status === DECODE_STATUS.FUTURE_TREE;
+    return { nodeIds: res.nodeIds, message: refused ? res.message : null };
+  }, [treeData]);
 
   // Run comparison
   const compare = useCallback(() => {
@@ -70,15 +75,17 @@ export function AtlasDiffProvider({ children }) {
       return;
     }
 
-    const tNodes = decodeInput(targetDet, treeData.nodes);
-    const yNodes = decodeInput(yourDet, treeData.nodes);
+    const tDecoded = decodeInput(targetDet, treeData.nodes);
+    const yDecoded = decodeInput(yourDet, treeData.nodes);
+    const tNodes = tDecoded?.nodeIds;
+    const yNodes = yDecoded?.nodeIds;
 
     if (!tNodes || tNodes.size === 0) {
-      setError('Failed to decode Target Tree. Check the URL or hash.');
+      setError(tDecoded?.message ? `Target Tree: ${tDecoded.message}` : 'Failed to decode Target Tree. Check the URL or hash.');
       return;
     }
     if (!yNodes || yNodes.size === 0) {
-      setError('Failed to decode Your Tree. Check the URL or hash.');
+      setError(yDecoded?.message ? `Your Tree: ${yDecoded.message}` : 'Failed to decode Your Tree. Check the URL or hash.');
       return;
     }
 

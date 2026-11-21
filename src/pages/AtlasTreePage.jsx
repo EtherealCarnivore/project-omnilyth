@@ -13,6 +13,7 @@ import AtlasPointCounter from '../components/atlas/AtlasPointCounter';
 import AtlasSearchBar from '../components/atlas/AtlasSearchBar';
 import AtlasSummaryPanel from '../components/atlas/AtlasSummaryPanel';
 import AtlasBuildManager from '../components/atlas/AtlasBuildManager';
+import AtlasChoicePanel from '../components/atlas/AtlasChoicePanel';
 
 function AtlasTreePageInner() {
   const location = useLocation();
@@ -24,7 +25,9 @@ function AtlasTreePageInner() {
     treeData,
     brightness,
     setBrightness,
+    choiceNodes,
   } = useAtlasTree();
+  const unpickedChoices = choiceNodes.filter(c => c.effectId == null).length;
 
   const [sidebarTab, setSidebarTab] = useState('builds');
   const [sidebarOpen, setSidebarOpen] = useState(true);
@@ -154,17 +157,26 @@ function AtlasTreePageInner() {
             {[
               { id: 'builds', label: 'Builds' },
               { id: 'summary', label: 'Summary' },
+              { id: 'choices', label: 'Choices', badge: unpickedChoices },
             ].map(tab => (
               <button
                 key={tab.id}
                 onClick={() => setSidebarTab(tab.id)}
-                className={`flex-1 px-4 py-2.5 text-sm font-medium transition-colors ${
+                className={`flex-1 px-2 py-2.5 text-sm font-medium transition-colors ${
                   sidebarTab === tab.id
                     ? 'text-sky-400 border-b-2 border-sky-400'
                     : 'text-zinc-500 hover:text-zinc-300'
                 }`}
               >
                 {tab.label}
+                {tab.badge > 0 && (
+                  <span
+                    className="ml-1.5 text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400"
+                    aria-label={`${tab.badge} unpicked`}
+                  >
+                    {tab.badge}
+                  </span>
+                )}
               </button>
             ))}
           </div>
@@ -178,6 +190,7 @@ function AtlasTreePageInner() {
           <div className="flex-1 overflow-y-auto px-3 py-3">
             {sidebarTab === 'builds' && <AtlasBuildManager />}
             {sidebarTab === 'summary' && <AtlasSummaryPanel />}
+            {sidebarTab === 'choices' && <AtlasChoicePanel />}
           </div>
 
           {/* Phase 2 placeholder */}

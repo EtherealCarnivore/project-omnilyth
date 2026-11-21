@@ -28,6 +28,7 @@ export default function AtlasTreeRenderer() {
     toggleNode,
     searchResults,
     brightness,
+    picks,
   } = useAtlasTree();
 
   // Hover lives here, not on the context. Mouse-enter on a node updates
@@ -175,8 +176,9 @@ export default function AtlasTreeRenderer() {
       node: treeData.nodes[hoveredNode],
       type: treeData.nodeMeta[hoveredNode]?.type || 'regular',
       isAllocated: allocated.has(hoveredNode),
+      pickedEffect: picks[hoveredNode] ?? null,
     };
-  }, [hoveredNode, treeData, allocated]);
+  }, [hoveredNode, treeData, allocated, picks]);
 
   // Atlas background image positioning (centered on tree bounds)
   const bgProps = useMemo(() => {
@@ -256,6 +258,7 @@ export default function AtlasTreeRenderer() {
           nodeId={hoveredNode}
           type={hoveredNodeData.type}
           isAllocated={hoveredNodeData.isAllocated}
+          pickedEffect={hoveredNodeData.pickedEffect}
           containerRef={containerRef}
         />
       )}

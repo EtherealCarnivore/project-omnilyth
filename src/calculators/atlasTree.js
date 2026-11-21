@@ -3,14 +3,21 @@
  *
  * Positioning: converts GGG's group + orbit data into absolute x/y coords.
  * Pathing: BFS from root to validate connected allocations.
- * Encoding: bitfield → pako compress → base64url for URL sharing.
+ * Encoding: format version + tree generation + skill ids + choose-one picks
+ *   → pako deflate → base64url, for share URLs and saved builds.
  * Stat grouping: categorize node stats by content type for the summary panel.
  *
  * No React, no state, no side effects. Just math and graph traversal.
  */
 
 import { deflate, inflate } from 'pako';
-import { ORBIT_RADII, SKILLS_PER_ORBIT, CONTENT_TYPES } from '../data/atlas/atlasTreeConstants';
+import {
+  ORBIT_RADII,
+  SKILLS_PER_ORBIT,
+  CONTENT_TYPES,
+  ATLAS_TREE_GENERATION,
+  TREE_GENERATION_LABELS,
+} from '../data/atlas/atlasTreeConstants.js';
 
 // ─── Positioning ────────────────────────────────────────────────────────────
 
@@ -333,145 +340,409 @@ export function findShortestPath(targetId, allocatedSet, adjacencyList, nodes, b
   return []; // No path found
 }
 
-// ─── URL Encoding / Decoding ────────────────────────────────────────────────
+// ─── Choose-one notables (3.30 `isMultipleChoiceVariant`) ───────────────────
+//
+// 3.30.0 ships 31 notables flagged `isMultipleChoiceVariant` with a
+// `variantEffects` array: the player picks exactly one entry when the notable
+// is allocated (atlastree-export 3.30.0 data.json). Each entry carries a GGG
+// `effect` id (u16) and its own stat lines. Some variant lines are fragments
+// that complete the node's own `stats` line ("...to be of type" + "Breach"),
+// so a picked node shows its base lines followed by the variant's lines,
+// both verbatim.
+
+export function isChoiceNode(node) {
+  return !!node?.isMultipleChoiceVariant
+    && Array.isArray(node.variantEffects)
+    && node.variantEffects.length > 0;
+}
+
+/** The variantEffects entry whose `effect` id is `effectId`, or null. */
+export function getChosenVariant(node, effectId) {
+  if (!isChoiceNode(node) || effectId == null) return null;
+  return node.variantEffects.find(v => v.effect === effectId) || null;
+}
+
+/** Stat lines a node grants, including the picked variant's lines. */
+export function getNodeStatLines(node, effectId) {
+  const base = node?.stats || [];
+  const variant = getChosenVariant(node, effectId);
+  return variant ? [...base, ...variant.stats] : base;
+}
 
 /**
- * Encode a set of allocated node IDs into a URL-safe string.
- * Strategy: sort numeric skill IDs → pack as bitfield → pako deflate → base64url
+ * Keep only picks for allocated choice nodes whose effect id exists on that
+ * node. Returns a new { nodeId: effectId } object.
  */
-export function encodeAllocatedNodes(allocatedSet, nodes) {
-  if (allocatedSet.size === 0) return '';
+export function sanitizePicks(picks, allocatedSet, nodes) {
+  const out = {};
+  if (!picks) return out;
+  for (const [nodeId, effectId] of Object.entries(picks)) {
+    if (!allocatedSet.has(nodeId)) continue;
+    if (getChosenVariant(nodes[nodeId], effectId)) out[nodeId] = effectId;
+  }
+  return out;
+}
 
-  // Get sorted skill IDs (numeric) for allocated nodes
+/** Allocated choice nodes, sorted by name: [{ nodeId, node, effectId|null }]. */
+export function getAllocatedChoiceNodes(allocatedSet, nodes, picks = {}) {
+  const list = [];
+  for (const nodeId of allocatedSet) {
+    const node = nodes[nodeId];
+    if (!isChoiceNode(node)) continue;
+    const effectId = getChosenVariant(node, picks[nodeId]) ? picks[nodeId] : null;
+    list.push({ nodeId, node, effectId });
+  }
+  return list.sort((a, b) => a.node.name.localeCompare(b.node.name));
+}
+
+/**
+ * Render GGG's inline stat markup for display: "[Thread|Threads]" → "Threads",
+ * "[Mirage]" → "Mirage". The text after the pipe is the display form; the
+ * part before it is an internal key. Display only — matching and storage keep
+ * the raw string.
+ */
+export function formatStatText(stat) {
+  return String(stat)
+    .replace(/\[([^\]|]*)\|([^\]]*)\]/g, '$2')
+    .replace(/\[([^\]|]*)\]/g, '$1');
+}
+
+// ─── Share codes / saved-build hashes ───────────────────────────────────────
+//
+// A share code is base64url(deflate(payload)). The payload's first byte is the
+// format version.
+//
+//   v1 (made before tree generations existed; still decoded, never written)
+//     [0]      0x01
+//     [1..]    u16 BE skill ids
+//
+//   v2 (current)
+//     [0]      0x02
+//     [1]      tree generation (ATLAS_TREE_GENERATION; 30 = 3.30.0 graph)
+//     [2..3]   u16 BE  N = number of allocated skill ids
+//     [..]     N × u16 BE skill ids, ascending
+//     [..]     u8      M = number of choose-one picks
+//     [..]     M × (u16 BE node skill id, u16 BE variant `effect` id),
+//              ascending by node skill id
+//     length must be exactly 4 + 2N + 1 + 4M.
+//
+// Picks are stored by GGG `effect` id, not by list position, so a data update
+// that reorders `variantEffects` does not silently swap a player's pick.
+//
+// Compatibility rule:
+//   - v2, generation == current      → load; picks that don't fit are dropped
+//                                      and reported.
+//   - v2, generation <  current      → reject ('legacy-tree').
+//   - v2, generation >  current      → reject ('future-tree').
+//   - v1 (no marker)                 → classifyUnmarkedAllocation: accepted as
+//     the current graph only if every skill id exists in it, every id is an
+//     allocatable node, the count fits the point budget, and the set is one
+//     connected tree from the root on the current graph. Anything else was
+//     made on an older graph → reject ('legacy-tree'). A real tree is a
+//     connected subgraph of the graph it was built on, so a pre-3.30 tree
+//     that also happens to be connected on the 3.30 graph needs every node on
+//     its path to have kept its id — only very small trees near the start can.
+//   - anything that fails to base64/inflate/parse → reject ('invalid').
+
+export const SHARE_FORMAT_VERSION = 2;
+
+export const DECODE_STATUS = {
+  OK: 'ok',
+  EMPTY: 'empty',
+  INVALID: 'invalid',
+  LEGACY_TREE: 'legacy-tree',
+  FUTURE_TREE: 'future-tree',
+};
+
+function generationLabel(gen) {
+  return TREE_GENERATION_LABELS[gen] || `generation ${gen}`;
+}
+
+const CURRENT_LABEL = generationLabel(ATLAS_TREE_GENERATION);
+
+const MESSAGES = {
+  invalid: 'This is not a valid Omnilyth atlas tree code.',
+  legacyUnmarked:
+    `This atlas tree was made for an older atlas tree (before the ${CURRENT_LABEL} rework). ` +
+    `It does not fit the ${CURRENT_LABEL} tree, so it was not loaded.`,
+  legacyMarked: gen =>
+    `This atlas tree was made for the ${generationLabel(gen)} atlas tree. ` +
+    `It does not fit the ${CURRENT_LABEL} tree, so it was not loaded.`,
+  future: gen =>
+    `This atlas tree was made for a newer atlas tree (${generationLabel(gen)}) than this page has. ` +
+    'Reload the page to get the latest version.',
+};
+
+function bytesToBase64url(bytes) {
+  let binary = '';
+  for (let i = 0; i < bytes.length; i++) binary += String.fromCharCode(bytes[i]);
+  return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+}
+
+function base64urlToBytes(str) {
+  const base64 = str.replace(/-/g, '+').replace(/_/g, '/');
+  const padded = base64 + '='.repeat((4 - base64.length % 4) % 4);
+  const binary = atob(padded);
+  const bytes = new Uint8Array(binary.length);
+  for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+  return bytes;
+}
+
+const skillIndexCache = new WeakMap();
+
+/** skill id → node key for a nodes object (cached per object). */
+function getSkillIndex(nodes) {
+  let index = skillIndexCache.get(nodes);
+  if (!index) {
+    index = new Map();
+    for (const [nodeId, node] of Object.entries(nodes)) {
+      if (node.skill) index.set(node.skill, nodeId);
+    }
+    skillIndexCache.set(nodes, index);
+  }
+  return index;
+}
+
+/**
+ * Encode allocations + choose-one picks as a v2 share code stamped with the
+ * tree generation. Returns '' for an empty tree.
+ */
+export function encodeAtlasBuild(allocatedSet, nodes, picks = {}, generation = ATLAS_TREE_GENERATION) {
   const skillIds = [];
   for (const nodeId of allocatedSet) {
     const node = nodes[nodeId];
-    if (node && node.skill) {
-      skillIds.push(node.skill);
-    }
+    if (node && node.skill) skillIds.push(node.skill);
   }
+  if (skillIds.length === 0) return '';
   skillIds.sort((a, b) => a - b);
 
-  if (skillIds.length === 0) return '';
+  const clean = sanitizePicks(picks, allocatedSet, nodes);
+  const pickPairs = Object.entries(clean)
+    .map(([nodeId, effect]) => [nodes[nodeId].skill, effect])
+    .sort((a, b) => a[0] - b[0])
+    .slice(0, 255);
 
-  // Use a simple encoding: version byte + 2 bytes per skill ID (big endian)
-  const buffer = new Uint8Array(1 + skillIds.length * 2);
-  buffer[0] = 1; // version
-  for (let i = 0; i < skillIds.length; i++) {
-    buffer[1 + i * 2] = (skillIds[i] >> 8) & 0xff;
-    buffer[1 + i * 2 + 1] = skillIds[i] & 0xff;
+  const n = skillIds.length;
+  const m = pickPairs.length;
+  const buf = new Uint8Array(4 + 2 * n + 1 + 4 * m);
+  buf[0] = SHARE_FORMAT_VERSION;
+  buf[1] = generation & 0xff;
+  buf[2] = (n >> 8) & 0xff;
+  buf[3] = n & 0xff;
+  let o = 4;
+  for (const id of skillIds) {
+    buf[o++] = (id >> 8) & 0xff;
+    buf[o++] = id & 0xff;
+  }
+  buf[o++] = m;
+  for (const [skill, effect] of pickPairs) {
+    buf[o++] = (skill >> 8) & 0xff;
+    buf[o++] = skill & 0xff;
+    buf[o++] = (effect >> 8) & 0xff;
+    buf[o++] = effect & 0xff;
   }
 
-  // Compress with pako
-  const compressed = deflate(buffer);
-
-  // Base64url encode
-  return btoa(String.fromCharCode(...compressed))
-    .replace(/\+/g, '-')
-    .replace(/\//g, '_')
-    .replace(/=+$/, '');
+  return bytesToBase64url(deflate(buf));
 }
 
 /**
- * Decode a URL hash back into a set of node IDs.
- *
- * Thin wrapper over decodeAllocatedNodesDetailed for the callers that only want
- * the set. If you are loading a *saved* build, prefer the detailed variant —
- * it tells you which allocations no longer exist in the current tree.
+ * Decide whether an unmarked (v1) allocation was made on the current graph.
+ * See the compatibility rule above. Returns
+ * { verdict: 'current' | 'legacy', reason, nodeIds, missingSkillIds }.
  */
-export function decodeAllocatedNodes(hash, nodes) {
-  return decodeAllocatedNodesDetailed(hash, nodes).nodeIds;
+export function classifyUnmarkedAllocation(skillIds, nodes, options = {}) {
+  const index = getSkillIndex(nodes);
+  const nodeIds = new Set();
+  const missingSkillIds = [];
+  for (const id of skillIds) {
+    const nodeId = index.get(id);
+    if (nodeId === undefined) missingSkillIds.push(id);
+    else nodeIds.add(nodeId);
+  }
+  const legacy = reason => ({ verdict: 'legacy', reason, nodeIds, missingSkillIds });
+
+  if (missingSkillIds.length > 0) return legacy('unknown-skill-ids');
+  for (const nodeId of nodeIds) {
+    if (!isAllocatable(nodeId, nodes[nodeId])) return legacy('not-allocatable');
+  }
+  const budget = options.totalPoints;
+  if (budget && nodeIds.size > budget) return legacy('over-budget');
+
+  const adjacencyList = options.adjacencyList || buildAdjacencyList(nodes);
+  const bridgeNodes = options.bridgeNodes || getBridgeNodes(nodes);
+  const reachable = getReachableNodes(nodeIds, adjacencyList, bridgeNodes);
+  if (reachable.size !== nodeIds.size) return legacy('disconnected');
+
+  return { verdict: 'current', reason: null, nodeIds, missingSkillIds };
 }
 
 /**
- * Decode a hash and report allocations that the current tree no longer has.
+ * Decode a share code / saved-build hash against the current tree.
  *
- * QUIRK: builds are persisted as GGG `skill` ids, not node keys and nothing
- * positional — so a tree swap that reshuffles groups or renumbers node keys is
- * harmless. What is NOT harmless is GGG *retiring* a node: its skill id vanishes
- * from the tree and the allocation silently evaporates, leaving a build that
- * still advertises its old nodeCount but loads short. The 3.27 → 3.29 swap on
- * 2026-08-07 retired 47 skill ids (all the Kirac / Scouting Report / Harbinger
- * cluster plus Ancient Conflict, Legion Monolith Chance, Legion Timeless Emblem
- * Chance), so this is not hypothetical.
+ * options: { adjacencyList, bridgeNodes, totalPoints } — pass the planner's
+ * precomputed structures to skip rebuilding them for v1 classification.
  *
- * Returns { nodeIds, missingSkillIds } — callers MUST surface a non-empty
- * missingSkillIds to the user rather than swallowing it.
+ * Returns {
+ *   status: DECODE_STATUS.*,
+ *   message: string | null,       // user-facing, set for every non-ok status
+ *   nodeIds: Set<string>,          // empty unless status === 'ok'
+ *   picks: { [nodeId]: effectId },
+ *   missingSkillIds: number[],     // v2 ids absent from the current tree
+ *   droppedPicks: { skill, effect }[],
+ *   formatVersion: 1 | 2 | null,
+ *   treeGeneration: number | null, // as stamped (v2) or inferred (v1 → current)
+ *   unmarked: boolean,             // true for an accepted v1 code
+ *   legacyReason: string | null,   // why a v1 code was classed legacy
+ * }
  */
-export function decodeAllocatedNodesDetailed(hash, nodes) {
-  const empty = { nodeIds: new Set(), missingSkillIds: [] };
-  if (!hash) return empty;
+export function decodeAtlasBuild(hash, nodes, options = {}) {
+  const result = {
+    status: DECODE_STATUS.EMPTY,
+    message: null,
+    nodeIds: new Set(),
+    picks: {},
+    missingSkillIds: [],
+    droppedPicks: [],
+    formatVersion: null,
+    treeGeneration: null,
+    unmarked: false,
+    legacyReason: null,
+  };
+  if (!hash) return result;
 
+  const reject = (status, message) => {
+    result.status = status;
+    result.message = message;
+    result.nodeIds = new Set();
+    result.picks = {};
+    return result;
+  };
+
+  let data;
   try {
-    // Base64url decode
-    const base64 = hash.replace(/-/g, '+').replace(/_/g, '/');
-    const padded = base64 + '='.repeat((4 - base64.length % 4) % 4);
-    const binary = atob(padded);
-    const bytes = new Uint8Array(binary.length);
-    for (let i = 0; i < binary.length; i++) {
-      bytes[i] = binary.charCodeAt(i);
-    }
-
-    // Decompress with pako
-    const decompressed = inflate(bytes);
-
-    if (decompressed[0] !== 1) return empty; // version check
-
-    // Read skill IDs
-    const skillIds = new Set();
-    for (let i = 1; i < decompressed.length; i += 2) {
-      const id = (decompressed[i] << 8) | decompressed[i + 1];
-      skillIds.add(id);
-    }
-
-    // Map skill IDs back to node IDs
-    const nodeIds = new Set();
-    const resolved = new Set();
-    for (const [nodeId, node] of Object.entries(nodes)) {
-      if (node.skill && skillIds.has(node.skill)) {
-        nodeIds.add(nodeId);
-        resolved.add(node.skill);
-      }
-    }
-
-    const missingSkillIds = [...skillIds].filter(id => !resolved.has(id));
-    return { nodeIds, missingSkillIds };
+    data = inflate(base64urlToBytes(String(hash).trim()));
   } catch {
-    return empty;
+    return reject(DECODE_STATUS.INVALID, MESSAGES.invalid);
   }
+  if (!data || data.length < 1) return reject(DECODE_STATUS.INVALID, MESSAGES.invalid);
+
+  const u16 = i => (data[i] << 8) | data[i + 1];
+  const version = data[0];
+  result.formatVersion = version === 1 || version === 2 ? version : null;
+
+  if (version === 1) {
+    if (data.length < 3 || (data.length - 1) % 2 !== 0) {
+      return reject(DECODE_STATUS.INVALID, MESSAGES.invalid);
+    }
+    const skillIds = new Set();
+    for (let i = 1; i < data.length; i += 2) skillIds.add(u16(i));
+
+    const verdict = classifyUnmarkedAllocation(skillIds, nodes, options);
+    if (verdict.verdict === 'legacy') {
+      result.legacyReason = verdict.reason;
+      result.missingSkillIds = verdict.missingSkillIds;
+      return reject(DECODE_STATUS.LEGACY_TREE, MESSAGES.legacyUnmarked);
+    }
+    result.status = DECODE_STATUS.OK;
+    result.nodeIds = verdict.nodeIds;
+    result.treeGeneration = ATLAS_TREE_GENERATION;
+    result.unmarked = true;
+    return result;
+  }
+
+  if (version !== 2 || data.length < 5) {
+    return reject(DECODE_STATUS.INVALID, MESSAGES.invalid);
+  }
+
+  const generation = data[1];
+  const n = u16(2);
+  const pickCountAt = 4 + 2 * n;
+  if (pickCountAt >= data.length) return reject(DECODE_STATUS.INVALID, MESSAGES.invalid);
+  const m = data[pickCountAt];
+  if (data.length !== pickCountAt + 1 + 4 * m) {
+    return reject(DECODE_STATUS.INVALID, MESSAGES.invalid);
+  }
+  result.treeGeneration = generation;
+
+  if (generation < ATLAS_TREE_GENERATION) {
+    return reject(DECODE_STATUS.LEGACY_TREE, MESSAGES.legacyMarked(generation));
+  }
+  if (generation > ATLAS_TREE_GENERATION) {
+    return reject(DECODE_STATUS.FUTURE_TREE, MESSAGES.future(generation));
+  }
+
+  const index = getSkillIndex(nodes);
+  const nodeIds = new Set();
+  for (let i = 0; i < n; i++) {
+    const id = u16(4 + 2 * i);
+    const nodeId = index.get(id);
+    if (nodeId === undefined) result.missingSkillIds.push(id);
+    else nodeIds.add(nodeId);
+  }
+
+  const picks = {};
+  for (let i = 0; i < m; i++) {
+    const at = pickCountAt + 1 + 4 * i;
+    const skill = u16(at);
+    const effect = u16(at + 2);
+    const nodeId = index.get(skill);
+    if (nodeId !== undefined && nodeIds.has(nodeId) && getChosenVariant(nodes[nodeId], effect)) {
+      picks[nodeId] = effect;
+    } else {
+      result.droppedPicks.push({ skill, effect });
+    }
+  }
+
+  result.status = DECODE_STATUS.OK;
+  result.nodeIds = nodeIds;
+  result.picks = picks;
+  return result;
 }
+
 
 // ─── Stat Grouping ──────────────────────────────────────────────────────────
 
+/** First CONTENT_TYPES bucket whose keyword appears in `text` (else General). */
+function categorizeStat(text) {
+  const lower = text.toLowerCase();
+  for (const [contentType, keywords] of Object.entries(CONTENT_TYPES)) {
+    if (contentType === 'General') continue;
+    if (keywords.some(kw => lower.includes(kw.toLowerCase()))) return contentType;
+  }
+  return 'General';
+}
+
 /**
  * Group allocated node stats by content type for the summary panel.
+ * `picks` ({ nodeId: effectId }) adds each choose-one notable's picked lines.
+ * A choose-one notable is bucketed as one unit (base + picked lines together)
+ * because its variant lines are often fragments ("Breach") of its base line.
  * Returns { contentType: [stat1, stat2, ...] }
  */
-export function groupStatsByContent(allocatedSet, nodes) {
+export function groupStatsByContent(allocatedSet, nodes, picks = {}) {
   const grouped = {};
-  const categorized = new Set();
+  const push = (contentType, stat) => {
+    if (!grouped[contentType]) grouped[contentType] = [];
+    grouped[contentType].push(stat);
+  };
 
   for (const nodeId of allocatedSet) {
     const node = nodes[nodeId];
-    if (!node || !node.stats) continue;
+    if (!node) continue;
 
-    for (const stat of node.stats) {
-      let found = false;
-      for (const [contentType, keywords] of Object.entries(CONTENT_TYPES)) {
-        if (contentType === 'General') continue;
-        if (keywords.some(kw => stat.toLowerCase().includes(kw.toLowerCase()))) {
-          if (!grouped[contentType]) grouped[contentType] = [];
-          grouped[contentType].push(stat);
-          categorized.add(stat);
-          found = true;
-          break;
-        }
-      }
-      if (!found) {
-        if (!grouped['General']) grouped['General'] = [];
-        grouped['General'].push(stat);
-      }
+    if (isChoiceNode(node)) {
+      const lines = getNodeStatLines(node, picks[nodeId]);
+      if (lines.length === 0) continue;
+      // The base line names the mechanic ("Threads ... of type"); the picked
+      // fragment ("Ritual") would otherwise win on keyword order.
+      const baseType = categorizeStat((node.stats || []).join(' '));
+      const contentType = baseType !== 'General' ? baseType : categorizeStat(lines.join(' '));
+      for (const stat of lines) push(contentType, stat);
+      continue;
     }
+
+    if (!node.stats) continue;
+    for (const stat of node.stats) push(categorizeStat(stat), stat);
   }
 
   // Sort by number of stats (most first)
@@ -487,7 +758,7 @@ export function groupStatsByContent(allocatedSet, nodes) {
 // ─── Search ─────────────────────────────────────────────────────────────────
 
 /**
- * Search nodes by name or stat text. Returns matching nodeIds.
+ * Search nodes by name, stat text or choose-one variant text. Returns matching nodeIds.
  */
 export function searchNodes(query, nodes) {
   if (!query || query.length < 2) return new Set();
@@ -504,14 +775,11 @@ export function searchNodes(query, nodes) {
       continue;
     }
 
-    if (node.stats) {
-      for (const stat of node.stats) {
-        if (stat.toLowerCase().includes(lower)) {
-          matches.add(nodeId);
-          break;
-        }
-      }
-    }
+    const lines = [
+      ...(node.stats || []),
+      ...(node.variantEffects || []).flatMap(v => v.stats || []),
+    ];
+    if (lines.some(stat => stat.toLowerCase().includes(lower))) matches.add(nodeId);
   }
 
   return matches;

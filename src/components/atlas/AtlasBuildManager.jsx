@@ -6,7 +6,15 @@
  */
 
 import { useState } from 'react';
-import { useAtlasTree } from '../../contexts/AtlasTreeContext';
+import { useAtlasTree, isLegacyBuild } from '../../contexts/AtlasTreeContext';
+import { TREE_GENERATION_LABELS } from '../../data/atlas/atlasTreeConstants';
+
+function legacyTitle(build) {
+  const label = TREE_GENERATION_LABELS[build.treeGeneration];
+  return label
+    ? `Saved on the ${label} atlas tree. Kept for reference; it cannot be loaded on the current tree.`
+    : 'Saved on an older atlas tree (before the 3.30 rework). Kept for reference; it cannot be loaded on the current tree.';
+}
 
 export default function AtlasBuildManager() {
   const {
@@ -22,6 +30,8 @@ export default function AtlasBuildManager() {
     allocated,
     staleAllocationNotice,
     dismissStaleAllocationNotice,
+    loadRejection,
+    dismissLoadRejection,
   } = useAtlasTree();
 
   const [newName, setNewName] = useState('');
@@ -62,20 +72,56 @@ export default function AtlasBuildManager() {
       {/* Allocations that no longer exist in the current atlas tree. GGG retires
           nodes between leagues; a build saved before the retire loads short. Say
           so rather than letting the point counter quietly disagree with itself. */}
+      {/* A link or saved build made on a different atlas tree. Nothing was
+          loaded; the tree on screen is unchanged. */}
+      {loadRejection && (
+        <div
+          role="alert"
+          className="flex items-start gap-2 bg-red-500/10 border border-red-500/40 rounded-lg p-3 text-xs text-red-200"
+        >
+          <span className="flex-1">
+            <span className="font-semibold">
+              {loadRejection.buildName ? `"${loadRejection.buildName}" was not loaded.` : 'This shared link was not loaded.'}
+            </span>
+            {' '}{loadRejection.message}
+          </span>
+          <button
+            type="button"
+            onClick={dismissLoadRejection}
+            aria-label="Dismiss load error"
+            className="text-red-300/70 hover:text-red-200 transition-colors leading-none px-1"
+          >
+            ×
+          </button>
+        </div>
+      )}
+
       {staleAllocationNotice && (
         <div
           role="status"
           className="flex items-start gap-2 bg-amber-500/10 border border-amber-500/40 rounded-lg p-3 text-xs text-amber-200"
         >
           <span className="flex-1">
-            <span className="font-semibold">
-              {staleAllocationNotice.missing} node{staleAllocationNotice.missing === 1 ? '' : 's'} from
-              {staleAllocationNotice.buildName ? ` "${staleAllocationNotice.buildName}"` : ' this shared link'} no
-              longer exist in the current atlas tree
-            </span>
-            {' '}and {staleAllocationNotice.missing === 1 ? 'was' : 'were'} dropped.
-            {staleAllocationNotice.savedCount != null && (
-              <> Loaded {staleAllocationNotice.loaded} of {staleAllocationNotice.savedCount} saved nodes.</>
+            {staleAllocationNotice.missing > 0 && (
+              <>
+                <span className="font-semibold">
+                  {staleAllocationNotice.missing} node{staleAllocationNotice.missing === 1 ? '' : 's'} from
+                  {staleAllocationNotice.buildName ? ` "${staleAllocationNotice.buildName}"` : ' this shared link'} no
+                  longer exist in the current atlas tree
+                </span>
+                {' '}and {staleAllocationNotice.missing === 1 ? 'was' : 'were'} dropped.
+                {' '}Loaded {staleAllocationNotice.loaded} nodes.
+              </>
+            )}
+            {staleAllocationNotice.droppedPicks > 0 && (
+              <>
+                {staleAllocationNotice.missing > 0 && ' '}
+                <span className="font-semibold">
+                  {staleAllocationNotice.droppedPicks} choose-one pick{staleAllocationNotice.droppedPicks === 1 ? '' : 's'}
+                </span>
+                {' '}no longer match{staleAllocationNotice.droppedPicks === 1 ? 'es' : ''} the tree and
+                {staleAllocationNotice.droppedPicks === 1 ? ' was' : ' were'} cleared.
+              </>
             )}
             {' '}Re-save the build to clear this.
           </span>
@@ -147,7 +193,9 @@ export default function AtlasBuildManager() {
           <div className="text-[10px] uppercase tracking-wider text-zinc-500 font-semibold px-1">
             Saved Builds
           </div>
-          {builds.map(build => (
+          {builds.map(build => {
+            const legacy = isLegacyBuild(build);
+            return (
             <div
               key={build.id}
               className={`flex items-center gap-2 px-2 py-1.5 rounded-lg text-sm transition-colors ${
@@ -173,10 +221,21 @@ export default function AtlasBuildManager() {
                 <>
                   <button
                     onClick={() => loadBuild(build.id)}
-                    className="flex-1 text-left text-zinc-300 hover:text-zinc-100 truncate"
+                    title={legacy ? legacyTitle(build) : undefined}
+                    className={`flex-1 text-left truncate ${
+                      legacy ? 'text-zinc-500 hover:text-zinc-400' : 'text-zinc-300 hover:text-zinc-100'
+                    }`}
                   >
                     {build.name}
                   </button>
+                  {legacy && (
+                    <span
+                      title={legacyTitle(build)}
+                      className="text-[10px] px-1.5 py-0.5 rounded border text-zinc-400 bg-zinc-800/40 border-white/[0.06]"
+                    >
+                      Legacy
+                    </span>
+                  )}
                   <span className="text-[10px] text-zinc-500">{build.nodeCount}pts</span>
                   <button
                     onClick={() => { setEditingId(build.id); setEditName(build.name); }}
@@ -199,7 +258,8 @@ export default function AtlasBuildManager() {
                 </>
               )}
             </div>
-          ))}
+            );
+          })}
         </div>
       )}
     </div>
