@@ -18,6 +18,7 @@ import {
   ATLAS_TREE_GENERATION,
   TREE_GENERATION_LABELS,
 } from '../data/atlas/atlasTreeConstants.js';
+import { LEGACY_GRAPHS } from '../data/atlas/atlasTreeLegacyEdges.js';
 
 // ─── Positioning ────────────────────────────────────────────────────────────
 
@@ -434,14 +435,30 @@ export function formatStatText(stat) {
 //                                      and reported.
 //   - v2, generation <  current      → reject ('legacy-tree').
 //   - v2, generation >  current      → reject ('future-tree').
-//   - v1 (no marker)                 → classifyUnmarkedAllocation: accepted as
-//     the current graph only if every skill id exists in it, every id is an
-//     allocatable node, the count fits the point budget, and the set is one
-//     connected tree from the root on the current graph. Anything else was
-//     made on an older graph → reject ('legacy-tree'). A real tree is a
-//     connected subgraph of the graph it was built on, so a pre-3.30 tree
-//     that also happens to be connected on the 3.30 graph needs every node on
-//     its path to have kept its id — only very small trees near the start can.
+//   - v1 (no marker)                 → classifyUnmarkedAllocation, in order:
+//       1. any skill id missing from the current tree, any id that is not an
+//          allocatable node, or more ids than the point budget → reject
+//          ('legacy-tree'). An untouched older tree always has some of these
+//          once it is past a handful of nodes.
+//       2. connected tree from the start on the current graph → accept.
+//       3. connected tree from the start on an older graph (LEGACY_GRAPHS:
+//          the older graph's edges between ids that survived) → reject. A
+//          real tree is connected on the graph it was built on, so this is
+//          an intact older tree whose ids happen to all survive.
+//          Skipped when the caller knows the code was written by a planner
+//          already running the current graph (options.writtenOnCurrentTree:
+//          a saved build whose updatedAt is after
+//          ATLAS_TREE_GENERATION_SHIPPED_AT). Such a build can look exactly
+//          like an intact older tree: the older build it came from lost only
+//          leaf nodes when it was loaded and re-saved.
+//       4. connected on neither → accept. This is what the planner itself
+//          wrote between the 3.30 data import and tree generations: an older
+//          build loaded with its retired ids dropped, then re-saved. The
+//          retired ids leave gaps, so it is no longer a tree on either graph.
+//   - every accepted decode (v1 or v2) keeps only the part connected to the
+//     start on the current graph; the rest is reported in
+//     `disconnectedNodeIds` (and still listed in `allNodeIds`), so the planner
+//     never holds an allocation it could not have built.
 //   - anything that fails to base64/inflate/parse → reject ('invalid').
 
 export const SHARE_FORMAT_VERSION = 2;
@@ -472,6 +489,13 @@ const MESSAGES = {
     `This atlas tree was made for a newer atlas tree (${generationLabel(gen)}) than this page has. ` +
     'Reload the page to get the latest version.',
 };
+
+/** User-facing refusal for a build made on an older tree (generation if known). */
+export function legacyTreeMessage(generation) {
+  return generation != null && generation < ATLAS_TREE_GENERATION
+    ? MESSAGES.legacyMarked(generation)
+    : MESSAGES.legacyUnmarked;
+}
 
 function bytesToBase64url(bytes) {
   let binary = '';
@@ -571,21 +595,61 @@ export function classifyUnmarkedAllocation(skillIds, nodes, options = {}) {
   const adjacencyList = options.adjacencyList || buildAdjacencyList(nodes);
   const bridgeNodes = options.bridgeNodes || getBridgeNodes(nodes);
   const reachable = getReachableNodes(nodeIds, adjacencyList, bridgeNodes);
-  if (reachable.size !== nodeIds.size) return legacy('disconnected');
+  if (reachable.size === nodeIds.size) {
+    return { verdict: 'current', reason: null, nodeIds, missingSkillIds };
+  }
 
-  return { verdict: 'current', reason: null, nodeIds, missingSkillIds };
+  const legacyGraphs = options.writtenOnCurrentTree ? [] : options.legacyGraphs || LEGACY_GRAPHS;
+  for (const graph of legacyGraphs) {
+    if (isConnectedOnSkillGraph(skillIds, graph)) return legacy(`intact-generation-${graph.generation}`);
+  }
+
+  return { verdict: 'current', reason: 'trimmed-older-tree', nodeIds, missingSkillIds };
+}
+
+/**
+ * Is this set of skill ids one connected tree from the start on a reduced
+ * skill-id graph ({ start: skill[], edges: [skillA, skillB][] })?
+ */
+export function isConnectedOnSkillGraph(skillIds, graph) {
+  const wanted = new Set(skillIds);
+  if (wanted.size === 0) return false;
+  const adj = new Map();
+  for (const [a, b] of graph.edges) {
+    if (!wanted.has(a) || !wanted.has(b)) continue;
+    if (!adj.has(a)) adj.set(a, []);
+    if (!adj.has(b)) adj.set(b, []);
+    adj.get(a).push(b);
+    adj.get(b).push(a);
+  }
+  const seen = new Set(graph.start.filter(id => wanted.has(id)));
+  const queue = [...seen];
+  while (queue.length) {
+    for (const next of adj.get(queue.shift()) || []) {
+      if (!seen.has(next)) {
+        seen.add(next);
+        queue.push(next);
+      }
+    }
+  }
+  return seen.size === wanted.size;
 }
 
 /**
  * Decode a share code / saved-build hash against the current tree.
  *
- * options: { adjacencyList, bridgeNodes, totalPoints } — pass the planner's
- * precomputed structures to skip rebuilding them for v1 classification.
+ * options: { adjacencyList, bridgeNodes, totalPoints, legacyGraphs,
+ * writtenOnCurrentTree } — pass the planner's precomputed structures to skip
+ * rebuilding them; see classifyUnmarkedAllocation for writtenOnCurrentTree.
  *
  * Returns {
  *   status: DECODE_STATUS.*,
  *   message: string | null,       // user-facing, set for every non-ok status
- *   nodeIds: Set<string>,          // empty unless status === 'ok'
+ *   nodeIds: Set<string>,          // loadable nodes; empty unless status === 'ok'
+ *   allNodeIds: Set<string>,       // every id in the code that resolves
+ *                                  // (nodeIds + disconnectedNodeIds)
+ *   savedNodeCount: number,        // skill ids in the code
+ *   disconnectedNodeIds: string[], // resolved but not connected to the start
  *   picks: { [nodeId]: effectId },
  *   missingSkillIds: number[],     // v2 ids absent from the current tree
  *   droppedPicks: { skill, effect }[],
@@ -600,6 +664,9 @@ export function decodeAtlasBuild(hash, nodes, options = {}) {
     status: DECODE_STATUS.EMPTY,
     message: null,
     nodeIds: new Set(),
+    allNodeIds: new Set(),
+    savedNodeCount: 0,
+    disconnectedNodeIds: [],
     picks: {},
     missingSkillIds: [],
     droppedPicks: [],
@@ -614,8 +681,20 @@ export function decodeAtlasBuild(hash, nodes, options = {}) {
     result.status = status;
     result.message = message;
     result.nodeIds = new Set();
+    result.allNodeIds = new Set();
+    result.disconnectedNodeIds = [];
     result.picks = {};
     return result;
+  };
+
+  // Keep the part connected to the start; report the rest.
+  const trim = resolved => {
+    const adjacencyList = options.adjacencyList || buildAdjacencyList(nodes);
+    const bridgeNodes = options.bridgeNodes || getBridgeNodes(nodes);
+    const reachable = getReachableNodes(resolved, adjacencyList, bridgeNodes);
+    result.allNodeIds = resolved;
+    result.disconnectedNodeIds = [...resolved].filter(id => !reachable.has(id));
+    return reachable;
   };
 
   let data;
@@ -636,6 +715,7 @@ export function decodeAtlasBuild(hash, nodes, options = {}) {
     }
     const skillIds = new Set();
     for (let i = 1; i < data.length; i += 2) skillIds.add(u16(i));
+    result.savedNodeCount = skillIds.size;
 
     const verdict = classifyUnmarkedAllocation(skillIds, nodes, options);
     if (verdict.verdict === 'legacy') {
@@ -644,7 +724,7 @@ export function decodeAtlasBuild(hash, nodes, options = {}) {
       return reject(DECODE_STATUS.LEGACY_TREE, MESSAGES.legacyUnmarked);
     }
     result.status = DECODE_STATUS.OK;
-    result.nodeIds = verdict.nodeIds;
+    result.nodeIds = trim(verdict.nodeIds);
     result.treeGeneration = ATLAS_TREE_GENERATION;
     result.unmarked = true;
     return result;
@@ -672,13 +752,16 @@ export function decodeAtlasBuild(hash, nodes, options = {}) {
   }
 
   const index = getSkillIndex(nodes);
-  const nodeIds = new Set();
+  const resolved = new Set();
   for (let i = 0; i < n; i++) {
     const id = u16(4 + 2 * i);
     const nodeId = index.get(id);
     if (nodeId === undefined) result.missingSkillIds.push(id);
-    else nodeIds.add(nodeId);
+    else if (isAllocatable(nodeId, nodes[nodeId])) resolved.add(nodeId);
+    else result.missingSkillIds.push(id);
   }
+  result.savedNodeCount = n;
+  const nodeIds = trim(resolved);
 
   const picks = {};
   for (let i = 0; i < m; i++) {

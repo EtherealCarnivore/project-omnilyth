@@ -7,14 +7,18 @@
 
 import { useState } from 'react';
 import { useAtlasTree, isLegacyBuild } from '../../contexts/AtlasTreeContext';
-import { TREE_GENERATION_LABELS } from '../../data/atlas/atlasTreeConstants';
+import { TREE_GENERATION_LABELS, ATLAS_TREE_GENERATION } from '../../data/atlas/atlasTreeConstants';
+
+const CURRENT_LABEL = TREE_GENERATION_LABELS[ATLAS_TREE_GENERATION];
 
 function legacyTitle(build) {
   const label = TREE_GENERATION_LABELS[build.treeGeneration];
   return label
     ? `Saved on the ${label} atlas tree. Kept for reference; it cannot be loaded on the current tree.`
-    : 'Saved on an older atlas tree (before the 3.30 rework). Kept for reference; it cannot be loaded on the current tree.';
+    : `Saved on an older atlas tree (before the ${CURRENT_LABEL} rework). Kept for reference; it cannot be loaded on the current tree.`;
 }
+
+const UNREADABLE_TITLE = 'This saved build is damaged and cannot be read. Kept so you can rename or delete it.';
 
 export default function AtlasBuildManager() {
   const {
@@ -81,7 +85,7 @@ export default function AtlasBuildManager() {
         >
           <span className="flex-1">
             <span className="font-semibold">
-              {loadRejection.buildName ? `"${loadRejection.buildName}" was not loaded.` : 'This shared link was not loaded.'}
+              {loadRejection.buildName ? `"${loadRejection.buildName}":` : 'Shared link:'}
             </span>
             {' '}{loadRejection.message}
           </span>
@@ -110,8 +114,21 @@ export default function AtlasBuildManager() {
                   longer exist in the current atlas tree
                 </span>
                 {' '}and {staleAllocationNotice.missing === 1 ? 'was' : 'were'} dropped.
-                {' '}Loaded {staleAllocationNotice.loaded} nodes.
               </>
+            )}
+            {staleAllocationNotice.disconnected > 0 && (
+              <>
+                {staleAllocationNotice.missing > 0 && ' '}
+                <span className="font-semibold">
+                  {staleAllocationNotice.disconnected} node{staleAllocationNotice.disconnected === 1 ? '' : 's'}
+                  {staleAllocationNotice.missing > 0 ? '' : staleAllocationNotice.buildName ? ` from "${staleAllocationNotice.buildName}"` : ' from this shared link'}
+                  {' '}{staleAllocationNotice.disconnected === 1 ? 'is' : 'are'} no longer connected to the start
+                </span>
+                {' '}on the current atlas tree and {staleAllocationNotice.disconnected === 1 ? 'was' : 'were'} left out.
+              </>
+            )}
+            {(staleAllocationNotice.missing > 0 || staleAllocationNotice.disconnected > 0) && (
+              <> Loaded {staleAllocationNotice.loaded} of {staleAllocationNotice.savedCount} saved nodes.</>
             )}
             {staleAllocationNotice.droppedPicks > 0 && (
               <>
@@ -195,6 +212,9 @@ export default function AtlasBuildManager() {
           </div>
           {builds.map(build => {
             const legacy = isLegacyBuild(build);
+            const unreadable = !legacy && build.unreadable;
+            const muted = legacy || unreadable;
+            const title = legacy ? legacyTitle(build) : unreadable ? UNREADABLE_TITLE : undefined;
             return (
             <div
               key={build.id}
@@ -221,19 +241,19 @@ export default function AtlasBuildManager() {
                 <>
                   <button
                     onClick={() => loadBuild(build.id)}
-                    title={legacy ? legacyTitle(build) : undefined}
+                    title={title}
                     className={`flex-1 text-left truncate ${
-                      legacy ? 'text-zinc-500 hover:text-zinc-400' : 'text-zinc-300 hover:text-zinc-100'
+                      muted ? 'text-zinc-500 hover:text-zinc-400' : 'text-zinc-300 hover:text-zinc-100'
                     }`}
                   >
                     {build.name}
                   </button>
-                  {legacy && (
+                  {muted && (
                     <span
-                      title={legacyTitle(build)}
+                      title={title}
                       className="text-[10px] px-1.5 py-0.5 rounded border text-zinc-400 bg-zinc-800/40 border-white/[0.06]"
                     >
-                      Legacy
+                      {legacy ? 'Legacy' : 'Unreadable'}
                     </span>
                   )}
                   <span className="text-[10px] text-zinc-500">{build.nodeCount}pts</span>

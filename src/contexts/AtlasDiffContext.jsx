@@ -105,7 +105,6 @@ export function AtlasDiffProvider({ children }) {
     setYourNodes(null);
     setDiffResult(null);
     setError(null);
-    setHoveredNode(null);
   }, []);
 
   // Stat summaries for add/remove lists

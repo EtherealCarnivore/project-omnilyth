@@ -26,12 +26,21 @@ function AtlasTreePageInner() {
     brightness,
     setBrightness,
     choiceNodes,
+    choicePrompt,
   } = useAtlasTree();
   const unpickedChoices = choiceNodes.filter(c => c.effectId == null).length;
 
   const [sidebarTab, setSidebarTab] = useState('builds');
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const hashLoaded = useRef(false);
+
+  // A click just allocated a choose-one notable with no pick: bring the
+  // picker into view. (Links and saved builds never trigger this.)
+  useEffect(() => {
+    if (choicePrompt === 0) return;
+    setSidebarOpen(true);
+    setSidebarTab('choices');
+  }, [choicePrompt]);
 
   // Load from URL hash on mount
   useEffect(() => {
@@ -170,12 +179,15 @@ function AtlasTreePageInner() {
               >
                 {tab.label}
                 {tab.badge > 0 && (
-                  <span
-                    className="ml-1.5 text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400"
-                    aria-label={`${tab.badge} unpicked`}
-                  >
-                    {tab.badge}
-                  </span>
+                  <>
+                    <span
+                      aria-hidden="true"
+                      className="ml-1.5 text-[10px] px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-400"
+                    >
+                      {tab.badge}
+                    </span>
+                    <span className="sr-only">, {tab.badge} unpicked</span>
+                  </>
                 )}
               </button>
             ))}

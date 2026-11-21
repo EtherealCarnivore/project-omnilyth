@@ -29,6 +29,13 @@ export const TOTAL_POINTS = 150;
 // Codes made before generations existed carry no marker (format v1); they are
 // classified by atlasTree.js `classifyUnmarkedAllocation`.
 export const ATLAS_TREE_GENERATION = 30;
+// When the generation-30 graph reached the planner: commit f109065 ("import
+// the 3.30.0 atlas passive tree"), committer date 2026-11-20T20:38:38Z (author
+// date 2026-11-16; the committer date is when it was made on master's line,
+// and pushing master deploys, so it was live no earlier than this). A saved
+// build last written after this was written by a planner running the 3.30
+// graph, so its ids are 3.30 ids by construction even without a marker.
+export const ATLAS_TREE_GENERATION_SHIPPED_AT = '2026-11-20T20:38:38Z';
 export const TREE_GENERATION_LABELS = {
   29: '3.29',
   30: '3.30',
