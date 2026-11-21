@@ -35,11 +35,29 @@ export function replacementPick(pick, leagues) {
   return match.value;
 }
 
-/** Keep `pick` if `leagues` offers it, else the replacement. */
-export function reconcilePick(pick, leagues) {
+/**
+ * Keep `pick` if `leagues` offers it, else the replacement. A variant of
+ * `currentName` (the configured current league, passed only once it has
+ * launched) is always kept: lists that don't carry it yet (GGG lagging at
+ * launch, the pinned fallback lacking SSF ids) must not move a player off it.
+ */
+export function reconcilePick(pick, leagues, currentName = null) {
   if (!Array.isArray(leagues) || !leagues.length) return pick;
   if (pick && leagues.some(l => l.value === pick)) return pick;
+  if (isVariantOf(pick, currentName)) return pick;
   return replacementPick(pick, leagues) ?? pick;
+}
+
+/**
+ * May this live list rewrite the stored pick? It must carry a current
+ * challenge league (not a degraded Standard-only answer) and, once the
+ * configured league has launched (`currentName` set), an entry for it — a
+ * list fetched just after launch that still shows the old league as current
+ * would otherwise save the old league back over a migrated pick.
+ */
+export function isListTrustedForSave(list, currentName = null) {
+  if (!Array.isArray(list) || !list.some(l => l.isCurrent && !l.isPermanent)) return false;
+  return !currentName || list.some(l => isVariantOf(l.value, currentName));
 }
 
 /** A cached league list written before the current launch describes the previous league. */
@@ -61,12 +79,15 @@ export function cachePredatesLaunch(cacheTimestamp, launchTimestamp, now) {
  *       current challenge league, and the pinned fallback (current league)
  *       does not contain it. This is what lets the next league change work
  *       without new code: last league's cache identifies last league.
- * Never stale: permanent leagues, anything in `fallback`, an empty pick.
- * Private leagues are never in either source, so they are never matched.
+ * Never stale: permanent leagues, anything in `fallback`, any variant of
+ * `currentName` (the configured league — e.g. `SSF Covens`, which the
+ * fallback omits but a pre-launch cache may have marked current), an empty
+ * pick. Private leagues are never in either source, so they never match.
  */
-export function isRetiredPick({ pick, fallback = [], retiredBases = [], cache, launchTimestamp, now }) {
+export function isRetiredPick({ pick, fallback = [], retiredBases = [], currentName = null, cache, launchTimestamp, now }) {
   if (!pick || PERMANENT.has(pick)) return false;
   if (fallback.some(l => l.value === pick)) return false;
+  if (isVariantOf(pick, currentName)) return false;
   const launch = Date.parse(launchTimestamp);
   if (!Number.isFinite(launch) || now < launch) return false;
 

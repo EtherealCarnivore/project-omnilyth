@@ -25,6 +25,7 @@ import {
   reconcilePick,
   replacementPick,
   isRetiredPick,
+  isListTrustedForSave,
   cachePredatesLaunch,
 } from '../utils/leaguePick';
 
@@ -96,12 +97,15 @@ const FALLBACK_POE2 = [
 // The list only covers the first render and API outages: once a live league
 // list arrives, any pick it doesn't contain is replaced (see fetchLeagues),
 // so the next league change needs no edit here — appending is optional.
+// These are deliberately retired (ended) league keys, not current ones.
 const RETIRED_POE1_BASES = ['Allflame', 'Mirage'];
 
 // Once per PoE 1 launch (marker = LEAGUE_CONFIG.launchTimestamp), before the
 // first render: move a stored pick that names an ended league to the current
-// one, keeping hardcore picks hardcore. Valid picks (Standard, Hardcore, any
-// current-league variant, anything outside the rules) are left alone.
+// one, keeping hardcore picks hardcore. Valid picks are left alone: Standard,
+// Hardcore, any variant of LEAGUE_CONFIG.name (Covens, Hardcore Covens,
+// SSF Covens, HC SSF Covens, … — even ones FALLBACK_POE1 omits), and
+// anything else outside the rules (e.g. private leagues).
 const POE1_PICK_CHECK_KEY = 'omnilyth_active_league_poe1_checked';
 try {
   const launch = LEAGUE_CONFIG.launchTimestamp;
@@ -115,6 +119,7 @@ try {
       pick,
       fallback: FALLBACK_POE1,
       retiredBases: RETIRED_POE1_BASES,
+      currentName: LEAGUE_CONFIG.name,
       cache,
       launchTimestamp: launch,
       now,
@@ -133,10 +138,12 @@ function cacheIsPreLaunch(game, timestamp) {
     && cachePredatesLaunch(timestamp, LEAGUE_CONFIG.launchTimestamp, Date.now());
 }
 
-// A live list that carries a current challenge league is trusted enough to
-// rewrite the stored pick; a degraded one (e.g. only Standard) is not.
-function isHealthyList(list) {
-  return list.some(l => l.isCurrent && !l.isPermanent);
+// The configured PoE 1 league once it has launched, else null. Variants of it
+// are never moved off, and a PoE 1 list lacking it is not trusted to save.
+function launchedLeagueName(game) {
+  if (game !== 'poe1') return null;
+  const launch = Date.parse(LEAGUE_CONFIG.launchTimestamp);
+  return Number.isFinite(launch) && Date.now() >= launch ? LEAGUE_CONFIG.name : null;
 }
 
 function fallbackForGame(game) {
@@ -263,16 +270,30 @@ export function LeagueProvider({ children }) {
   // move to the current league and persist that, so the stale pick isn't
   // re-read on the next load and briefly fetched again.
   const applyLiveList = useCallback((list) => {
+    const currentName = launchedLeagueName(game);
     setLeagues(list);
-    setLeagueState(prev => reconcilePick(prev, list));
-    if (!isHealthyList(list)) return;
+    setLeagueState(prev => reconcilePick(prev, list, currentName));
+    if (!isListTrustedForSave(list, currentName)) return;
     try {
       const stored = localStorage.getItem(activeLeagueKey);
       if (stored && !list.some(l => l.value === stored)) {
         localStorage.setItem(activeLeagueKey, replacementPick(stored, list));
       }
     } catch { /* storage disabled */ }
-  }, [activeLeagueKey]);
+  }, [activeLeagueKey, game]);
+
+  // No usable list (API down without a usable cache, or an empty answer):
+  // show this game's pinned fallback — never leave the other game's list up
+  // after a switch. In-memory only. The pick is reconciled for PoE 1 only,
+  // with current-league variants kept (the fallback has no SSF ids); a PoE 2
+  // pick is left as is, since its fallback can lag a new PoE 2 league.
+  const applyFallback = useCallback(() => {
+    const fallback = fallbackForGame(game);
+    setLeagues(fallback);
+    if (game === 'poe1') {
+      setLeagueState(prev => reconcilePick(prev, fallback, launchedLeagueName(game)));
+    }
+  }, [game]);
 
   const fetchLeagues = useCallback(async () => {
     setLeaguesLoading(true);
@@ -304,7 +325,7 @@ export function LeagueProvider({ children }) {
       } else {
         // API returned an empty filtered list — fall back to the hardcoded set.
         // Common during pre-launch windows where PoE 2 has no current league.
-        setLeagues(fallbackForGame(game));
+        applyFallback();
       }
     } catch (err) {
       console.warn('Failed to fetch leagues, using fallback:', err);
@@ -312,20 +333,23 @@ export function LeagueProvider({ children }) {
       // which case it still lists the ended league as current and the pinned
       // fallback (current league) is the better answer. In-memory only: a
       // stale list is not trusted to rewrite the stored pick.
+      let usedCache = false;
       try {
         const cached = localStorage.getItem(cacheKey);
         if (cached) {
           const { leagues: cachedLeagues, timestamp } = JSON.parse(cached);
           if (cachedLeagues?.length && !cacheIsPreLaunch(game, timestamp)) {
             setLeagues(cachedLeagues);
-            setLeagueState(prev => reconcilePick(prev, cachedLeagues));
+            setLeagueState(prev => reconcilePick(prev, cachedLeagues, launchedLeagueName(game)));
+            usedCache = true;
           }
         }
-      } catch { /* use existing fallback */ }
+      } catch { /* unreadable cache — fall through to the fallback */ }
+      if (!usedCache) applyFallback();
     } finally {
       setLeaguesLoading(false);
     }
-  }, [game, cacheKey, applyLiveList]);
+  }, [game, cacheKey, applyLiveList, applyFallback]);
 
   // Re-fetches whenever `game` changes, by way of fetchLeagues' deps.
   // The classic useEffect-calls-useCallback dance. React devs call this "elegant".
