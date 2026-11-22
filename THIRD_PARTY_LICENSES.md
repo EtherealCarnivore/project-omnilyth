@@ -23,7 +23,6 @@ The information here is also surfaced in the in-app `/privacy` page; this file i
 | @tailwindcss/vite | ^4.1.18 | MIT | Tailwind Vite plugin |
 | fuse.js | ^7.1.0 | Apache-2.0 | Fuzzy search — full attribution below |
 | pako | ^2.1.0 | (MIT AND Zlib) | zlib compression |
-| gh-pages | ^6.3.0 | MIT | Deploy tooling (devDep) |
 | jsdom | ^27.0.1 | MIT | Dev-only DOM mock (devDep) |
 
 All transitive dependencies surveyed at the time of this register were under MIT, Apache-2.0, BSD, ISC, or Zlib licenses. No GPL/AGPL/SSPL/CC-BY-SA in the npm dep graph. To verify the current state, run `npm ls --all --json` and audit any unfamiliar transitive against its upstream repo.
