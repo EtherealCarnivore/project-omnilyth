@@ -17,6 +17,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { ninjaUrl } from '../utils/proxyUrl';
 import { useGame, apiPathPrefix } from '../contexts/GameContext';
+import LEAGUE_CONFIG from '../config/leagueConfig';
 
 // Every currency we care about. Adding a new one? Just append the slug here.
 // If only React state management were this straightforward.
@@ -35,6 +36,15 @@ const CURRENCY_IDS = ['chromatic-orb', 'jewellers-orb', 'tainted-chromatic-orb',
 // Worker proxy a full refetch on every app load. refresh() bypasses it. Keyed by
 // game + league because each pair has its own currency set.
 const CACHE_TTL_MS = 24 * 60 * 60 * 1000;
+// Launch fortnight (PoE 1 only, since LEAGUE_CONFIG is the PoE 1 launch): week-one
+// prices move fast, so the cache lives 1h from launch until launch + 14 days.
+const LAUNCH_TTL_MS = 60 * 60 * 1000;
+const LAUNCH_WINDOW_MS = 14 * 24 * 60 * 60 * 1000;
+export function priceCacheTtl(game, now = Date.now()) {
+  const launch = Date.parse(LEAGUE_CONFIG.launchTimestamp);
+  if (game !== 'poe1' || !Number.isFinite(launch)) return CACHE_TTL_MS;
+  return now >= launch && now < launch + LAUNCH_WINDOW_MS ? LAUNCH_TTL_MS : CACHE_TTL_MS;
+}
 // Bump the version suffix whenever the cached SHAPE or the meaning of a stored
 // value changes — otherwise up to 24h of browsers keep serving the old blob and
 // a fix looks like it didn't land. v2: omen prices were storing trade volume.
@@ -42,12 +52,12 @@ const CACHE_VERSION = 'v2';
 const cacheKey = (pathPrefix, league) =>
   `omnilyth_prices_${CACHE_VERSION}_${pathPrefix.replace(/^\//, '')}_${league}`;
 
-function readCachedPrices(key) {
+function readCachedPrices(key, ttl) {
   try {
     const raw = localStorage.getItem(key);
     if (!raw) return null;
     const { data, ts } = JSON.parse(raw);
-    if (!data || typeof ts !== 'number' || Date.now() - ts > CACHE_TTL_MS) return null;
+    if (!data || typeof ts !== 'number' || Date.now() - ts > ttl) return null;
     return data;
   } catch {
     return null;
@@ -85,9 +95,10 @@ export function usePrices(league) {
     if (!league) return;
     const key = cacheKey(pathPrefix, league);
 
-    // Serve from the 24h cache unless the caller explicitly forced a refresh.
+    // Serve from the cache (24h, 1h in the launch fortnight) unless the caller
+    // explicitly forced a refresh.
     if (!force) {
-      const cached = readCachedPrices(key);
+      const cached = readCachedPrices(key, priceCacheTtl(game));
       if (cached) {
         setPrices(cached);
         setError(null);
@@ -182,7 +193,7 @@ export function usePrices(league) {
     } finally {
       setLoading(false);
     }
-  }, [league, pathPrefix]);
+  }, [league, pathPrefix, game]);
 
   // useEffect + useCallback: the "please trust me React, I know when to fetch" ritual
   useEffect(() => {
