@@ -2,7 +2,6 @@
  * AtlasDiffSummaryList.jsx — Lists nodes to add/remove in the diff view.
  *
  * Grouped by content type, with node names, type badges, and stats.
- * Hovering a node highlights it on the tree.
  */
 
 import { useMemo } from 'react';
@@ -28,14 +27,12 @@ function classifyNode(node) {
   return 'General';
 }
 
-function NodeRow({ nodeId, node, type, onHover, onLeave, color }) {
+function NodeRow({ node, type, color }) {
   const badge = TYPE_BADGE[type] || TYPE_BADGE.regular;
 
   return (
     <div
       className="flex items-start gap-2 py-1.5 px-2 rounded hover:bg-white/5 cursor-default transition-colors"
-      onMouseEnter={() => onHover(nodeId)}
-      onMouseLeave={onLeave}
     >
       <div className={`w-1.5 h-1.5 rounded-full mt-1.5 flex-shrink-0`} style={{ backgroundColor: color }} />
       <div className="min-w-0 flex-1">
@@ -57,7 +54,7 @@ function NodeRow({ nodeId, node, type, onHover, onLeave, color }) {
   );
 }
 
-function NodeGroup({ title, nodeEntries, color, onHover, onLeave }) {
+function NodeGroup({ title, nodeEntries, color }) {
   if (nodeEntries.length === 0) return null;
   return (
     <div className="mb-3">
@@ -67,12 +64,9 @@ function NodeGroup({ title, nodeEntries, color, onHover, onLeave }) {
       {nodeEntries.map(({ nodeId, node, type }) => (
         <NodeRow
           key={nodeId}
-          nodeId={nodeId}
           node={node}
           type={type}
           color={color}
-          onHover={onHover}
-          onLeave={onLeave}
         />
       ))}
     </div>
@@ -80,7 +74,7 @@ function NodeGroup({ title, nodeEntries, color, onHover, onLeave }) {
 }
 
 export default function AtlasDiffSummaryList() {
-  const { treeData, diffResult, setHoveredNode } = useAtlasDiff();
+  const { treeData, diffResult } = useAtlasDiff();
 
   // Group diff nodes by content type
   const { addGroups, removeGroups } = useMemo(() => {
@@ -112,9 +106,6 @@ export default function AtlasDiffSummaryList() {
       removeGroups: groupNodes(diffResult.toRemove),
     };
   }, [diffResult, treeData]);
-
-  const onHover = (nodeId) => setHoveredNode(nodeId);
-  const onLeave = () => setHoveredNode(null);
 
   if (!diffResult) {
     return (
@@ -152,8 +143,6 @@ export default function AtlasDiffSummaryList() {
               title={category}
               nodeEntries={entries}
               color="#22c55e"
-              onHover={onHover}
-              onLeave={onLeave}
             />
           ))}
         </div>
@@ -172,8 +161,6 @@ export default function AtlasDiffSummaryList() {
               title={category}
               nodeEntries={entries}
               color="#ef4444"
-              onHover={onHover}
-              onLeave={onLeave}
             />
           ))}
         </div>

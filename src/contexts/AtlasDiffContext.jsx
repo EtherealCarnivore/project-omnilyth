@@ -2,7 +2,7 @@
  * AtlasDiffContext.jsx — Page-scoped state for the atlas tree diff tool.
  *
  * NOT added to App.jsx's global provider stack. Wraps only AtlasDiffPage.
- * Manages two tree inputs, decoding, diffing, and hover state.
+ * Manages two tree inputs, decoding, and diffing.
  */
 
 import { createContext, useContext, useState, useCallback, useMemo } from 'react';
@@ -98,7 +98,6 @@ export function AtlasDiffProvider({ children }) {
     setYourNodes(null);
     setDiffResult(null);
     setError(null);
-    setHoveredNode(null);
   }, []);
 
   // Stat summaries for add/remove lists
