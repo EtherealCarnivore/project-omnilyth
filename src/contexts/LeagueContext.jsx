@@ -22,7 +22,9 @@ import { poeUrl } from '../utils/proxyUrl';
 import { useGame } from './GameContext';
 
 // v4: v3 caches held a PoE 2 list of only Standard/Hardcore (old name-pattern bug).
-const CACHE_KEY_PREFIX = 'poe_leagues_cache_v4_';
+// v5: v4 caches can hold a pre-3.30 PoE 1 list (no Covens); the fetch-failure
+// path would restore it and switch the pick back to Allflame.
+const CACHE_KEY_PREFIX = 'poe_leagues_cache_v5_';
 const ACTIVE_LEAGUE_KEY_PREFIX = 'omnilyth_active_league_';
 const CACHE_TTL = 24 * 60 * 60 * 1000; // 24h TTL
 
@@ -88,13 +90,14 @@ const FALLBACK_POE2 = [
 // still answers retired keys with HTTP 200 and frozen prices, so a pick saved
 // during Allflame would silently keep showing Allflame's economy. Exact-match
 // only: SSF, Ruthless, permanent and private picks, and PoE 2, are untouched.
-// Targets are read from FALLBACK_POE1 (current league first, then its HC twin).
+// Targets are read from FALLBACK_POE1: the current entry, and the entry named
+// 'Hardcore ' + current (skipped if absent, so a missing name never moves a pick).
 // Mirage is left out: its hardcore key was never recorded verbatim. Any storage
 // error leaves the stored pick as it was.
 const POE1_RETIRED_PICK_KEY = 'omnilyth_active_league_poe1_retired_v1';
 (() => {
   const current = FALLBACK_POE1.find(l => l.isCurrent)?.value;
-  const currentHc = FALLBACK_POE1.find(l => l.kind === 'hardcore')?.value;
+  const currentHc = current && FALLBACK_POE1.find(l => l.value === 'Hardcore ' + current)?.value;
   const RETIRED = new Map([['Allflame', current], ['Hardcore Allflame', currentHc]]);
   try {
     if (localStorage.getItem(POE1_RETIRED_PICK_KEY)) return;
