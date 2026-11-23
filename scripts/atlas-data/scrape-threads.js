@@ -50,7 +50,7 @@ export const ninjaUrl = (league) =>
   `https://poe.ninja/poe1/api/economy/exchange/current/overview?league=${encodeURIComponent(league)}&type=Thread`;
 
 function fail(msg) {
-  throw new Error(`selector miss: ${msg}`);
+  throw new Error(`selector miss: ${msg} (a stale cached page? re-run with --no-cache)`);
 }
 
 const clean = (s) => s.replace(/\s+/g, ' ').trim();
@@ -139,7 +139,11 @@ export async function fetchNinjaJson(url, { fetchImpl = globalThis.fetch } = {})
  * @param {{ poedb: {fetchPage: Function}, fetchNinja: (url: string) => Promise<object>,
  *           league: string, log?: Function }} deps
  */
-export async function scrapeThreads({ poedb, fetchNinja, league, log = console.error }) {
+export async function scrapeThreads({ poedb: reader, fetchNinja, league, log = console.error }) {
+  // Record every poedb page so the caller can tell a fully fresh run from one
+  // that mixes cached (up to 24 h old) poedb pages with a live poe.ninja fetch.
+  const pages = [];
+  const poedb = { fetchPage: async (...a) => { const p = await reader.fetchPage(...a); pages.push(p); return p; } };
   const ninja = await fetchNinja(ninjaUrl(league));
   const ninjaItems = new Map((ninja.items || []).map((i) => [i.name, i]));
   if (ninjaItems.size !== MECHANICS.length) {
@@ -155,7 +159,7 @@ export async function scrapeThreads({ poedb, fetchNinja, league, log = console.e
     if (rule && rule !== mods.rule) throw new Error(`random-effect rule text differs for ${mechanic}`);
     rule = mods.rule;
     const n = ninjaItems.get(name);
-    if (!n) fail(`ninja item "${name}"`);
+    if (!n) throw new Error(`ninja type=Thread has no item "${name}"`);
     if (n.id !== item.ninjaId) throw new Error(`${name}: ninja id ${n.id} != poedb NoteCode ${item.ninjaId}`);
     if (item.explicit.length !== 1) fail(`${item.url} expected 1 explicit line, got ${item.explicit.length}`);
     if (!item.usage.startsWith(THREAD_USAGE)) fail(`${item.url} usage text changed: "${item.usage}"`);
@@ -189,7 +193,19 @@ export async function scrapeThreads({ poedb, fetchNinja, league, log = console.e
     icon: 'https://web.poecdn.com/image/Art/2DItems/Currency/Threads/FrayedThread.png',
     source: fr.url,
   };
-  return { threads, frayed, rule };
+  const cached = pages.filter((p) => p.fromCache);
+  const cache = {
+    cachedPages: cached.length,
+    oldestFetchedAt: cached.map((p) => p.fetchedAt).sort((a, b) => Date.parse(a) - Date.parse(b))[0] ?? null,
+  };
+  return { threads, frayed, rule, cache };
+}
+
+/** stderr warning for a run that used cached poedb pages, or null for a fully fresh run. */
+export function cacheWarning({ cachedPages, oldestFetchedAt }) {
+  if (!cachedPages) return null;
+  return `warning: ${cachedPages} poedb page(s) served from cache (oldest fetched ${oldestFetchedAt}) `
+    + 'alongside a live poe.ninja fetch; re-run with --no-cache for a fully fresh run';
 }
 
 function toJsString(v) {
@@ -240,8 +256,10 @@ async function main() {
   const poedb = createPoedbReader({ delayMs: DELAY_MS, log: console.error }); // honours --no-cache
   const data = await scrapeThreads({ poedb, fetchNinja: (url) => fetchNinjaJson(url), league });
   const body = renderThreadData({ ...data, league, today: new Date().toISOString().slice(0, 10) });
+  const warning = cacheWarning(data.cache);
+  if (warning) console.error(warning);
   if (dry) {
-    console.log(body);
+    process.stdout.write(body);
     return;
   }
   writeFileSync(OUT, body);

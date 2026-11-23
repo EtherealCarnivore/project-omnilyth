@@ -12,7 +12,7 @@ import { tmpdir } from 'node:os';
 import { join, dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { createPoedbReader, PoedbError } from '../lib/poedb.js';
-import { scrapeThreads, renderThreadData, fetchNinjaJson, parseItemPage, parseRandomModsPage } from './scrape-threads.js';
+import { scrapeThreads, renderThreadData, cacheWarning, fetchNinjaJson, parseItemPage, parseRandomModsPage } from './scrape-threads.js';
 import {
   buildPoedbPages, fixtureFetch, FIXTURE_GENERATED_DATE, FIXTURE_LEAGUE,
 } from './scrape-threads.fixtures.js';
@@ -47,6 +47,18 @@ test('a second run is served from the reader cache', async () => {
   assert.deepEqual(calls.filter((u) => u.includes('poedb.tw')), []);
 });
 
+test('cache summary: none on a fresh run, every poedb page and the oldest fetchedAt on a cached run', async () => {
+  const fresh = await run(fixtureFetch());
+  assert.deepEqual(fresh.cache, { cachedPages: 0, oldestFetchedAt: null });
+  assert.equal(cacheWarning(fresh.cache), null);
+  const cached = await run(fixtureFetch());
+  assert.equal(cached.cache.cachedPages, 10 * 2 + 1);
+  assert.ok(!Number.isNaN(Date.parse(cached.cache.oldestFetchedAt)));
+  assert.match(cacheWarning(cached.cache), /21 poedb page\(s\) served from cache \(oldest fetched .+\).*--no-cache/);
+  const body = renderThreadData({ ...cached, league: FIXTURE_LEAGUE, today: FIXTURE_GENERATED_DATE });
+  assert.equal(body, readFileSync(COMMITTED, 'utf8'), 'cache status never reaches the generated file');
+});
+
 test('a bot-check page hard-fails through the reader', async () => {
   const pages = buildPoedbPages();
   pages.set('https://poedb.tw/us/Abyss_Thread', '<html><head><title>Just a moment...</title></head><body></body></html>');
@@ -66,4 +78,5 @@ test('selector misses hard-fail', () => {
   assert.throws(() => parseItemPage(html.replace(/NoteCode/, 'Other'), 'u', 'Abyss Thread'), /card NoteCode/);
   const empty = '<html><head><meta property="og:description" content="Rule.\nX Modifiers which can be applied by Threads:"></head></html>';
   assert.throws(() => parseRandomModsPage(empty, 'u'), /zero effects/);
+  assert.throws(() => parseRandomModsPage(empty, 'u'), /\(a stale cached page\? re-run with --no-cache\)$/);
 });
