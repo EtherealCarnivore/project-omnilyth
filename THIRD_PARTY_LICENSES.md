@@ -109,6 +109,7 @@ The following files contain Path of Exile game data compiled from public sources
 | `src/data/vendorLevelingStats.js` | GGG item bases |
 | `src/data/mapModsRegular.js`, `src/data/mapModsT17.js` | poedb.tw / GGG map mod export |
 | `src/data/scarabData.js` | poedb.tw / GGG scarab export |
+| `src/data/mercenaries/mercenaryData.json` | GGG trade API `/api/trade/data/stats` + poedb.tw/us/Mercenaries (via scripts/mercenary-data/build-catalog.mjs) |
 | `src/data/passive/passiveTreeData_*.json` | grindinggear/skilltree-export |
 | `src/data/atlas/atlasTreeData.json` | grindinggear/atlastree-export |
 | `src/data/timeless/alternatePassiveSkills.json` | GGG timeless-jewel data dump |
