@@ -428,6 +428,19 @@ const modules = [
     component: lazy(() => import('../pages/AtlasDiffPage')),
   },
   {
+    // Trade: tools that build a pathofexile.com trade search. Data from
+    // scripts/mercenary-data/build-catalog.mjs.
+    id: 'mercenary-search',
+    games: ['poe1'],
+    title: 'Mercenary Trade Search',
+    description: 'Build a Mercenary Warrant trade search from wanted skills',
+    category: 'Trade',
+    subcategory: 'Mercenaries',
+    route: '/trade/mercenary-search',
+    icon: 'item',
+    component: lazy(() => import('../pages/MercenarySearchPage')),
+  },
+  {
     id: 'watcher',
     games: ['poe1'],
     title: 'Omnilyth Watcher',

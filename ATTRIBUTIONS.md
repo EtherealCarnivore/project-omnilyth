@@ -50,6 +50,7 @@ Project Omnilyth is built with data and inspiration from various Path of Exile c
 - Map modifiers (`src/data/mapModsRegular.js`, `src/data/mapModsT17.js`)
 - Item bases (`src/data/itemBases.js`)
 - Scarab types (`src/data/scarabData.js`)
+- Mercenary skills and archetypes (`src/data/mercenaries/mercenaryData.json`)
 
 **Note:** This data is publicly available game information compiled from various community resources. We do not redistribute game assets.
 

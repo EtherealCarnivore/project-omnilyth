@@ -1,0 +1,3648 @@
+{
+ "_meta": {
+  "game": "poe1",
+  "generatedBy": "scripts/mercenary-data/build-catalog.mjs",
+  "sources": [
+   {
+    "url": "https://www.pathofexile.com/api/trade/data/stats",
+    "fetchedAt": "2026-11-21T09:48:30.074Z"
+   },
+   {
+    "url": "https://poedb.tw/us/Mercenaries",
+    "fetchedAt": "2026-11-21T09:48:30.911Z"
+   }
+  ],
+  "counts": {
+   "archetypes": 38,
+   "skills": 273,
+   "supports": 266
+  }
+ },
+ "archetypes": [
+  {
+   "name": "Bastion",
+   "attribute": "Str / Dex",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_21201",
+    "mercenary.skill_22850"
+   ],
+   "secondary": [
+    "mercenary.skill_41834",
+    "mercenary.skill_58855",
+    "mercenary.skill_52494"
+   ],
+   "utility": [
+    "mercenary.skill_52845",
+    "mercenary.skill_60723",
+    "mercenary.skill_38311",
+    "mercenary.skill_17015",
+    "mercenary.skill_45615"
+   ]
+  },
+  {
+   "name": "Blade Ambusher",
+   "attribute": "Dex / Int",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_11054",
+    "mercenary.skill_38072"
+   ],
+   "secondary": [
+    "mercenary.skill_62393",
+    "mercenary.skill_28988"
+   ],
+   "utility": [
+    "mercenary.skill_64528",
+    "mercenary.skill_56180",
+    "mercenary.skill_2792",
+    "mercenary.skill_44296",
+    "mercenary.skill_13711"
+   ]
+  },
+  {
+   "name": "Bladebitter",
+   "attribute": "Dex / Int",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_22227",
+    "mercenary.skill_14992"
+   ],
+   "secondary": [
+    "mercenary.skill_59831",
+    "mercenary.skill_36446",
+    "mercenary.skill_16896",
+    "mercenary.skill_12262"
+   ],
+   "utility": [
+    "mercenary.skill_10823",
+    "mercenary.skill_60723",
+    "mercenary.skill_1516",
+    "mercenary.skill_10320",
+    "mercenary.skill_2792"
+   ]
+  },
+  {
+   "name": "Bladecaster",
+   "attribute": "Dex / Int",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_26057",
+    "mercenary.skill_22724"
+   ],
+   "secondary": [
+    "mercenary.skill_17198",
+    "mercenary.skill_37202",
+    "mercenary.skill_25718",
+    "mercenary.skill_50999",
+    "mercenary.skill_59477"
+   ],
+   "utility": [
+    "mercenary.skill_60723",
+    "mercenary.skill_2792",
+    "mercenary.skill_56180",
+    "mercenary.skill_19417",
+    "mercenary.skill_57491"
+   ]
+  },
+  {
+   "name": "Bladereach",
+   "attribute": "Dex / Int",
+   "variants": [
+    "regular"
+   ],
+   "primary": [],
+   "secondary": [],
+   "utility": []
+  },
+  {
+   "name": "Bloodletter",
+   "attribute": "Str / Dex",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_60880",
+    "mercenary.skill_26931",
+    "mercenary.skill_8136"
+   ],
+   "secondary": [
+    "mercenary.skill_12357",
+    "mercenary.skill_54006"
+   ],
+   "utility": [
+    "mercenary.skill_2135",
+    "mercenary.skill_60723",
+    "mercenary.skill_52845",
+    "mercenary.skill_19268"
+   ]
+  },
+  {
+   "name": "Cardinal",
+   "attribute": "Str / Int",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_28506",
+    "mercenary.skill_38655"
+   ],
+   "secondary": [
+    "mercenary.skill_7395",
+    "mercenary.skill_53518",
+    "mercenary.skill_3093"
+   ],
+   "utility": [
+    "mercenary.skill_63233",
+    "mercenary.skill_56180",
+    "mercenary.skill_34212",
+    "mercenary.skill_38326"
+   ]
+  },
+  {
+   "name": "Chaplain of the Well",
+   "attribute": "Str / Int",
+   "variants": [
+    "regular"
+   ],
+   "primary": [
+    "mercenary.skill_50122",
+    "mercenary.skill_41822",
+    "mercenary.skill_54593"
+   ],
+   "secondary": [
+    "mercenary.skill_55917",
+    "mercenary.skill_40606"
+   ],
+   "utility": [
+    "mercenary.skill_17515",
+    "mercenary.skill_56180",
+    "mercenary.skill_14992",
+    "mercenary.skill_31201"
+   ]
+  },
+  {
+   "name": "Combatant",
+   "attribute": "Str / Dex",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_65473",
+    "mercenary.skill_32807"
+   ],
+   "secondary": [
+    "mercenary.skill_22105",
+    "mercenary.skill_40957",
+    "mercenary.skill_37916",
+    "mercenary.skill_24931"
+   ],
+   "utility": [
+    "mercenary.skill_38326",
+    "mercenary.skill_60723",
+    "mercenary.skill_40470",
+    "mercenary.skill_13693"
+   ]
+  },
+  {
+   "name": "Cruel Mistress",
+   "attribute": "Int",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_56742",
+    "mercenary.skill_52783"
+   ],
+   "secondary": [
+    "mercenary.skill_35371",
+    "mercenary.skill_52144",
+    "mercenary.skill_10742",
+    "mercenary.skill_29071",
+    "mercenary.skill_54144",
+    "mercenary.skill_51539"
+   ],
+   "utility": [
+    "mercenary.skill_14498",
+    "mercenary.skill_28757",
+    "mercenary.skill_40470",
+    "mercenary.skill_56180",
+    "mercenary.skill_17515"
+   ]
+  },
+  {
+   "name": "Earthshaker",
+   "attribute": "Str",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_38311",
+    "mercenary.skill_2135"
+   ],
+   "secondary": [
+    "mercenary.skill_10712",
+    "mercenary.skill_53728",
+    "mercenary.skill_41346",
+    "mercenary.skill_40527",
+    "mercenary.skill_17654"
+   ],
+   "utility": [
+    "mercenary.skill_52845",
+    "mercenary.skill_21036",
+    "mercenary.skill_31440",
+    "mercenary.skill_57171",
+    "mercenary.skill_14889"
+   ]
+  },
+  {
+   "name": "Eruptor",
+   "attribute": "Str",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_59259",
+    "mercenary.skill_2135",
+    "mercenary.skill_18149"
+   ],
+   "secondary": [
+    "mercenary.skill_53235",
+    "mercenary.skill_3093",
+    "mercenary.skill_6228",
+    "mercenary.skill_42361"
+   ],
+   "utility": [
+    "mercenary.skill_21036",
+    "mercenary.skill_52845",
+    "mercenary.skill_33728",
+    "mercenary.skill_31201",
+    "mercenary.skill_47364"
+   ]
+  },
+  {
+   "name": "Fallen Reverend",
+   "attribute": "Str / Int",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_15611",
+    "mercenary.skill_50349",
+    "mercenary.skill_21523"
+   ],
+   "secondary": [
+    "mercenary.skill_4383",
+    "mercenary.skill_61523",
+    "mercenary.skill_53527"
+   ],
+   "utility": [
+    "mercenary.skill_38326",
+    "mercenary.skill_14498",
+    "mercenary.skill_37344",
+    "mercenary.skill_56180",
+    "mercenary.skill_40470"
+   ]
+  },
+  {
+   "name": "Flamehand",
+   "attribute": "Int",
+   "variants": [
+    "regular"
+   ],
+   "primary": [
+    "mercenary.skill_57450",
+    "mercenary.skill_40521"
+   ],
+   "secondary": [
+    "mercenary.skill_24099",
+    "mercenary.skill_6446",
+    "mercenary.skill_29426",
+    "mercenary.skill_324",
+    "mercenary.skill_37821",
+    "mercenary.skill_30130",
+    "mercenary.skill_8801"
+   ],
+   "utility": [
+    "mercenary.skill_28757",
+    "mercenary.skill_40470",
+    "mercenary.skill_33728",
+    "mercenary.skill_13235",
+    "mercenary.skill_50414"
+   ]
+  },
+  {
+   "name": "Flamequiver",
+   "attribute": "Dex",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_34665",
+    "mercenary.skill_24179"
+   ],
+   "secondary": [
+    "mercenary.skill_23512",
+    "mercenary.skill_59200",
+    "mercenary.skill_35610",
+    "mercenary.skill_36298",
+    "mercenary.skill_18004",
+    "mercenary.skill_21962"
+   ],
+   "utility": [
+    "mercenary.skill_2792",
+    "mercenary.skill_10722",
+    "mercenary.skill_60723",
+    "mercenary.skill_39298"
+   ]
+  },
+  {
+   "name": "Flaming Charlatan",
+   "attribute": "Str / Int",
+   "variants": [
+    "regular"
+   ],
+   "primary": [
+    "mercenary.skill_47949",
+    "mercenary.skill_17763"
+   ],
+   "secondary": [
+    "mercenary.skill_1577",
+    "mercenary.skill_4286",
+    "mercenary.skill_47293",
+    "mercenary.skill_40723"
+   ],
+   "utility": [
+    "mercenary.skill_28757",
+    "mercenary.skill_56180",
+    "mercenary.skill_31201",
+    "mercenary.skill_13235"
+   ]
+  },
+  {
+   "name": "Frost Ambusher",
+   "attribute": "Dex / Int",
+   "variants": [
+    "regular"
+   ],
+   "primary": [
+    "mercenary.skill_57491",
+    "mercenary.skill_3493"
+   ],
+   "secondary": [
+    "mercenary.skill_62997",
+    "mercenary.skill_9321"
+   ],
+   "utility": [
+    "mercenary.skill_44296",
+    "mercenary.skill_56180",
+    "mercenary.skill_40470",
+    "mercenary.skill_2792",
+    "mercenary.skill_55367",
+    "mercenary.skill_44455"
+   ]
+  },
+  {
+   "name": "Frosthand",
+   "attribute": "Int",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_10557",
+    "mercenary.skill_6479"
+   ],
+   "secondary": [
+    "mercenary.skill_50009",
+    "mercenary.skill_57063",
+    "mercenary.skill_31928",
+    "mercenary.skill_33663",
+    "mercenary.skill_61497",
+    "mercenary.skill_61471",
+    "mercenary.skill_28637"
+   ],
+   "utility": [
+    "mercenary.skill_28757",
+    "mercenary.skill_40470",
+    "mercenary.skill_56180",
+    "mercenary.skill_13693",
+    "mercenary.skill_21708"
+   ]
+  },
+  {
+   "name": "Kineticist",
+   "attribute": "Str / Dex / Int",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_5689",
+    "mercenary.skill_57450"
+   ],
+   "secondary": [
+    "mercenary.skill_12583",
+    "mercenary.skill_26705",
+    "mercenary.skill_1356",
+    "mercenary.skill_44258",
+    "mercenary.skill_16356",
+    "mercenary.skill_32089"
+   ],
+   "utility": [
+    "mercenary.skill_56180",
+    "mercenary.skill_40470",
+    "mercenary.skill_52155",
+    "mercenary.skill_65473"
+   ]
+  },
+  {
+   "name": "Manyshot",
+   "attribute": "Dex",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_11495",
+    "mercenary.skill_58425"
+   ],
+   "secondary": [
+    "mercenary.skill_16381",
+    "mercenary.skill_18232",
+    "mercenary.skill_24409",
+    "mercenary.skill_65447"
+   ],
+   "utility": [
+    "mercenary.skill_24482",
+    "mercenary.skill_10557",
+    "mercenary.skill_2792",
+    "mercenary.skill_60723",
+    "mercenary.skill_10722"
+   ]
+  },
+  {
+   "name": "Mysterious Diver",
+   "attribute": "Str / Dex",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_8708",
+    "mercenary.skill_10557"
+   ],
+   "secondary": [
+    "mercenary.skill_22105",
+    "mercenary.skill_40957",
+    "mercenary.skill_32807"
+   ],
+   "utility": [
+    "mercenary.skill_24482",
+    "mercenary.skill_13693",
+    "mercenary.skill_40470",
+    "mercenary.skill_60723"
+   ]
+  },
+  {
+   "name": "Reanimator",
+   "attribute": "Int",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_52491",
+    "mercenary.skill_21523"
+   ],
+   "secondary": [
+    "mercenary.skill_57377",
+    "mercenary.skill_17409",
+    "mercenary.skill_61730",
+    "mercenary.skill_44467",
+    "mercenary.skill_19108"
+   ],
+   "utility": [
+    "mercenary.skill_28757",
+    "mercenary.skill_40470",
+    "mercenary.skill_56180",
+    "mercenary.skill_26391",
+    "mercenary.skill_62758"
+   ]
+  },
+  {
+   "name": "Ripper",
+   "attribute": "Str",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_52105",
+    "mercenary.skill_62530"
+   ],
+   "secondary": [
+    "mercenary.skill_8445",
+    "mercenary.skill_12723",
+    "mercenary.skill_19808",
+    "mercenary.skill_7182",
+    "mercenary.skill_41915"
+   ],
+   "utility": [
+    "mercenary.skill_21036",
+    "mercenary.skill_52845",
+    "mercenary.skill_2135",
+    "mercenary.skill_40419"
+   ]
+  },
+  {
+   "name": "Sanguimancer",
+   "attribute": "Str / Dex / Int",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_44422",
+    "mercenary.skill_2187",
+    "mercenary.skill_4927"
+   ],
+   "secondary": [
+    "mercenary.skill_40439",
+    "mercenary.skill_1185",
+    "mercenary.skill_14064",
+    "mercenary.skill_8958"
+   ],
+   "utility": [
+    "mercenary.skill_56180",
+    "mercenary.skill_28757",
+    "mercenary.skill_18793",
+    "mercenary.skill_16018",
+    "mercenary.skill_14889"
+   ]
+  },
+  {
+   "name": "Shattersword",
+   "attribute": "Str / Dex",
+   "variants": [
+    "regular"
+   ],
+   "primary": [
+    "mercenary.skill_46131",
+    "mercenary.skill_39265",
+    "mercenary.skill_28026"
+   ],
+   "secondary": [
+    "mercenary.skill_12729",
+    "mercenary.skill_28511",
+    "mercenary.skill_43812"
+   ],
+   "utility": [
+    "mercenary.skill_60723",
+    "mercenary.skill_10823",
+    "mercenary.skill_2792",
+    "mercenary.skill_27763"
+   ]
+  },
+  {
+   "name": "Shock Ambusher",
+   "attribute": "Dex / Int",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_41484",
+    "mercenary.skill_25149"
+   ],
+   "secondary": [
+    "mercenary.skill_17037",
+    "mercenary.skill_8075",
+    "mercenary.skill_37561",
+    "mercenary.skill_5247"
+   ],
+   "utility": [
+    "mercenary.skill_56180",
+    "mercenary.skill_40470",
+    "mercenary.skill_64528",
+    "mercenary.skill_44296",
+    "mercenary.skill_14498"
+   ]
+  },
+  {
+   "name": "Smoulderstrike",
+   "attribute": "Str",
+   "variants": [
+    "regular"
+   ],
+   "primary": [
+    "mercenary.skill_32391",
+    "mercenary.skill_8295"
+   ],
+   "secondary": [
+    "mercenary.skill_42219",
+    "mercenary.skill_17147",
+    "mercenary.skill_899",
+    "mercenary.skill_19178"
+   ],
+   "utility": [
+    "mercenary.skill_13235",
+    "mercenary.skill_2135",
+    "mercenary.skill_21036",
+    "mercenary.skill_50414",
+    "mercenary.skill_59259"
+   ]
+  },
+  {
+   "name": "Sniper",
+   "attribute": "Dex",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_12667",
+    "mercenary.skill_27805"
+   ],
+   "secondary": [
+    "mercenary.skill_8546",
+    "mercenary.skill_40759",
+    "mercenary.skill_8030",
+    "mercenary.skill_61903",
+    "mercenary.skill_12260",
+    "mercenary.skill_44144",
+    "mercenary.skill_43202",
+    "mercenary.skill_30431"
+   ],
+   "utility": [
+    "mercenary.skill_2792",
+    "mercenary.skill_10722",
+    "mercenary.skill_60723",
+    "mercenary.skill_58592",
+    "mercenary.skill_52155"
+   ]
+  },
+  {
+   "name": "Stormhand",
+   "attribute": "Int",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_41484",
+    "mercenary.skill_33661"
+   ],
+   "secondary": [
+    "mercenary.skill_5893",
+    "mercenary.skill_59005",
+    "mercenary.skill_30663",
+    "mercenary.skill_3148",
+    "mercenary.skill_50290",
+    "mercenary.skill_11879",
+    "mercenary.skill_7549"
+   ],
+   "utility": [
+    "mercenary.skill_28757",
+    "mercenary.skill_40470",
+    "mercenary.skill_56180",
+    "mercenary.skill_38326",
+    "mercenary.skill_63233",
+    "mercenary.skill_16018"
+   ]
+  },
+  {
+   "name": "Storming Zealot",
+   "attribute": "Str / Int",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_19034",
+    "mercenary.skill_14732"
+   ],
+   "secondary": [
+    "mercenary.skill_45226",
+    "mercenary.skill_23225",
+    "mercenary.skill_24685",
+    "mercenary.skill_6651"
+   ],
+   "utility": [
+    "mercenary.skill_5673",
+    "mercenary.skill_38326",
+    "mercenary.skill_28757",
+    "mercenary.skill_56180"
+   ]
+  },
+  {
+   "name": "Striker",
+   "attribute": "Str",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_4988",
+    "mercenary.skill_20973",
+    "mercenary.skill_17015"
+   ],
+   "secondary": [
+    "mercenary.skill_64565",
+    "mercenary.skill_22696",
+    "mercenary.skill_10235"
+   ],
+   "utility": [
+    "mercenary.skill_52845",
+    "mercenary.skill_2135",
+    "mercenary.skill_21036",
+    "mercenary.skill_40419",
+    "mercenary.skill_38521",
+    "mercenary.skill_38104"
+   ]
+  },
+  {
+   "name": "Swiftblade",
+   "attribute": "Str / Dex",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_46739",
+    "mercenary.skill_39265",
+    "mercenary.skill_28026"
+   ],
+   "secondary": [
+    "mercenary.skill_61669",
+    "mercenary.skill_37132"
+   ],
+   "utility": [
+    "mercenary.skill_18793",
+    "mercenary.skill_2135",
+    "mercenary.skill_59409",
+    "mercenary.skill_60723",
+    "mercenary.skill_17105"
+   ]
+  },
+  {
+   "name": "Thunderquiver",
+   "attribute": "Dex",
+   "variants": [
+    "regular"
+   ],
+   "primary": [
+    "mercenary.skill_41051",
+    "mercenary.skill_47406"
+   ],
+   "secondary": [
+    "mercenary.skill_27165",
+    "mercenary.skill_38993",
+    "mercenary.skill_22000",
+    "mercenary.skill_17216"
+   ],
+   "utility": [
+    "mercenary.skill_38326",
+    "mercenary.skill_10722",
+    "mercenary.skill_38072",
+    "mercenary.skill_36279",
+    "mercenary.skill_60723"
+   ]
+  },
+  {
+   "name": "Toxicologist",
+   "attribute": "Dex",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_10320",
+    "mercenary.skill_26913",
+    "mercenary.skill_18986"
+   ],
+   "secondary": [
+    "mercenary.skill_36274",
+    "mercenary.skill_38628",
+    "mercenary.skill_28502",
+    "mercenary.skill_58174"
+   ],
+   "utility": [
+    "mercenary.skill_2792",
+    "mercenary.skill_10722",
+    "mercenary.skill_60723",
+    "mercenary.skill_1516",
+    "mercenary.skill_38072"
+   ]
+  },
+  {
+   "name": "Warpriest",
+   "attribute": "Str / Int",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_40812",
+    "mercenary.skill_55917"
+   ],
+   "secondary": [
+    "mercenary.skill_50866",
+    "mercenary.skill_43742",
+    "mercenary.skill_47078",
+    "mercenary.skill_39732"
+   ],
+   "utility": [
+    "mercenary.skill_63233",
+    "mercenary.skill_56180",
+    "mercenary.skill_34212"
+   ]
+  },
+  {
+   "name": "Warpriest of the Ruckus",
+   "attribute": "Str / Int",
+   "variants": [
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_40812",
+    "mercenary.skill_55917"
+   ],
+   "secondary": [
+    "mercenary.skill_50866",
+    "mercenary.skill_43742",
+    "mercenary.skill_47078",
+    "mercenary.skill_39732"
+   ],
+   "utility": [
+    "mercenary.skill_63233",
+    "mercenary.skill_56180",
+    "mercenary.skill_34212"
+   ]
+  },
+  {
+   "name": "Winter Deacon",
+   "attribute": "Str / Int",
+   "variants": [
+    "regular"
+   ],
+   "primary": [
+    "mercenary.skill_57491",
+    "mercenary.skill_47031"
+   ],
+   "secondary": [
+    "mercenary.skill_11018",
+    "mercenary.skill_53217",
+    "mercenary.skill_14816",
+    "mercenary.skill_38103"
+   ],
+   "utility": [
+    "mercenary.skill_24482",
+    "mercenary.skill_40470",
+    "mercenary.skill_10557",
+    "mercenary.skill_55367",
+    "mercenary.skill_13693"
+   ]
+  },
+  {
+   "name": "Withertouch",
+   "attribute": "Int",
+   "variants": [
+    "regular",
+    "infamous"
+   ],
+   "primary": [
+    "mercenary.skill_63468",
+    "mercenary.skill_7383"
+   ],
+   "secondary": [
+    "mercenary.skill_11671",
+    "mercenary.skill_13441",
+    "mercenary.skill_8450",
+    "mercenary.skill_39669",
+    "mercenary.skill_50670"
+   ],
+   "utility": [
+    "mercenary.skill_1516",
+    "mercenary.skill_28757",
+    "mercenary.skill_40470",
+    "mercenary.skill_56180",
+    "mercenary.skill_28785",
+    "mercenary.skill_10320",
+    "mercenary.skill_1911"
+   ]
+  }
+ ],
+ "skills": [
+  {
+   "id": "mercenary.skill_15611",
+   "name": "Absolution"
+  },
+  {
+   "id": "mercenary.skill_14992",
+   "name": "Abyssal Cry"
+  },
+  {
+   "id": "mercenary.skill_50122",
+   "name": "Abyssal Spray"
+  },
+  {
+   "id": "mercenary.skill_41822",
+   "name": "Abyssal Spray Detonation"
+  },
+  {
+   "id": "mercenary.skill_24179",
+   "name": "Alchemist's Mark"
+  },
+  {
+   "id": "mercenary.skill_50670",
+   "name": "Altar of Chaos"
+  },
+  {
+   "id": "mercenary.skill_13235",
+   "name": "Anger"
+  },
+  {
+   "id": "mercenary.skill_59005",
+   "name": "Arc"
+  },
+  {
+   "id": "mercenary.skill_55367",
+   "name": "Arctic Armour"
+  },
+  {
+   "id": "mercenary.skill_35610",
+   "name": "Artillery Ballista"
+  },
+  {
+   "id": "mercenary.skill_42361",
+   "name": "Ashen Fissure"
+  },
+  {
+   "id": "mercenary.skill_19417",
+   "name": "Aspect of the Spider"
+  },
+  {
+   "id": "mercenary.skill_47406",
+   "name": "Assassin's Mark"
+  },
+  {
+   "id": "mercenary.skill_37561",
+   "name": "Ball Lightning of Orbiting Trap"
+  },
+  {
+   "id": "mercenary.skill_30663",
+   "name": "Ball Lightning of Static"
+  },
+  {
+   "id": "mercenary.skill_63468",
+   "name": "Bane"
+  },
+  {
+   "id": "mercenary.skill_1356",
+   "name": "Barrage"
+  },
+  {
+   "id": "mercenary.skill_12260",
+   "name": "Barrage of Volley Fire"
+  },
+  {
+   "id": "mercenary.skill_37344",
+   "name": "Battlemage's Cry"
+  },
+  {
+   "id": "mercenary.skill_50866",
+   "name": "Beacons of Faith"
+  },
+  {
+   "id": "mercenary.skill_13711",
+   "name": "Bear Trap"
+  },
+  {
+   "id": "mercenary.skill_11054",
+   "name": "Blade Trap"
+  },
+  {
+   "id": "mercenary.skill_25718",
+   "name": "Blade Vortex"
+  },
+  {
+   "id": "mercenary.skill_37202",
+   "name": "Bladefall"
+  },
+  {
+   "id": "mercenary.skill_59477",
+   "name": "Bladefall of Trarthus"
+  },
+  {
+   "id": "mercenary.skill_12357",
+   "name": "Bladestorm"
+  },
+  {
+   "id": "mercenary.skill_26391",
+   "name": "Blasphemy Enfeeble"
+  },
+  {
+   "id": "mercenary.skill_39298",
+   "name": "Blasphemy Flammability"
+  },
+  {
+   "id": "mercenary.skill_18004",
+   "name": "Blast Rain of Trarthus"
+  },
+  {
+   "id": "mercenary.skill_8450",
+   "name": "Blight"
+  },
+  {
+   "id": "mercenary.skill_10722",
+   "name": "Blink Arrow"
+  },
+  {
+   "id": "mercenary.skill_26931",
+   "name": "Blood Mortar"
+  },
+  {
+   "id": "mercenary.skill_60880",
+   "name": "Bloodthirst"
+  },
+  {
+   "id": "mercenary.skill_22724",
+   "name": "Bloody Warp"
+  },
+  {
+   "id": "mercenary.skill_4927",
+   "name": "Bodyswap"
+  },
+  {
+   "id": "mercenary.skill_44422",
+   "name": "Boiling Blood"
+  },
+  {
+   "id": "mercenary.skill_44467",
+   "name": "Bone Offering"
+  },
+  {
+   "id": "mercenary.skill_22696",
+   "name": "Boneshatter"
+  },
+  {
+   "id": "mercenary.skill_27763",
+   "name": "Brutal Teachings"
+  },
+  {
+   "id": "mercenary.skill_34665",
+   "name": "Burning Arrow"
+  },
+  {
+   "id": "mercenary.skill_31440",
+   "name": "Burrow"
+  },
+  {
+   "id": "mercenary.skill_46131",
+   "name": "Call of Steel"
+  },
+  {
+   "id": "mercenary.skill_58174",
+   "name": "Caustic Arrow"
+  },
+  {
+   "id": "mercenary.skill_7182",
+   "name": "Chain Hook of Trarthus"
+  },
+  {
+   "id": "mercenary.skill_26913",
+   "name": "Chaotic Burst"
+  },
+  {
+   "id": "mercenary.skill_18986",
+   "name": "Chaotic Shot"
+  },
+  {
+   "id": "mercenary.skill_5673",
+   "name": "Charged Dash of the Arcane"
+  },
+  {
+   "id": "mercenary.skill_28785",
+   "name": "Clarity"
+  },
+  {
+   "id": "mercenary.skill_8445",
+   "name": "Cleave"
+  },
+  {
+   "id": "mercenary.skill_26057",
+   "name": "Clutches of the Damned"
+  },
+  {
+   "id": "mercenary.skill_16896",
+   "name": "Cobra Lash"
+  },
+  {
+   "id": "mercenary.skill_41484",
+   "name": "Conductivity"
+  },
+  {
+   "id": "mercenary.skill_21962",
+   "name": "Conflagration"
+  },
+  {
+   "id": "mercenary.skill_3093",
+   "name": "Consecrated Path"
+  },
+  {
+   "id": "mercenary.skill_8958",
+   "name": "Corrupted Blade Vortex of the Scythe"
+  },
+  {
+   "id": "mercenary.skill_9321",
+   "name": "Creeping Frost Trap"
+  },
+  {
+   "id": "mercenary.skill_46739",
+   "name": "Cyclone of the Empire"
+  },
+  {
+   "id": "mercenary.skill_35371",
+   "name": "Dark Bargain"
+  },
+  {
+   "id": "mercenary.skill_60723",
+   "name": "Dash"
+  },
+  {
+   "id": "mercenary.skill_38104",
+   "name": "Decoy Totem"
+  },
+  {
+   "id": "mercenary.skill_21523",
+   "name": "Desecrate"
+  },
+  {
+   "id": "mercenary.skill_56742",
+   "name": "Despair"
+  },
+  {
+   "id": "mercenary.skill_52845",
+   "name": "Determination"
+  },
+  {
+   "id": "mercenary.skill_21708",
+   "name": "Discipline"
+  },
+  {
+   "id": "mercenary.skill_45226",
+   "name": "Divine Ire"
+  },
+  {
+   "id": "mercenary.skill_24685",
+   "name": "Divine Retribution"
+  },
+  {
+   "id": "mercenary.skill_43742",
+   "name": "Dominating Blow"
+  },
+  {
+   "id": "mercenary.skill_10235",
+   "name": "Dual Strike"
+  },
+  {
+   "id": "mercenary.skill_41346",
+   "name": "Earthquake of Amplification"
+  },
+  {
+   "id": "mercenary.skill_14816",
+   "name": "Earthquake of Winter"
+  },
+  {
+   "id": "mercenary.skill_8708",
+   "name": "Elemental Hit of Ice"
+  },
+  {
+   "id": "mercenary.skill_5689",
+   "name": "Elemental Weakness"
+  },
+  {
+   "id": "mercenary.skill_57171",
+   "name": "Endure"
+  },
+  {
+   "id": "mercenary.skill_20973",
+   "name": "Enduring Cry"
+  },
+  {
+   "id": "mercenary.skill_62530",
+   "name": "Enrage"
+  },
+  {
+   "id": "mercenary.skill_12667",
+   "name": "Ensnaring Arrow"
+  },
+  {
+   "id": "mercenary.skill_17515",
+   "name": "Envy"
+  },
+  {
+   "id": "mercenary.skill_39669",
+   "name": "Essence Drain of Wickedness"
+  },
+  {
+   "id": "mercenary.skill_50999",
+   "name": "Ethereal Knives"
+  },
+  {
+   "id": "mercenary.skill_36298",
+   "name": "Explosive Arrow"
+  },
+  {
+   "id": "mercenary.skill_40439",
+   "name": "Exsanguinate"
+  },
+  {
+   "id": "mercenary.skill_57063",
+   "name": "Eye of Winter"
+  },
+  {
+   "id": "mercenary.skill_324",
+   "name": "Fireball"
+  },
+  {
+   "id": "mercenary.skill_37821",
+   "name": "Fireball of Impact"
+  },
+  {
+   "id": "mercenary.skill_50414",
+   "name": "Flame Aegis"
+  },
+  {
+   "id": "mercenary.skill_56180",
+   "name": "Flame Dash"
+  },
+  {
+   "id": "mercenary.skill_47364",
+   "name": "Flame Link"
+  },
+  {
+   "id": "mercenary.skill_8801",
+   "name": "Flame Surge"
+  },
+  {
+   "id": "mercenary.skill_57450",
+   "name": "Flame Wall"
+  },
+  {
+   "id": "mercenary.skill_6446",
+   "name": "Flameblast"
+  },
+  {
+   "id": "mercenary.skill_19178",
+   "name": "Flamebolt Strike"
+  },
+  {
+   "id": "mercenary.skill_40521",
+   "name": "Flammability"
+  },
+  {
+   "id": "mercenary.skill_61730",
+   "name": "Flesh Offering"
+  },
+  {
+   "id": "mercenary.skill_61669",
+   "name": "Flicker Strike"
+  },
+  {
+   "id": "mercenary.skill_29071",
+   "name": "Forbidden Rite Totem"
+  },
+  {
+   "id": "mercenary.skill_58592",
+   "name": "Frenzy"
+  },
+  {
+   "id": "mercenary.skill_18232",
+   "name": "Frigid Forkshot"
+  },
+  {
+   "id": "mercenary.skill_22105",
+   "name": "Frost Blades"
+  },
+  {
+   "id": "mercenary.skill_10557",
+   "name": "Frost Bomb"
+  },
+  {
+   "id": "mercenary.skill_57491",
+   "name": "Frost Shield"
+  },
+  {
+   "id": "mercenary.skill_50009",
+   "name": "Frost Wall"
+  },
+  {
+   "id": "mercenary.skill_6479",
+   "name": "Frostbite"
+  },
+  {
+   "id": "mercenary.skill_40470",
+   "name": "Frostblink"
+  },
+  {
+   "id": "mercenary.skill_33663",
+   "name": "Frostbolt"
+  },
+  {
+   "id": "mercenary.skill_27165",
+   "name": "Galvanic Arrow"
+  },
+  {
+   "id": "mercenary.skill_53217",
+   "name": "Glacial Hammer"
+  },
+  {
+   "id": "mercenary.skill_2792",
+   "name": "Grace"
+  },
+  {
+   "id": "mercenary.skill_24099",
+   "name": "Greater Flame Dash"
+  },
+  {
+   "id": "mercenary.skill_44258",
+   "name": "Greater Kinetic Blast"
+  },
+  {
+   "id": "mercenary.skill_38993",
+   "name": "Greater Lightning Arrow"
+  },
+  {
+   "id": "mercenary.skill_50290",
+   "name": "Greater Shock Nova"
+  },
+  {
+   "id": "mercenary.skill_11671",
+   "name": "Greater Soulrend"
+  },
+  {
+   "id": "mercenary.skill_8546",
+   "name": "Greater Split Arrow"
+  },
+  {
+   "id": "mercenary.skill_3148",
+   "name": "Greater Stormcall"
+  },
+  {
+   "id": "mercenary.skill_3493",
+   "name": "Greater Vortex Trap"
+  },
+  {
+   "id": "mercenary.skill_53728",
+   "name": "Ground Slam"
+  },
+  {
+   "id": "mercenary.skill_52155",
+   "name": "Haste"
+  },
+  {
+   "id": "mercenary.skill_24482",
+   "name": "Hatred"
+  },
+  {
+   "id": "mercenary.skill_38103",
+   "name": "Heavy Strike of Trarthus"
+  },
+  {
+   "id": "mercenary.skill_64565",
+   "name": "Heavy Strike of Vulnerability"
+  },
+  {
+   "id": "mercenary.skill_44334",
+   "name": "Herald of Ash"
+  },
+  {
+   "id": "mercenary.skill_31201",
+   "name": "Herald of Ash"
+  },
+  {
+   "id": "mercenary.skill_32807",
+   "name": "Herald of Ice"
+  },
+  {
+   "id": "mercenary.skill_34212",
+   "name": "Herald of Purity"
+  },
+  {
+   "id": "mercenary.skill_47949",
+   "name": "Holy Flame Totem"
+  },
+  {
+   "id": "mercenary.skill_28506",
+   "name": "Holy Hammers"
+  },
+  {
+   "id": "mercenary.skill_1577",
+   "name": "Holy Mortar"
+  },
+  {
+   "id": "mercenary.skill_40812",
+   "name": "Holy Relic"
+  },
+  {
+   "id": "mercenary.skill_38655",
+   "name": "Holy Strike"
+  },
+  {
+   "id": "mercenary.skill_7395",
+   "name": "Holy Sweep"
+  },
+  {
+   "id": "mercenary.skill_11018",
+   "name": "Ice Crash"
+  },
+  {
+   "id": "mercenary.skill_61497",
+   "name": "Ice Nova"
+  },
+  {
+   "id": "mercenary.skill_61471",
+   "name": "Ice Nova of Projection"
+  },
+  {
+   "id": "mercenary.skill_11495",
+   "name": "Ice Shot"
+  },
+  {
+   "id": "mercenary.skill_62997",
+   "name": "Ice Trap"
+  },
+  {
+   "id": "mercenary.skill_28637",
+   "name": "Icestorm"
+  },
+  {
+   "id": "mercenary.skill_24409",
+   "name": "Icicle Rain"
+  },
+  {
+   "id": "mercenary.skill_45615",
+   "name": "Impenetrable Bastion"
+  },
+  {
+   "id": "mercenary.skill_59409",
+   "name": "Incite"
+  },
+  {
+   "id": "mercenary.skill_17147",
+   "name": "Infernal Blow of Immolation"
+  },
+  {
+   "id": "mercenary.skill_59259",
+   "name": "Infernal Cry"
+  },
+  {
+   "id": "mercenary.skill_8295",
+   "name": "Inflame"
+  },
+  {
+   "id": "mercenary.skill_65473",
+   "name": "Inspiring Cry"
+  },
+  {
+   "id": "mercenary.skill_38311",
+   "name": "Intimidating Cry"
+  },
+  {
+   "id": "mercenary.skill_16356",
+   "name": "Kinetic Blast of Clustering"
+  },
+  {
+   "id": "mercenary.skill_12583",
+   "name": "Kinetic Bolt"
+  },
+  {
+   "id": "mercenary.skill_32089",
+   "name": "Kinetic Rain of Impact"
+  },
+  {
+   "id": "mercenary.skill_8136",
+   "name": "Lacerate"
+  },
+  {
+   "id": "mercenary.skill_43812",
+   "name": "Lancing Steel"
+  },
+  {
+   "id": "mercenary.skill_2135",
+   "name": "Leap Slam"
+  },
+  {
+   "id": "mercenary.skill_41915",
+   "name": "Leap Slam of Groundbreaking"
+  },
+  {
+   "id": "mercenary.skill_41051",
+   "name": "Lightning Arrow"
+  },
+  {
+   "id": "mercenary.skill_8075",
+   "name": "Lightning Spire Trap"
+  },
+  {
+   "id": "mercenary.skill_17037",
+   "name": "Lightning Trap"
+  },
+  {
+   "id": "mercenary.skill_28757",
+   "name": "Lightning Warp"
+  },
+  {
+   "id": "mercenary.skill_5247",
+   "name": "Lightning Warp Trap"
+  },
+  {
+   "id": "mercenary.skill_1516",
+   "name": "Malevolence"
+  },
+  {
+   "id": "mercenary.skill_40723",
+   "name": "Meteor"
+  },
+  {
+   "id": "mercenary.skill_65447",
+   "name": "Mirror Arrow"
+  },
+  {
+   "id": "mercenary.skill_21036",
+   "name": "Molten Shell"
+  },
+  {
+   "id": "mercenary.skill_899",
+   "name": "Molten Strike"
+  },
+  {
+   "id": "mercenary.skill_59200",
+   "name": "Molten Well"
+  },
+  {
+   "id": "mercenary.skill_19268",
+   "name": "Oil Slick"
+  },
+  {
+   "id": "mercenary.skill_11879",
+   "name": "Orb of Storms"
+  },
+  {
+   "id": "mercenary.skill_54006",
+   "name": "Perforate"
+  },
+  {
+   "id": "mercenary.skill_12262",
+   "name": "Pestilent Strike"
+  },
+  {
+   "id": "mercenary.skill_17015",
+   "name": "Physical Aegis"
+  },
+  {
+   "id": "mercenary.skill_27805",
+   "name": "Poacher's Mark"
+  },
+  {
+   "id": "mercenary.skill_54593",
+   "name": "Power of the Depths"
+  },
+  {
+   "id": "mercenary.skill_26705",
+   "name": "Power Siphon"
+  },
+  {
+   "id": "mercenary.skill_36279",
+   "name": "Precision"
+  },
+  {
+   "id": "mercenary.skill_18793",
+   "name": "Pride"
+  },
+  {
+   "id": "mercenary.skill_52494",
+   "name": "Prismplate"
+  },
+  {
+   "id": "mercenary.skill_51539",
+   "name": "Profane Cascade"
+  },
+  {
+   "id": "mercenary.skill_36446",
+   "name": "Profane Strike"
+  },
+  {
+   "id": "mercenary.skill_16018",
+   "name": "Proximity Shield"
+  },
+  {
+   "id": "mercenary.skill_30431",
+   "name": "Puncture"
+  },
+  {
+   "id": "mercenary.skill_32391",
+   "name": "Punishment"
+  },
+  {
+   "id": "mercenary.skill_17763",
+   "name": "Purifying Flame"
+  },
+  {
+   "id": "mercenary.skill_33728",
+   "name": "Purity of Fire"
+  },
+  {
+   "id": "mercenary.skill_13693",
+   "name": "Purity of Ice"
+  },
+  {
+   "id": "mercenary.skill_63233",
+   "name": "Purity of Lightning"
+  },
+  {
+   "id": "mercenary.skill_40759",
+   "name": "Rain of Arrows of Saturation"
+  },
+  {
+   "id": "mercenary.skill_50349",
+   "name": "Raise Spectre of Transience"
+  },
+  {
+   "id": "mercenary.skill_47078",
+   "name": "Raise Spectre: Holy Flame Elementals"
+  },
+  {
+   "id": "mercenary.skill_57377",
+   "name": "Raise Zombie of Falling"
+  },
+  {
+   "id": "mercenary.skill_52491",
+   "name": "Raise Zombie of Gigantism"
+  },
+  {
+   "id": "mercenary.skill_39265",
+   "name": "Rallying Cry"
+  },
+  {
+   "id": "mercenary.skill_14064",
+   "name": "Reap"
+  },
+  {
+   "id": "mercenary.skill_4383",
+   "name": "Reinforce: Fallen Bishop"
+  },
+  {
+   "id": "mercenary.skill_61523",
+   "name": "Reinforce: Fallen Emperor"
+  },
+  {
+   "id": "mercenary.skill_53527",
+   "name": "Reinforce: Fallen Osseotitan"
+  },
+  {
+   "id": "mercenary.skill_62758",
+   "name": "Relic of Binding"
+  },
+  {
+   "id": "mercenary.skill_30130",
+   "name": "Rolling Magma"
+  },
+  {
+   "id": "mercenary.skill_53518",
+   "name": "Sanctified Strike"
+  },
+  {
+   "id": "mercenary.skill_47293",
+   "name": "Scorching Ray Totem"
+  },
+  {
+   "id": "mercenary.skill_28502",
+   "name": "Scourge Arrow of Menace"
+  },
+  {
+   "id": "mercenary.skill_13441",
+   "name": "Scourstorm"
+  },
+  {
+   "id": "mercenary.skill_17198",
+   "name": "Seismic Crush"
+  },
+  {
+   "id": "mercenary.skill_12729",
+   "name": "Shattering Steel"
+  },
+  {
+   "id": "mercenary.skill_22850",
+   "name": "Shield Charge"
+  },
+  {
+   "id": "mercenary.skill_21201",
+   "name": "Shield Crush"
+  },
+  {
+   "id": "mercenary.skill_6651",
+   "name": "Shockwave Totem of Shocking"
+  },
+  {
+   "id": "mercenary.skill_61903",
+   "name": "Shrapnel Ballista"
+  },
+  {
+   "id": "mercenary.skill_44144",
+   "name": "Siege Ballista of Trarthus"
+  },
+  {
+   "id": "mercenary.skill_33661",
+   "name": "Sigil of Power"
+  },
+  {
+   "id": "mercenary.skill_19808",
+   "name": "Slicing Wind"
+  },
+  {
+   "id": "mercenary.skill_55917",
+   "name": "Smite"
+  },
+  {
+   "id": "mercenary.skill_64528",
+   "name": "Smoke Mine"
+  },
+  {
+   "id": "mercenary.skill_10742",
+   "name": "Soulrend of Reaping"
+  },
+  {
+   "id": "mercenary.skill_5893",
+   "name": "Spark"
+  },
+  {
+   "id": "mercenary.skill_37916",
+   "name": "Spectral Helix"
+  },
+  {
+   "id": "mercenary.skill_28988",
+   "name": "Spectral Helix of Trarthus"
+  },
+  {
+   "id": "mercenary.skill_41834",
+   "name": "Spectral Shield Throw of Trarthus"
+  },
+  {
+   "id": "mercenary.skill_62393",
+   "name": "Spectral Throw of Trarthus"
+  },
+  {
+   "id": "mercenary.skill_43202",
+   "name": "Split Arrow"
+  },
+  {
+   "id": "mercenary.skill_28511",
+   "name": "Splitting Steel"
+  },
+  {
+   "id": "mercenary.skill_24931",
+   "name": "Static Strike"
+  },
+  {
+   "id": "mercenary.skill_17105",
+   "name": "Steelskin Ally"
+  },
+  {
+   "id": "mercenary.skill_2187",
+   "name": "Storm Call of Trarthus"
+  },
+  {
+   "id": "mercenary.skill_17216",
+   "name": "Storm Rain"
+  },
+  {
+   "id": "mercenary.skill_7549",
+   "name": "Stormcall"
+  },
+  {
+   "id": "mercenary.skill_19108",
+   "name": "Summon Raging Spirit"
+  },
+  {
+   "id": "mercenary.skill_54144",
+   "name": "Summon Seeking Void"
+  },
+  {
+   "id": "mercenary.skill_17409",
+   "name": "Summon Skeletons"
+  },
+  {
+   "id": "mercenary.skill_44296",
+   "name": "Summon Skitterbots"
+  },
+  {
+   "id": "mercenary.skill_17654",
+   "name": "Sunder of Trarthus"
+  },
+  {
+   "id": "mercenary.skill_40527",
+   "name": "Tectonic Cascade"
+  },
+  {
+   "id": "mercenary.skill_6228",
+   "name": "Tectonic Slam"
+  },
+  {
+   "id": "mercenary.skill_58855",
+   "name": "Tempest Shield"
+  },
+  {
+   "id": "mercenary.skill_7383",
+   "name": "Temporal Chains"
+  },
+  {
+   "id": "mercenary.skill_23225",
+   "name": "Tornado of Elemental Turbulence"
+  },
+  {
+   "id": "mercenary.skill_8030",
+   "name": "Tornado Shot"
+  },
+  {
+   "id": "mercenary.skill_39732",
+   "name": "Touch of God"
+  },
+  {
+   "id": "mercenary.skill_38628",
+   "name": "Toxic Rain"
+  },
+  {
+   "id": "mercenary.skill_38072",
+   "name": "Trarthan Agility"
+  },
+  {
+   "id": "mercenary.skill_28026",
+   "name": "Triggerblades"
+  },
+  {
+   "id": "mercenary.skill_18149",
+   "name": "Triggerslam"
+  },
+  {
+   "id": "mercenary.skill_52105",
+   "name": "Tunnelslam"
+  },
+  {
+   "id": "mercenary.skill_19034",
+   "name": "Unnerving Blast"
+  },
+  {
+   "id": "mercenary.skill_38521",
+   "name": "Vaal Ancestral Warchief"
+  },
+  {
+   "id": "mercenary.skill_44455",
+   "name": "Vaal Arctic Armour"
+  },
+  {
+   "id": "mercenary.skill_23512",
+   "name": "Vaal Burning Arrow"
+  },
+  {
+   "id": "mercenary.skill_36274",
+   "name": "Vaal Caustic Arrow"
+  },
+  {
+   "id": "mercenary.skill_12723",
+   "name": "Vaal Cleave"
+  },
+  {
+   "id": "mercenary.skill_37132",
+   "name": "Vaal Double Strike"
+  },
+  {
+   "id": "mercenary.skill_29426",
+   "name": "Vaal Flameblast"
+  },
+  {
+   "id": "mercenary.skill_47031",
+   "name": "Vaal Glacial Hammer"
+  },
+  {
+   "id": "mercenary.skill_58425",
+   "name": "Vaal Grace"
+  },
+  {
+   "id": "mercenary.skill_10712",
+   "name": "Vaal Ground Slam"
+  },
+  {
+   "id": "mercenary.skill_16381",
+   "name": "Vaal Ice Shot"
+  },
+  {
+   "id": "mercenary.skill_22000",
+   "name": "Vaal Lightning Arrow"
+  },
+  {
+   "id": "mercenary.skill_25149",
+   "name": "Vaal Lightning Trap"
+  },
+  {
+   "id": "mercenary.skill_42219",
+   "name": "Vaal Molten Strike"
+  },
+  {
+   "id": "mercenary.skill_1185",
+   "name": "Vaal Reap"
+  },
+  {
+   "id": "mercenary.skill_40606",
+   "name": "Vaal Smite"
+  },
+  {
+   "id": "mercenary.skill_14889",
+   "name": "Vaal Vitality"
+  },
+  {
+   "id": "mercenary.skill_59831",
+   "name": "Venom Gyre"
+  },
+  {
+   "id": "mercenary.skill_4988",
+   "name": "Vigilant Strike"
+  },
+  {
+   "id": "mercenary.skill_22227",
+   "name": "Viper Strike"
+  },
+  {
+   "id": "mercenary.skill_40419",
+   "name": "Vitality"
+  },
+  {
+   "id": "mercenary.skill_52783",
+   "name": "Void Sphere"
+  },
+  {
+   "id": "mercenary.skill_53235",
+   "name": "Volcanic Fissure of Snaking"
+  },
+  {
+   "id": "mercenary.skill_52144",
+   "name": "Voltaxic Burst"
+  },
+  {
+   "id": "mercenary.skill_31928",
+   "name": "Vortex"
+  },
+  {
+   "id": "mercenary.skill_14732",
+   "name": "Wave of Conviction"
+  },
+  {
+   "id": "mercenary.skill_4286",
+   "name": "Wave of Conviction of Trarthus"
+  },
+  {
+   "id": "mercenary.skill_10823",
+   "name": "Whirling Blades"
+  },
+  {
+   "id": "mercenary.skill_40957",
+   "name": "Wild Strike"
+  },
+  {
+   "id": "mercenary.skill_1911",
+   "name": "Wither Totem"
+  },
+  {
+   "id": "mercenary.skill_10320",
+   "name": "Withering Step"
+  },
+  {
+   "id": "mercenary.skill_38326",
+   "name": "Wrath"
+  },
+  {
+   "id": "mercenary.skill_14498",
+   "name": "Zealotry"
+  }
+ ],
+ "supports": [
+  {
+   "id": "mercenary.support_45284",
+   "label": "Lesser Added Chaos (Tier 1)",
+   "family": "Added Chaos",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_31430",
+   "label": "Added Chaos (Tier 2)",
+   "family": "Added Chaos",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_11914",
+   "label": "Greater Added Chaos (Tier 3)",
+   "family": "Added Chaos",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_13069",
+   "label": "Lesser Added Cold (Tier 1)",
+   "family": "Added Cold",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_52758",
+   "label": "Added Cold (Tier 2)",
+   "family": "Added Cold",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_60094",
+   "label": "Greater Added Cold (Tier 3)",
+   "family": "Added Cold",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_42977",
+   "label": "Lesser Added Fire (Tier 1)",
+   "family": "Added Fire",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_45439",
+   "label": "Added Fire (Tier 2)",
+   "family": "Added Fire",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_6121",
+   "label": "Greater Added Fire (Tier 3)",
+   "family": "Added Fire",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_36665",
+   "label": "Lesser Added Lightning (Tier 1)",
+   "family": "Added Lightning",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_64283",
+   "label": "Added Lightning (Tier 2)",
+   "family": "Added Lightning",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_40533",
+   "label": "Greater Added Lightning (Tier 3)",
+   "family": "Added Lightning",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_44527",
+   "label": "Lesser Ailment Damage (Tier 1)",
+   "family": "Ailment Damage",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_9607",
+   "label": "Ailment Damage (Tier 2)",
+   "family": "Ailment Damage",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_65362",
+   "label": "Greater Ailment Damage (Tier 3)",
+   "family": "Ailment Damage",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_12388",
+   "label": "Lesser Ailment Effect (Tier 1)",
+   "family": "Ailment Effect",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_61972",
+   "label": "Ailment Effect (Tier 2)",
+   "family": "Ailment Effect",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_33272",
+   "label": "Greater Ailment Effect (Tier 3)",
+   "family": "Ailment Effect",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_14557",
+   "label": "Arcane Traps (Tier 3)",
+   "family": "Arcane Traps",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_19113",
+   "label": "Greater Area of Effect (Tier 3)",
+   "family": "Area of Effect",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_58429",
+   "label": "Arrow Nova (Tier 3)",
+   "family": "Arrow Nova",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_54837",
+   "label": "Brittle Chance (Tier 3)",
+   "family": "Brittle Chance",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_55807",
+   "label": "Lesser Brutality (Tier 1)",
+   "family": "Brutality",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_64271",
+   "label": "Brutality (Tier 2)",
+   "family": "Brutality",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_59345",
+   "label": "Greater Brutality (Tier 3)",
+   "family": "Brutality",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_14317",
+   "label": "Lesser Chain (Tier 1)",
+   "family": "Chain",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_31052",
+   "label": "Chain (Tier 2)",
+   "family": "Chain",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_42600",
+   "label": "Lesser Chance to Bleed (Tier 1)",
+   "family": "Chance to Bleed",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_38948",
+   "label": "Chance to Bleed (Tier 2)",
+   "family": "Chance to Bleed",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_31439",
+   "label": "Greater Chance to Bleed (Tier 3)",
+   "family": "Chance to Bleed",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_1864",
+   "label": "Lesser Chance to Poison (Tier 1)",
+   "family": "Chance to Poison",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_58384",
+   "label": "Chance to Poison (Tier 2)",
+   "family": "Chance to Poison",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_9585",
+   "label": "Greater Chance to Poison (Tier 3)",
+   "family": "Chance to Poison",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_25880",
+   "label": "Lesser Chaos Penetration (Tier 1)",
+   "family": "Chaos Penetration",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_33975",
+   "label": "Chaos Penetration (Tier 2)",
+   "family": "Chaos Penetration",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_39984",
+   "label": "Greater Chaos Penetration (Tier 3)",
+   "family": "Chaos Penetration",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_5081",
+   "label": "Charged Traps (Tier 3)",
+   "family": "Charged Traps",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_40565",
+   "label": "Lesser Cold Penetration (Tier 1)",
+   "family": "Cold Penetration",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_54628",
+   "label": "Cold Penetration (Tier 2)",
+   "family": "Cold Penetration",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_26094",
+   "label": "Greater Cold Penetration (Tier 3)",
+   "family": "Cold Penetration",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_58581",
+   "label": "Combustion (Tier 3)",
+   "family": "Combustion",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_42698",
+   "label": "Lesser Concentrated Effect (Tier 1)",
+   "family": "Concentrated Effect",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_21489",
+   "label": "Concentrated Effect (Tier 2)",
+   "family": "Concentrated Effect",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_51806",
+   "label": "Greater Concentrated Effect (Tier 3)",
+   "family": "Concentrated Effect",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_30881",
+   "label": "Lesser Cooldown Recovery (Tier 1)",
+   "family": "Cooldown Recovery",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_48875",
+   "label": "Cooldown Recovery (Tier 2)",
+   "family": "Cooldown Recovery",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_10608",
+   "label": "Greater Cooldown Recovery (Tier 3)",
+   "family": "Cooldown Recovery",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_23209",
+   "label": "Lesser Critical Chance (Tier 1)",
+   "family": "Critical Chance",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_61471",
+   "label": "Critical Chance (Tier 2)",
+   "family": "Critical Chance",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_62220",
+   "label": "Greater Critical Chance (Tier 3)",
+   "family": "Critical Chance",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_30688",
+   "label": "Lesser Critical Damage (Tier 1)",
+   "family": "Critical Damage",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_32189",
+   "label": "Critical Damage (Tier 2)",
+   "family": "Critical Damage",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_55659",
+   "label": "Greater Critical Damage (Tier 3)",
+   "family": "Critical Damage",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_3263",
+   "label": "Greater Curse Effect (Tier 3)",
+   "family": "Curse Effect",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_22977",
+   "label": "Lesser DoT Multiplier (Tier 1)",
+   "family": "DoT Multiplier",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_6927",
+   "label": "DoT Multiplier (Tier 2)",
+   "family": "DoT Multiplier",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_37460",
+   "label": "Greater DoT Multiplier (Tier 3)",
+   "family": "DoT Multiplier",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_59712",
+   "label": "Lesser Elemental Damage with Attacks (Tier 1)",
+   "family": "Elemental Damage with Attacks",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_44886",
+   "label": "Elemental Damage with Attacks (Tier 2)",
+   "family": "Elemental Damage with Attacks",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_28416",
+   "label": "Greater Elemental Damage with Attacks (Tier 3)",
+   "family": "Elemental Damage with Attacks",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_30359",
+   "label": "Lesser Elemental Focus (Tier 1)",
+   "family": "Elemental Focus",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_37388",
+   "label": "Elemental Focus (Tier 2)",
+   "family": "Elemental Focus",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_31600",
+   "label": "Greater Elemental Focus (Tier 3)",
+   "family": "Elemental Focus",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_29922",
+   "label": "Lesser Excommunicate (Tier 1)",
+   "family": "Excommunicate",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_45433",
+   "label": "Excommunicate (Tier 2)",
+   "family": "Excommunicate",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_8617",
+   "label": "Greater Excommunicate (Tier 3)",
+   "family": "Excommunicate",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_52447",
+   "label": "Lesser Faster Attacks (Tier 1)",
+   "family": "Faster Attacks",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_987",
+   "label": "Faster Attacks (Tier 2)",
+   "family": "Faster Attacks",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_50485",
+   "label": "Greater Faster Attacks (Tier 3)",
+   "family": "Faster Attacks",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_43469",
+   "label": "Lesser Faster Casting (Tier 1)",
+   "family": "Faster Casting",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_38851",
+   "label": "Faster Casting (Tier 2)",
+   "family": "Faster Casting",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_8607",
+   "label": "Greater Faster Casting (Tier 3)",
+   "family": "Faster Casting",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_25199",
+   "label": "Lesser Faster Projectiles (Tier 1)",
+   "family": "Faster Projectiles",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_57644",
+   "label": "Faster Projectiles (Tier 2)",
+   "family": "Faster Projectiles",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_14517",
+   "label": "Greater Faster Projectiles (Tier 3)",
+   "family": "Faster Projectiles",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_46010",
+   "label": "Lesser Fire Penetration (Tier 1)",
+   "family": "Fire Penetration",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_62885",
+   "label": "Fire Penetration (Tier 2)",
+   "family": "Fire Penetration",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_54494",
+   "label": "Greater Fire Penetration (Tier 3)",
+   "family": "Fire Penetration",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_12347",
+   "label": "Fist of War (Tier 3)",
+   "family": "Fist of War",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_32052",
+   "label": "Greater Fork (Tier 3)",
+   "family": "Fork",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_31664",
+   "label": "Greater Fortify (Tier 3)",
+   "family": "Fortify",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_34226",
+   "label": "Lesser Freeze Chance (Tier 1)",
+   "family": "Freeze Chance",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_27458",
+   "label": "Freeze Chance (Tier 2)",
+   "family": "Freeze Chance",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_12387",
+   "label": "Greater Freeze Chance (Tier 3)",
+   "family": "Freeze Chance",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_59349",
+   "label": "Lesser Generosity (Tier 1)",
+   "family": "Generosity",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_35435",
+   "label": "Generosity (Tier 2)",
+   "family": "Generosity",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_53367",
+   "label": "Greater Generosity (Tier 3)",
+   "family": "Generosity",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_55998",
+   "label": "Gilded Additional Duration (Tier 3)",
+   "family": "Gilded Additional Duration",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_3609",
+   "label": "Gilded Additional Fissures (Tier 3)",
+   "family": "Gilded Additional Fissures",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_56511",
+   "label": "Gilded Additional Leech (Tier 3)",
+   "family": "Gilded Additional Leech",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_20568",
+   "label": "Gilded Additional Pods (Tier 3)",
+   "family": "Gilded Additional Pods",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_30722",
+   "label": "Gilded Additional Pulses (Tier 3)",
+   "family": "Gilded Additional Pulses",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_52378",
+   "label": "Gilded Archers (Tier 3)",
+   "family": "Gilded Archers",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_28387",
+   "label": "Gilded Area per Projectile (Tier 3)",
+   "family": "Gilded Area per Projectile",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_37275",
+   "label": "Gilded Ash (Tier 3)",
+   "family": "Gilded Ash",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_41118",
+   "label": "Gilded Astral Totem (Tier 3)",
+   "family": "Gilded Astral Totem",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_13568",
+   "label": "Gilded Beam Width (Tier 3)",
+   "family": "Gilded Beam Width",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_51944",
+   "label": "Gilded Bitterwound (Tier 3)",
+   "family": "Gilded Bitterwound",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_49189",
+   "label": "Gilded Blasting (Tier 3)",
+   "family": "Gilded Blasting",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_32431",
+   "label": "Gilded Cascade Count (Tier 3)",
+   "family": "Gilded Cascade Count",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_39101",
+   "label": "Gilded Caustic Conversion (Tier 3)",
+   "family": "Gilded Caustic Conversion",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_31571",
+   "label": "Gilded Chain Distance (Tier 3)",
+   "family": "Gilded Chain Distance",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_56315",
+   "label": "Gilded Clone Speed (Tier 3)",
+   "family": "Gilded Clone Speed",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_59468",
+   "label": "Gilded Conflagrant (Tier 3)",
+   "family": "Gilded Conflagrant",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_10782",
+   "label": "Gilded Consecration (Tier 3)",
+   "family": "Gilded Consecration",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_39307",
+   "label": "Gilded Crush (Tier 3)",
+   "family": "Gilded Crush",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_42140",
+   "label": "Gilded Cull (Tier 3)",
+   "family": "Gilded Cull",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_9300",
+   "label": "Gilded Damage from Life (Tier 3)",
+   "family": "Gilded Damage from Life",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_40676",
+   "label": "Gilded Devotion (Tier 3)",
+   "family": "Gilded Devotion",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_4032",
+   "label": "Gilded Divine Shield (Tier 3)",
+   "family": "Gilded Divine Shield",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_26713",
+   "label": "Gilded Electrocuting (Tier 3)",
+   "family": "Gilded Electrocuting",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_3756",
+   "label": "Gilded Elemental Weakness on Hit (Tier 3)",
+   "family": "Gilded Elemental Weakness on Hit",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_36350",
+   "label": "Gilded Empowered Link (Tier 3)",
+   "family": "Gilded Empowered Link",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_25565",
+   "label": "Gilded Ensnare Effect (Tier 3)",
+   "family": "Gilded Ensnare Effect",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_50741",
+   "label": "Gilded Exposure on Hit (Tier 3)",
+   "family": "Gilded Exposure on Hit",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_8720",
+   "label": "Gilded Extra Armaments (Tier 3)",
+   "family": "Gilded Extra Armaments",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_58471",
+   "label": "Gilded Extra Targets (Tier 3)",
+   "family": "Gilded Extra Targets",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_37259",
+   "label": "Gilded Extra Targets (Tier 3)",
+   "family": "Gilded Extra Targets",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_17178",
+   "label": "Gilded Faster Cyclone (Tier 3)",
+   "family": "Gilded Faster Cyclone",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_60910",
+   "label": "Gilded Fortification (Tier 3)",
+   "family": "Gilded Fortification",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_17213",
+   "label": "Gilded Freezer Burn (Tier 3)",
+   "family": "Gilded Freezer Burn",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_48738",
+   "label": "Gilded Frenzy (Tier 3)",
+   "family": "Gilded Frenzy",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_32361",
+   "label": "Gilded Grasp (Tier 3)",
+   "family": "Gilded Grasp",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_3194",
+   "label": "Gilded Heft (Tier 3)",
+   "family": "Gilded Heft",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_3180",
+   "label": "Gilded Hinder Duration (Tier 3)",
+   "family": "Gilded Hinder Duration",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_38317",
+   "label": "Gilded Hopelessness (Tier 3)",
+   "family": "Gilded Hopelessness",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_29166",
+   "label": "Gilded Icecrash Radius (Tier 3)",
+   "family": "Gilded Icecrash Radius",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_52383",
+   "label": "Gilded Impale Extraction (Tier 3)",
+   "family": "Gilded Impale Extraction",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_39050",
+   "label": "Gilded Increased Angle (Tier 3)",
+   "family": "Gilded Increased Angle",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_21678",
+   "label": "Gilded Inhibitor (Tier 3)",
+   "family": "Gilded Inhibitor",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_62171",
+   "label": "Gilded Inversion (Tier 3)",
+   "family": "Gilded Inversion",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_40212",
+   "label": "Gilded Jolt (Tier 3)",
+   "family": "Gilded Jolt",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_29562",
+   "label": "Gilded Lumbering Dead (Tier 3)",
+   "family": "Gilded Lumbering Dead",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_48949",
+   "label": "Gilded Malediction (Tier 3)",
+   "family": "Gilded Malediction",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_42966",
+   "label": "Gilded Maximum Explosions (Tier 3)",
+   "family": "Gilded Maximum Explosions",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_9460",
+   "label": "Gilded Maximum Spikes (Tier 3)",
+   "family": "Gilded Maximum Spikes",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_48614",
+   "label": "Gilded Maximum Stages (Tier 3)",
+   "family": "Gilded Maximum Stages",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_10682",
+   "label": "Gilded Maximum Storms (Tier 3)",
+   "family": "Gilded Maximum Storms",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_2205",
+   "label": "Gilded Molten Eruption (Tier 3)",
+   "family": "Gilded Molten Eruption",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_42155",
+   "label": "Gilded Nova (Tier 3)",
+   "family": "Gilded Nova",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_52432",
+   "label": "Gilded Onslaught on Cry (Tier 3)",
+   "family": "Gilded Onslaught on Cry",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_26792",
+   "label": "Gilded Physical Damage Reduction (Tier 3)",
+   "family": "Gilded Physical Damage Reduction",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_10482",
+   "label": "Gilded Pierce (Tier 3)",
+   "family": "Gilded Pierce",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_6109",
+   "label": "Gilded Power Charge on Critical Strike (Tier 3)",
+   "family": "Gilded Power Charge on Critical Strike",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_56144",
+   "label": "Gilded Purified Ground (Tier 3)",
+   "family": "Gilded Purified Ground",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_25885",
+   "label": "Gilded Reactor (Tier 3)",
+   "family": "Gilded Reactor",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_44238",
+   "label": "Gilded Relic Recovery (Tier 3)",
+   "family": "Gilded Relic Recovery",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_60983",
+   "label": "Gilded Scattershot (Tier 3)",
+   "family": "Gilded Scattershot",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_19004",
+   "label": "Gilded Scorch Chance (Tier 3)",
+   "family": "Gilded Scorch Chance",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_50273",
+   "label": "Gilded Searing Agony (Tier 3)",
+   "family": "Gilded Searing Agony",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_18499",
+   "label": "Gilded Secondary Shots (Tier 3)",
+   "family": "Gilded Secondary Shots",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_30406",
+   "label": "Gilded Shield Damage (Tier 3)",
+   "family": "Gilded Shield Damage",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_4006",
+   "label": "Gilded Snaking (Tier 3)",
+   "family": "Gilded Snaking",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_12569",
+   "label": "Gilded Sphere Frequency (Tier 3)",
+   "family": "Gilded Sphere Frequency",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_26618",
+   "label": "Gilded Stun Duration (Tier 3)",
+   "family": "Gilded Stun Duration",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_25001",
+   "label": "Gilded Totemic Onslaught (Tier 3)",
+   "family": "Gilded Totemic Onslaught",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_21276",
+   "label": "Gilded Trauma Duration (Tier 3)",
+   "family": "Gilded Trauma Duration",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_11052",
+   "label": "Gilded Uncertainty (Tier 3)",
+   "family": "Gilded Uncertainty",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_1075",
+   "label": "Gilded Volleys (Tier 3)",
+   "family": "Gilded Volleys",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_22587",
+   "label": "Gilded Voltage (Tier 3)",
+   "family": "Gilded Voltage",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_17946",
+   "label": "Gilded Voltaxic Conversion (Tier 3)",
+   "family": "Gilded Voltaxic Conversion",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_55952",
+   "label": "Gilded Wither Stacks (Tier 3)",
+   "family": "Gilded Wither Stacks",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_56233",
+   "label": "Hallow (Tier 3)",
+   "family": "Hallow",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_26146",
+   "label": "Lesser Hypothermia (Tier 1)",
+   "family": "Hypothermia",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_38571",
+   "label": "Hypothermia (Tier 2)",
+   "family": "Hypothermia",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_53145",
+   "label": "Greater Hypothermia (Tier 3)",
+   "family": "Hypothermia",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_52335",
+   "label": "Lesser Ignite Chance (Tier 1)",
+   "family": "Ignite Chance",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_50303",
+   "label": "Ignite Chance (Tier 2)",
+   "family": "Ignite Chance",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_10997",
+   "label": "Greater Ignite Chance (Tier 3)",
+   "family": "Ignite Chance",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_54252",
+   "label": "Lesser Impale Chance (Tier 1)",
+   "family": "Impale Chance",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_11497",
+   "label": "Impale Chance (Tier 2)",
+   "family": "Impale Chance",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_29720",
+   "label": "Greater Impale Chance (Tier 3)",
+   "family": "Impale Chance",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_22670",
+   "label": "Lesser Increased Area of Effect (Tier 1)",
+   "family": "Increased Area of Effect",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_53342",
+   "label": "Increased Area of Effect (Tier 2)",
+   "family": "Increased Area of Effect",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_59986",
+   "label": "Lesser Infused Channelling (Tier 1)",
+   "family": "Infused Channelling",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_34697",
+   "label": "Infused Channelling (Tier 2)",
+   "family": "Infused Channelling",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_63104",
+   "label": "Greater Infused Channelling (Tier 3)",
+   "family": "Infused Channelling",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_230",
+   "label": "Lesser Ironwood (Tier 1)",
+   "family": "Ironwood",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_6667",
+   "label": "Ironwood (Tier 2)",
+   "family": "Ironwood",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_1227",
+   "label": "Greater Ironwood (Tier 3)",
+   "family": "Ironwood",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_65002",
+   "label": "Knockback (Tier 1)",
+   "family": "Knockback",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_32130",
+   "label": "Lesser Leech (Tier 1)",
+   "family": "Leech",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_3240",
+   "label": "Leech (Tier 2)",
+   "family": "Leech",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_41756",
+   "label": "Greater Leech (Tier 3)",
+   "family": "Leech",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_54768",
+   "label": "Lesser Less Duration (Tier 1)",
+   "family": "Less Duration",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_65114",
+   "label": "Less Duration (Tier 2)",
+   "family": "Less Duration",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_61947",
+   "label": "Greater Less Duration (Tier 3)",
+   "family": "Less Duration",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_37739",
+   "label": "Lesser Lightning Penetration (Tier 1)",
+   "family": "Lightning Penetration",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_41256",
+   "label": "Lightning Penetration (Tier 2)",
+   "family": "Lightning Penetration",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_26815",
+   "label": "Greater Lightning Penetration (Tier 3)",
+   "family": "Lightning Penetration",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_24343",
+   "label": "Greater Lucky Lightning Damage (Tier 3)",
+   "family": "Lucky Lightning Damage",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_56389",
+   "label": "Maim (Tier 3)",
+   "family": "Maim",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_64801",
+   "label": "Maximum Shock Effect (Tier 3)",
+   "family": "Maximum Shock Effect",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_64940",
+   "label": "Lesser Melee Physical Damage (Tier 1)",
+   "family": "Melee Physical Damage",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_53516",
+   "label": "Melee Physical Damage (Tier 2)",
+   "family": "Melee Physical Damage",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_63342",
+   "label": "Greater Melee Physical Damage (Tier 3)",
+   "family": "Melee Physical Damage",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_40660",
+   "label": "Melee Splash (Tier 3)",
+   "family": "Melee Splash",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_13016",
+   "label": "Minion Caustic Death (Tier 3)",
+   "family": "Minion Caustic Death",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_8821",
+   "label": "Lesser Minion Damage (Tier 1)",
+   "family": "Minion Damage",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_28579",
+   "label": "Minion Damage (Tier 2)",
+   "family": "Minion Damage",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_52472",
+   "label": "Greater Minion Damage (Tier 3)",
+   "family": "Minion Damage",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_23582",
+   "label": "Lesser Minion Life (Tier 1)",
+   "family": "Minion Life",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_20579",
+   "label": "Minion Life (Tier 2)",
+   "family": "Minion Life",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_31863",
+   "label": "Greater Minion Life (Tier 3)",
+   "family": "Minion Life",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_37727",
+   "label": "Mirage Archer (Tier 3)",
+   "family": "Mirage Archer",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_16261",
+   "label": "Lesser Mitigation Ignore (Tier 1)",
+   "family": "Mitigation Ignore",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_4351",
+   "label": "Mitigation Ignore (Tier 2)",
+   "family": "Mitigation Ignore",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_33557",
+   "label": "Greater Mitigation Ignore (Tier 3)",
+   "family": "Mitigation Ignore",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_2602",
+   "label": "Lesser More Duration (Tier 1)",
+   "family": "More Duration",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_50222",
+   "label": "More Duration (Tier 2)",
+   "family": "More Duration",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_26568",
+   "label": "Greater More Duration (Tier 3)",
+   "family": "More Duration",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_12054",
+   "label": "Multiple Projectiles (Tier 1)",
+   "family": "Multiple Projectiles",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_49419",
+   "label": "Greater Multiple Projectiles (Tier 3)",
+   "family": "Multiple Projectiles",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_17097",
+   "label": "Multiple Totems (Tier 3)",
+   "family": "Multiple Totems",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_2555",
+   "label": "Multiple Traps (Tier 3)",
+   "family": "Multiple Traps",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_62638",
+   "label": "Multistrike (Tier 2)",
+   "family": "Multistrike",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_25973",
+   "label": "Greater Multistrike (Tier 3)",
+   "family": "Multistrike",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_28037",
+   "label": "Lesser Physical as Extra (Tier 1)",
+   "family": "Physical as Extra",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_39342",
+   "label": "Physical as Extra (Tier 2)",
+   "family": "Physical as Extra",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_45050",
+   "label": "Greater Physical as Extra (Tier 3)",
+   "family": "Physical as Extra",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_51009",
+   "label": "Physical as Extra Chaos (Tier 2)",
+   "family": "Physical as Extra Chaos",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_58214",
+   "label": "Greater Physical as Extra Chaos (Tier 3)",
+   "family": "Physical as Extra Chaos",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_6040",
+   "label": "Lesser Pierce (Tier 1)",
+   "family": "Pierce",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_56267",
+   "label": "Pierce (Tier 2)",
+   "family": "Pierce",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_27970",
+   "label": "Greater Pierce (Tier 3)",
+   "family": "Pierce",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_35729",
+   "label": "Lesser Pulverise (Tier 1)",
+   "family": "Pulverise",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_64717",
+   "label": "Pulverise (Tier 2)",
+   "family": "Pulverise",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_64416",
+   "label": "Greater Pulverise (Tier 3)",
+   "family": "Pulverise",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_55249",
+   "label": "Lesser Rage on Hit (Tier 1)",
+   "family": "Rage on Hit",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_64986",
+   "label": "Rage on Hit (Tier 2)",
+   "family": "Rage on Hit",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_57658",
+   "label": "Greater Rage on Hit (Tier 3)",
+   "family": "Rage on Hit",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_49237",
+   "label": "Lesser Raging Cry (Tier 1)",
+   "family": "Raging Cry",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_36496",
+   "label": "Raging Cry (Tier 2)",
+   "family": "Raging Cry",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_13784",
+   "label": "Greater Raging Cry (Tier 3)",
+   "family": "Raging Cry",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_5293",
+   "label": "Return (Tier 3)",
+   "family": "Return",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_45969",
+   "label": "Greater Sacred Wisps (Tier 3)",
+   "family": "Sacred Wisps",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_50475",
+   "label": "Second Wind (Tier 3)",
+   "family": "Second Wind",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_9710",
+   "label": "Lesser Shock Chance (Tier 1)",
+   "family": "Shock Chance",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_64846",
+   "label": "Shock Chance (Tier 2)",
+   "family": "Shock Chance",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_38046",
+   "label": "Greater Shock Chance (Tier 3)",
+   "family": "Shock Chance",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_15866",
+   "label": "Lesser Slower Projectiles (Tier 1)",
+   "family": "Slower Projectiles",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_2210",
+   "label": "Slower Projectiles (Tier 2)",
+   "family": "Slower Projectiles",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_44952",
+   "label": "Greater Slower Projectiles (Tier 3)",
+   "family": "Slower Projectiles",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_65120",
+   "label": "Lesser Spell Cascade (Tier 1)",
+   "family": "Spell Cascade",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_1751",
+   "label": "Spell Cascade (Tier 3)",
+   "family": "Spell Cascade",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_30389",
+   "label": "Lesser Strike Distance (Tier 1)",
+   "family": "Strike Distance",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_59784",
+   "label": "Strike Distance (Tier 2)",
+   "family": "Strike Distance",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_812",
+   "label": "Greater Strike Distance (Tier 3)",
+   "family": "Strike Distance",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_834",
+   "label": "Lesser Swift Affliction (Tier 1)",
+   "family": "Swift Affliction",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_64281",
+   "label": "Swift Affliction (Tier 2)",
+   "family": "Swift Affliction",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_65240",
+   "label": "Greater Swift Affliction (Tier 3)",
+   "family": "Swift Affliction",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_32260",
+   "label": "Lesser Throwing Speed (Tier 1)",
+   "family": "Throwing Speed",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_3465",
+   "label": "Throwing Speed (Tier 2)",
+   "family": "Throwing Speed",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_58938",
+   "label": "Greater Throwing Speed (Tier 3)",
+   "family": "Throwing Speed",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_49954",
+   "label": "Lesser Trap and Mine Damage (Tier 1)",
+   "family": "Trap and Mine Damage",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_31171",
+   "label": "Trap and Mine Damage (Tier 2)",
+   "family": "Trap and Mine Damage",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_59079",
+   "label": "Greater Trap and Mine Damage (Tier 3)",
+   "family": "Trap and Mine Damage",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_40446",
+   "label": "Lesser Trigger Radius (Tier 1)",
+   "family": "Trigger Radius",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_819",
+   "label": "Trigger Radius (Tier 2)",
+   "family": "Trigger Radius",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_54156",
+   "label": "Greater Trigger Radius (Tier 3)",
+   "family": "Trigger Radius",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_55470",
+   "label": "Lesser Warcry Speed (Tier 1)",
+   "family": "Warcry Speed",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_47477",
+   "label": "Warcry Speed (Tier 2)",
+   "family": "Warcry Speed",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_52142",
+   "label": "Greater Warcry Speed (Tier 3)",
+   "family": "Warcry Speed",
+   "tier": 3
+  },
+  {
+   "id": "mercenary.support_53673",
+   "label": "Lesser Wither on Hit (Tier 1)",
+   "family": "Wither on Hit",
+   "tier": 1
+  },
+  {
+   "id": "mercenary.support_15235",
+   "label": "Wither on Hit (Tier 2)",
+   "family": "Wither on Hit",
+   "tier": 2
+  },
+  {
+   "id": "mercenary.support_61510",
+   "label": "Greater Wither on Hit (Tier 3)",
+   "family": "Wither on Hit",
+   "tier": 3
+  }
+ ]
+}

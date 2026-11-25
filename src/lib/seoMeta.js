@@ -39,6 +39,8 @@ const BREADCRUMB_LABELS = {
   '/build': 'Build Planning',
   '/leveling': 'Leveling',
   '/tools/watcher': 'Watcher',
+  '/trade': 'Trade',
+  '/trade/mercenary-search': 'Mercenary Search',
   '/library': 'Regex Library',
   '/privacy': 'About & Privacy',
   '/poe2': 'Path of Exile 2',
@@ -220,6 +222,11 @@ export const ROUTE_META = {
   '/tools/watcher': {
     title: 'Omnilyth Watcher — Live PoE Trade Notifications',
     description: 'Free desktop app for Path of Exile that streams real-time trade-search results over WebSocket. Windows installer.',
+    kind: 'tool',
+  },
+  '/trade/mercenary-search': {
+    title: 'PoE Mercenary Warrant Search — Filter by Skills & Links',
+    description: 'Build a pathofexile.com trade search for Mercenary Warrants: pick an archetype, require skills and linked supports, exclude Wrath or support families.',
     kind: 'tool',
   },
   '/library': {

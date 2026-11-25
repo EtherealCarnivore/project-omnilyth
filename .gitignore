@@ -17,3 +17,8 @@ scripts/leveling-data/raw/.cache/
 
 # Scraper page cache (scripts/lib/poedb.js)
 scripts/.cache/
+
+# Local env (holds POESESSID / POETOKEN for the dev trade proxy)
+.env
+.env.*.local
+.env.local
