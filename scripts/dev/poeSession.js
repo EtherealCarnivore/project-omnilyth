@@ -159,21 +159,33 @@ export function poeSessionPlugin(env) {
       const LOOPBACK = new Set(['127.0.0.1', '::1', '::ffff:127.0.0.1']);
       const deny = (res, code, msg) => {
         res.statusCode = code;
-        res.setHeader('Content-Type', 'text/plain');
-        return res.end(msg);
+        res.setHeader('Content-Type', 'application/json');
+        return res.end(JSON.stringify({ error: msg }));
       };
       server.middlewares.use((req, res, next) => {
-        const isSession = req.url.startsWith('/__dev/poe-session');
-        const isTrade = req.url.startsWith('/api/poe-trade');
+        // connect routes `use('/__dev/poe-session')` case-insensitively and
+        // accepts absolute-form request lines, so match on the same view.
+        let path;
+        try {
+          path = new URL(req.url, 'http://localhost').pathname.toLowerCase();
+        } catch {
+          return deny(res, 400, 'bad request');
+        }
+        const isSession = path.startsWith('/__dev/poe-session');
+        const isTrade = path.startsWith('/api/poe-trade');
         if (!isSession && !isTrade) return next();
         if (!LOOPBACK.has(req.socket.remoteAddress)) return deny(res, 403, 'local only');
         const site = req.headers['sec-fetch-site'];
-        if (site && site !== 'same-origin') return deny(res, 403, 'same-origin only');
+        // 'none' = typed into the address bar / bookmark; harmless for a GET.
+        const sameSite = !site || site === 'same-origin' || (site === 'none' && req.method === 'GET');
+        if (!sameSite) return deny(res, 403, 'same-origin only');
         const origin = req.headers.origin;
         if (origin && origin !== `http://${req.headers.host}` && origin !== `https://${req.headers.host}`) {
           return deny(res, 403, 'same-origin only');
         }
-        if (isTrade && !(req.method === 'POST' && /^\/api\/poe-trade\/search\/[^/?#]+(?:\?|$)/.test(req.url))) {
+        // League names have no dots; refusing `.` and `%2e` keeps the
+        // forwarded path from being normalised onto another endpoint.
+        if (isTrade && !(req.method === 'POST' && /^\/api\/poe-trade\/search\/(?![^?]*%2e)[^/?#.]+(?:\?|$)/i.test(req.url))) {
           return deny(res, 404, 'only POST /api/poe-trade/search/<league> is proxied');
         }
         next();
