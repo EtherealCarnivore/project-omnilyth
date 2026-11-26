@@ -191,7 +191,9 @@ function WantedSkill({ entry, excludedFamilies, onChange, onRemove, onExclude })
 async function readJson(res) {
   const text = await res.text();
   try {
-    return JSON.parse(text);
+    const body = JSON.parse(text);
+    if (body && typeof body === 'object') return body;
+    return { error: `HTTP ${res.status}` };
   } catch {
     const plain = text.trim();
     return { error: plain && !plain.startsWith('<') ? plain.slice(0, 200) : `HTTP ${res.status}` };
@@ -214,7 +216,7 @@ function DevSession() {
     try {
       const res = await fetch(`/__dev/poe-session${path}`, { method });
       const body = await readJson(res);
-      if (!res.ok) throw new Error(body.error ?? `HTTP ${res.status}`);
+      if (!res.ok || body.error) throw new Error(body.error ?? `HTTP ${res.status}`);
       setS(body);
     } catch (err) {
       setError(err.message);
