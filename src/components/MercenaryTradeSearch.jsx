@@ -62,17 +62,19 @@ function Card({ title, hint, children, right }) {
 }
 
 function Chip({ active, tone = 'amber', onClick, children, title }) {
+  // ACTIVE token (CLAUDE.md §3); the 1px padding trim keeps the 2px border
+  // from shifting the chip row when it toggles.
   const on = tone === 'red'
-    ? 'bg-red-500/15 border-red-500/50 text-red-300 line-through decoration-red-400/60'
-    : 'bg-amber-500/20 border-amber-500/50 text-amber-300';
+    ? 'px-[9px] py-[3px] bg-red-500/20 border-2 border-red-500/50 text-red-400 line-through decoration-red-400/60'
+    : 'px-[9px] py-[3px] bg-amber-500/20 border-2 border-amber-500/50 text-amber-400';
   return (
     <button
       type="button"
       onClick={onClick}
       title={title}
       aria-pressed={active}
-      className={`min-h-8 px-2.5 py-1 rounded-md border text-xs transition-colors ${
-        active ? on : 'bg-zinc-800/40 border-white/[0.04] text-zinc-400 hover:text-zinc-200 hover:border-white/10'
+      className={`min-h-8 rounded-md text-xs transition-colors ${
+        active ? on : 'px-2.5 py-1 bg-zinc-800/40 border border-white/[0.04] text-zinc-400 hover:text-zinc-200 hover:border-white/10'
       }`}
     >
       {children}
@@ -183,6 +185,20 @@ function WantedSkill({ entry, excludedFamilies, onChange, onRemove, onExclude })
 }
 
 /**
+ * Parse a JSON reply; a non-JSON one (proxy refusal, HTML error page) becomes
+ * `{ error }` with its text or status so callers can show it.
+ */
+async function readJson(res) {
+  const text = await res.text();
+  try {
+    return JSON.parse(text);
+  } catch {
+    const plain = text.trim();
+    return { error: plain && !plain.startsWith('<') ? plain.slice(0, 200) : `HTTP ${res.status}` };
+  }
+}
+
+/**
  * Dev-server only: import the PoE session from a local browser, like the
  * Omnilyth Watcher does. The session stays on the dev server; this component
  * only ever sees a masked preview.
@@ -197,7 +213,7 @@ function DevSession() {
     setError('');
     try {
       const res = await fetch(`/__dev/poe-session${path}`, { method });
-      const body = await res.json();
+      const body = await readJson(res);
       if (!res.ok) throw new Error(body.error ?? `HTTP ${res.status}`);
       setS(body);
     } catch (err) {
@@ -321,8 +337,11 @@ export default function MercenaryTradeSearch() {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload),
       });
-      const body = await res.json();
-      if (!res.ok || body.error) throw new Error(body.error?.message ?? `HTTP ${res.status}`);
+      const body = await readJson(res);
+      if (!res.ok || body.error) {
+        // Trade API errors are `{ error: { message } }`; readJson / the dev proxy give a string.
+        throw new Error((typeof body.error === 'string' ? body.error : body.error?.message) ?? `HTTP ${res.status}`);
+      }
       setRun({ status: 'done', total: body.total, complexity: body.complexity, link: tradeResultUrl(league, body.id) });
     } catch (err) {
       setRun({ status: 'error', message: err.message });
@@ -544,7 +563,7 @@ export default function MercenaryTradeSearch() {
                 <button
                   type="button"
                   onClick={runSearch}
-                  disabled={empty || run.status === 'loading'}
+                  disabled={empty || wrongGame || run.status === 'loading'}
                   className="w-full min-h-9 rounded-md text-xs border border-teal-500/40 text-teal-300 hover:bg-teal-500/10 disabled:opacity-40"
                 >
                   {run.status === 'loading' ? 'Searching…' : 'Run search (dev proxy)'}
