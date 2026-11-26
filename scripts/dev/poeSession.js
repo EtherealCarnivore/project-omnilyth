@@ -164,16 +164,22 @@ export function poeSessionPlugin(env) {
       };
       server.middlewares.use((req, res, next) => {
         // connect routes `use('/__dev/poe-session')` case-insensitively and
-        // accepts absolute-form request lines, so match on the same view.
+        // accepts absolute-form request lines; Vite's proxy matches the raw
+        // url. Guard a request if either view of the path is guarded.
+        const raw = req.url.split('?')[0].toLowerCase();
         let path;
         try {
           path = new URL(req.url, 'http://localhost').pathname.toLowerCase();
         } catch {
           return deny(res, 400, 'bad request');
         }
-        const isSession = path.startsWith('/__dev/poe-session');
-        const isTrade = path.startsWith('/api/poe-trade');
+        const under = (p) => raw.startsWith(p) || path.startsWith(p);
+        const isSession = under('/__dev/poe-session');
+        const isTrade = under('/api/poe-trade');
         if (!isSession && !isTrade) return next();
+        // No dot segments, encoded dots/separators or backslashes on guarded
+        // routes: the path must not normalise onto somewhere else.
+        if (/(^|\/)\.\.?(\/|$)|%2e|%2f|%5c|%25|\\/i.test(raw)) return deny(res, 400, 'bad path');
         if (!LOOPBACK.has(req.socket.remoteAddress)) return deny(res, 403, 'local only');
         const site = req.headers['sec-fetch-site'];
         // 'none' = typed into the address bar / bookmark; harmless for a GET.
@@ -183,9 +189,7 @@ export function poeSessionPlugin(env) {
         if (origin && origin !== `http://${req.headers.host}` && origin !== `https://${req.headers.host}`) {
           return deny(res, 403, 'same-origin only');
         }
-        // League names have no dots; refusing `.` and `%2e` keeps the
-        // forwarded path from being normalised onto another endpoint.
-        if (isTrade && !(req.method === 'POST' && /^\/api\/poe-trade\/search\/(?![^?]*%2e)[^/?#.]+(?:\?|$)/i.test(req.url))) {
+        if (isTrade && !(req.method === 'POST' && /^\/api\/poe-trade\/search\/[^/?#]+(?:\?|$)/.test(req.url))) {
           return deny(res, 404, 'only POST /api/poe-trade/search/<league> is proxied');
         }
         next();
