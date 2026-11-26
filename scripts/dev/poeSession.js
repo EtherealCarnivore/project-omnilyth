@@ -152,12 +152,29 @@ export function poeSessionPlugin(env) {
     configureServer(server) {
       // `npm run dev` listens on all interfaces (--host). The session endpoints
       // and the cookie-carrying trade proxy answer this machine only.
+      // A loopback peer is not enough: a page from any other site open in the
+      // same browser also connects from 127.0.0.1. So browser requests must
+      // also come from the dev server's own origin (Sec-Fetch-Site / Origin),
+      // and the trade proxy only forwards the search POST the tool makes.
       const LOOPBACK = new Set(['127.0.0.1', '::1', '::ffff:127.0.0.1']);
+      const deny = (res, code, msg) => {
+        res.statusCode = code;
+        res.setHeader('Content-Type', 'text/plain');
+        return res.end(msg);
+      };
       server.middlewares.use((req, res, next) => {
-        const guarded = req.url.startsWith('/__dev/poe-session') || req.url.startsWith('/api/poe-trade');
-        if (guarded && !LOOPBACK.has(req.socket.remoteAddress)) {
-          res.statusCode = 403;
-          return res.end('local only');
+        const isSession = req.url.startsWith('/__dev/poe-session');
+        const isTrade = req.url.startsWith('/api/poe-trade');
+        if (!isSession && !isTrade) return next();
+        if (!LOOPBACK.has(req.socket.remoteAddress)) return deny(res, 403, 'local only');
+        const site = req.headers['sec-fetch-site'];
+        if (site && site !== 'same-origin') return deny(res, 403, 'same-origin only');
+        const origin = req.headers.origin;
+        if (origin && origin !== `http://${req.headers.host}` && origin !== `https://${req.headers.host}`) {
+          return deny(res, 403, 'same-origin only');
+        }
+        if (isTrade && !(req.method === 'POST' && /^\/api\/poe-trade\/search\/[^/?#]+(?:\?|$)/.test(req.url))) {
+          return deny(res, 404, 'only POST /api/poe-trade/search/<league> is proxied');
         }
         next();
       });

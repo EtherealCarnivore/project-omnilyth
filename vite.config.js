@@ -25,6 +25,25 @@ function tradeProxy() {
   }
 }
 
+// Cookie-free proxies, shared by `vite` and `vite preview`.
+const publicProxies = {
+  '/api/poe-ninja': {
+    target: 'https://poe.ninja',
+    changeOrigin: true,
+    rewrite: (path) => path.replace(/^\/api\/poe-ninja/, ''),
+  },
+  '/api/pobbin': {
+    target: 'https://pobb.in',
+    changeOrigin: true,
+    rewrite: (path) => path.replace(/^\/api\/pobbin/, ''),
+  },
+  '/api/pastebin': {
+    target: 'https://pastebin.com',
+    changeOrigin: true,
+    rewrite: (path) => path.replace(/^\/api\/pastebin/, ''),
+  },
+}
+
 const env = loadEnv(process.env.NODE_ENV === 'production' ? 'production' : 'development', process.cwd(), '')
 
 export default defineConfig({
@@ -41,23 +60,12 @@ export default defineConfig({
     },
   },
   server: {
-    proxy: {
-      '/api/poe-ninja': {
-        target: 'https://poe.ninja',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/poe-ninja/, ''),
-      },
-      '/api/pobbin': {
-        target: 'https://pobb.in',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/pobbin/, ''),
-      },
-      '/api/pastebin': {
-        target: 'https://pastebin.com',
-        changeOrigin: true,
-        rewrite: (path) => path.replace(/^\/api\/pastebin/, ''),
-      },
-      '/api/poe-trade': tradeProxy(),
-    },
+    proxy: { ...publicProxies, '/api/poe-trade': tradeProxy() },
+  },
+  // `vite preview` would otherwise reuse server.proxy, and the session guard
+  // in scripts/dev/poeSession.js is a dev-server (serve) plugin only, so preview
+  // gets no trade proxy.
+  preview: {
+    proxy: publicProxies,
   },
 })
