@@ -45,7 +45,7 @@ const VERSION_LOADERS = {
 };
 const HIDDEN_VERSIONS = new Set(['3.28']);
 
-// Newest first, comparing each dotted part as a number ('3.30' > '3.4' > '3.29';
+// Newest first, comparing each dotted part as a number ('3.30' > '3.29' > '3.4';
 // parseFloat would put 3.4 above 3.30).
 function compareVersionsDesc(a, b) {
   const pa = a.split('.').map(Number);
