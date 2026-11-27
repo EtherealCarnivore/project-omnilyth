@@ -152,12 +152,45 @@ export function poeSessionPlugin(env) {
     configureServer(server) {
       // `npm run dev` listens on all interfaces (--host). The session endpoints
       // and the cookie-carrying trade proxy answer this machine only.
+      // A loopback peer is not enough: a page from any other site open in the
+      // same browser also connects from 127.0.0.1. So browser requests must
+      // also come from the dev server's own origin (Sec-Fetch-Site / Origin),
+      // and the trade proxy only forwards the search POST the tool makes.
       const LOOPBACK = new Set(['127.0.0.1', '::1', '::ffff:127.0.0.1']);
+      const deny = (res, code, msg) => {
+        res.statusCode = code;
+        res.setHeader('Content-Type', 'application/json');
+        return res.end(JSON.stringify({ error: msg }));
+      };
       server.middlewares.use((req, res, next) => {
-        const guarded = req.url.startsWith('/__dev/poe-session') || req.url.startsWith('/api/poe-trade');
-        if (guarded && !LOOPBACK.has(req.socket.remoteAddress)) {
-          res.statusCode = 403;
-          return res.end('local only');
+        // connect routes `use('/__dev/poe-session')` case-insensitively and
+        // accepts absolute-form request lines; Vite's proxy matches the raw
+        // url. Guard a request if either view of the path is guarded.
+        const raw = req.url.split('?')[0].toLowerCase();
+        let path;
+        try {
+          path = new URL(req.url, 'http://localhost').pathname.toLowerCase();
+        } catch {
+          return deny(res, 400, 'bad request');
+        }
+        const under = (p) => raw.startsWith(p) || path.startsWith(p);
+        const isSession = under('/__dev/poe-session');
+        const isTrade = under('/api/poe-trade');
+        if (!isSession && !isTrade) return next();
+        // No dot segments, encoded dots/separators or backslashes on guarded
+        // routes: the path must not normalise onto somewhere else.
+        if (/(^|\/)\.\.?(\/|$)|%2e|%2f|%5c|%25|\\/i.test(raw)) return deny(res, 400, 'bad path');
+        if (!LOOPBACK.has(req.socket.remoteAddress)) return deny(res, 403, 'local only');
+        const site = req.headers['sec-fetch-site'];
+        // 'none' = typed into the address bar / bookmark; harmless for a GET.
+        const sameSite = !site || site === 'same-origin' || (site === 'none' && req.method === 'GET');
+        if (!sameSite) return deny(res, 403, 'same-origin only');
+        const origin = req.headers.origin;
+        if (origin && origin !== `http://${req.headers.host}` && origin !== `https://${req.headers.host}`) {
+          return deny(res, 403, 'same-origin only');
+        }
+        if (isTrade && !(req.method === 'POST' && /^\/api\/poe-trade\/search\/[^/?#]+(?:\?|$)/.test(req.url))) {
+          return deny(res, 404, 'only POST /api/poe-trade/search/<league> is proxied');
         }
         next();
       });
