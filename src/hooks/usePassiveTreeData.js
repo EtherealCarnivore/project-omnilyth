@@ -45,9 +45,21 @@ const VERSION_LOADERS = {
 };
 const HIDDEN_VERSIONS = new Set(['3.28']);
 
+// Newest first, comparing each dotted part as a number ('3.30' > '3.4' > '3.29';
+// parseFloat would put 3.4 above 3.30).
+function compareVersionsDesc(a, b) {
+  const pa = a.split('.').map(Number);
+  const pb = b.split('.').map(Number);
+  for (let i = 0; i < Math.max(pa.length, pb.length); i++) {
+    const d = (pb[i] || 0) - (pa[i] || 0);
+    if (d) return d;
+  }
+  return 0;
+}
+
 export const AVAILABLE_VERSIONS = Object.keys(VERSION_LOADERS)
   .filter((v) => !HIDDEN_VERSIONS.has(v))
-  .sort((a, b) => parseFloat(b) - parseFloat(a));
+  .sort(compareVersionsDesc);
 export const DEFAULT_VERSION = AVAILABLE_VERSIONS[0]; // Latest first
 
 // Use the highest zoom level for best icon quality
@@ -256,8 +268,10 @@ export default function usePassiveTreeData(version = DEFAULT_VERSION) {
   const loadingRef = useRef(null); // tracks which version is currently loading
 
   useEffect(() => {
-    // Already cached
+    // Already cached. Point the ref at this version too, so an older version's
+    // import still in flight can't overwrite this data when it resolves.
     if (cache[version]) {
+      loadingRef.current = version;
       setData(cache[version]);
       setLoading(false);
       setError(null);
@@ -269,6 +283,7 @@ export default function usePassiveTreeData(version = DEFAULT_VERSION) {
 
     const loader = VERSION_LOADERS[version];
     if (!loader) {
+      loadingRef.current = version;
       setError(new Error(`Unknown tree version: ${version}`));
       setLoading(false);
       return;
