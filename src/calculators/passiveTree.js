@@ -96,6 +96,19 @@ export function getNodeType(node) {
 }
 
 /**
+ * Proxy passives are placeholders the game fills in only when a jewel is
+ * socketed: the cluster-jewel subgraphs (proxy groups, which also hold the
+ * cluster's inner Small/Medium Jewel Sockets) and, from 3.30, the Blightcore
+ * nodes a Putrid Seed grows from an outer Large Jewel Socket (isProxy nodes in
+ * ordinary groups). They are not part of the drawn tree.
+ */
+export function isProxyNode(node, groups) {
+  if (!node) return false;
+  if (node.isProxy) return true;
+  return node.group !== undefined && !!groups?.[node.group]?.isProxy;
+}
+
+/**
  * Check if a node is allocatable (has stats, not mastery, not class start, not proxy).
  */
 export function isAllocatable(nodeId, node) {
@@ -625,8 +638,9 @@ function categorizeAndAddStat(stat, grouped, categorized) {
 
 /**
  * Search nodes by name or stat text. Returns matching nodeIds.
+ * Pass `groups` to leave out proxy passives, which are not drawn.
  */
-export function searchNodes(query, nodes) {
+export function searchNodes(query, nodes, groups) {
   if (!query || query.length < 2) return new Set();
 
   const lower = query.toLowerCase();
@@ -635,6 +649,7 @@ export function searchNodes(query, nodes) {
   for (const [nodeId, node] of Object.entries(nodes)) {
     if (nodeId === 'root') continue;
     if (node.isMastery) continue;
+    if (isProxyNode(node, groups)) continue;
 
     if (node.name && node.name.toLowerCase().includes(lower)) {
       matches.add(nodeId);

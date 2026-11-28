@@ -85,7 +85,7 @@ export function PassiveTreeProvider({ children }) {
   // Search results
   const searchResults = useMemo(() => {
     if (!treeData || !searchQuery) return new Set();
-    return searchNodes(searchQuery, treeData.nodes);
+    return searchNodes(searchQuery, treeData.nodes, treeData.groups);
   }, [searchQuery, treeData]);
 
   // Stat summary

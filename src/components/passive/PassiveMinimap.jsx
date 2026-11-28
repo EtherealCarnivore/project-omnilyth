@@ -6,6 +6,7 @@
  */
 
 import { useMemo } from 'react';
+import { isProxyNode } from '../../calculators/passiveTree';
 
 const MINIMAP_SIZE = 140;
 
@@ -21,7 +22,7 @@ export default function PassiveMinimap({
   const minimapData = useMemo(() => {
     if (!treeData?.positions || !treeData?.bounds) return null;
 
-    const { bounds, positions } = treeData;
+    const { bounds, positions, nodes, groups } = treeData;
     const treeWidth = bounds.maxX - bounds.minX;
     const treeHeight = bounds.maxY - bounds.minY;
 
@@ -31,6 +32,7 @@ export default function PassiveMinimap({
     // Convert world positions to minimap positions
     const dots = [];
     for (const [nodeId, pos] of Object.entries(positions)) {
+      if (isProxyNode(nodes?.[nodeId], groups)) continue;
       const x = (pos.x - bounds.minX) * scale + 10;
       const y = (pos.y - bounds.minY) * scale + 10;
 
