@@ -15,6 +15,7 @@ import PassiveGroupBackground from './PassiveGroupBackground';
 import PassiveTooltip from './PassiveTooltip';
 import PassiveMinimap from './PassiveMinimap';
 import { ORBIT_RADII, ZOOM_CONFIG } from '../../data/passive/passiveTreeConstants';
+import { isProxyNode } from '../../calculators/passiveTree';
 
 const ZOOM_FACTOR = 0.3835;
 
@@ -71,6 +72,8 @@ export default function PassiveTreeRenderer() {
     for (const [nodeId, node] of Object.entries(nodes)) {
       // Skip root — its connections span the entire tree
       if (nodeId === 'root') continue;
+      // Proxy passives (cluster / Putrid Seed placeholders) are not drawn
+      if (isProxyNode(node, groups)) continue;
 
       const from = positions[nodeId];
       if (!from) continue;
@@ -88,6 +91,7 @@ export default function PassiveTreeRenderer() {
 
         const target = nodes[outId];
         if (!target) continue;
+        if (isProxyNode(target, groups)) continue;
 
         // Skip cross-domain connections (ascendancy node ↔ non-ascendancy node)
         if (node.ascendancyName && !target.ascendancyName) continue;
@@ -130,6 +134,7 @@ export default function PassiveTreeRenderer() {
     if (!treeData?.groups || !treeData?.spriteMap?.groupBackgrounds) return [];
     const list = [];
     for (const [groupId, group] of Object.entries(treeData.groups)) {
+      if (group.isProxy) continue;
       if (!group.background?.image) continue;
       const spriteName = group.background.image;
       const sprite = treeData.spriteMap.groupBackgrounds[spriteName];
@@ -191,11 +196,12 @@ export default function PassiveTreeRenderer() {
   // Build full renderable node list (sorted, not culled)
   const allRenderableNodes = useMemo(() => {
     if (!treeData) return [];
-    const { nodes, positions, nodeMeta } = treeData;
+    const { nodes, positions, nodeMeta, groups } = treeData;
     const list = [];
 
     for (const [nodeId, node] of Object.entries(nodes)) {
       if (nodeId === 'root') continue;
+      if (isProxyNode(node, groups)) continue;
       if (!node.name && !node.isMastery && node.classStartIndex === undefined) continue;
 
       const pos = positions[nodeId];
