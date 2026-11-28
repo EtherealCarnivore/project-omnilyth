@@ -100,11 +100,14 @@ export function getNodeType(node) {
  * socketed: the cluster-jewel subgraphs (proxy groups, which also hold the
  * cluster's inner Small/Medium Jewel Sockets) and, from 3.30, the Blightcore
  * nodes a Putrid Seed grows from an outer Large Jewel Socket (isProxy nodes in
- * ordinary groups). They are not part of the drawn tree.
+ * ordinary groups). They are not part of the drawn tree and cannot be allocated.
+ * The inner sockets carry no isProxy flag; they are the nodes with an
+ * expansionJewel.parent (every one of them sits in a proxy group).
  */
 export function isProxyNode(node, groups) {
   if (!node) return false;
   if (node.isProxy) return true;
+  if (node.expansionJewel?.parent) return true;
   return node.group !== undefined && !!groups?.[node.group]?.isProxy;
 }
 
@@ -114,7 +117,7 @@ export function isProxyNode(node, groups) {
 export function isAllocatable(nodeId, node) {
   if (nodeId === 'root') return false;
   if (node.classStartIndex !== undefined) return false; // Class start nodes cannot be allocated
-  if (node.isProxy) return false; // Proxy nodes are connectors only
+  if (isProxyNode(node)) return false; // Proxy nodes are connectors only
   if (node.isMastery) return false;
   if (!node.name || node.name === '') return false;
   return true;
@@ -539,6 +542,9 @@ export function decodePassiveTree(hash, nodes) {
 
     for (const [nodeId, node] of Object.entries(nodes)) {
       if (node.skill && skillIds.has(node.skill)) {
+        // Older hashes can hold nodes the planner no longer allocates (the
+        // cluster's inner jewel sockets); drop them rather than load them hidden.
+        if (!isAllocatable(nodeId, node)) continue;
         if (node.ascendancyName) {
           ascAllocated.add(nodeId);
         } else {
